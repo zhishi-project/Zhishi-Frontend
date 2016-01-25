@@ -162,6 +162,9 @@ textarea {
         height: 41.125px;
         width: 12px; }
 .index .footer {
+  margin-top: auto;
+  background: transparent;
+  color: inherit;
   border-top: 1px solid #eeeeee;
   padding-top: 15px;
   height: 50px; }
