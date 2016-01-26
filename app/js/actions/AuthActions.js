@@ -5,12 +5,6 @@ var ZhishiConstants = require('../constants/ZhishiConstants');
 var AuthActions = {
 
   // Receive inital product data
-  showForm: function(data) {
-    AppDispatcher.dispatch({
-      actionType: ZhishiConstants.AUTH_FORM_SELECTED,
-      data: data
-    })
-  },
 
   loginUser: function(data) {
     if (data._error) {
@@ -19,14 +13,17 @@ var AuthActions = {
         data: data
       });
     } else if (data.data) {
+      debugger;
       AppDispatcher.dispatch({
-        actionType: ZhishiConstants.RECEIVE_DATA,
+        actionType: ZhishiConstants.RECEIVE_INIT_DATA,
         data: data.data
       });
     }
+    window.location.href = '/'
   },
 
   logoutUser: function() {
+
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.AUTH_LOG_OUT
     })

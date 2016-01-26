@@ -1,18 +1,17 @@
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var ZhishiConstants = require('../constants/ZhishiConstants');
-import UserStore from "../stores/UserStore.js"
 
-var DisplayActions = {
+var QuestionActions = {
 
   // Receive inital product data
-  attachModalToPage: function(modal_data) {
+  receiveInitData: function(data) {
     if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([UserStore.dispatchToken]) }
     AppDispatcher.dispatch({
-      actionType: ZhishiConstants.RECEIVE_MODAL,
-      data: modal_data
+      actionType: ZhishiConstants.RECEIVE_INIT_DATA,
+      data: data.data
     });
   }
 };
 
-module.exports = DisplayActions;
+module.exports = QuestionActions;

@@ -14,20 +14,15 @@ var webAPI = {
       this.parentElement = parentElement
       this.el_html = this.parentElement.innerHTML;
     }
-    // this.callback = callback
     this._headers = {
       accept: "application/json, text/javascript, */*",
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     };
     if (this._method == 'GET') {
-      if (data.length > 0) { this._path += '?' + querystring.stringify([this._dataString]); }
       if (this._dataString.length > 0) { this._path += '?' + encodeURIComponent(this._dataString); }
     }
-    else {
-      // this._headers['Content-Length'] = this._dataString.length
-    }
-    if (this._user_token){this._headers['Authorization'] = 'Token token='+this._user_token}
 
+    if (this._user_token){this._headers['Authorization'] = 'Token token='+this._user_token}
     $.ajax({
       headers: this._headers,
       url: _host + this._path,

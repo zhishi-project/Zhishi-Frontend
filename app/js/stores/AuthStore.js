@@ -14,8 +14,10 @@ function setShownForm(text) {
 }
 
 function setUserToken(user) {
+  debugger
   $.cookie(CVar.current_user, JSON.stringify(user) || "");
   $.cookie(CVar.user_logged_in, userToken() ? true : false);
+  debugger;
 }
 
 function userToken(){
@@ -63,7 +65,7 @@ var AuthStore = assign({}, EventEmitter.prototype, {
     return _msg;
   },
 
-  getUserLoginStatus: function() {
+  userLoggedIn: function() {
     return $.cookie(CVar.user_logged_in) ;
   },
 
@@ -89,8 +91,8 @@ AuthStore.dispatchToken = AppDispatcher.register(function(action) {
       AuthStore.emitChange();
       break;
 
-    case ZhishiConstants.RECEIVE_DATA:
-      if (!AuthStore.getUserLoginStatus()) {
+    case ZhishiConstants.RECEIVE_INIT_DATA:
+      if (!AuthStore.userLoggedIn()) {
         setUserToken(action.data.current_user || {});
       }
       break;

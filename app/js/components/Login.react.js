@@ -1,13 +1,20 @@
 import React from 'react'
+import webAPI from '../utils/webAPI.js'
+import AuthStore from '../stores/AuthStore.js'
+import AuthActions from '../actions/AuthActions.js'
 
 class Login extends React.Component {
   constructor(props, context) {
     super(props);
   }
 
+  signIn() {
+    let path = '/test';
+    webAPI.processRequest(path, 'GET', '', AuthActions.loginUser)
+  }
   render(){
     return (
-      <div className="index center aligned ui container">
+      <div className="index center aligned ui container full-height">
         <section className="header">
           <header>
             <div className="logo-container">
@@ -17,7 +24,7 @@ class Login extends React.Component {
 
           <div className="sign-in-area text container">
             <h1>A problem shared is a problem half-solved!</h1>
-            <a href="#" className="ui button">
+            <a href="#" className="ui button" onClick={this.signIn}>
               <i className="google plus icon"></i>
               Sign in with your Andela email
             </a>

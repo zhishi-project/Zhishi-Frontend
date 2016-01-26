@@ -1,18 +1,32 @@
 import React from "react"
-import Home from './Home.react.js';
-import Login from './Login.react.js'
+
+import AuthStore from '../stores/AuthStore.js'
+import QuestionStore from '../stores/QuestionStore.js'
+
+
+require("../../css/semantic.min.css");
+require("../../css/main.css");
+
+function getZhishiState(){
+  return {
+    questions: QuestionStore.getQuestions(),
+    current_user: AuthStore.getCurrentUser()
+  }
+}
 
 class Zhishi extends React.Component {
   constructor(props, context){
     super(props);
+    this.state = getZhishiState();
   }
 
   render(){
 
-    var Body = this.props.CurrentUser && $.isObjectEmpty(this.props.CurrentUser) ? Home : Login
     return (
-      <div>
-        <Body />
+      <div className="full-height">
+        {this.props.children && React.cloneElement(this.props.children, {
+          app_state: this.state
+        })}
       </div>
     )
   }
