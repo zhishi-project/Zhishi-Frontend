@@ -9,7 +9,7 @@ class Login extends React.Component {
   }
 
   signIn() {
-    let path = '/test';
+    let path = '/login/google?r=http://';
     webAPI.processRequest(path, 'GET', '', AuthActions.loginUser)
   }
   render(){

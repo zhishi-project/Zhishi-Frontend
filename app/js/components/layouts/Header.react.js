@@ -11,7 +11,7 @@ class Header extends React.Component {
           <div className="ui menu">
             <div className="ui container">
               <div className="item logo-wrapper">
-                <a href="/user-index.html">
+                <a href="/">
                   <img src="assets/img/logo-header.png" alt="zhishi-logo" className="logo" />
                 </a>
               </div>
