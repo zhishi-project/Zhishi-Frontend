@@ -1,0 +1,55 @@
+.index {
+  .header {
+    @include display(flex);
+    @include flex-direction(column);
+    @include justify-content(center);
+    @include align-items(center);
+    height: calc(100% - 50px);
+    
+    header {
+      padding-bottom: 45px;
+
+      .logo-container img {
+        width: 208px;
+      }
+    }
+
+    .sign-in-area {
+      h1 {
+        font-size: $medium;
+        font-weight: 300;
+        padding-bottom: 12px;
+      }
+
+      .ui.button {
+        background-color: $primary-color;
+        color: $site-bg;
+        border-radius: 0;
+
+        .icon {
+          position: relative;
+          padding-right: 30px;
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 12px;
+            border-right: 1px solid $lines;
+            height: 41.125px;
+            width: 12px;
+          }
+        }
+      }
+    }
+  }
+
+  .footer {
+    margin-top: auto;
+    background: transparent;
+    color: inherit;
+    border-top: 1px solid $lines;
+    padding-top: 15px;
+    height: 50px;
+  }
+}
