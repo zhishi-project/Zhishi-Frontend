@@ -42,3 +42,17 @@
 .clearfix {
     *zoom: 1;
 }
+
+.tags {
+    span {
+      background-color: $box-fill;
+      padding: 5px;
+      margin-right: 5px;
+      margin-left: 5px;
+      text-transform: uppercase;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+}
