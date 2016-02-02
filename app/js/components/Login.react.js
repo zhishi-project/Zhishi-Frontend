@@ -3,13 +3,14 @@ import webAPI from '../utils/webAPI.js'
 import AuthStore from '../stores/AuthStore.js'
 import AuthActions from '../actions/AuthActions.js'
 
+let signUpPath = 'http://zhishi-engine.herokuapp.com/login/google?redirect_url=http://localhost:8080/login/auth';
 class Login extends React.Component {
   constructor(props, context) {
     super(props);
   }
 
   signIn() {
-    let path = '/login/google?r=http://';
+    let path = '/login/google?redirect_url=http://localhost:8080/login/auth';
     webAPI.processRequest(path, 'GET', '', AuthActions.loginUser)
   }
   render(){
@@ -24,7 +25,7 @@ class Login extends React.Component {
 
           <div className="sign-in-area text container">
             <h1>A problem shared is a problem half-solved!</h1>
-            <a href="#" className="ui button" onClick={this.signIn}>
+            <a href={signUpPath} target="_blank" className="ui button" onClick={this.signIn}>
               <i className="google plus icon"></i>
               Sign in with your Andela email
             </a>

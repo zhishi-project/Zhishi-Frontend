@@ -34,9 +34,22 @@ let log_out = function(nextState, replaceState) {
   replaceState({ nextPathname: nextState.location.pathname }, '/login')
 }
 
+let SignUpUser = function(nextState, replaceState){
+  debugger;
+  var temp_token = nextState.location.query;
+  // 1. Send a post request to /validate_token path and receive api_key
+  // 2. Send another request with the header as api_key
+  if (!$.isEmptyObject(nextState.location.query.temp_token)) {
+
+  }
+
+}
+
 ReactDOM.render(
   (<Router history={createBrowserHistory()}>
-    <Route path="/login" component={Login} onEnter={user_logged_out} />
+    <Route path="/login" component={Login} onEnter={user_logged_out} >
+      <Route path='/login/auth' onEnter={SignUpUser} />
+    </Route>
     <Route path="/logout" onEnter={log_out} />
 
     <Route path="/" component={Zhishi} onEnter={user_logged_in}>

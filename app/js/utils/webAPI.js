@@ -1,12 +1,13 @@
 var https = require('http');
 var querystring = require('querystring');
-var _host = 'http://localhost:3001'
-//var _host = 'http://reapoll-api.herokuapp.com'
+// var _host = 'http://localhost:3001'
+var _host = 'http://zhishi-engine.herokuapp.com'
 var AuthStore = require('../stores/AuthStore.js');
-var webAPI = {
 
+var webAPI = {
   processRequest: function (path, method, data, callback, parentElement) {
-    this._path = "/api/v1" + path;
+    // this._path = "/api/v1" + path;
+    this._path = path;
     this._method = method;
     this._user_token = AuthStore.getCurrentUserToken();
     this._dataString = JSON.stringify(data);
