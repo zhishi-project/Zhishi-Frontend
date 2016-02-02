@@ -1,4 +1,4 @@
-import CVar from "../components/auth/CookieVariables.js"
+import CVar from "../config/CookieVariables.js"
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var ZhishiConstants = require('../constants/ZhishiConstants');
@@ -13,15 +13,14 @@ function setShownForm(text) {
   _shown_form = text;
 }
 
-function setUserToken(user) {
-  debugger
-  $.cookie(CVar.current_user, JSON.stringify(user) || "");
+function setUserToken(token) {
+  // $.cookie(CVar.current_user, JSON.stringify(user) || "");
+  $.cookie(CVar.user_token, token || "");
   $.cookie(CVar.user_logged_in, userToken() ? true : false);
-  debugger;
 }
 
 function userToken(){
-  return JSON.parse($.cookie(CVar.current_user) || "{}").token;
+  return $.cookie(CVar.user_token);
 }
 
 function setErrorMessage(_error) {
@@ -91,9 +90,9 @@ AuthStore.dispatchToken = AppDispatcher.register(function(action) {
       AuthStore.emitChange();
       break;
 
-    case ZhishiConstants.RECEIVE_INIT_DATA:
-      if (!AuthStore.userLoggedIn()) {
-        setUserToken(action.data.current_user || {});
+    case ZhishiConstants.AUTH_LOG_IN:
+      if (!AuthStore.userLoggedIn() && action.data) {
+        setUserToken(action.data.api_key);
       }
       break;
 

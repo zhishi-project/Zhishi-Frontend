@@ -25,9 +25,9 @@ class Header extends React.Component {
                   <i className="dropdown icon"></i>
 
                   <div className="menu">
-                    <a href="#" className="item">Profile</a>
+                    <a href="/users" className="item">Profile</a>
                     <a href="#" className="item">Settings</a>
-                    <a href="#" className="item">Log out</a>
+                    <a href="/logout" className="item">Log out</a>
                   </div>
                 </div>
 

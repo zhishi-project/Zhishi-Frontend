@@ -13,9 +13,8 @@ var AuthActions = {
         data: data
       });
     } else if (data.data) {
-      debugger;
       AppDispatcher.dispatch({
-        actionType: ZhishiConstants.RECEIVE_INIT_DATA,
+        actionType: ZhishiConstants.AUTH_LOG_IN,
         data: data.data
       });
     }

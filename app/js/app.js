@@ -7,14 +7,15 @@ import { Router, Route, IndexRoute, Link, IndexLink } from 'react-router'
 import ZhishiInit from './utils/ZhishiInit.js';
 import AuthStore from './stores/AuthStore.js';
 import AuthActions from './actions/AuthActions.js'
+import webAPI from './utils/webAPI.js'
 
 import Zhishi from './components/Zhishi.react';
 import Home from './components/Home.react';
 import Login from './components/Login.react';
 
 $.cookie.json = true
-// make api call
-ZhishiInit.getInitData();
+// make api call if user is logged in
+if (!$.isEmptyObject(AuthStore.getCurrentUser)) { ZhishiInit.getInitData(); }
 
 
 let user_logged_in = function(nextState, replaceState) {
@@ -35,15 +36,11 @@ let log_out = function(nextState, replaceState) {
 }
 
 let SignUpUser = function(nextState, replaceState){
-  debugger;
-  var temp_token = nextState.location.query;
-  // 1. Send a post request to /validate_token path and receive api_key
-  // 2. Send another request with the header as api_key
   if (!$.isEmptyObject(nextState.location.query.temp_token)) {
-
+    webAPI.processRequest('/validate_token', 'POST', nextState.location.query, AuthActions.loginUser)
   }
-
 }
+
 
 ReactDOM.render(
   (<Router history={createBrowserHistory()}>

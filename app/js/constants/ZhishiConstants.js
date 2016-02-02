@@ -5,5 +5,6 @@ module.exports = keyMirror({
   QUESTION_UPDATE: null,
   QUESTION_DELETE: null,
   RECEIVE_INIT_DATA: null,
+  AUTH_LOG_IN: null,
   AUTH_LOG_OUT: null
 });

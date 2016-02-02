@@ -36,10 +36,12 @@ var webAPI = {
         }
       }.bind(this),
       success: function(data) {
+        debugger;
         callback({data: data});
 
       }.bind(this),
       error: function(xhr, status, err) {
+        debugger;
         callback({_error: data});
         console.error(this._path, status, err.toString());
       }.bind(this),

@@ -11,7 +11,7 @@ class Login extends React.Component {
 
   signIn() {
     let path = '/login/google?redirect_url=http://localhost:8080/login/auth';
-    webAPI.processRequest(path, 'GET', '', AuthActions.loginUser)
+    window.location.href = signUpPath;
   }
   render(){
     return (
@@ -25,7 +25,7 @@ class Login extends React.Component {
 
           <div className="sign-in-area text container">
             <h1>A problem shared is a problem half-solved!</h1>
-            <a href={signUpPath} target="_blank" className="ui button" onClick={this.signIn}>
+            <a href={signUpPath}  className="ui button">
               <i className="google plus icon"></i>
               Sign in with your Andela email
             </a>
