@@ -12,8 +12,9 @@ function create(data) {
 }
 
 function loadQuestions(data) {
+  debugger;
   if ((typeof data !== "undefined") && data.questions) {
-    // what's the nature of the data from the user
+    _questions = data.questions
   }
 }
 
@@ -72,7 +73,7 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(action) {
 
   switch(action.actionType) {
 
-    case ZhishiConstants.RECEIVE_INIT_DATA:
+    case ZhishiConstants.RECEIVE_QUESTIONS:
       loadQuestions(action.data);
       QuestionStore.emitChange();
       break;

@@ -2,10 +2,14 @@ import React from "react"
 
 import AuthStore from '../stores/AuthStore.js'
 import QuestionStore from '../stores/QuestionStore.js'
+import ZhishiInit from '../utils/ZhishiInit.js';
 
 
 require("../../css/semantic.min.css");
 require("../../css/main.css");
+
+// make api call if user is logged in
+if (!$.isEmptyObject(AuthStore.userLoggedIn())) { ZhishiInit.getInitData(); }
 
 function getZhishiState(){
   return {
@@ -21,7 +25,6 @@ class Zhishi extends React.Component {
   }
 
   render(){
-
     return (
       <div className="full-height">
         {this.props.children && React.cloneElement(this.props.children, {

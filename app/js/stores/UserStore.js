@@ -21,7 +21,7 @@ function loadUsers(data) {
   _users = assign({}, _users, data.following)
 }
 
-function logoutUser(data) {
+function clearUsers(data) {
   _users = {};
   _following = {}
   _followers = {}
@@ -130,10 +130,10 @@ UserStore.dispatchToken = AppDispatcher.register(function(action) {
       break;
 
     case ZhishiConstants.AUTH_LOG_OUT:
-      logoutUser();
+      clearUsers();
       UserStore.emitChange();
       break;
-      
+
     case ZhishiConstants.USER_DESTROY_COMPLETED:
       destroyCompleted();
       UserStore.emitChange();

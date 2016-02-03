@@ -5,10 +5,10 @@ var ZhishiConstants = require('../constants/ZhishiConstants');
 var QuestionActions = {
 
   // Receive inital product data
-  receiveInitData: function(data) {
+  receiveQuestions: function(data) {
     if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([UserStore.dispatchToken]) }
     AppDispatcher.dispatch({
-      actionType: ZhishiConstants.RECEIVE_INIT_DATA,
+      actionType: ZhishiConstants.RECEIVE_QUESTIONS,
       data: data.data
     });
   }

@@ -6,6 +6,13 @@ class QuestionsListItem extends React.Component {
   }
 
   render(){
+    var tags = [];
+    var question = this.props.question;
+    if (question && question.tags) {
+      question.tags.forEach(function(tag) {
+        tags.push(<span>{tag}</span>);
+      })
+    }
     return(
       <div className="ui grid question-section">
         <div className="six wide column">
@@ -13,17 +20,17 @@ class QuestionsListItem extends React.Component {
             <div className="row">
 
               <div className="column">
-                <p className="vote-count">26</p>
+                <p className="vote-count">{question.votes_count || 0}</p>
                 <p className="vote-title">VOTES</p>
               </div>
 
               <div className="column">
-                <p className="answer-count">9</p>
+                <p className="answer-count">{question.answers_count || 0}</p>
                 <p className="answer-title">ANSWERS</p>
               </div>
 
               <div className="column">
-                <p className="view-count">104</p>
+                <p className="view-count">{question.views_count || 0}</p>
                 <p className="view-title">VIEWS</p>
               </div>
 
@@ -34,30 +41,24 @@ class QuestionsListItem extends React.Component {
         <div className="ten wide column">
           <p className="question-container">
             <a href="#" className="question-link">
-              How can I apply to get a training mac?
+              {question.title || "No title"}
             </a>
           </p>
 
           <div className="equal width ui grid">
             <div className="nine wide column">
               <div className="tags">
-                <span>
-                  Training mac
-                </span>
-
-                <span>
-                  Training mac
-                </span>
+                {tags}
               </div>
             </div>
 
             <div className="column">
-              <p>2 Hours ago</p>
+              <p>{question.created_at_in_words}</p>
             </div>
 
             <div className="column">
-              <span className="username">Uzo</span>
-              <img src="assets/img/profile.jpg" alt="profile-image" />
+              <span className="username">{question.user.first_name || "No name yet"}</span>
+              <img src={question.user.image || "/assets/img/profile.jpg"} alt="profile-image" />
             </div>
 
           </div>

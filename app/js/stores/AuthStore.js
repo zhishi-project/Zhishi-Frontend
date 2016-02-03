@@ -15,8 +15,8 @@ function setShownForm(text) {
 
 function setUserToken(token) {
   // $.cookie(CVar.current_user, JSON.stringify(user) || "");
-  $.cookie(CVar.user_token, token || "");
-  $.cookie(CVar.user_logged_in, userToken() ? true : false);
+  $.cookie(CVar.user_token, token, {path: '/'});
+  $.cookie(CVar.user_logged_in, (userToken() ? true : false), {path: '/'});
 }
 
 function userToken(){
@@ -42,7 +42,7 @@ function updateAll(updates) {
 }
 
 function logoutUser() {
-  $.removeCookie(CVar.current_user);
+  $.removeCookie(CVar.user_token);
   $.removeCookie(CVar.user_logged_in);
 }
 
@@ -82,7 +82,6 @@ var AuthStore = assign({}, EventEmitter.prototype, {
 });
 
 AuthStore.dispatchToken = AppDispatcher.register(function(action) {
-  var text;
   switch(action.actionType) {
 
     case ZhishiConstants.AUTH_FORM_SELECTED:

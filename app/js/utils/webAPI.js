@@ -24,6 +24,7 @@ var webAPI = {
     }
 
     if (this._user_token){this._headers['Authorization'] = 'Token token='+this._user_token}
+    
     $.ajax({
       headers: this._headers,
       url: _host + this._path,
