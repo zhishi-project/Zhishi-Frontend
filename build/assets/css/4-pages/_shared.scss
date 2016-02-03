@@ -63,6 +63,16 @@
   }
 }
 
+.main {
+  aside {
+    .trending-link {
+      a {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
 .footer {
   background-color: $body-text;
   color: $site-bg;
