@@ -21,16 +21,15 @@ class TrendingQuestion extends React.Component {
 }
 
 class TrendingQuestions extends React.Component {
-
   constructor(props, context) {
     super(props);
   }
 
   render(){
     var trending_questions = [];
-    if (this.props.trending_questions) {
-      this.props.trending_questions.forEach(function(trending_question) {
-        trending_questions.push(<TrendingQuestion question={trending_question} />)
+    if (!$.isEmptyObject(this.props.top_questions)) {
+      this.props.top_questions.forEach(function(top_question) {
+        trending_questions.push(<TrendingQuestion question={top_question} />)
       })
     }
 

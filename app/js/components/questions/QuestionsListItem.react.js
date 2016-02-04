@@ -1,3 +1,4 @@
+
 import React from 'react'
 
 class QuestionsListItem extends React.Component {
@@ -53,12 +54,12 @@ class QuestionsListItem extends React.Component {
             </div>
 
             <div className="column">
-              <p>{question.created_at_in_words}</p>
+              <p>{question.created_at_in_words || "some time ago"}</p>
             </div>
 
             <div className="column">
-              <span className="username">{question.user.first_name || "No name yet"}</span>
-              <img src={question.user.image || "/assets/img/profile.jpg"} alt="profile-image" />
+              <span className="username">{question.user_first_name || "No name yet"}</span>
+              <img src={question.user_image || "/assets/img/profile.jpg"} alt="profile-image" />
             </div>
 
           </div>

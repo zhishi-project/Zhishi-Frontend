@@ -4,11 +4,18 @@ var ZhishiConstants = require('../constants/ZhishiConstants');
 
 var QuestionActions = {
 
-  // Receive inital product data
   receiveQuestions: function(data) {
-    if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([UserStore.dispatchToken]) }
+    if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([QuestionStore.dispatchToken]) }
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.RECEIVE_QUESTIONS,
+      data: data.data
+    });
+  },
+
+  receiveTopQuestions: function(data) {
+    if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([QuestionStore.dispatchToken]) }
+    AppDispatcher.dispatch({
+      actionType: ZhishiConstants.RECEIVE_TOP_QUESTIONS,
       data: data.data
     });
   }

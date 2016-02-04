@@ -12,6 +12,9 @@ import Zhishi from './components/Zhishi.react';
 import Home from './components/Home.react';
 import Login from './components/Login.react';
 import Users from './components/users/Index.react';
+import Questions from './components/questions/Question.react';
+import QuestionIndex from './components/questions/Index.react';
+import Question from './components/questions/Show.react';
 
 $.cookie.json = true
 
@@ -54,6 +57,11 @@ ReactDOM.render(
 
       <Route path="/users" component={Users}  onEnter={user_logged_in}>
         <Route path="/users/:id" component={Login} />
+      </Route>
+
+      <Route path="/questions" component={Questions}  onEnter={user_logged_in}>
+        <IndexRoute component={QuestionIndex} onEnter={user_logged_in} />
+        <Route path="/questions/:id" component={Question} />
       </Route>
 
       <Route path="*" component={Zhishi} onEnter={user_logged_in}/>

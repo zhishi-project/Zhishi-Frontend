@@ -10,7 +10,7 @@ class Sidebar extends React.Component {
   render(){
     return (
       <aside className="four wide column">
-        <TrendingQuestions />
+        <TrendingQuestions top_questions={this.props.top_questions}/>
 
       </aside>
     )

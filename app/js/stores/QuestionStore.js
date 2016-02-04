@@ -5,7 +5,7 @@ var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
 
-var _questions = {};
+var _questions = {}, _top_questions = {};
 
 function create(data) {
   // returns a newly created image. Necessary?
@@ -15,6 +15,12 @@ function loadQuestions(data) {
   debugger;
   if ((typeof data !== "undefined") && data.questions) {
     _questions = data.questions
+  }
+}
+
+function loadTopQuestions(data) {
+  if ((typeof data !== "undefined") && data.questions) {
+    _top_questions = data.questions
   }
 }
 
@@ -52,6 +58,10 @@ let QuestionStore = assign({}, EventEmitter.prototype, {
 
   getQuestions: function(){
     return _questions
+  },
+
+  getTopQuestions: function(){
+    return _top_questions
   },
 
   emitChange: function() {

@@ -1,8 +1,8 @@
 import React from "react"
 
-import AuthStore from '../stores/AuthStore.js'
-import QuestionStore from '../stores/QuestionStore.js'
-import ZhishiInit from '../utils/ZhishiInit.js';
+import AuthStore from '../../stores/AuthStore.js'
+import QuestionStore from '../../stores/QuestionStore.js'
+import ZhishiInit from '../../utils/ZhishiInit.js';
 
 
 require("../../css/semantic.min.css");
@@ -11,18 +11,16 @@ require("../../css/main.css");
 // make api call if user is logged in
 if (!$.isEmptyObject(AuthStore.userLoggedIn())) { ZhishiInit.getInitData(); }
 
-function getZhishiState(){
+function getZhishiState(item_id){
   return {
-    questions: QuestionStore.getQuestions(),
-    top_questions: QuestionStore.getTopQuestions(),
-    current_user: AuthStore.getCurrentUser()
+    question: QuestionStore.getQuestion(item_id),
   }
 }
 
 class Zhishi extends React.Component {
   constructor(props, context){
     super(props);
-    this.state = getZhishiState();
+    this.state = getZhishiState(props.params.item_id);
   }
 
   componentDidMount(){

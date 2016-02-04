@@ -3,7 +3,7 @@ import webAPI from "./webAPI.js";
 
 module.exports = {
   getInitData: function() {
-    webAPI.processRequest("/questions", "GET", "", QuestionActions.receiveQuestions);
-    // webAPI.processRequest("/current", "GET", "", QuestionActions.receiveQuestions);
+    webAPI.processRequest("/questions", "GET", {limit: 10, offset:1}, QuestionActions.receiveQuestions);
+    webAPI.processRequest("/top_questions", "GET", {limit: 10, offset:1}, QuestionActions.receiveTopQuestions);
   }
 };

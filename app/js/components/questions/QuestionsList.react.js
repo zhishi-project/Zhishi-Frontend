@@ -8,6 +8,7 @@ class QuestionsList extends React.Component {
 
   render(){
     var items = [];
+    debugger;
     if (this.props.questions) {
       for (var i = 0; i < this.props.questions.length; i++) {
         items.push(<QuestionsListItem question={this.props.questions[i]} />)

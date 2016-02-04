@@ -12,6 +12,7 @@ class Home extends React.Component {
     $(".ui.dropdown").dropdown();
   }
 
+
   render(){
     return (
       <div>
@@ -21,11 +22,11 @@ class Home extends React.Component {
           <div className="ui grid">
             <div className="twelve wide column">
               <h2>Recent Questions</h2>
-              {<QuestionsList questions={this.props.questions}/>}
+              {<QuestionsList questions={this.props.app_state.questions}/>}
             </div>
 
-            <Sidebar />
-            
+            <Sidebar top_questions={this.props.app_state.top_questions} />
+
           </div>
         </main>
 
