@@ -91,7 +91,7 @@
                   </div>
 
                   <div class="fourteen wide column">
-                    <textarea cols="30" rows="15" required></textarea>
+                    <textarea cols="30" rows="15" class="editor-instance"></textarea>
                   </div>
                 </div>
 
@@ -243,7 +243,17 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
     <script src="assets/js/vendor/semantic.min.js"></script>
-
+    <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
     <script src="assets/js/main.js"></script>
+
+    <script>
+      tinymce.init({
+        selector: ".editor-instance",
+        menubar: false,
+        toolbar: "bold italic | bullist numlist | link image | codesample| undo redo",
+        plugins: ["link image wordcount spellchecker insertdatetime codesample"],
+        content_css: "assets/css/main.css"
+      })
+    </script>
   </body>
 </html>

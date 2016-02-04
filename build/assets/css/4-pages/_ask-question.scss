@@ -3,6 +3,7 @@
     input, input:focus, textarea {
       border-radius: 0;
       font-size: $base-size;
+      resize: none;
     }
 
     .ui.row:last-of-type {
