@@ -14,6 +14,7 @@ class QuestionsListItem extends React.Component {
         tags.push(<span>{tag}</span>);
       })
     }
+    var username= question.user_first_name || "No name yet because for some reason this dude decide to remain anonymous";
     return(
       <div className="ui grid question-section">
         <div className="four wide column stats">
@@ -40,7 +41,7 @@ class QuestionsListItem extends React.Component {
         </div>
 
 
-        <div className="twelve ten wide column">
+        <div className="twelve wide question column">
           <p className="question-container">
             <a href={`/questions/${question.id}` || "#"} className="question-link">
               {question.title || "No title"}
@@ -59,7 +60,7 @@ class QuestionsListItem extends React.Component {
             </div>
 
             <div className="five wide column">
-              <span className="username">{question.user_first_name || "No name yet"}</span>
+              <span className="username" title={username}>{username}</span>
               <img src={question.user_image || "/assets/img/profile.jpg"} alt="profile-image" className={"thumb"} />
             </div>
 
