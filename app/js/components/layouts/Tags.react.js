@@ -21,10 +21,9 @@ class Tags extends React.Component {
 
    render () {
      var tags = [];
-     debugger;
      if (!$.isEmptyObject(this.props.tags)) {
        for(var i = 0; i < this.props.tags.length; i++) {
-         tags.push(<Tag tag={this.props.tags[i]} />)
+         tags.push(<Tag key={i} tag={this.props.tags[i]} />)
        }
      }
      return (

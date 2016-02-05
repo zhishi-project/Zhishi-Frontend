@@ -12,9 +12,9 @@ function create(data) {
 }
 
 function loadQuestions(data) {
-  debugger;
   if ((typeof data !== "undefined") && data.questions) {
-    _questions = data.questions
+    debugger;
+    data.questions.map(question => update(question.id, question))
   }
 }
 

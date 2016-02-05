@@ -3,7 +3,8 @@ import webAPI from '../utils/webAPI.js'
 import AuthStore from '../stores/AuthStore.js'
 import AuthActions from '../actions/AuthActions.js'
 
-let signUpPath = 'http://zhishi-engine.herokuapp.com/login/google?redirect_url=http://localhost:8080/login/auth';
+let signUpPath = `http://zhishi-engine.herokuapp.com/login/google?redirect_url=http://${window.parent.location.host}/login/auth`;
+
 class Login extends React.Component {
   constructor(props, context) {
     super(props);
@@ -14,6 +15,7 @@ class Login extends React.Component {
     window.location.href = signUpPath;
   }
   render(){
+    debugger;
     return (
       <div className="index center aligned ui container full-height">
         <section className="header">

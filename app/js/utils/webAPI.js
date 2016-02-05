@@ -24,7 +24,7 @@ var webAPI = {
     }
 
     if (this._user_token){this._headers['Authorization'] = 'Token token='+this._user_token}
-    
+
     $.ajax({
       headers: this._headers,
       url: _host + this._path,
@@ -41,8 +41,9 @@ var webAPI = {
 
       }.bind(this),
       error: function(xhr, status, err) {
+        debugger;
         callback({_error: data});
-        console.error(this._path, status, err.toString());
+        console.log(this._path, status, err.toString());
       }.bind(this),
       complete: function(){
         if (typeof(this.parentElement) !== 'undefined') {

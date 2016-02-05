@@ -18,12 +18,13 @@ class NewQuestionForm extends React.Component {
    }
 
    submitAnswer(event){
-     event.stopPropagation();
+     event.preventDefault()
      var answer = $("#answerForm textarea").val();
      var question_id = $("#answerForm textarea").data('question-id');
      debugger;
-     webAPI.processRequest(`/questions/${question_id}`, 'POST', { text: answer }, QuestionActions.receiveQuestionAnswer)
+     webAPI.processRequest(`/questions/${question_id}/answers`, 'POST', { content: answer }, QuestionActions.receiveQuestionAnswer)
    }
+
    render () {
      return (
        <div className="row new-answer">

@@ -12,7 +12,7 @@ function getZhishiState(question_id){
       question: QuestionStore.getQuestion(question_id),
     }
   } else {
-    webAPI.processRequest(`/questions/${question_id}`, 'GET', "", QuestionActions.receiveQuestion)
+    webAPI.processRequest(`/questions/${question_id}/answers`, 'GET', "", QuestionActions.receiveQuestion)
     return {}
   }
 }

@@ -7,14 +7,13 @@ class QuestionsList extends React.Component {
   }
 
   render(){
-    var items = [];
-    debugger;
+    var items = [], keys=[];
     if (this.props.questions) {
-      for (var i = 0; i < this.props.questions.length; i++) {
-        items.push(<QuestionsListItem question={this.props.questions[i]} />)
+      keys = Object.keys(this.props.questions)
+      for (var i = 0; i < keys.length; i++) {
+        items.push(<QuestionsListItem key={i} question={this.props.questions[keys[i]]} />)
       }
     }
-    debugger;
     return(
       <div>
         {items}
