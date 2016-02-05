@@ -21,12 +21,12 @@ class QuestionsListItem extends React.Component {
             <div className="row">
 
               <div className="column">
-                <p className="vote-count">{question.votes_count || 0}</p>
+                <p className="vote-count">{question.votes.length || 0}</p>
                 <p className="vote-title">VOTES</p>
               </div>
 
               <div className="column">
-                <p className="answer-count">{question.answers_count || 0}</p>
+                <p className="answer-count">{question.answers.length || 0}</p>
                 <p className="answer-title">ANSWERS</p>
               </div>
 
