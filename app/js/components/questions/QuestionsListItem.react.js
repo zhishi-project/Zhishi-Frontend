@@ -41,7 +41,7 @@ class QuestionsListItem extends React.Component {
 
         <div className="ten wide column">
           <p className="question-container">
-            <a href="#" className="question-link">
+            <a href={`/questions/${question.id}` || "#"} className="question-link">
               {question.title || "No title"}
             </a>
           </p>

@@ -53,7 +53,7 @@ function destroy(id) {
 let QuestionStore = assign({}, EventEmitter.prototype, {
 
   getQuestion: function(id) {
-    return _questions[id] || {};
+    return _questions[id];
   },
 
   getQuestions: function(){
@@ -86,6 +86,21 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(action) {
     case ZhishiConstants.RECEIVE_QUESTIONS:
       loadQuestions(action.data);
       QuestionStore.emitChange();
+      break;
+
+    case ZhishiConstants.QUESTION_UPDATE:
+      if (action.data && action.data.question) {
+        update(action.data.question.id, action.data.question);
+        QuestionStore.emitChange();
+      }
+      break;
+
+    case ZhishiConstants.RECEIVE_ANSWER:
+    debugger;
+      if (action.data && action.data.answers) {
+        updateQuestionAnswer(action.data.question.id, action.data.question);
+        QuestionStore.emitChange();
+      }
       break;
 
     default:

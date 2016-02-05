@@ -12,10 +12,27 @@ var QuestionActions = {
     });
   },
 
+  receiveQuestion: function(data) {
+    if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([QuestionStore.dispatchToken]) }
+    AppDispatcher.dispatch({
+      actionType: ZhishiConstants.QUESTION_UPDATE,
+      data: data.data
+    });
+  },
+
   receiveTopQuestions: function(data) {
     if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([QuestionStore.dispatchToken]) }
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.RECEIVE_TOP_QUESTIONS,
+      data: data.data
+    });
+  },
+
+  receiveQuestionAnswer: function(data) {
+    debugger;
+    if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([QuestionStore.dispatchToken]) }
+    AppDispatcher.dispatch({
+      actionType: ZhishiConstants.RECEIVE_ANSWER,
       data: data.data
     });
   }

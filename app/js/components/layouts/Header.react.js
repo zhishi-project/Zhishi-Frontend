@@ -4,6 +4,11 @@ class Header extends React.Component {
   constructor (props, context) {
     super(props)
   }
+
+  componentDidMount() {
+    $(".ui.dropdown").dropdown();
+  }
+
   render() {
     return (
       <header>
@@ -12,7 +17,7 @@ class Header extends React.Component {
             <div className="ui container">
               <div className="item logo-wrapper">
                 <a href="/">
-                  <img src="assets/img/logo-header.png" alt="zhishi-logo" className="logo" />
+                  <img src="/assets/img/logo-header.png" alt="zhishi-logo" className="logo" />
                 </a>
               </div>
 
@@ -21,7 +26,7 @@ class Header extends React.Component {
                 <a href="#" className="item">Users</a>
                 <a href="#" className="item">Help</a>
                 <div className="pointing ui dropdown item">
-                  <img src="assets/img/profile.jpg" alt="user-profile-image" className="profile-img" />
+                  <img src="/assets/img/profile.jpg" alt="user-profile-image" className="profile-img" />
                   <i className="dropdown icon"></i>
 
                   <div className="menu">

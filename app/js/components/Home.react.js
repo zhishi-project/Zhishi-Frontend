@@ -8,11 +8,6 @@ class Home extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
-    $(".ui.dropdown").dropdown();
-  }
-
-
   render(){
     return (
       <div>

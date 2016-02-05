@@ -6,6 +6,7 @@ import ZhishiInit from '../utils/ZhishiInit.js';
 
 
 require("../../css/semantic.min.css");
+require("../../css/prism.min.scss");
 require("../../css/main.css");
 
 // make api call if user is logged in

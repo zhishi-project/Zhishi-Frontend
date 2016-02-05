@@ -1,24 +1,26 @@
 import React from "react"
 
-import AuthStore from '../../stores/AuthStore.js'
 import QuestionStore from '../../stores/QuestionStore.js'
-import ZhishiInit from '../../utils/ZhishiInit.js';
+import QuestionActions from '../../actions/QuestionActions.js'
+import webAPI from '../../utils/webAPI.js'
 
 
 
-// make api call if user is logged in
-if (!$.isEmptyObject(AuthStore.userLoggedIn())) { ZhishiInit.getInitData(); }
-
-function getZhishiState(item_id){
-  return {
-    question: QuestionStore.getQuestion(item_id),
+function getZhishiState(question_id){
+  if (QuestionStore.getQuestion(question_id)) {
+    return {
+      question: QuestionStore.getQuestion(question_id),
+    }
+  } else {
+    webAPI.processRequest(`/questions/${question_id}`, 'GET', "", QuestionActions.receiveQuestion)
+    return {}
   }
 }
 
-class Zhishi extends React.Component {
+class Question extends React.Component {
   constructor(props, context){
     super(props);
-    this.state = getZhishiState(props.params.item_id);
+    this.state = getZhishiState(props.params.id);
   }
 
   componentDidMount(){
@@ -29,7 +31,7 @@ class Zhishi extends React.Component {
 
   }
   _onChange() {
-    this.setState(getZhishiState())
+    this.setState(getZhishiState(this.props.params.id))
   }
 
   render(){
@@ -43,4 +45,4 @@ class Zhishi extends React.Component {
   }
 }
 
-module.exports = Zhishi;
+module.exports = Question;
