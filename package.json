@@ -10,7 +10,7 @@
     "watch": "nodemon server.js",
     "build": "webpack",
     "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build --port 8000",
-    "deploy": "node production-server.js && NODE_ENV=production webpack -p --config webpack.production.config.js"
+    "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js && node production-server.js"
   },
   "dependencies": {
     "babel": "^5.8.23",
