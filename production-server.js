@@ -9,7 +9,7 @@ var isDeveloping = process.env.NODE_ENV !== 'production';
 var port = isDeveloping ? 8080 : process.env.PORT;
 var app = express();
 
-if (!isDeveloping) {
+if (isDeveloping) {
   const compiler = webpack(config);
   const middleware = webpackMiddleware(compiler, {
     publicPath: config.output.publicPath,
