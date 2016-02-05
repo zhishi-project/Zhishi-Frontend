@@ -1,18 +1,24 @@
 var path = require('path');
 var node_modules_dir = path.resolve(__dirname, 'node_modules');
 
+var Webpack = require('webpack');
+var path = require('path');
+var nodeModulesPath = path.resolve(__dirname, 'node_modules');
+var buildPath = path.resolve(__dirname, 'build');
+var entryPath = path.resolve(__dirname, 'app', 'js', 'app.js');
+
 var config = {
-  entry: path.resolve(__dirname, 'app/js/app.js'),
+  entry: entryPath,
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: buildPath,
     filename: 'bundle.js'
   },
   module: {
     loaders: [
       {
         test: /app\/js\/.+.js$/,
-        exclude: /node_modules/,
-        loader: 'babel'
+        loader: 'babel',
+        exclude: [nodeModulesPath]
       },
       // SASS
       {

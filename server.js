@@ -6,8 +6,13 @@ var WebpackConfig = require('./webpack.config')
 var compiler = webpack(WebpackConfig);
 
 var app = express()
-var port = process.env.PORT || 8080;
+var isDeveloping = process.env.NODE_ENV !== 'production';
+var port = isDeveloping ? 8080 : process.env.PORT;
 
+var fs = require('fs')
+var path = require('path')
+
+if (!isDeveloping) {
 app.use(webpackDevMiddleware(compiler, {
   publicPath: WebpackConfig.output.public_path,
   // noInfo: true,
@@ -22,8 +27,7 @@ app.use(require("webpack-hot-middleware")(compiler, {
 }));
 
 
-var fs = require('fs')
-var path = require('path')
+
 
 // serve static assets normally
 app.use(express.static(path.join(__dirname, 'build')))
