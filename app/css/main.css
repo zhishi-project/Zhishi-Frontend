@@ -302,32 +302,83 @@ textarea {
 .main .question-section:last-of-type {
   border: 0
 }
-.main .divided.three.column {
+.main .stats-values {
   text-align: center
 }
-.main .divided.three.column [class$="-count"] {
+.main .stats-values [class$="-count"] {
   color: #225be2;
-  font-size: 1.41575em
+  font-size: 1.41575em;
+  text-align: center
 }
-.main .divided.three.column [class$="-title"] {
+.main .stats-values [class$="-title"] {
   font-weight: 300;
-  font-size: .875em
+  font-size: .875em;
+  text-transform: lowercase
 }
-.main .ten.wide.column {
+.main .question {
   padding-bottom: 22px
 }
-.main .ten.wide.column .question-link {
+.main .question .question-link {
   color: #225be2;
   font-size: 1.41575em
 }
-.main .ten.wide.column .equal.width.grid {
+.main .question .metadata {
+  font-size: 12px;
   margin-top: -5px
 }
-.main .ten.wide.column .equal.width.grid .username {
-  margin-right: 15px;
-  font-weight: 700
+.main .question .metadata .column:last-of-type {
+  text-align: right
 }
-.main .ten.wide.column .equal.width.grid [alt="profile-image"] {
+.main .question .metadata .tags {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  box-direction: normal;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  -webkit-box-lines: multiple;
+  -moz-box-lines: multiple;
+  box-lines: multiple;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: start;
+  -moz-box-pack: start;
+  box-pack: start;
+  -webkit-justify-content: flex-start;
+  -moz-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  -o-justify-content: flex-start;
+  justify-content: flex-start;
+  -ms-flex-pack: start
+}
+.main .question .metadata .tags span {
+  margin-left: 0;
+  margin-top: -5px;
+  text-transform: lowercase
+}
+.main .question .metadata .username {
+  display: inline-block;
+  font-weight: 700;
+  margin-right: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 120px
+}
+.main .question .metadata [alt="profile-image"] {
   width: 20px;
   transform: translateY(-4px)
 }
@@ -409,7 +460,8 @@ textarea {
 }
 .ask-question .ui.form input, .ask-question .ui.form input:focus, .ask-question .ui.form textarea {
   border-radius: 0;
-  font-size: .875em
+  font-size: .875em;
+  resize: none
 }
 .ask-question .ui.form .ui.row:last-of-type {
   position: relative;
@@ -421,9 +473,5 @@ textarea {
   color: #fff;
   font-size: .875em
 }
-​
+
 /*# sourceMappingURL=main.css.map */
-​
-.full-height {
-  height: 100%;
-}
