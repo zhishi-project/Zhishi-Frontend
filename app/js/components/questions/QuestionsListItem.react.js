@@ -16,8 +16,8 @@ class QuestionsListItem extends React.Component {
     }
     return(
       <div className="ui grid question-section">
-        <div className="six wide column">
-          <div className="ui grid divided three column">
+        <div className="four wide column stats">
+          <div className="ui grid divided three column stats-values stats-values">
             <div className="row">
 
               <div className="column">
