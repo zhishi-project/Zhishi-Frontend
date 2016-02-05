@@ -46,18 +46,18 @@ class QuestionsListItem extends React.Component {
             </a>
           </p>
 
-          <div className="equal width ui grid">
+          <div className="equal width ui grid metadata">
             <div className="nine wide column">
               <div className="tags">
                 {tags}
               </div>
             </div>
 
-            <div className="column">
+            <div className="three wide column">
               <p>{question.created_at_in_words || "some time ago"}</p>
             </div>
 
-            <div className="column">
+            <div className="five wide column">
               <span className="username">{question.user_first_name || "No name yet"}</span>
               <img src={question.user_image || "/assets/img/profile.jpg"} alt="profile-image" />
             </div>
