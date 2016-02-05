@@ -39,7 +39,8 @@ class QuestionsListItem extends React.Component {
           </div>
         </div>
 
-        <div className="ten wide column">
+
+        <div className="twelve ten wide column">
           <p className="question-container">
             <a href={`/questions/${question.id}` || "#"} className="question-link">
               {question.title || "No title"}
@@ -47,7 +48,7 @@ class QuestionsListItem extends React.Component {
           </p>
 
           <div className="equal width ui grid metadata">
-            <div className="nine wide column">
+            <div className="eight wide column">
               <div className="tags">
                 {tags}
               </div>
@@ -59,7 +60,7 @@ class QuestionsListItem extends React.Component {
 
             <div className="five wide column">
               <span className="username">{question.user_first_name || "No name yet"}</span>
-              <img src={question.user_image || "/assets/img/profile.jpg"} alt="profile-image" />
+              <img src={question.user_image || "/assets/img/profile.jpg"} alt="profile-image" className={"thumb"} />
             </div>
 
           </div>
