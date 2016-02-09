@@ -16,6 +16,7 @@ class QuestionsListItem extends React.Component {
     }
     var username = question.user ? question.user.name : "";
     var user_avatar = question.user ? question.user.image : "";
+    var question_date = new Date(question.created_at)
     return(
       <div className="ui grid question-section">
         <div className="four wide column stats">
@@ -57,7 +58,7 @@ class QuestionsListItem extends React.Component {
             </div>
 
             <div className="three wide column">
-              <p>{question.created_at_in_words || "some time ago"}</p>
+              <p>Asked on {question_date.toDateString() || "(no date )"}</p>
             </div>
 
             <div className="five wide column">
