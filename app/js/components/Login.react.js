@@ -15,7 +15,6 @@ class Login extends React.Component {
     window.location.href = signUpPath;
   }
   render(){
-    debugger;
     return (
       <div className="index center aligned ui container full-height">
         <section className="header">

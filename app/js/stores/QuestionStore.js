@@ -52,7 +52,6 @@ function destroy(id) {
 let QuestionStore = assign({}, EventEmitter.prototype, {
 
   getQuestion: function(id) {
-    debugger
     return _questions[id];
   },
 

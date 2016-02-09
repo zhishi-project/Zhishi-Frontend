@@ -41,7 +41,6 @@ var webAPI = {
 
       }.bind(this),
       error: function(xhr, status, err) {
-        debugger;
         callback({_error: data});
         console.log(this._path, status, err.toString());
       }.bind(this),
