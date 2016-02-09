@@ -8,6 +8,7 @@ class AllAnswers extends React.Component {
 
    render () {
      var answers = [];
+     debugger;
      if (!$.isEmptyObject(this.props.answers)) {
        for (var i; i < this.props.answers.length; i++) {
          answers.push(<AnswerShow />)

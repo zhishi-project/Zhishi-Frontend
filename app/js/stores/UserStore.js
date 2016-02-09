@@ -74,7 +74,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
     return _following;
   },
   getUser: function(id) {
-    return _users[id] || {}
+    return _users[id];
   },
   getCurrentUser: function() {
     return currentUser();

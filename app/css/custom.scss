@@ -4,3 +4,22 @@
 .full-height {
   height: 100%;
 }
+aside {
+  .sidebar {
+    background-color: rgba(0, 0, 0, 0.09);
+    padding: 20px;
+    margin-right: -20px;
+
+  }
+  .trending-link {
+    &.item {
+      display: flex;
+    }
+    .question_title {
+      flex-grow: 1;
+    }
+  }
+}
+.main aside .trending-link a {
+  color: rgba(34, 44, 66, 0.77) !important;
+}

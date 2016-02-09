@@ -2,13 +2,10 @@ import React from 'react'
 import Header from './layouts/Header.react'
 import QuestionsList from './questions/QuestionsList.react'
 import Sidebar from './layouts/Sidebar.react'
-import ZhishiInit from '../utils/ZhishiInit.js';
 
 import AuthStore from '../stores/AuthStore.js'
 import QuestionStore from '../stores/QuestionStore.js'
 
-// make api call if user is logged in
-if (!$.isEmptyObject(AuthStore.userLoggedIn())) { debugger; ZhishiInit.getInitData(); }
 
 function getHomeState(){
   return {

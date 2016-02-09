@@ -4,6 +4,11 @@ var ZhishiConstants = require('../constants/ZhishiConstants');
 
 var QuestionActions = {
 
+  createQuestion: function(data) {
+    receiveQuestions(data);
+
+  },
+
   receiveQuestions: function(data) {
     if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([QuestionStore.dispatchToken]) }
     AppDispatcher.dispatch({
@@ -29,7 +34,6 @@ var QuestionActions = {
   },
 
   receiveQuestionAnswer: function(data) {
-    debugger;
     if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([QuestionStore.dispatchToken]) }
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.RECEIVE_ANSWER,

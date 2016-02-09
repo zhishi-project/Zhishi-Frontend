@@ -14,6 +14,8 @@ class Question extends React.Component {
 
   render(){
     var question = this.props.app_state.question || {};
+    var username = question.user ? question.user.name : "";
+    var user_avatar = question.user ? question.user.image : "";
     var code_to_parse = '<pre><code class="language-javascript">\r\n \
     function parseXml(str) { \r\n \
       var doc; \r\n \
@@ -59,7 +61,7 @@ class Question extends React.Component {
                       <div className="two equal width ui grid">
                         <div className="fourteen wide column">
                           <p className="user-fullname">
-                            {question.user_full_name || "No name yet"}
+                            {username || "No name yet"}
                             <span className="badges">
                               {question.points || 0}
                             </span>
@@ -67,7 +69,7 @@ class Question extends React.Component {
                         </div>
 
                         <div className="two wide column">
-                          <img src="/assets/img/profile.jpg" alt="profile-image" className="profile-img" />
+                          <img src={user_avatar} alt="profile-image" className="profile-img" />
                         </div>
                       </div>
                     </div>

@@ -1,40 +1,42 @@
 import React from 'react'
+import QuestionStore from '../../stores/QuestionStore.js'
+import TrendingQuestion from './TrendingQuestion.react'
+import QuestionActions from '../../actions/QuestionActions.js'
+import webAPI from '../../utils/webAPI.js'
 
-class TrendingQuestion extends React.Component {
-  constructor(props, context) {
-    super(props)
-  }
 
-  render () {
-    <div className="ui grid trending-link">
-      <div className="two wide column">
-        <i className="comment outline icon"></i>
-      </div>
-
-      <div className="fourteen wide column">
-        <p>
-          <a href="#">{ this.props.trending_question || "No title"}</a>
-        </p>
-      </div>
-    </div>
-  }
+function getTrendingQuestionsState(){
+  var top_questions = $.isEmptyObject(QuestionStore.getTopQuestions()) ? webAPI.processRequest(`/top_questions`, 'GET', "", QuestionActions.receiveTopQuestions) : QuestionStore.getTopQuestions();
+  return { top_questions: top_questions }
 }
+
 
 class TrendingQuestions extends React.Component {
   constructor(props, context) {
     super(props);
+    this.state = getTrendingQuestionsState();
   }
 
-  render(){
-    var trending_questions = [];
-    if (!$.isEmptyObject(this.props.top_questions)) {
-      this.props.top_questions.forEach(function(top_question) {
-        trending_questions.push(<TrendingQuestion question={top_question} />)
-      })
-    }
+  componentDidMount(){
+    QuestionStore.addChangeListener(this._onChange.bind(this));
+  }
+  componentWillUnmount(){
+    QuestionStore.removeChangeListener(this._onChange).bind(this);
+  }
 
+  _onChange(){
+    this.setState(getTrendingQuestionsState())
+  }
+  render(){
+    var trending_questions = [], keys = [];
+    if (!$.isEmptyObject(this.state.top_questions)) {
+      keys = Object.keys(this.state.top_questions)
+      for (var i = 0; i < keys.length; i++) {
+        trending_questions.push(<TrendingQuestion key={i} question={this.state.top_questions[keys[i]]} />)
+      }
+    }
     return (
-      <div className="sixteen wide column">
+      <div>
         <h2>Trending</h2>
         {trending_questions}
       </div>

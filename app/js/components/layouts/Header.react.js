@@ -50,7 +50,7 @@ class Header extends React.Component {
             <button className="search ui button" type="submit">
               Search
             </button>
-            <a href="#" className="ui button">
+            <a href="/questions/new" className="ui button">
               Ask a Question
             </a>
           </form>

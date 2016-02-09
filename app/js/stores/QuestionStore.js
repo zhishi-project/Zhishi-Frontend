@@ -13,22 +13,21 @@ function create(data) {
 
 function loadQuestions(data) {
   if ((typeof data !== "undefined") && data.questions) {
-    debugger;
-    data.questions.map(question => update(question.id, question))
+    data.questions.map(question => update(_questions, question.id, question))
   }
 }
 
 function loadTopQuestions(data) {
   if ((typeof data !== "undefined") && data.questions) {
-    _top_questions = data.questions
+    data.questions.map(question => update(_top_questions, question.id, question))
   }
 }
 
 /**
  * Update a single Image
  */
-function update(id, updates) {
-  _questions[id] = assign({}, _questions[id], updates);
+function update(collection, id, updates) {
+  collection[id] = assign({}, collection[id], updates);
 }
 
 /**
@@ -53,6 +52,7 @@ function destroy(id) {
 let QuestionStore = assign({}, EventEmitter.prototype, {
 
   getQuestion: function(id) {
+    debugger
     return _questions[id];
   },
 
@@ -88,15 +88,19 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(action) {
       QuestionStore.emitChange();
       break;
 
+    case ZhishiConstants.RECEIVE_TOP_QUESTIONS:
+      loadTopQuestions(action.data);
+      QuestionStore.emitChange();
+      break;
+
     case ZhishiConstants.QUESTION_UPDATE:
       if (action.data && action.data.question) {
-        update(action.data.question.id, action.data.question);
+        update(_questions, action.data.question.id, action.data.question);
         QuestionStore.emitChange();
       }
       break;
 
     case ZhishiConstants.RECEIVE_ANSWER:
-    debugger;
       if (action.data && action.data.answers) {
         updateQuestionAnswer(action.data.question.id, action.data.question);
         QuestionStore.emitChange();

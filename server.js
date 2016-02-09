@@ -1,44 +1,50 @@
-/*eslint-disable no-console, no-var */
-var express = require('express')
-var webpack = require('webpack')
-var webpackDevMiddleware = require('webpack-dev-middleware')
-var WebpackConfig = require('./webpack.config')
-var compiler = webpack(WebpackConfig);
+var path = require('path');
+var express  = require('express');
+var webpack  = require('webpack');
 
-var app = express()
+var config  = require('./webpack.config.js');
+
 var isDeveloping = process.env.NODE_ENV !== 'production';
 var port = isDeveloping ? 8080 : process.env.PORT;
+var app = express();
 
-var fs = require('fs')
-var path = require('path')
+if (isDeveloping) {
+  var webpackMiddleware  = require('webpack-dev-middleware');
+  var webpackHotMiddleware  = require('webpack-hot-middleware');
+  const compiler = webpack(config);
+  const middleware = webpackMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+    contentBase: 'src',
+    stats: {
+      colors: true,
+      hash: false,
+      timings: true,
+      chunks: false,
+      chunkModules: false,
+      modules: false
+    }
+  });
+  var fs = require('fs')
 
-if (!isDeveloping) {
-app.use(webpackDevMiddleware(compiler, {
-  publicPath: WebpackConfig.output.public_path,
-  // noInfo: true,
-  // quiet: true,
-  stats: {
-    colors: true
+  app.use(express.static(path.join(__dirname, 'build')))
+
+  app.use(middleware);
+  app.use(webpackHotMiddleware(compiler));
+  app.get('*', function response(req, res) {
+    // res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+    res.write(fs.readFileSync(path.join(__dirname, 'build/index.html')));
+    res.end();
+  });
+} else {
+  app.use(express.static(path.join(__dirname, 'build')))
+  app.get('*', function response(req, res) {
+    res.sendFile(path.join(__dirname, 'build/index.html'));
+  });
+}
+
+app.listen(port, '0.0.0.0', function onStart(err) {
+  if (err) {
+    console.log(err);
   }
-}));
-
-app.use(require("webpack-hot-middleware")(compiler, {
-    log: console.log
-}));
-
-
-
-
-// serve static assets normally
-app.use(express.static(path.join(__dirname, 'build')))
-
-// handle every other route with index.html, which will contain
-// a script tag to your application's JavaScript file(s).
-app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname, 'build', 'index.html'))
-})
-
-
-app.listen(port, function () {
-  console.log("Server started at " + port + ", Ctrl+C to stop: ")
-})
+  console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
+});

@@ -14,7 +14,8 @@ class QuestionsListItem extends React.Component {
         tags.push(<span>{tag}</span>);
       })
     }
-    var username= question.user_first_name || "No name yet because for some reason this dude decide to remain anonymous";
+    var username = question.user ? question.user.name : "";
+    var user_avatar = question.user ? question.user.image : "";
     return(
       <div className="ui grid question-section">
         <div className="four wide column stats">
@@ -22,17 +23,17 @@ class QuestionsListItem extends React.Component {
             <div className="row">
 
               <div className="column">
-                <p className="vote-count">{question.votes.length || 0}</p>
+                <p className="vote-count">{question.votes_count || 0}</p>
                 <p className="vote-title">VOTES</p>
               </div>
 
               <div className="column">
-                <p className="answer-count">{question.answers.length || 0}</p>
+                <p className="answer-count">{question.answers_count || 0}</p>
                 <p className="answer-title">ANSWERS</p>
               </div>
 
               <div className="column">
-                <p className="view-count">{question.views_count || 0}</p>
+                <p className="view-count">{question.views || 0}</p>
                 <p className="view-title">VIEWS</p>
               </div>
 
@@ -61,7 +62,7 @@ class QuestionsListItem extends React.Component {
 
             <div className="five wide column">
               <span className="username" title={username}>{username}</span>
-              <img src={question.user_image || "/assets/img/profile.jpg"} alt="profile-image" className={"thumb"} />
+              <img src={user_avatar || "/assets/img/profile.jpg"} alt="profile-image" className={"thumb"} />
             </div>
 
           </div>
