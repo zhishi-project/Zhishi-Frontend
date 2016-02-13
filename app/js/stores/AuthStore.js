@@ -13,14 +13,14 @@ function setShownForm(text) {
   _shown_form = text;
 }
 
-function setUserToken(token) {
+function setCurrentUser(user) {
   var cookie_meta = get_cookie_meta()
-  $.cookie(CVar.user_token, token, cookie_meta);
+  $.cookie(CVar.current_user, JSON.stringify(user) || "", cookie_meta);
   $.cookie(CVar.user_logged_in, (userToken() ? true : false), cookie_meta);
 }
 
 function userToken(){
-  return $.cookie(CVar.user_token);
+  return JSON.parse($.cookie(CVar.current_user) || "{}").api_key;
 }
 
 function setErrorMessage(_error) {
@@ -42,9 +42,10 @@ function updateAll(updates) {
 }
 
 function logoutUser() {
-  $.removeCookie(CVar.user_token);
+  $.removeCookie(CVar.current_user);
   $.removeCookie(CVar.user_logged_in);
 }
+
 
 function get_cookie_meta(){
   var currentDate = new Date();
@@ -95,8 +96,9 @@ AuthStore.dispatchToken = AppDispatcher.register(function(action) {
       break;
 
     case ZhishiConstants.AUTH_LOG_IN:
+    debugger;
       if (!AuthStore.userLoggedIn() && action.data) {
-        setUserToken(action.data.api_key);
+        setCurrentUser(action.data);
       }
       break;
 

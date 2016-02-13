@@ -15,13 +15,14 @@ class NewQuestion extends React.Component {
    }
 
    createQuestion(event){
+     debugger;
      event.preventDefault();
      tinymce.triggerSave();
      var title = $("form #new_question_title").val();
      var desc = $("form #new_question_desc").val();
      var tags = $("form #new_question_tags").val();
      var question_data = { title: title, content: desc, tags: tags }
-     webAPI.processRequest('/questions', 'POST', question_data, QuestionActions.createQuestion)
+     webAPI.processRequest('/questions', 'POST', question_data, QuestionActions.createQuestion, $(".submitQuestionBtn")[0])
    }
    render () {
      // create onClick function to handle ajax request to ask question
@@ -76,7 +77,7 @@ class NewQuestion extends React.Component {
 
                        <div className="ui row">
                          <div className="fourteen wide column">
-                           <button className="ui button" onClick={this.createQuestion}>
+                           <button id="submitQuestionBtn" className="ui button" onClick={this.createQuestion}>
                              Post Question
                            </button>
                          </div>
