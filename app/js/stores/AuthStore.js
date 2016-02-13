@@ -14,9 +14,9 @@ function setShownForm(text) {
 }
 
 function setUserToken(token) {
-  // $.cookie(CVar.current_user, JSON.stringify(user) || "");
-  $.cookie(CVar.user_token, token, {path: '/'});
-  $.cookie(CVar.user_logged_in, (userToken() ? true : false), {path: '/'});
+  var cookie_meta = get_cookie_meta()
+  $.cookie(CVar.user_token, token, cookie_meta);
+  $.cookie(CVar.user_logged_in, (userToken() ? true : false), cookie_meta);
 }
 
 function userToken(){
@@ -46,6 +46,11 @@ function logoutUser() {
   $.removeCookie(CVar.user_logged_in);
 }
 
+function get_cookie_meta(){
+  var currentDate = new Date();
+  var expirationDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 0, 0, 0);
+  return {path: '/', expires: expirationDate}
+}
 
 var AuthStore = assign({}, EventEmitter.prototype, {
 

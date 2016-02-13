@@ -31,14 +31,15 @@ class TrendingQuestions extends React.Component {
     var trending_questions = [], keys = [];
     if (!$.isEmptyObject(this.state.top_questions)) {
       keys = Object.keys(this.state.top_questions)
-      for (var i = 0; i < keys.length; i++) {
+      for (var i = keys.length - 1; i >= 0; i--) {
         trending_questions.push(<TrendingQuestion key={i} question={this.state.top_questions[keys[i]]} />)
       }
     }
+    var content = !$.isEmptyObject(trending_questions) ? trending_questions : <i className="notched center circle loading icon"></i>
     return (
       <div>
         <h2>Trending</h2>
-        {trending_questions}
+        {content}
       </div>
     )
   }

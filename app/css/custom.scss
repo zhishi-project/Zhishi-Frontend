@@ -23,3 +23,18 @@ aside {
 .main aside .trending-link a {
   color: rgba(34, 44, 66, 0.77) !important;
 }
+pre[class*="language-"] {
+  padding: 20px 0;
+  margin: 20px 0;
+}
+.question-content {
+  margin: 0 -10px;
+}
+.full-width {
+  width: 100%;
+}
+.answers.header {
+  font-weight: 300;
+  margin: 20px 0;
+  line-height: 50px;
+}

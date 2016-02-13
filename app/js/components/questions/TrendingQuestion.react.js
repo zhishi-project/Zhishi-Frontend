@@ -15,7 +15,7 @@ class TrendingQuestion extends React.Component {
 
         <div className="question_title wide column">
           <p>
-            <a href="#">{ question.title || "No title"}</a>
+            <a href={`/questions/${question.id}`}>{ question.title || "No title"}</a>
           </p>
         </div>
       </div>

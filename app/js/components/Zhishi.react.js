@@ -2,7 +2,7 @@ import React from "react"
 
 
 require("../../css/semantic.min.css");
-require("../../css/prism.min.scss");
+require("../../css/prism.css");
 require("../../css/main.css");
 require("../../css/custom.scss");
 

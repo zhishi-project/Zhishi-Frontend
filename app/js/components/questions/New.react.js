@@ -3,7 +3,7 @@ import Header from '../layouts/Header.react'
 import Sidebar from '../layouts/Sidebar.react'
 import webAPI from '../../utils/webAPI.js'
 import QuestionActions from '../../actions/QuestionActions.js'
-
+import Mixins from "../../utils/mixins"
 
 class NewQuestion extends React.Component {
   constructor(props, context){
@@ -11,13 +11,7 @@ class NewQuestion extends React.Component {
    }
 
    componentDidMount(){
-     tinymce.init({
-       selector: ".editor-instance",
-       menubar: false,
-       toolbar: "bold italic | bullist numlist | link image | codesample| undo redo",
-       plugins: ["link image wordcount spellchecker insertdatetime codesample"],
-       content_css: "assets/css/main.css"
-     })
+     Mixins.initTinyMce()
    }
 
    createQuestion(event){
@@ -26,7 +20,7 @@ class NewQuestion extends React.Component {
      var title = $("form #new_question_title").val();
      var desc = $("form #new_question_desc").val();
      var tags = $("form #new_question_tags").val();
-     var question_data = { title: title, decription: desc, tags: tags }
+     var question_data = { title: title, content: desc, tags: tags }
      webAPI.processRequest('/questions', 'POST', question_data, QuestionActions.createQuestion)
    }
    render () {

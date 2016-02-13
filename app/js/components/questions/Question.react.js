@@ -31,7 +31,12 @@ class Question extends React.Component {
 
   }
   _onChange() {
-    this.setState(getZhishiState(this.props.params.id))
+    this.setState(getZhishiState(this.props.params.id), this.initShowPage)
+  }
+
+  initShowPage(){
+    Prism.highlightAll();
+    tinyMCE.activeEditor.setContent('');
   }
 
   render(){

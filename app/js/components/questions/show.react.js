@@ -5,7 +5,6 @@ import Tags from '../layouts/Tags.react'
 import NewQuestionForm from '../answers/New.react.js'
 import Answers from '../answers/AllAnswers.react.js'
 
-
 class Question extends React.Component {
 
   constructor(props, context){
@@ -25,6 +24,7 @@ class Question extends React.Component {
         return doc; \r\n \
       } \r\n \
     }</code></pre>'
+    var content = $.isEmptyObject(question) ? <i className="notched center circle loading icon"></i> : <div dangerouslySetInnerHTML={{__html: question.content}} />
     return(
       <div className="question-thread">
         <Header />
@@ -44,13 +44,13 @@ class Question extends React.Component {
                     <div className="rate-down"></div>
                   </div>
 
-                  <div className="fourteen wide column">
+                  <div className="question-content fourteen wide column">
                     <div className="tags">
                       {<Tags tags={question.tags} />}
                     </div>
 
                     <div className="main-comment">
-                      <div dangerouslySetInnerHTML={{__html: question.content}} />
+                      {content}
                     </div>
 
                     <div className="user-metadata clearfix">
@@ -76,7 +76,7 @@ class Question extends React.Component {
                   </div>
                 </div>
 
-                <Answers answers={question.answers} />
+                <Answers answers={question.answers} answers_count={question.answers_count} />
 
                 <NewQuestionForm question_id={question.id} />
               </div>

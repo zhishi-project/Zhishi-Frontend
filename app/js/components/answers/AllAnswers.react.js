@@ -7,15 +7,25 @@ class AllAnswers extends React.Component {
    }
 
    render () {
-     var answers = [];
+     var answers = [], keys=[];
      if (!$.isEmptyObject(this.props.answers)) {
-       for (var i; i < this.props.answers.length; i++) {
-         answers.push(<AnswerShow />)
+       keys = Object.keys(this.props.answers)
+       for (var i = keys.length - 1; i >= 0; i--) {
+         answers.push(<AnswerShow key={i} answer={this.props.answers[keys[i]]} />)
        }
      }
+     var ans_statement = this.props.answers_count == 1 ? "Answer" : "Answers"
      return (
-       <div className="">
-         {answers}
+       <div className="sixteen wide column">
+         <div className="ui grid">
+           <h4 className="ui dividing full-width answers header">
+              <i className="comments outline icon"></i>
+              <div className="content">
+                {this.props.answers_count || "No"} {ans_statement}
+              </div>
+            </h4>
+           {answers}
+         </div>
        </div>
      )
    }

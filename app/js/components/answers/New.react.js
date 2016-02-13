@@ -1,6 +1,7 @@
 import React from 'react'
 import webAPI from '../../utils/webAPI.js'
 import QuestionActions from '../../actions/QuestionActions.js'
+import Mixins from "../../utils/mixins"
 
 class NewQuestionForm extends React.Component {
   constructor(props, context){
@@ -8,13 +9,7 @@ class NewQuestionForm extends React.Component {
    }
 
    componentDidMount(){
-     tinymce.init({
-       selector: ".editor-instance",
-       menubar: false,
-       toolbar: "bold italic | bullist numlist | link image | codesample| undo redo",
-       plugins: ["link image wordcount spellchecker insertdatetime codesample"],
-       content_css: "assets/css/main.css"
-     })
+     Mixins.initTinyMce();
    }
 
    submitAnswer(event){
@@ -33,7 +28,7 @@ class NewQuestionForm extends React.Component {
 
            <form id="answerForm" className="ui form">
              <div className="field">
-               <textarea className="editor-instance" data-question-id={this.props.question_id} cols="30" rows="10"></textarea>
+               <textarea className="editor-instance" data-question-id={this.props.question_id} cols="30" rows="10" value=""></textarea>
              </div>
              <button className="ui button" onClick={this.submitAnswer}>
                Post Answer
