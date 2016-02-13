@@ -12,7 +12,6 @@ class Header extends React.Component {
   }
 
   render() {
-    debugger;
     var current_user = AuthStore.getCurrentUser() || {};
     return (
       <header>
