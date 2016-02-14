@@ -10,47 +10,48 @@ var CHANGE_EVENT = 'change';
 var _questions = {}, _top_questions = {};
 
 
-function loadQuestions(questions) {
+let loadQuestions = (questions) => {
   if ((typeof questions !== "undefined") && questions) {
     _questions = Common.serializeByKey(questions)
   }
 }
 
-function loadTopQuestions(top_questions) {
+let loadTopQuestions = (top_questions) => {
   if (typeof top_questions !== "undefined") {
     _top_questions = Common.serializeByKey(top_questions)
   }
 }
 
-function edit(id) {
+let edit = (id) => {
   _questions[id]['status'] = 'editing editor-content'
 }
 
-function update(question) {
+let update = (question) => {
   var id = question.id
   Common.update(_questions, question.id, question)
 }
 
+let update_votes_count = (id, votes_count) => {
+  _questions[id]['votes_count'] = votes_count
+  debugger;
+}
 
-/**
- * Delete a question from the store
- */
-function destroy(id) {
+let destroy = (id) => {
   delete _questions[id];
 }
 
 
 let QuestionStore = assign({}, EventEmitter.prototype, {
 
-  getQuestion: function(id) {
+  getQuestion: (id) => {
     return _questions[id];
   },
 
-  getQuestions: function(){
+  getQuestions: () => {
     return _questions
   },
 
-  getTopQuestions: function(){
+  getTopQuestions: () => {
     return _top_questions
   },
 
@@ -68,7 +69,7 @@ let QuestionStore = assign({}, EventEmitter.prototype, {
 });
 
 // Register callback to handle all updates
-QuestionStore.dispatchToken = AppDispatcher.register(function(action) {
+QuestionStore.dispatchToken = AppDispatcher.register((action) => {
   var text;
 
   switch(action.actionType) {
@@ -94,6 +95,13 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(action) {
       if (action.data) {
         if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([AnswerStore.dispatchToken]) }
         update(action.data)
+        QuestionStore.emitChange();
+      }
+      break;
+
+    case ZhishiConstants.QUESTION_UPDATE_VOTES:
+      if (action.data && action.data.votes_count) {
+        update_votes_count(action.data.id, action.data.votes_count.response)
         QuestionStore.emitChange();
       }
       break;

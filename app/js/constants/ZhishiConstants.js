@@ -10,7 +10,9 @@ module.exports = keyMirror({
   QUESTION_EDIT: null,
   QUESTION_UPDATE: null,
   QUESTION_DELETE: null,
+  QUESTION_UPDATE_VOTES: null,
   ANSWER_CREATE: null,
   ANSWER_EDIT: null,
-  ANSWER_UPDATE: null
+  ANSWER_UPDATE: null,
+  ANSWER_UPDATE_VOTES: null
 });

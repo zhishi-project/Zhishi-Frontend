@@ -4,9 +4,11 @@ import Sidebar from '../layouts/Sidebar.react'
 import Tags from '../layouts/Tags.react'
 import NewQuestionForm from '../answers/New.react.js'
 import Answers from '../answers/Index.react.js'
+import Votes from "../layouts/Votes.react"
 import QuestionActions from '../../actions/QuestionActions.js'
 import webAPI from '../../utils/webAPI.js'
 import AuthStore from '../../stores/AuthStore.js'
+
 
 class Question extends React.Component {
 
@@ -72,11 +74,7 @@ class Question extends React.Component {
 
               <div data-id={question.id} className="ui grid question">
                 <div className="row main-question">
-                  <div className="two wide column">
-                    <div className="rate-up"></div>
-                    <div className="rate-count">{question.votes_count || 0}</div>
-                    <div className="rate-down"></div>
-                  </div>
+                  {<Votes resource={question} resource_name="question" callback={QuestionActions.updateVote} />}
 
                   <div  className="question-content fourteen wide column">
                     <div className="tags">

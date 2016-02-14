@@ -2,7 +2,7 @@ import React from 'react'
 import AnswerActions from '../../actions/AnswerActions.js'
 import webAPI from '../../utils/webAPI.js'
 import AuthStore from '../../stores/AuthStore.js'
-
+import Votes from "../layouts/Votes.react"
 
 class AllAnswers extends React.Component {
   constructor(props, context){
@@ -12,7 +12,7 @@ class AllAnswers extends React.Component {
    componentDidMount()  {
      $(".share-popup").popup();
    }
-   
+
    editAnswer(event){
      event.preventDefault();
      var edit_btn = event.target;
@@ -52,11 +52,7 @@ class AllAnswers extends React.Component {
      }
      return (
        <div id={`comment-${answer.id}`} className="row answer-comment">
-         <div className="two wide column">
-           <div className="rate-up"></div>
-           <div className="rate-count">{answer.points || 0}</div>
-           <div className="rate-down"></div>
-         </div>
+       {<Votes resource={answer} resource_name="answer" meta={{question_id: answer.question_id}} callback={AnswerActions.updateVote} />}
 
          <div className="fourteen wide column">
            <div className={`main-comment ${answer.status}`}>

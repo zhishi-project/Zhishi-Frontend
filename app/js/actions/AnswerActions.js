@@ -33,8 +33,15 @@ AnswerActions = {
       actionType: ZhishiConstants.ANSWER_EDIT,
       data: data
     });
-  }
+  },
 
+
+  updateVote: (data) => {
+    AppDispatcher.dispatch({
+      actionType: ZhishiConstants.ANSWER_UPDATE_VOTES,
+      data: data
+    });
+  }
 }
 
 export default AnswerActions;

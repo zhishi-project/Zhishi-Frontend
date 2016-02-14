@@ -23,25 +23,28 @@ let update = (answer) => {
   Common.update(_answers[answer.question_id], answer.id, answer)
 }
 
+let update_votes_count = (id, votes_count, meta) => {
+  _answers[meta.question_id][id]['votes_count'] = votes_count
+}
 /**
  * Delete a question from the store
  */
-function destroy(id) {
+let destroy = (id) => {
   delete _user[id];
 }
 
 
 let AnswerStore = assign({}, EventEmitter.prototype, {
 
-  getAnswer: function(question_id, id) {
+  getAnswer: (question_id, id) => {
     return _answers[question_id][id];
   },
 
-  getAnswers: function(question_id){
+  getAnswers: (question_id) => {
     return _answers[question_id]
   },
 
-  getTopAnswers: function(){
+  getTopAnswers: () => {
     return _top_answers
   },
 
@@ -59,7 +62,7 @@ let AnswerStore = assign({}, EventEmitter.prototype, {
 });
 
 // Register callback to handle all updates
-AnswerStore.dispatchToken = AppDispatcher.register(function(action) {
+AnswerStore.dispatchToken = AppDispatcher.register((action) => {
   var text;
 
   switch(action.actionType) {
@@ -82,6 +85,13 @@ AnswerStore.dispatchToken = AppDispatcher.register(function(action) {
         update(action.data);
       }
       AnswerStore.emitChange();
+      break;
+
+    case ZhishiConstants.ANSWER_UPDATE_VOTES:
+      if (action.data) {
+        update_votes_count(action.data.id, action.data.votes_count.response, action.data.meta)
+        AnswerStore.emitChange();
+      }
       break;
 
     default:

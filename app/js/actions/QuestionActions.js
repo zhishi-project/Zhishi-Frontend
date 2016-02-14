@@ -45,6 +45,14 @@ QuestionActions = {
       actionType: ZhishiConstants.QUESTION_EDIT,
       data: data
     });
+  },
+
+
+  updateVote: (data) => {
+    AppDispatcher.dispatch({
+      actionType: ZhishiConstants.QUESTION_UPDATE_VOTES,
+      data: data
+    });
   }
 }
 
