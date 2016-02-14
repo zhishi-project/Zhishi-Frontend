@@ -8,11 +8,11 @@ var waitForQuestionStore =  function(){
 }
 
 QuestionActions = {
-  createQuestion: function(data){
+  createQuestion: (data) => {
     QuestionActions.receiveQuestion(data, true)
   },
 
-  receiveQuestions: function(data) {
+  receiveQuestions: (data) => {
     waitForQuestionStore();
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.RECEIVE_QUESTIONS,
@@ -20,7 +20,7 @@ QuestionActions = {
     });
   },
 
-  receiveQuestion: function(data, new_question) {
+  receiveQuestion: (data, new_question) => {
     waitForQuestionStore();
     if (data.data && data.data.id) {
       AppDispatcher.dispatch({
@@ -31,7 +31,7 @@ QuestionActions = {
     }
   },
 
-  receiveTopQuestions: function(data) {
+  receiveTopQuestions: (data) => {
     waitForQuestionStore();
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.RECEIVE_TOP_QUESTIONS,
@@ -39,11 +39,11 @@ QuestionActions = {
     });
   },
 
-  receiveQuestionAnswer: function(data) {
+  editQuestion: (data) => {
     waitForQuestionStore();
     AppDispatcher.dispatch({
-      actionType: ZhishiConstants.RECEIVE_ANSWER,
-      data: data.data
+      actionType: ZhishiConstants.QUESTION_EDIT,
+      data: data
     });
   }
 }

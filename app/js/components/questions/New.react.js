@@ -3,7 +3,7 @@ import Header from '../layouts/Header.react'
 import Sidebar from '../layouts/Sidebar.react'
 import webAPI from '../../utils/webAPI.js'
 import QuestionActions from '../../actions/QuestionActions.js'
-import Mixins from "../../utils/mixins"
+import Common from "../../utils/Common"
 
 class NewQuestion extends React.Component {
   constructor(props, context){
@@ -11,11 +11,10 @@ class NewQuestion extends React.Component {
    }
 
    componentDidMount(){
-     Mixins.initTinyMce()
+     Common.initTinyMce()
    }
 
    createQuestion(event){
-     debugger;
      event.preventDefault();
      tinymce.triggerSave();
      var title = $("form #new_question_title").val();
@@ -59,7 +58,7 @@ class NewQuestion extends React.Component {
                          </div>
 
                          <div className="fourteen wide column">
-                           <textarea id="new_question_desc" cols="30" rows="15" className="editor-instance"></textarea>
+                           <textarea id="new_question_desc" cols="30" rows="15" className="editor-content"></textarea>
                          </div>
                        </div>
 

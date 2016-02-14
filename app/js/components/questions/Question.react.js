@@ -1,8 +1,10 @@
 import React from "react"
 
 import QuestionStore from '../../stores/QuestionStore.js'
+import AnswerStore from '../../stores/AnswerStore.js'
 import QuestionActions from '../../actions/QuestionActions.js'
 import webAPI from '../../utils/webAPI.js'
+import Common from "../../utils/Common"
 
 
 
@@ -10,6 +12,7 @@ function getZhishiState(question_id){
   if (QuestionStore.getQuestion(question_id)) {
     return {
       question: QuestionStore.getQuestion(question_id),
+      answers: AnswerStore.getAnswers(question_id)
     }
   } else {
     webAPI.processRequest(`/questions/${question_id}`, 'GET', "", QuestionActions.receiveQuestion)
@@ -28,7 +31,6 @@ class Question extends React.Component {
   }
   componentWillUnmount(){
     QuestionStore.removeChangeListener(this._onChange).bind(this);
-
   }
   _onChange() {
     this.setState(getZhishiState(this.props.params.id), this.initShowPage)
@@ -36,7 +38,9 @@ class Question extends React.Component {
 
   initShowPage(){
     Prism.highlightAll();
-    tinyMCE.activeEditor.setContent('');
+    // tinyMCE.activeEditor.setContent('');
+    Common.initTinyMceTitle();
+    Common.initTinyMceContent();
   }
 
   render(){

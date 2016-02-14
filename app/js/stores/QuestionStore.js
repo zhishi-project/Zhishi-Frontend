@@ -2,68 +2,41 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var ZhishiConstants = require('../constants/ZhishiConstants');
 var assign = require('object-assign');
+import AnswerStore from './AnswerStore.js'
+import Common from '../utils/Common.js'
 
 var CHANGE_EVENT = 'change';
 
 var _questions = {}, _top_questions = {};
 
-function create(data) {
-  // returns a newly created image. Necessary?
-}
 
 function loadQuestions(questions) {
   if ((typeof questions !== "undefined") && questions) {
-    questions.map(question => update(_questions, question.id, question))
+    _questions = Common.serializeByKey(questions)
   }
 }
 
 function loadTopQuestions(top_questions) {
   if (typeof top_questions !== "undefined") {
-    top_questions.map(question => update(_top_questions, question.id, question))
+    _top_questions = Common.serializeByKey(top_questions)
   }
 }
 
-function updateQuestion(question) {
-  question.answers = serializeAnswers(question.answers);
-  question.answers_count = Object.keys(question.answers).length;
-  update(_questions, question.id, question);
-}
-/**
- * Update a single Image
- */
-function update(collection, id, updates) {
-  collection[id] = assign({}, collection[id], updates);
+function edit(id) {
+  _questions[id]['status'] = 'editing editor-content'
 }
 
-function updateQuestionAnswer(answer) {
-  if (_questions[answer.question_id]){
-    if ($.isEmptyObject(_questions[answer.question_id]['answers'])) { _questions[answer.question_id]['answers'] = {} }
-    debugger;
-    update(_questions[answer.question_id]['answers'], answer.id, answer)
-  }
+function update(question) {
+  var id = question.id
+  Common.update(_questions, question.id, question)
 }
 
-function serializeAnswers(answers_array) {
-  var answers = {};
-  answers_array.map(answer => update(answers, answer.id, answer))
-  return answers;
-}
-/**
- * Update all users within the same object.
- * Necessary for group delete or something like that.
- */
-function updateAll(updates) {
-  // depends on the data type of object
-  // for (var id in _questions) {
-  //   update(id, updates);
-  // }
-}
 
 /**
  * Delete a question from the store
  */
 function destroy(id) {
-  delete _user[id];
+  delete _questions[id];
 }
 
 
@@ -110,16 +83,17 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(action) {
       QuestionStore.emitChange();
       break;
 
-    case ZhishiConstants.QUESTION_UPDATE:
+    case ZhishiConstants.QUESTION_EDIT:
       if (action.data) {
-        updateQuestion(action.data)
+        edit(action.data)
         QuestionStore.emitChange();
       }
       break;
 
-    case ZhishiConstants.RECEIVE_ANSWER:
+    case ZhishiConstants.QUESTION_UPDATE:
       if (action.data) {
-        updateQuestionAnswer(action.data);
+        if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([AnswerStore.dispatchToken]) }
+        update(action.data)
         QuestionStore.emitChange();
       }
       break;

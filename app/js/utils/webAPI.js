@@ -38,7 +38,6 @@ var webAPI = {
       }.bind(this),
       success: function(data) {
         callback({data: data});
-
       }.bind(this),
       error: function(xhr, status, err) {
         callback({_error: data});

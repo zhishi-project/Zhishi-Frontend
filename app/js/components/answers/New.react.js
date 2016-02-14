@@ -1,7 +1,7 @@
 import React from 'react'
 import webAPI from '../../utils/webAPI.js'
-import QuestionActions from '../../actions/QuestionActions.js'
-import Mixins from "../../utils/mixins"
+import AnswerActions from '../../actions/AnswerActions.js'
+import Common from "../../utils/Common"
 
 class NewQuestionForm extends React.Component {
   constructor(props, context){
@@ -9,7 +9,7 @@ class NewQuestionForm extends React.Component {
    }
 
    componentDidMount(){
-     Mixins.initTinyMce();
+     Common.initTinyMceContent();
    }
 
    submitAnswer(event){
@@ -17,7 +17,7 @@ class NewQuestionForm extends React.Component {
      tinyMCE.triggerSave();
      var answer = $("#answerForm textarea").val();
      var question_id = $("#answerForm textarea").data('question-id');
-     webAPI.processRequest(`/questions/${question_id}/answers`, 'POST', { content: answer }, QuestionActions.receiveQuestionAnswer)
+     webAPI.processRequest(`/questions/${question_id}/answers`, 'POST', { content: answer }, AnswerActions.receiveAnswer)
    }
 
    render () {
@@ -28,7 +28,7 @@ class NewQuestionForm extends React.Component {
 
            <form id="answerForm" className="ui form">
              <div className="field">
-               <textarea className="editor-instance" data-question-id={this.props.question_id} cols="30" rows="10" value=""></textarea>
+               <textarea className="editor-content" data-question-id={this.props.question_id} cols="30" rows="10" value=""></textarea>
              </div>
              <button className="ui button" onClick={this.submitAnswer}>
                Post Answer

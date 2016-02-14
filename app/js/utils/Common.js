@@ -1,9 +1,10 @@
-var Mixins
+var Common
+var assign = require('object-assign');
 
-Mixins = {
-  initTinyMce: function(){
+Common = {
+  initTinyMceContent: function(){
     tinymce.init({
-      selector: ".editor-instance",
+      selector: ".editor-content",
       menubar: false,
       toolbar: "bold italic | bullist numlist | link image | codesample | undo redo | tools",
       plugins: ["link image wordcount spellchecker insertdatetime codesample code textpattern autosave autolink"],
@@ -24,6 +25,25 @@ Mixins = {
       ],
       content_css: "assets/css/main.css"
     })
+  },
+
+  initTinyMceTitle:() => {
+    tinymce.init({
+      selector: ".editor-title",
+      inline: true,
+      menubar: false,
+    })
+  },
+
+  serializeByKey: function(array, key) {
+    var collection = {};
+    array.map(item => Common.update(collection, item[key || 'id'], item))
+    return collection;
+  },
+
+  update: function (collection, id, updates, dont_reset_status) {
+    collection[id] = assign({}, collection[id], updates);
+    if (!dont_reset_status) {collection[id]['status'] = ''; }
   }
 }
-export default Mixins;
+export default Common;

@@ -3,7 +3,10 @@ import Header from '../layouts/Header.react'
 import Sidebar from '../layouts/Sidebar.react'
 import Tags from '../layouts/Tags.react'
 import NewQuestionForm from '../answers/New.react.js'
-import Answers from '../answers/AllAnswers.react.js'
+import Answers from '../answers/Index.react.js'
+import QuestionActions from '../../actions/QuestionActions.js'
+import webAPI from '../../utils/webAPI.js'
+import AuthStore from '../../stores/AuthStore.js'
 
 class Question extends React.Component {
 
@@ -11,20 +14,51 @@ class Question extends React.Component {
     super(props)
   }
 
+  componentDidMount()  {
+    $(".share-popup").popup();
+  }
+
+  editQuestion(event){
+    event.preventDefault();
+    var edit_btn = event.target;
+    var id = $('.ui.grid.question').data('id');
+    if ($(edit_btn).html() == 'edit') {
+      $(edit_btn).removeClass().addClass('ui button').html('Save');
+      QuestionActions.editQuestion(id)
+      $(".question-title").popup('show');
+    } else {
+      this.saveQuestionEdit(id, edit_btn)
+    }
+  }
+
+  saveQuestionEdit(id, edit_btn){
+    $(edit_btn).removeClass().addClass('item').html('edit');
+    tinymce.triggerSave();
+    webAPI.processRequest(`/questions/${id}`, 'PATCH', this.questionData(), QuestionActions.receiveQuestion, edit_btn)
+    tinyMCE.remove();
+    $(".question-title").popup('hide');
+  }
+
+  questionData(){
+    var title = $(".question-title").html();
+    var desc = $(".question-content .main-comment").html();
+    return { title: title, content: desc }
+  }
+
   render(){
     var question = this.props.app_state.question || {};
-    var username = question.user ? question.user.name : "";
-    var user_avatar = question.user ? question.user.image : "";
-    var code_to_parse = '<pre><code class="language-javascript">\r\n \
-    function parseXml(str) { \r\n \
-      var doc; \r\n \
-      if (typeof ActiveXObject !== undefined) { \r\n \
-        doc = new ActiveXObject("Microsoft.XMLDOM"); \r\n \
-        doc.loadXml(str); \r\n \
-        return doc; \r\n \
-      } \r\n \
-    }</code></pre>'
-    var content = $.isEmptyObject(question) ? <i className="notched center circle loading icon"></i> : <div dangerouslySetInnerHTML={{__html: question.content}} />
+    var user = question.user ? question.user : {};
+    var current_user = AuthStore.getCurrentUser();
+    var question_edit_btn, question_delete_btn;
+    var content = $.isEmptyObject(question) ? <i className="notched circle loading icon"></i> : <div dangerouslySetInnerHTML={{__html: question.content}} />
+    var question_date = new Date(question.created_at)
+    var share_statement = `You can past this link on slack or send directly via email: http://${window.location.host + window.location.pathname}`;
+    var edit_tip = "You can click on the question title to edit it."
+    var title_editor_class = question.status != '' ? 'editing editor-title' : ''
+    if (current_user.id == user.id) {
+      question_edit_btn = <a href="#" className="item" onClick={this.editQuestion.bind(this)}>edit</a>
+      question_delete_btn = <a href="#" className="item">delete</a>
+    }
     return(
       <div className="question-thread">
         <Header />
@@ -32,11 +66,11 @@ class Question extends React.Component {
         <main className="ui container main">
           <div className="ui grid">
             <div className="twelve wide column user-question-area">
-              <h2 className="question-title">
+              <h2 className={`question-title ${title_editor_class}`}  data-content={edit_tip} data-variation="very wide">
                 {question.title || ""}
               </h2>
 
-              <div className="ui grid">
+              <div data-id={question.id} className="ui grid question">
                 <div className="row main-question">
                   <div className="two wide column">
                     <div className="rate-up"></div>
@@ -44,24 +78,29 @@ class Question extends React.Component {
                     <div className="rate-down"></div>
                   </div>
 
-                  <div className="question-content fourteen wide column">
+                  <div  className="question-content fourteen wide column">
                     <div className="tags">
                       {<Tags tags={question.tags} />}
                     </div>
 
-                    <div className="main-comment">
+                    <article className={`main-comment ${question.status}`}>
                       {content}
-                    </div>
+                    </article>
 
+                    <div className="options">
+                      {question_edit_btn}
+                      <a href="#" className="item share-popup" data-content={share_statement} data-variation="very wide">share</a>
+                      {question_delete_btn}
+                    </div>
                     <div className="user-metadata clearfix">
                       <p className="time-ago">
-                        {question.created_at_in_words || "Asked 2 Hours ago"}
+                      Asked {question_date.toDateString() || "(no date )"}
                       </p>
 
                       <div className="two equal width ui grid">
                         <div className="fourteen wide column">
                           <p className="user-fullname">
-                            {username || "No name yet"}
+                            {user.name || "No name yet"}
                             <span className="badges">
                               {question.points || 0}
                             </span>
@@ -69,14 +108,14 @@ class Question extends React.Component {
                         </div>
 
                         <div className="two wide column">
-                          <img src={user_avatar} alt="profile-image" className="profile-img" />
+                          <img src={user.image || "/assets/img/profile.jpg"} alt="profile-image" className="profile-img" />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <Answers answers={question.answers} answers_count={question.answers_count} />
+                <Answers answers={this.props.app_state.answers} question_id={question.id}/>
 
                 <NewQuestionForm question_id={question.id} />
               </div>

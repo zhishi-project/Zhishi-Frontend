@@ -7,7 +7,10 @@ module.exports = keyMirror({
   RECEIVE_QUESTIONS: null,
   RECEIVE_TOP_QUESTIONS: null,
   QUESTION_CREATE: null,
+  QUESTION_EDIT: null,
   QUESTION_UPDATE: null,
   QUESTION_DELETE: null,
-  RECEIVE_ANSWER: null
+  ANSWER_CREATE: null,
+  ANSWER_EDIT: null,
+  ANSWER_UPDATE: null
 });
