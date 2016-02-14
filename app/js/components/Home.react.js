@@ -38,7 +38,7 @@ class Home extends React.Component {
 
         <main className="ui container main">
           <div className="ui grid">
-            <div className="twelve wide column">
+            <div className="twelve wide stacked column">
               <h2>Recent Questions</h2>
               {<QuestionsList questions={this.state.questions}/>}
             </div>

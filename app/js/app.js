@@ -49,6 +49,10 @@ let initData = function(nextState) {
   }
 }
 
+let redirectToRoot = (nextState) => {
+  replaceState({ nextPathname: nextState.location.pathname }, '/')
+}
+
 ReactDOM.render(
   (<Router history={createBrowserHistory()}>
     <Route path="/logout" onEnter={log_out} />
@@ -65,7 +69,7 @@ ReactDOM.render(
         <Route path="/users/:id" component={Login} />
       </Route>
 
-      <Route path="/questions" component={Questions}  onEnter={user_logged_in}>
+      <Route path="/questions" component={Questions}  onEnter={redirectToRoot}>
         <IndexRoute component={QuestionIndex} onEnter={user_logged_in} />
         <Route path="/questions/new" component={NewQuestion} />
         <Route path="/questions/:id" component={Question} />

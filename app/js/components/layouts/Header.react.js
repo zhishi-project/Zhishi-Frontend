@@ -47,7 +47,7 @@ class Header extends React.Component {
         <div className="search-area ui container">
           <form action="#" method="POST" className="ui search">
             <div className="ui icon input">
-              <input type="text" className="prompt" placeholder="Enter search query" required />
+              <input type="text" className="prompt" placeholder="Pretty awesome search coming soon. . ." required />
               <i className="search icon"></i>
             </div>
             <button className="search ui button" type="submit">
