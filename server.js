@@ -31,7 +31,6 @@ if (isDeveloping) {
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
   app.get('*', function response(req, res) {
-    // res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
     res.write(fs.readFileSync(path.join(__dirname, 'build/index.html')));
     res.end();
   });
