@@ -33,7 +33,7 @@ var webAPI = {
       data: data,
       beforeSend: function() {
         if (typeof(this.parentElement) !== 'undefined') {
-          this.parentElement.innerHTML = '<i class="fa fa-spinner fa-pulse"></i>'
+          this.parentElement.innerHTML = '<i className="notched center circle loading icon"></i>'
         }
       }.bind(this),
       success: function(data) {

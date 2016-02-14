@@ -9,6 +9,10 @@ class AllAnswers extends React.Component {
     super(props)
    }
 
+   componentDidMount()  {
+     $(".share-popup").popup();
+   }
+   
    editAnswer(event){
      event.preventDefault();
      var edit_btn = event.target;
