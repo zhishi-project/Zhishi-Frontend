@@ -30,6 +30,7 @@ class Question extends React.Component {
       $(".question-title").popup('show');
     } else {
       this.saveQuestionEdit(id, edit_btn)
+      $(".question-title").popup('hide');
     }
   }
 
