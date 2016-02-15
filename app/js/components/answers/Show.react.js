@@ -72,7 +72,7 @@ class AllAnswers extends React.Component {
              <div className="two equal width ui grid">
                <div className="fourteen wide column">
                  <p className="user-fullname">
-                   Innocent T. Amadi
+                   {user.name}
                    <span className="badges">
                      {user.points || 0}
                    </span>
