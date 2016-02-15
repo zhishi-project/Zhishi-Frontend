@@ -130,4 +130,4 @@ class Question extends React.Component {
     )
   }
 }
-module.exports = Question;
+export default Question;
