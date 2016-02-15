@@ -16,6 +16,7 @@ module.exports = keyMirror({
   ANSWER_EDIT: null,
   ANSWER_UPDATE: null,
   ANSWER_UPDATE_VOTES: null,
+  COMMENT_INDEX: null,
   COMMENT_NEW: null,
   COMMENT_EDIT: null,
   COMMENT_UPDATE: null,

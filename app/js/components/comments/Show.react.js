@@ -46,7 +46,7 @@ class AllComments extends React.Component {
      let comment_edit_btn, comment_delete_btn;
      let comment_date = new Date(comment.created_at)
      let share_statement = `You can past this link on slack or send directly via email: http://${window.location.host + window.location.pathname }#${meta.resource_name}-comment-${comment.id}`;
-     if (current_user.id == user.id) {
+     if (current_user.id == user.id && false) {
        comment_edit_btn = <a href="#" className="reply" data-resource-id={meta.resource_id}  data-id={comment.id} onClick={this.editComment.bind(this)}>edit</a>
        comment_delete_btn = <a href="#" className="reply">delete</a>
      }

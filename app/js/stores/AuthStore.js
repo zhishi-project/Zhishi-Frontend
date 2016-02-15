@@ -14,9 +14,11 @@ function setShownForm(text) {
 }
 
 function setCurrentUser(user) {
+  debugger;
   var cookie_meta = get_cookie_meta()
   $.cookie(CVar.current_user, JSON.stringify(user) || "", cookie_meta);
   $.cookie(CVar.user_logged_in, (userToken() ? true : false), cookie_meta);
+
 }
 
 function userToken(){

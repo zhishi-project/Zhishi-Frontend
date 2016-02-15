@@ -87,6 +87,9 @@ code {
   }
 
   .comments {
+    .text.main-comment {
+      padding-top: 0;
+    }
     .comment {
       padding: 0;
     .author {

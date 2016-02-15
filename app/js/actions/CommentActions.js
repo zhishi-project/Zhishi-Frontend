@@ -21,7 +21,7 @@ CommentActions = {
 
   receiveComments: (data) => {
     AppDispatcher.dispatch({
-      actionType: ZhishiConstants.COMMENT_UPDATE,
+      actionType: ZhishiConstants.COMMENT_INDEX,
       data: data
     });
   },

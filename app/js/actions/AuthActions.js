@@ -12,7 +12,7 @@ var AuthActions = {
         actionType: ZhishiConstants.AUTH_LOG_IN_ERROR,
         data: data
       });
-    } else if (data.data) {
+    } else if (data) {
       AppDispatcher.dispatch({
         actionType: ZhishiConstants.AUTH_LOG_IN,
         data: data

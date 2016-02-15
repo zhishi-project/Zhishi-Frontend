@@ -3,6 +3,8 @@ import AnswerActions from '../../actions/AnswerActions.js'
 import webAPI from '../../utils/webAPI.js'
 import AuthStore from '../../stores/AuthStore.js'
 import Votes from "../layouts/Votes.react"
+import Comments from '../comments/Index.react.js'
+
 
 class AllAnswers extends React.Component {
   constructor(props, context){
@@ -78,11 +80,14 @@ class AllAnswers extends React.Component {
                  </p>
                </div>
 
+
                <div className="two wide column">
                  <img src={ user.image || "/assets/img/profile.jpg"} alt="profile-image" className="profile-img" />
                </div>
              </div>
+
            </div>
+           <Comments comments={answer.comments} resource_name="answers" resource_id={answer.id} />
          </div>
        </div>
      )

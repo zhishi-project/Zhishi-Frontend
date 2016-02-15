@@ -10,9 +10,9 @@ var CHANGE_EVENT = 'change';
 
 var _comments = { questions: {}, answers: {} }, _new_comments = { questions: {}, answers: {} };
 
-let loadComments = (resource_name, resource_id, comments) => {
+let loadComments = (meta, comments) => {
   comments = Common.serializeByKey(comments);
-  Common.update(_comments[resource_name], resource_id, comments, true)
+  Common.update(_comments[meta.resource_name], meta.resource_id, comments, true)
 }
 
 let _new = (resource_name, resource_id) => {
@@ -79,9 +79,17 @@ CommentStore.dispatchToken = AppDispatcher.register((action) => {
 
   switch(action.actionType) {
 
-    case ZhishiConstants.QUESTION_UPDATE:
+    // case ZhishiConstants.QUESTION_UPDATE:
+    //   if (action.data && action.data.comments) {
+    //     loadComments("questions", action.data.id, action.data.comments)
+    //     CommentStore.emitChange();
+    //   }
+    //   break;
+
+    case ZhishiConstants.COMMENT_INDEX:
+    debugger;
       if (action.data && action.data.comments) {
-        loadComments("questions", action.data.id, action.data.comments)
+        loadComments(action.data.meta, action.data.comments)
         CommentStore.emitChange();
       }
       break;
