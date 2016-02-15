@@ -4,20 +4,52 @@ import Sidebar from '../layouts/Sidebar.react'
 import Tags from '../layouts/Tags.react'
 import NewQuestionForm from '../answers/New.react.js'
 import Answers from '../answers/Index.react.js'
+import Comments from '../comments/Index.react.js'
 import Votes from "../layouts/Votes.react"
-import QuestionActions from '../../actions/QuestionActions.js'
 import webAPI from '../../utils/webAPI.js'
 import AuthStore from '../../stores/AuthStore.js'
 
+import AnswerStore from '../../stores/AnswerStore.js'
+import QuestionStore from '../../stores/QuestionStore.js'
+import QuestionActions from '../../actions/QuestionActions.js'
+import Common from "../../utils/Common"
+
+function getQuestionState(question_id){
+  if (QuestionStore.getQuestion(question_id)) {
+    return {
+      question: QuestionStore.getQuestion(question_id),
+    }
+  } else {
+    if (question_id) {
+      webAPI.processRequest(`/questions/${question_id}`, 'GET', "", QuestionActions.receiveQuestion)
+    }
+    return {}
+  }
+}
 
 class Question extends React.Component {
 
   constructor(props, context){
     super(props)
+    this.state = getQuestionState(props.question_id)
   }
 
-  componentDidMount()  {
+  componentDidMount(){
+    QuestionStore.addChangeListener(this._onChange.bind(this));
     $(".share-popup").popup();
+  }
+  componentWillUnmount(){
+    QuestionStore.removeChangeListener(this._onChange).bind(this);
+  }
+  _onChange() {
+    this.setState(getQuestionState(this.props.question_id), this.initShowPage)
+  }
+
+  initShowPage(){
+    Prism.highlightAll();
+    // tinyMCE.activeEditor.setContent('');
+    Common.initTinyMceTitle();
+    Common.initTinyMceContent();
   }
 
   editQuestion(event){
@@ -49,7 +81,7 @@ class Question extends React.Component {
   }
 
   render(){
-    var question = this.props.app_state.question || {};
+    var question = this.state.question || {};
     var user = question.user ? question.user : {};
     var current_user = AuthStore.getCurrentUser();
     var question_edit_btn, question_delete_btn;
@@ -91,6 +123,7 @@ class Question extends React.Component {
                       <a href="#" className="item share-popup" data-content={share_statement} data-variation="very wide">share</a>
                       {question_delete_btn}
                     </div>
+
                     <div className="user-metadata clearfix">
                       <p className="time-ago">
                       Asked {question_date.toDateString() || "(no date )"}
@@ -111,16 +144,18 @@ class Question extends React.Component {
                         </div>
                       </div>
                     </div>
+
+                    <Comments comments={this.props.comments} resource_name="questions" resource_id={this.props.question_id} />
                   </div>
                 </div>
 
-                <Answers answers={this.props.app_state.answers} question_id={question.id}/>
+                <Answers question_id={this.props.question_id}/>
 
-                <NewQuestionForm question_id={question.id} />
+                <NewQuestionForm question_id={this.props.question_id} />
               </div>
             </div>
 
-            <Sidebar top_questions={this.props.app_state.top_questions} />
+            <Sidebar  />
 
           </div>
         </main>

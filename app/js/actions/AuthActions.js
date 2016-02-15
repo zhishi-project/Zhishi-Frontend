@@ -15,7 +15,7 @@ var AuthActions = {
     } else if (data.data) {
       AppDispatcher.dispatch({
         actionType: ZhishiConstants.AUTH_LOG_IN,
-        data: data.data
+        data: data
       });
     }
     window.location.href = '/'

@@ -8,22 +8,21 @@ AnswerActions = {
   receiveTopAnswers: (data) => {
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.RECEIVE_TOP_ANSWERS,
-      data: data.data
+      data: data
     });
   },
 
   receiveAnswers: (data) => {
     AppDispatcher.dispatch({
-      actionType: ZhishiConstants.ANSWER_UPDATE,
-      data: data.data
+      actionType: ZhishiConstants.ANSWER_INDEX,
+      data: data
     });
   },
 
   receiveAnswer: (data) => {
-    debugger;
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.ANSWER_UPDATE,
-      data: data.data
+      data: data
     });
   },
 

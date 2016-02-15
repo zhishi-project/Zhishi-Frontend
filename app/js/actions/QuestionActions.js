@@ -16,16 +16,16 @@ QuestionActions = {
     waitForQuestionStore();
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.RECEIVE_QUESTIONS,
-      data: data.data
+      data: data
     });
   },
 
   receiveQuestion: (data, new_question) => {
     waitForQuestionStore();
-    if (data.data && data.data.id) {
+    if (data && data.id) {
       AppDispatcher.dispatch({
         actionType: ZhishiConstants.QUESTION_UPDATE,
-        data: data.data
+        data: data
       });
       if (new_question) { window.location.href = `/questions/${data.data.id}`}
     }
@@ -35,7 +35,7 @@ QuestionActions = {
     waitForQuestionStore();
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.RECEIVE_TOP_QUESTIONS,
-      data: data.data
+      data: data
     });
   },
 

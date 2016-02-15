@@ -60,11 +60,97 @@ code {
   background-color: rgba(0, 0, 0, 0.07);
   padding: 3px 5px;
 }
-.two.wide.column {
+.two.wide.column, .ui.comments .comment {
   .rate-up, {
     &:hover { border-bottom-color: #79AFE8; }
   }
   .rate-down, {
     &:hover { border-top-color: #79AFE8; }
   }
+  .flag, {
+    &:hover { color: #79AFE8; }
+  }
+}
+
+.ui {
+  .comment.form {
+    font-size: 1em;
+    textarea {
+      height: auto;
+      min-height: 1em;
+      color: #666;
+    }
+    .ui.button {
+      font-size: 1em;
+    }
+
+  }
+
+  .comments {
+    .comment {
+      padding: 0;
+    .author {
+       font-size: 0.9em;
+       color: #444;
+       font-weight: bold;
+     }
+    .text {
+      font-size: 0.9em;
+      color: #444;
+    }
+    .metadata {
+     font-size: 0.775em;
+     }
+     .points-holder {
+       position: absolute;
+       transition: opacity 0.3s ease;
+       right: 100%;
+       padding-right: 10px;
+       .points {
+         color: #999;
+         padding-top: 2px;
+         text-align: center;
+       }
+     }
+     .rate-up, .rate-down, .flag {
+       opacity: 0;
+       margin: 0 auto;
+       cursor: pointer;
+     }
+     .rate-up, .rate-down {
+       border-left: 8px solid transparent;
+       border-right: 8px solid transparent;
+     }
+     .rate-up {
+       border-bottom: 8px solid #888;
+     }
+     .rate-down {
+       border-top: 8px solid #888;
+     }
+     &:hover {
+       .points-holder {
+           .rate-up, .rate-down, .flag {
+           opacity: 1
+         }
+       }
+     }
+
+     .ui.dividing.header {
+       margin: 0 auto;
+     }
+
+
+   }
+   .new-comment-actions {
+     margin-top: 1rem;
+     .new-comment-link {
+       font-size: 0.9em;
+       color: #888;
+       transition: color 0.2s ease;
+       &:hover {
+         color: #444;
+       }
+     }
+   }
+ }
 }

@@ -33,7 +33,6 @@ let update = (question) => {
 
 let update_votes_count = (id, votes_count) => {
   _questions[id]['votes_count'] = votes_count
-  debugger;
 }
 
 let destroy = (id) => {

@@ -1,5 +1,6 @@
 import React from 'react'
 import AnswerShow from './Show.react'
+import QuestionStore from '../../stores/QuestionStore.js'
 import AnswerStore from '../../stores/AnswerStore.js'
 import AnswerActions from '../../actions/AnswerActions.js'
 import webAPI from '../../utils/webAPI.js'
@@ -12,21 +13,28 @@ import Common from "../../utils/Common"
        answers: AnswerStore.getAnswers(question_id)
      }
    } else {
-     webAPI.processRequest(`/questions/${question_id}/answers`, 'GET', "", AnswerActions.receiveAnswers)
+     if (question_id) {
+       webAPI.processRequest(`/questions/${question_id}/answers`, 'GET', "", (data) => {
+         AnswerActions.receiveAnswers({question_id: question_id, answers: data })
+       })
+     }
      return {}
    }
  }
 
 class AllAnswers extends React.Component {
   constructor(props, context){
-    super(props)
+    super(props);
+    this.state = getAnswersState(props.question_id)
    }
 
    componentDidMount(){
      AnswerStore.addChangeListener(this._onChange.bind(this));
+     QuestionStore.addChangeListener(this._onChange.bind(this));
    }
    componentWillUnmount(){
      AnswerStore.removeChangeListener(this._onChange).bind(this);
+     QuestionStore.removeChangeListener(this._onChange).bind(this);
    }
    _onChange() {
      this.setState(getAnswersState(this.props.question_id), this.initAnswersComponent)
@@ -40,11 +48,13 @@ class AllAnswers extends React.Component {
 
    render () {
      var answers = [], keys=[];
-     if (!$.isEmptyObject(this.props.answers)) {
-       keys = Object.keys(this.props.answers)
+     if (!$.isEmptyObject(this.state.answers)) {
+       keys = Object.keys(this.state.answers)
        for (var i = keys.length - 1; i >= 0; i--) {
-         answers.push(<AnswerShow key={i} answer={this.props.answers[keys[i]]} />)
+         answers.push(<AnswerShow key={i} answer={this.state.answers[keys[i]]} />)
        }
+     } else {
+        answers.push(<i key={0} className="notched circle loading icon"></i>)
      }
      var ans_statement = keys.length == 1 ? "Answer" : "Answers"
      return (

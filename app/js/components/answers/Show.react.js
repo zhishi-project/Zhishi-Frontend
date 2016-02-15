@@ -45,7 +45,6 @@ class AllAnswers extends React.Component {
      let answer_edit_btn, answer_delete_btn;
      let answer_date = new Date(answer.created_at)
      let share_statement = `You can past this link on slack or send directly via email: http://${window.location.host + window.location.pathname }#comment-${answer.id}`;
-
      if (current_user.id == user.id) {
        answer_edit_btn = <a href="#" className="item" data-question-id={answer.question_id}  data-id={answer.id} onClick={this.editAnswer.bind(this)}>edit</a>
        answer_delete_btn = <a href="#" className="item">delete</a>

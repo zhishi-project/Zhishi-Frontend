@@ -67,11 +67,18 @@ AnswerStore.dispatchToken = AppDispatcher.register((action) => {
 
   switch(action.actionType) {
 
-    case ZhishiConstants.QUESTION_UPDATE:
-      if (action.data && action.data.answers) {
-        loadAnswers(action.data.id, action.data.answers)
+    case ZhishiConstants.ANSWER_INDEX:
+      if (action.data) {
+        loadAnswers(action.data.question_id, action.data.answers)
+        AnswerStore.emitChange();
       }
       break;
+
+    // case ZhishiConstants.QUESTION_UPDATE:
+    //   if (action.data && action.data.answers) {
+    //     loadAnswers(action.data.id, action.data.answers)
+    //   }
+    //   break;
 
     case ZhishiConstants.ANSWER_EDIT:
       if (action.data) {
@@ -83,8 +90,8 @@ AnswerStore.dispatchToken = AppDispatcher.register((action) => {
     case ZhishiConstants.ANSWER_UPDATE:
       if (action.data) {
         update(action.data);
+        AnswerStore.emitChange();
       }
-      AnswerStore.emitChange();
       break;
 
     case ZhishiConstants.ANSWER_UPDATE_VOTES:
