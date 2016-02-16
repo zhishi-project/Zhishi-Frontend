@@ -2,9 +2,9 @@ var Common
 var assign = require('object-assign');
 
 Common = {
-  initTinyMceContent: function(){
+  initTinyMceContent: function(resource_class){
     tinymce.init({
-      selector: ".editor-content",
+      selector: `${resource_class} .editor-content`,
       menubar: false,
       toolbar: "bold italic | bullist numlist | link image | codesample | undo redo | tools",
       plugins: ["link image wordcount spellchecker insertdatetime codesample code textpattern autosave autolink"],
@@ -33,6 +33,10 @@ Common = {
       inline: true,
       menubar: false,
     })
+  },
+
+  removeTinyMce: (resource_class) => {
+    tinyMCE.remove(`${resource_class} .editor-content`)
   },
 
   serializeByKey: function(array, key) {

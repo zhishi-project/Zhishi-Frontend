@@ -32,7 +32,7 @@ class AllAnswers extends React.Component {
      $(edit_btn).removeClass().addClass('item').html('edit');
      tinymce.triggerSave();
      webAPI.processRequest(`/questions/${question_id}/answers/${id}`, 'PATCH', this.questionData(), AnswerActions.receiveAnswer, edit_btn)
-     tinyMCE.remove();
+     Common.removeTinyMce('.answer')
    }
 
    questionData(){

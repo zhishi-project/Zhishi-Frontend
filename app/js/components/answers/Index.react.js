@@ -43,7 +43,7 @@ class AllAnswers extends React.Component {
    initAnswersComponent(){
      Prism.highlightAll();
      // tinyMCE.activeEditor.setContent('');
-     Common.initTinyMceContent();
+     Common.initTinyMceContent('.answers');
    }
 
    render () {
@@ -58,7 +58,7 @@ class AllAnswers extends React.Component {
      }
      var ans_statement = keys.length == 1 ? "Answer" : "Answers"
      return (
-       <div className="sixteen wide column">
+       <div className="sixteen wide answers column">
          <div className="ui grid">
            <h4 className="ui dividing full-width answers header">
               <i className="comments outline icon"></i>

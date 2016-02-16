@@ -27,7 +27,7 @@ QuestionActions = {
         actionType: ZhishiConstants.QUESTION_UPDATE,
         data: data
       });
-      if (new_question) { window.location.href = `/questions/${data.data.id}`}
+      if (new_question) { window.location.href = `/questions/${data.id}`}
     }
   },
 

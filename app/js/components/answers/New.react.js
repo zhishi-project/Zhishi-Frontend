@@ -9,7 +9,7 @@ class NewQuestionForm extends React.Component {
    }
 
    componentDidMount(){
-     Common.initTinyMceContent();
+     Common.initTinyMceContent('.new-answer');
    }
 
    submitAnswer(event){
@@ -18,6 +18,7 @@ class NewQuestionForm extends React.Component {
      var answer = $("#answerForm textarea").val();
      var question_id = $("#answerForm textarea").data('question-id');
      webAPI.processRequest(`/questions/${question_id}/answers`, 'POST', { content: answer }, AnswerActions.receiveAnswer)
+     tinyMCE.activeEditor.setContent('');
    }
 
    render () {

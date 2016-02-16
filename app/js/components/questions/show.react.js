@@ -47,9 +47,10 @@ class Question extends React.Component {
 
   initShowPage(){
     Prism.highlightAll();
-    // tinyMCE.activeEditor.setContent('');
-    Common.initTinyMceTitle();
-    Common.initTinyMceContent();
+    if (this.state.question.status == "editing editor-content") {
+      Common.initTinyMceTitle();
+      Common.initTinyMceContent('.question');
+    }
   }
 
   editQuestion(event){
@@ -70,7 +71,7 @@ class Question extends React.Component {
     $(edit_btn).removeClass().addClass('item').html('edit');
     tinymce.triggerSave();
     webAPI.processRequest(`/questions/${id}`, 'PATCH', this.questionData(), QuestionActions.receiveQuestion, edit_btn)
-    tinyMCE.remove();
+    Common.removeTinyMce('.question')
     $(".question-title").popup('hide');
   }
 

@@ -11,7 +11,7 @@ class NewQuestion extends React.Component {
    }
 
    componentDidMount(){
-     Common.initTinyMce()
+     Common.initTinyMceContent('.ask-question')
    }
 
    createQuestion(event){
