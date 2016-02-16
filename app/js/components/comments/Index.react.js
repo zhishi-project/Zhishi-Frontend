@@ -46,7 +46,7 @@ class AllComments extends React.Component {
        for (var i = keys.length - 1; i >= 0; i--) {
          comments.push(<CommentShow key={i} meta={meta} comment={this.state.comments[keys[i]]} />)
        }
-     } else {
+     } else if (!this.state.comments) {
         comments.push(<i key={0} className="notched circle loading icon"></i>)
      }
      return (

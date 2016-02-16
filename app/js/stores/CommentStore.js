@@ -24,8 +24,8 @@ let create = (resource_name, resource_id) => {
   _new_comments[resource_name] = resource_id
 }
 
-let edit = (resource_id, comment_id) => {
-  _comments[resource_id][comment_id]['status'] = 'editing'
+let edit = (meta, id) => {
+  _comments[meta.resource_name][meta.resource_id][id]['status'] = 'editing'
 }
 
 let update = (meta, comment) => {
@@ -87,7 +87,6 @@ CommentStore.dispatchToken = AppDispatcher.register((action) => {
     //   break;
 
     case ZhishiConstants.COMMENT_INDEX:
-    debugger;
       if (action.data && action.data.comments) {
         loadComments(action.data.meta, action.data.comments)
         CommentStore.emitChange();
@@ -110,7 +109,7 @@ CommentStore.dispatchToken = AppDispatcher.register((action) => {
 
     case ZhishiConstants.COMMENT_EDIT:
       if (action.data) {
-        edit(action.data.resource_id, action.data.id)
+        edit(action.data.meta, action.data.id)
         CommentStore.emitChange();
       }
       break;

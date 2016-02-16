@@ -53,8 +53,8 @@ class AllAnswers extends React.Component {
        for (var i = keys.length - 1; i >= 0; i--) {
          answers.push(<AnswerShow key={i} answer={this.state.answers[keys[i]]} />)
        }
-     } else {
-        answers.push(<i key={0} className="notched circle loading icon"></i>)
+     } else if (!this.state.answers) {
+        answers.push(<i key={0} className="notched circle centered loading icon"></i>)
      }
      var ans_statement = keys.length == 1 ? "Answer" : "Answers"
      return (
