@@ -23,7 +23,7 @@ function getQuestionState(question_id){
     if (question_id) {
       webAPI.processRequest(`/questions/${question_id}`, 'GET', "", QuestionActions.receiveQuestion)
     }
-    return {}
+    return { question: {}}
   }
 }
 

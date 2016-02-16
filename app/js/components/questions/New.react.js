@@ -24,9 +24,6 @@ class NewQuestion extends React.Component {
      webAPI.processRequest('/questions', 'POST', question_data, QuestionActions.createQuestion, $(".submitQuestionBtn")[0])
    }
    render () {
-     // create onClick function to handle ajax request to ask question
-     // stop default propagation
-     // redirect to show question page after success from actioncreator
      return (
        <div className="ask-question">
           <Header />

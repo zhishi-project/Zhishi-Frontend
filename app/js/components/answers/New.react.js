@@ -3,7 +3,7 @@ import webAPI from '../../utils/webAPI.js'
 import AnswerActions from '../../actions/AnswerActions.js'
 import Common from "../../utils/Common"
 
-class NewQuestionForm extends React.Component {
+class NewAnswerForm extends React.Component {
   constructor(props, context){
     super(props)
    }
@@ -40,4 +40,4 @@ class NewQuestionForm extends React.Component {
      )
    }
  }
- module.exports = NewQuestionForm;
+ module.exports = NewAnswerForm;
