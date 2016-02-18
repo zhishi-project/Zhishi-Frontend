@@ -93,12 +93,12 @@ CommentStore.dispatchToken = AppDispatcher.register((action) => {
       }
       break;
 
-    case ZhishiConstants.ANSWER_UPDATE:
-      if (action.data && action.data.comments) {
-        loadComments("answers", action.data.id, action.data.comments)
-        CommentStore.emitChange();
-      }
-      break;
+    // case ZhishiConstants.ANSWER_UPDATE:
+    //   if (action.data && action.data.comments) {
+    //     loadComments("answers", action.data.id, action.data.comments)
+    //     CommentStore.emitChange();
+    //   }
+    //   break;
 
     case ZhishiConstants.COMMENT_NEW:
       if (action.data) {

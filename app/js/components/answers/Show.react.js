@@ -4,6 +4,7 @@ import webAPI from '../../utils/webAPI.js'
 import AuthStore from '../../stores/AuthStore.js'
 import Votes from "../layouts/Votes.react"
 import Comments from '../comments/Index.react.js'
+import Common from "../../utils/Common"
 
 
 class AllAnswers extends React.Component {
@@ -32,7 +33,7 @@ class AllAnswers extends React.Component {
      $(edit_btn).removeClass().addClass('item').html('edit');
      tinymce.triggerSave();
      webAPI.processRequest(`/questions/${question_id}/answers/${id}`, 'PATCH', this.questionData(), AnswerActions.receiveAnswer, edit_btn)
-     Common.removeTinyMce('.answer')
+     Common.removeTinyMce('.answers')
    }
 
    questionData(){

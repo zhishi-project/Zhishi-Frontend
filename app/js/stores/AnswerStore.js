@@ -26,9 +26,7 @@ let update = (answer) => {
 let update_votes_count = (id, votes_count, meta) => {
   _answers[meta.question_id][id]['votes_count'] = votes_count
 }
-/**
- * Delete a question from the store
- */
+
 let destroy = (id) => {
   delete _user[id];
 }
