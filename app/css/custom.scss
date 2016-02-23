@@ -1,3 +1,5 @@
+$blue: #225be2;
+
 .thumb {
     width: 30px !important;
 }
@@ -162,6 +164,9 @@ code {
 }
 .copy {
   font-size: 0.8em;
+  span {
+    color: $blue;
+  }
 }
 .share-popup {
   cursor: pointer;
@@ -169,6 +174,6 @@ code {
 .header-text {
   font-size: 0.8em;
   span {
-    color: #225be2;
+    color: $blue;
   }
 }
