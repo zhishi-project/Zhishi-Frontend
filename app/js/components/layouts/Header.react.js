@@ -14,14 +14,14 @@ class Header extends React.Component {
 
   render() {
     var current_user = AuthStore.getCurrentUser() || {};
-    var heading_helper_text = "'Zhishi' means 'Knowledge' in chinese :)"
+    var heading_helper_text = '<div class=header-text><span>Zhishi</span> means <span>Knowledge</span> in chinese</div>'
     return (
       <header>
         <nav className="navigation">
           <div className="ui menu">
             <div className="ui container">
               <div className="item logo-wrapper">
-                <a href="/" className="share-popup" data-content={heading_helper_text} data-variation="very wide">
+                <a href="/" className="share-popup" data-html={heading_helper_text} data-variation="very wide">
                   <img src="/assets/img/logo-header.png" alt="zhishi-logo" className="logo" />
                 </a>
               </div>
