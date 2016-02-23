@@ -9,17 +9,19 @@ class Header extends React.Component {
 
   componentDidMount() {
     $(".ui.dropdown").dropdown();
+    $(".share-popup").popup();
   }
 
   render() {
     var current_user = AuthStore.getCurrentUser() || {};
+    var heading_helper_text = "'Zhishi' means 'Knowledge' in chinese :)"
     return (
       <header>
         <nav className="navigation">
           <div className="ui menu">
             <div className="ui container">
               <div className="item logo-wrapper">
-                <a href="/">
+                <a href="/" className="share-popup" data-content={heading_helper_text} data-variation="very wide">
                   <img src="/assets/img/logo-header.png" alt="zhishi-logo" className="logo" />
                 </a>
               </div>

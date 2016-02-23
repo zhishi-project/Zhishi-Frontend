@@ -4,6 +4,7 @@ import webAPI from '../../utils/webAPI.js'
 import AuthStore from '../../stores/AuthStore.js'
 import Votes from "../layouts/CommentVotes.react"
 import EditCommentForm from './Form.react'
+import ShareButton from "../layouts/ShareButton.react"
 
 class AllComments extends React.Component {
   constructor(props, context){
@@ -20,15 +21,9 @@ class AllComments extends React.Component {
      var meta = this.props.meta || {}
      var id = $(edit_btn).data('id');
      CommentActions.editComment({meta: meta, id: id})
-    //  if ($(edit_btn).html() == 'edit') {
-    //    $(edit_btn).removeClass().addClass('ui button').html('Save');
-    //  } else {
-    //    this.saveCommentEdit(resource_id, id, edit_btn)
-    //  }
    }
 
    saveCommentEdit(resource_id, id, edit_btn){
-    //  $(edit_btn).removeClass().addClass('item').html('edit');
      tinymce.triggerSave();
      webAPI.processRequest(`/resources/${resource_id}/comments/${id}`, 'PATCH', this.resourceData(), CommentActions.receiveComment, edit_btn)
      tinyMCE.remove();
@@ -46,14 +41,17 @@ class AllComments extends React.Component {
      let current_user = AuthStore.getCurrentUser();
      let comment_edit_btn, comment_delete_btn;
      let comment_date = new Date(comment.created_at)
-     let share_statement = `You can past this link on slack or send directly via email: http://${window.location.host + window.location.pathname }#${meta.resource_name}-comment-${comment.id}`;
+     let comment_dom_id = `${meta.resource_name}-comment-${comment.id}`;
+     let text_to_copy = `http://${window.location.host + window.location.pathname }#${comment_dom_id}`;
      if (current_user.id == user.id) {
        comment_edit_btn = <a href="#" className="reply" data-resource-id={meta.resource_id}  data-id={comment.id} onClick={this.editComment.bind(this)}>edit</a>
        comment_delete_btn = <a href="#" className="reply">delete</a>
      }
+
      let content = comment.status == 'editing' ? <EditCommentForm comment={comment} meta={meta} /> : <div dangerouslySetInnerHTML={{__html: comment.content}} />
+
      return (
-       <div id={`${meta.resource_name}-comment-${comment.id}`} className={`comment  ${comment.status}`}>
+       <div id={comment_dom_id} className={`comment  ${comment.status}`}>
        {<Votes resource={comment} meta={meta} callback={CommentActions.updateVote} />}
          <div className="content">
            <a className="author">{user.name}</a>
@@ -65,7 +63,7 @@ class AllComments extends React.Component {
            </div>
            <div className="actions">
             {comment_edit_btn}
-            <a href="#" className="reply share-popup" data-content={share_statement} data-variation="very wide">share</a>
+            <ShareButton type="comment" dom_id={comment_dom_id} text_to_copy={text_to_copy} custom_class='reply' />
             {comment_delete_btn}
            </div>
          </div>

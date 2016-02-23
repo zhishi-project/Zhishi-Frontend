@@ -6,6 +6,7 @@ import NewQuestionForm from '../answers/New.react.js'
 import Answers from '../answers/Index.react.js'
 import Comments from '../comments/Index.react.js'
 import Votes from "../layouts/Votes.react"
+import ShareButton from "../layouts/ShareButton.react"
 import webAPI from '../../utils/webAPI.js'
 import AuthStore from '../../stores/AuthStore.js'
 
@@ -36,7 +37,6 @@ class Question extends React.Component {
 
   componentDidMount(){
     QuestionStore.addChangeListener(this._onChange.bind(this));
-    $(".share-popup").popup();
   }
   componentWillUnmount(){
     QuestionStore.removeChangeListener(this._onChange).bind(this);
@@ -89,6 +89,8 @@ class Question extends React.Component {
     var content = $.isEmptyObject(question) ? <i className="notched circle loading icon"></i> : <div dangerouslySetInnerHTML={{__html: question.content}} />
     var question_date = new Date(question.created_at)
     var share_statement = `You can past this link on slack or send directly via email: http://${window.location.host + window.location.pathname}`;
+    var question_dom_id = `question-${question.id}`;
+    var text_to_copy = `http://${window.location.host + window.location.pathname}`;
     var edit_tip = "You can click on the question title to edit it."
     var title_editor_class = question.status != '' ? 'editing editor-title' : ''
     if (current_user.id == user.id) {
@@ -121,7 +123,7 @@ class Question extends React.Component {
 
                     <div className="options">
                       {question_edit_btn}
-                      <a href="#" className="item share-popup" data-content={share_statement} data-variation="very wide">share</a>
+                      <ShareButton type="question" dom_id={question_dom_id} text_to_copy={text_to_copy} custom_class="item" />
                       {question_delete_btn}
                     </div>
 

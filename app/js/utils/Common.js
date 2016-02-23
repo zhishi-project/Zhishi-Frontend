@@ -23,7 +23,7 @@ Common = {
          {start: '* ', cmd: 'InsertUnorderedList'},
          {start: '- ', cmd: 'InsertUnorderedList'}
       ],
-      content_css: "assets/css/main.css"
+      content_css: "/assets/css/tinymce.custom.css"
     })
   },
 

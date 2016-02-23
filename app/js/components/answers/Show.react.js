@@ -5,6 +5,7 @@ import AuthStore from '../../stores/AuthStore.js'
 import Votes from "../layouts/Votes.react"
 import Comments from '../comments/Index.react.js'
 import Common from "../../utils/Common"
+import ShareButton from "../layouts/ShareButton.react"
 
 
 class AllAnswers extends React.Component {
@@ -14,6 +15,10 @@ class AllAnswers extends React.Component {
 
    componentDidMount()  {
      $(".share-popup").popup();
+     new Clipboard('.share-popup');
+     $(".share-popup").click(function(){
+       window.getSelection().removeAllRanges();
+     })
    }
 
    editAnswer(event){
@@ -46,14 +51,15 @@ class AllAnswers extends React.Component {
      let user = answer.user || {};
      let current_user = AuthStore.getCurrentUser();
      let answer_edit_btn, answer_delete_btn;
-     let answer_date = new Date(answer.created_at)
-     let share_statement = `You can past this link on slack or send directly via email: http://${window.location.host + window.location.pathname }#comment-${answer.id}`;
+     let answer_date = new Date(answer.created_at);
+     let answer_dom_id = `answer-${answer.id}`;
+     var text_to_copy = `http://${window.location.host + window.location.pathname}#${answer_dom_id}`;
      if (current_user.id == user.id) {
        answer_edit_btn = <a href="#" className="item" data-question-id={answer.question_id}  data-id={answer.id} onClick={this.editAnswer.bind(this)}>edit</a>
        answer_delete_btn = <a href="#" className="item">delete</a>
      }
      return (
-       <div id={`comment-${answer.id}`} className="row answer-comment">
+       <div id={answer_dom_id} className="row answer-comment">
        {<Votes resource={answer} resource_name="answer" meta={{question_id: answer.question_id}} callback={AnswerActions.updateVote} />}
 
          <div className="fourteen wide column">
@@ -63,7 +69,7 @@ class AllAnswers extends React.Component {
 
            <div className="options">
              {answer_edit_btn}
-             <a href="#" className="item share-popup" data-content={share_statement} data-variation="very wide">share</a>
+             <ShareButton type="answer" dom_id={answer_dom_id} text_to_copy={text_to_copy} custom_class="item" />
              {answer_delete_btn}
            </div>
             <div className="user-metadata clearfix">
