@@ -1,3 +1,3 @@
 module.exports = {
-  host: "http://zhishi-test.herokuapp.com"
+  host: "http://zhishi-engine.herokuapp.com"
 }
