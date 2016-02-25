@@ -1,7 +1,7 @@
 var https = require('http');
 var querystring = require('querystring');
 // var _host = 'http://localhost:3001'
-var _host = 'http://zhishi-engine.herokuapp.com'
+var _host = 'http://zhishi-test.herokuapp.com'
 var AuthStore = require('../stores/AuthStore.js');
 
 var webAPI = {
