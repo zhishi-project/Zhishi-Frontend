@@ -2,8 +2,9 @@ import React from 'react'
 import webAPI from '../utils/webAPI.js'
 import AuthStore from '../stores/AuthStore.js'
 import AuthActions from '../actions/AuthActions.js'
+import Config from "../config/environment.js"
 
-let signUpPath = `http://zhishi-engine.herokuapp.com/login/google?redirect_url=http://${window.parent.location.host}/login/auth`;
+let signUpPath = `${Config.host}/login/google?redirect_url=http://${window.parent.location.host}/login/auth`;
 
 class Login extends React.Component {
   constructor(props, context) {

@@ -1,7 +1,8 @@
+import Config from "../config/environment.js"
+
 var https = require('http');
 var querystring = require('querystring');
 // var _host = 'http://localhost:3001'
-var _host = 'http://zhishi-test.herokuapp.com'
 var AuthStore = require('../stores/AuthStore.js');
 
 var webAPI = {
@@ -27,7 +28,7 @@ var webAPI = {
 
     $.ajax({
       headers: this._headers,
-      url: _host + this._path,
+      url: Config.host + this._path,
       dataType: 'json',
       method: method,
       data: data,
