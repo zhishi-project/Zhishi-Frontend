@@ -1,5 +1,6 @@
-
 import React from 'react'
+import Common from '../../utils/Common.js'
+
 
 class QuestionsListItem extends React.Component {
   constructor(props, context) {
@@ -16,7 +17,8 @@ class QuestionsListItem extends React.Component {
     }
     var username = question.user ? question.user.name : "";
     var user_avatar = question.user ? question.user.image : "";
-    var question_date = new Date(question.created_at)
+    var question_date = new Date(question.created_at);
+    var permalink = Common.create_permalink(question.id, question.title);
     return(
       <div className="ui grid question-section">
         <div className="four wide column stats">
@@ -45,7 +47,7 @@ class QuestionsListItem extends React.Component {
 
         <div className="twelve wide question column">
           <p className="question-container">
-            <a href={`/questions/${question.id}` || "#"} className="question-link">
+            <a href={`/questions/${permalink}` || "#"} className="question-link">
               {question.title || "No title"}
             </a>
           </p>

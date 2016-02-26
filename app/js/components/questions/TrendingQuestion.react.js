@@ -1,4 +1,5 @@
 import React from 'react'
+import Common from '../../utils/Common.js'
 
 class TrendingQuestion extends React.Component {
   constructor(props, context) {
@@ -7,6 +8,7 @@ class TrendingQuestion extends React.Component {
 
   render () {
     var question = this.props.question;
+    var permalink = Common.create_permalink(question.id, question.title);
     return (
       <div className="ui grid trending-link item">
         <div className="two wide column">
@@ -15,7 +17,7 @@ class TrendingQuestion extends React.Component {
 
         <div className="question_title wide column">
           <p>
-            <a href={`/questions/${question.id}`}>{ question.title || "No title"}</a>
+            <a href={`/questions/${permalink}`}>{ question.title || "No title"}</a>
           </p>
         </div>
       </div>

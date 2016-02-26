@@ -48,6 +48,17 @@ Common = {
   update: function (collection, id, updates, dont_reset_status) {
     collection[id] = assign({}, collection[id], updates);
     if (!dont_reset_status) {collection[id]['status'] = ''; }
+  },
+
+  create_permalink: function (id, title) {
+    var sanitized_string = title.replace(/[^\w\s]/gi, '')
+    var max_length = 100;
+    var trimmed_string = sanitized_string.substring(0, max_length);
+    if (sanitized_string.length > max_length) {
+      sanitized_string = sanitized_string.substring(0, trimmed_string.lastIndexOf(' '))
+    }
+    sanitized_string = sanitized_string.trim().replace(/\s/g, "-");
+    return `${id}-${sanitized_string}`;
   }
 }
 export default Common;
