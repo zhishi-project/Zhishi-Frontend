@@ -1,5 +1,6 @@
 var Common
-var assign = require('object-assign');
+import Assign from 'object-assign';
+import Config from '../config/environment.js'
 
 Common = {
   initTinyMceContent: function(resource_class){
@@ -39,18 +40,18 @@ Common = {
     tinyMCE.remove(`${resource_class} .editor-content`)
   },
 
-  serializeByKey: function(array, key) {
+  serializeByKey: (array, key) => {
     var collection = {};
     array.map(item => Common.update(collection, item[key || 'id'], item))
     return collection;
   },
 
-  update: function (collection, id, updates, dont_reset_status) {
-    collection[id] = assign({}, collection[id], updates);
+  update: (collection, id, updates, dont_reset_status) => {
+    collection[id] = Assign({}, collection[id], updates);
     if (!dont_reset_status) {collection[id]['status'] = ''; }
   },
 
-  create_permalink: function (id, title) {
+  createPermalink: (id, title) => {
     var sanitized_string = title.replace(/[^\w\s]/gi, '')
     var max_length = 100;
     var trimmed_string = sanitized_string.substring(0, max_length);
@@ -59,6 +60,19 @@ Common = {
     }
     sanitized_string = sanitized_string.trim().replace(/\s/g, "-");
     return `${id}-${sanitized_string}`;
+  },
+
+  sendToSlack: (question) => {
+    let permalink = Config.host + "/questions/" + Common.createPermalink(question.id || 2, question.title)
+    let fallback = `${question.user.name} just asked a question. Can you help? Or know somebody who can help?`;
+    let pretext = fallback;
+    let color = "#666";
+    let fields = [{title: 'New question', value: `<${permalink}|${question.title}>`, short: 'false'}]
+    let data = { username: "zhishi-hook", attachments: [{
+        fallback: fallback, pretext: pretext, color: color, fields: fields
+    }]}
+    data = JSON.stringify(data)
+    $.ajax({url: Config.slackZhishiChannel, type: 'POST', data: data });
   }
 }
 export default Common;

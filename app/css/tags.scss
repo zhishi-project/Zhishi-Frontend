@@ -1,0 +1,118 @@
+// body {
+//   font: normal 14px/100% "Andale Mono", AndaleMono, monospace;
+//   color: #fff;
+//   padding: 50px;
+//   width: 300px;
+//   margin: 0 auto;
+//   background-color: #374954;
+// }
+
+.select-tags {
+  #selects {
+    border: 1px solid rgba(34, 36, 38, 0.15);
+    #selected-tags {
+      font-size: .85em;
+      color: #666;
+      span {
+        line-height: 2.5142em;
+        vertical-align: -webkit-baseline-middle;
+        margin: 5px;
+        padding: 5px;
+        background-color: rgba(166, 177, 234, 0.2);
+        color: rgba(34, 38, 107, 0.74);
+      }
+    }
+    input[type='text'] {
+      border: none;
+    }
+  }
+  #tag-list {
+    display: none;
+  }
+}
+.multi-select {
+  display: block;
+  border: 1px solid #ddd;
+  ul.ui.grid {
+    list-style: none;
+    line-height: 1em;
+    margin: 0;
+    font-size: 0.85em;
+    color: #555;
+    li.eight.wide.column {
+      padding: 10px 5px 5px 10px;
+      margin-bottom: 7px;
+      input[type='checkbox'] {
+        margin-right: 5px;
+        vertical-align: top;
+      }
+    }
+  }
+}
+
+.tag-boxes {
+  a {
+    color: #fff;
+  }
+  .dropdown {
+    // position: absolute;
+    // top:50%;
+    width: 100%;
+    transform: translateY(-50%);
+    span.value {
+      display: none;
+    }
+    dd, dt {
+      margin: 0px;
+      padding: 0px;
+    }
+    ul {
+      margin: -1px 0 0 0;
+    }
+    dd {
+      position: relative;
+      ul {
+        background-color: #4F6877;
+        border: 0;
+        color: #fff;
+        display: none;
+        left: 0px;
+        padding: 2px 15px 2px 5px;
+        position: absolute;
+        top: 2px;
+        width: 100%;
+        list-style: none;
+        height: 100px;
+        overflow: auto;
+        li a {
+          padding: 5px;
+          display: block;
+          &:hover {
+            background-color: #fff;
+          }
+        }
+      }
+    }
+    a, a:visited {
+      color: #fff;
+      text-decoration: none;
+      outline: none;
+      font-size: 12px;
+    }
+    dt a {
+      background-color: #4F6877;
+      display: block;
+      padding: 8px 20px 5px 10px;
+      min-height: 25px;
+      line-height: 24px;
+      overflow: hidden;
+      border: 0;
+      width: 272px;
+      span {
+        cursor: pointer;
+        display: inline-block;
+        padding: 0 3px 2px 0;
+      }
+    }
+  }
+}

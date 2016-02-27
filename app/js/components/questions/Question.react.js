@@ -6,12 +6,10 @@ let retreive_id_from_params = (params_id) => {
 }
 
 
-
 class Question extends React.Component {
   constructor(props, context){
     super(props);
   }
-
 
   render(){
     return (

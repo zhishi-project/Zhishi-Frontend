@@ -1,0 +1,88 @@
+.tag-boxes .dropdown {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.tag-boxes a {
+  color: #fff;
+}
+
+.tag-boxes .dropdown dd,
+.tag-boxes .dropdown dt {
+  margin: 0px;
+  padding: 0px;
+}
+
+.tag-boxes .dropdown ul {
+  margin: -1px 0 0 0;
+}
+
+.tag-boxes .dropdown dd {
+  position: relative;
+}
+
+.tag-boxes .dropdown a,
+.tag-boxes .dropdown a:visited {
+  color: #fff;
+  text-decoration: none;
+  outline: none;
+  font-size: 12px;
+}
+
+.tag-boxes .dropdown dt a {
+  background-color: #4F6877;
+  display: block;
+  padding: 8px 20px 5px 10px;
+  min-height: 25px;
+  line-height: 24px;
+  overflow: hidden;
+  border: 0;
+  width: 272px;
+}
+
+.tag-boxes .dropdown dt a span,
+.tag-boxes .multiSel span {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 3px 2px 0;
+}
+
+.tag-boxes .dropdown dd ul {
+  background-color: #4F6877;
+  border: 0;
+  color: #fff;
+  display: none;
+  left: 0px;
+  padding: 2px 15px 2px 5px;
+  position: absolute;
+  top: 2px;
+  width: 280px;
+  list-style: none;
+  height: 100px;
+  overflow: auto;
+}
+
+.tag-boxes .dropdown span.value {
+  display: none;
+}
+
+.tag-boxes .dropdown dd ul li a {
+  padding: 5px;
+  display: block;
+}
+
+.tag-boxes .dropdown dd ul li a:hover {
+  background-color: #fff;
+}
+
+.tag-boxes button {
+  background-color: #6BBE92;
+  width: 302px;
+  border: 0;
+  padding: 10px 0;
+  margin: 5px 0;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+}

@@ -18,7 +18,7 @@ class QuestionsListItem extends React.Component {
     var username = question.user ? question.user.name : "";
     var user_avatar = question.user ? question.user.image : "";
     var question_date = new Date(question.created_at);
-    var permalink = Common.create_permalink(question.id, question.title);
+    var permalink = Common.createPermalink(question.id, question.title);
     return(
       <div className="ui grid question-section">
         <div className="four wide column stats">

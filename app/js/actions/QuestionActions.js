@@ -1,6 +1,7 @@
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import ZhishiConstants from '../constants/ZhishiConstants';
+import Common from '../utils/Common.js'
 
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var ZhishiConstants = require('../constants/ZhishiConstants');
 var QuestionActions;
 
 var waitForQuestionStore =  function(){
@@ -9,6 +10,7 @@ var waitForQuestionStore =  function(){
 
 QuestionActions = {
   createQuestion: (data) => {
+    Common.sendToSlack(data)
     QuestionActions.receiveQuestion(data, true)
   },
 

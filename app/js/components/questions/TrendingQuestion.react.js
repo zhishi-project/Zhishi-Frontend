@@ -8,7 +8,7 @@ class TrendingQuestion extends React.Component {
 
   render () {
     var question = this.props.question;
-    var permalink = Common.create_permalink(question.id, question.title);
+    var permalink = Common.createPermalink(question.id, question.title);
     return (
       <div className="ui grid trending-link item">
         <div className="two wide column">

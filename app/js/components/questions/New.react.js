@@ -4,6 +4,7 @@ import Sidebar from '../layouts/Sidebar.react'
 import webAPI from '../../utils/webAPI.js'
 import QuestionActions from '../../actions/QuestionActions.js'
 import Common from "../../utils/Common"
+import TagInputBox from './TagBoxes.react'
 
 class NewQuestion extends React.Component {
   constructor(props, context){
@@ -11,7 +12,7 @@ class NewQuestion extends React.Component {
    }
 
    componentDidMount(){
-     Common.initTinyMceContent('.ask-question')
+     Common.initTinyMceContent('.ask-question');
    }
 
    createQuestion(event){
@@ -19,8 +20,9 @@ class NewQuestion extends React.Component {
      tinymce.triggerSave();
      var title = $("form #new_question_title").val();
      var desc = $("form #new_question_desc").val();
-     var tags = $("form #new_question_tags").val();
-     var question_data = { title: title, content: desc, tags: tags }
+     var tags = [];
+     $("#selected-tags").children().each(function(){ tags.push($(this).html())})
+     var question_data = { title: title, content: desc, tags: tags, user: {name: 'Cent'} }
      webAPI.processRequest('/questions', 'POST', question_data, QuestionActions.createQuestion, $(".submitQuestionBtn")[0])
    }
    render () {
@@ -59,18 +61,7 @@ class NewQuestion extends React.Component {
                          </div>
                        </div>
 
-                       <div className="ui row group">
-                         <div className="two wide column label-wrapper">
-                           <label>
-                             Tags:
-                           </label>
-                         </div>
-
-                         <div className="fourteen wide column">
-                           <input id="new_question_tags" type="text" placeholder="Javascript, Angular Js, React" required />
-                         </div>
-                       </div>
-
+                       <TagInputBox />
                        <div className="ui row">
                          <div className="fourteen wide column">
                            <button id="submitQuestionBtn" className="ui button" onClick={this.createQuestion}>
