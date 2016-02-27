@@ -22,7 +22,7 @@ class NewQuestion extends React.Component {
      var desc = $("form #new_question_desc").val();
      var tags = [];
      $("#selected-tags").children().each(function(){ tags.push($(this).html())})
-     var question_data = { title: title, content: desc, tags: tags, user: {name: 'Cent'} }
+     var question_data = { title: title, content: desc, tags: tags }
      webAPI.processRequest('/questions', 'POST', question_data, QuestionActions.createQuestion, $(".submitQuestionBtn")[0])
    }
    render () {
