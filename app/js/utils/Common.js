@@ -63,7 +63,7 @@ Common = {
   },
 
   sendToSlack: (question) => {
-    let permalink = `http://${window.location.host + window.location.pathname}/questions/${Common.createPermalink(question.id || 2, question.title)}`
+    let permalink = `http://${window.location.host}/questions/${Common.createPermalink(question.id || 2, question.title)}`
     let fallback = `${question.user.name} just asked a question. Can you help? Or know somebody who can help?`;
     let pretext = fallback;
     let color = "#666";
