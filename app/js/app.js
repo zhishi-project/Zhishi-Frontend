@@ -10,6 +10,7 @@ import ZhishiInit from './utils/ZhishiInit.js';
 
 import Zhishi from './components/Zhishi.react';
 import Home from './components/Home.react';
+import Search from './components/Search.react';
 import Login from './components/Login.react';
 import Users from './components/users/Index.react';
 import Questions from './components/questions/Question.react';
@@ -63,8 +64,8 @@ ReactDOM.render(
     <Route path="/" component={Zhishi} onEnter={user_logged_in} >
 
 
-      <IndexRoute component={Home}onEnter={initData} />
-
+      <IndexRoute component={Home} onEnter={initData} />
+      <Route path="/search" component={Search} onEnter={initData} />
       <Route path="/users" component={Users}  onEnter={user_logged_in}>
         <Route path="/users/:id" component={Login} />
       </Route>

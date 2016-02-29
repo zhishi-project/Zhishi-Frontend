@@ -1,4 +1,5 @@
 import React from 'react'
+import SearchBar from './SearchBar.react'
 import AuthStore from '../../stores/AuthStore.js'
 
 
@@ -46,20 +47,7 @@ class Header extends React.Component {
           </div>
         </nav>
 
-        <div className="search-area ui container">
-          <form action="#" method="POST" className="ui search">
-            <div className="ui icon input">
-              <input type="text" className="prompt" placeholder="Pretty awesome search coming soon. . ." required />
-              <i className="search icon"></i>
-            </div>
-            <button className="search ui button" type="submit">
-              Search
-            </button>
-            <a href="/questions/new" className="ui button">
-              Ask a Question
-            </a>
-          </form>
-        </div>
+        <SearchBar />
       </header>
     )
   }

@@ -58,6 +58,7 @@ class AllAnswers extends React.Component {
        answer_edit_btn = <a href="#" className="item" data-question-id={answer.question_id}  data-id={answer.id} onClick={this.editAnswer.bind(this)}>edit</a>
        answer_delete_btn = <a href="#" className="item">delete</a>
      }
+     var comments_meta = {question_id: answer.question_id, resource_name: "answers", resource_id: answer.id}
      return (
        <div id={answer_dom_id} className="row answer-comment">
        {<Votes resource={answer} resource_name="answer" meta={{question_id: answer.question_id}} callback={AnswerActions.updateVote} />}
@@ -94,7 +95,7 @@ class AllAnswers extends React.Component {
              </div>
 
            </div>
-           <Comments comments={answer.comments} resource_name="answers" resource_id={answer.id} />
+           <Comments comments={answer.comments} meta={comments_meta} />
          </div>
        </div>
      )

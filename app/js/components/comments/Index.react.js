@@ -40,7 +40,7 @@ class AllComments extends React.Component {
 
    render () {
      var comments = [], keys=[];
-     var meta = { resource_name: this.props.resource_name, resource_id: this.props.resource_id };
+     var meta = this.props.meta;
      if (!$.isEmptyObject(this.state.comments)) {
        keys = Object.keys(this.state.comments)
        for (var i = 0; i < keys.length; i++) {

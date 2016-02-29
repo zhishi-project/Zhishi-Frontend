@@ -12,17 +12,21 @@ class NewCommentForm extends React.Component {
      var comment_box = $(event.target.parentElement).find('textarea');
      var meta = this.props.meta;
      var resource_id = meta.resource_id;
-     var path, action
+     var path, action, callback;
      if (this.props.comment) {
         path = `/${meta.resource_name}/${meta.resource_id}/comments/${this.props.comment.id}`;
-        action = 'PATCH'
+        action = 'PATCH';
+        callback = CommentActions.receiveComment
      } else {
        path = `/${meta.resource_name}/${meta.resource_id}/comments`;
-       action = "POST"
+       action = "POST";
+       callback = CommentActions.createComment
      }
-     webAPI.processRequest(path, action, { content: $(comment_box).val() }, (data) => {
-       CommentActions.receiveComment({meta: meta, comment: data})
-     })
+    //  webAPI.processRequest(path, action, { content: $(comment_box).val() }, (data) => {
+    //    callback({meta: meta, comment: data})
+    //  })
+    var comment = {content:  $(comment_box).val(), user: {name: "Cent"} }
+     CommentActions.createComment({meta: meta, comment: comment})
    }
 
 

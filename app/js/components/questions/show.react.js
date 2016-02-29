@@ -93,6 +93,7 @@ class Question extends React.Component {
     var text_to_copy = `http://${window.location.host + window.location.pathname}`;
     var edit_tip = "You can click on the question title to edit it."
     var title_editor_class = question.status != '' ? 'editing editor-title' : ''
+    var comments_meta = {question_id: this.props.question_id, resource_name: "questions", resource_id: this.props.question_id}
     if (current_user.id == user.id) {
       question_edit_btn = <a href="#" className="item" onClick={this.editQuestion.bind(this)}>edit</a>
       question_delete_btn = <a href="#" className="item">delete</a>
@@ -148,7 +149,7 @@ class Question extends React.Component {
                       </div>
                     </div>
 
-                    <Comments comments={this.props.comments} resource_name="questions" resource_id={this.props.question_id} />
+                    <Comments comments={this.props.comments} meta={comments_meta} />
                   </div>
                 </div>
 

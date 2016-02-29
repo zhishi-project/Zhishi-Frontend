@@ -9,9 +9,10 @@ var waitForQuestionStore =  function(){
 }
 
 QuestionActions = {
-  createQuestion: (data) => {
-    Common.sendToSlack(data)
-    QuestionActions.receiveQuestion(data, true)
+  createQuestion: (question) => {
+    QuestionActions.receiveQuestion(question)
+    QuestionActions.sendQuestionsToSlack(question)
+    window.location.href = `/questions/${question.id}`
   },
 
   receiveQuestions: (data) => {
@@ -22,14 +23,13 @@ QuestionActions = {
     });
   },
 
-  receiveQuestion: (data, new_question) => {
+  receiveQuestion: (question, new_question) => {
     waitForQuestionStore();
-    if (data && data.id) {
+    if (question && question.id) {
       AppDispatcher.dispatch({
         actionType: ZhishiConstants.QUESTION_UPDATE,
-        data: data
+        data: question
       });
-      if (new_question) { window.location.href = `/questions/${data.id}`}
     }
   },
 
@@ -49,12 +49,19 @@ QuestionActions = {
     });
   },
 
-
   updateVote: (data) => {
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.QUESTION_UPDATE_VOTES,
       data: data
     });
+  },
+
+  sendQuestionsToSlack: (question) => {
+    let prefix = ["Got a bit of time?", 'Hey, you down?', 'Hey, can you help?', 'SOS']
+    if (question) {
+      let intro = `${prefix[parseInt(Math.random() * 4)]}! ${question.user.name} just asked a question`
+      Common.sendToSlack({id: question.id, title: question.title, content: question.content, intro: intro})
+    }
   }
 }
 

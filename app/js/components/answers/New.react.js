@@ -17,7 +17,7 @@ class NewAnswerForm extends React.Component {
      tinyMCE.triggerSave();
      var answer = $("#answerForm textarea").val();
      var question_id = $("#answerForm textarea").data('question-id');
-     webAPI.processRequest(`/questions/${question_id}/answers`, 'POST', { content: answer }, AnswerActions.receiveAnswer)
+     webAPI.processRequest(`/questions/${question_id}/answers`, 'POST', { content: answer }, AnswerActions.createAnswer)
      tinyMCE.activeEditor.setContent('');
    }
 

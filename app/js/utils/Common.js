@@ -62,17 +62,42 @@ Common = {
     return `${id}-${sanitized_string}`;
   },
 
-  sendToSlack: (question) => {
-    let permalink = `http://${window.location.host}/questions/${Common.createPermalink(question.id || 2, question.title)}`
-    let fallback = `${question.user.name} just asked a question. Can you help? Or know somebody who can help?`;
+  sanitizeString: (text) => {
+    return text.replace(/<(?:.|\n)*?>/gm, '')
+  },
+
+  sendToSlack: (meta) => {
+    let data = Common.slackData(meta);
+    Common.pushAtMentionsToSlack(meta, data)
+    data = JSON.stringify(data);
+    $.ajax({url: Config.slackZhishiChannel, type: 'POST', data: data });
+  },
+
+  slackData: (meta) => {
+    let permalink = `http://${window.location.host + window.location.pathname}/${Common.createPermalink(meta.id || 2, meta.title)}`
+    let fallback = meta.intro;
+    let text = Common.sanitizeString(meta.content);
+    text = text.length > 100 ? text.substring(0, 100) + "..." : text
     let pretext = fallback;
     let color = "#666";
-    let fields = [{title: 'New question', value: `<${permalink}|${question.title}>`, short: 'false'}]
-    let data = { username: "zhishi-hook", attachments: [{
-        fallback: fallback, pretext: pretext, color: color, fields: fields
+    let fields = [{title: 'The question', value: `<${permalink}|${meta.title}>`, short: 'false'}]
+    return { username: Config.slackHookName, attachments: [{
+        fallback: fallback, pretext: pretext, color: color, text: text, fields: fields
     }]}
-    data = JSON.stringify(data)
-    $.ajax({url: Config.slackZhishiChannel, type: 'POST', data: data });
+  },
+
+  replaceAtMentionsWithLinks: (meta, data) => {
+    return text.replace(/@([a-z\d_]+)/ig, '<a href="https://andela.slack.com/messages/@$1/team/$1">@$1</a>')
+  },
+
+  pushAtMentionsToSlack: (meta, data) => {
+    var mentions = meta.content.match(/@([a-z\d_]+)/ig);
+    mentions.map(function(mention){
+      var data_copy = data
+      data_copy.channel = mention
+      data_copy = JSON.stringify(data_copy);
+      $.ajax({url: Config.slackZhishiChannel, type: 'POST', data: data_copy });
+    });
   }
 }
 export default Common;
