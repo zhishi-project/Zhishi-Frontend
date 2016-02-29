@@ -49,6 +49,14 @@
 
       .column:last-of-type {
         text-align: right;
+
+        @media screen and (max-width: 767px) {
+          text-align: left;
+
+          .username {
+            display: inline;
+          }
+        }
       }
 
       .tags {

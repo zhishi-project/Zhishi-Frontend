@@ -64,6 +64,7 @@
 }
 
 .main {
+
   aside {
     .trending-link {
       a {
@@ -77,6 +78,7 @@
   background-color: $body-text;
   color: $site-bg;
   margin-top: 50px;
+  height: 116px;
 
   .ui.grid {
     @include display(flex);
