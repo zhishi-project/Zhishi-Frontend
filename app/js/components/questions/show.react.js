@@ -13,7 +13,7 @@ import AuthStore from '../../stores/AuthStore.js'
 import AnswerStore from '../../stores/AnswerStore.js'
 import QuestionStore from '../../stores/QuestionStore.js'
 import QuestionActions from '../../actions/QuestionActions.js'
-import Common from "../../utils/Common"
+import Common from "../../utils/Common.js"
 
 function getQuestionState(question_id){
   if (QuestionStore.getQuestion(question_id)) {
@@ -86,7 +86,7 @@ class Question extends React.Component {
     var user = question.user ? question.user : {};
     var current_user = AuthStore.getCurrentUser();
     var question_edit_btn, question_delete_btn;
-    var content = $.isEmptyObject(question) ? <i className="notched circle loading icon"></i> : <div dangerouslySetInnerHTML={{__html: question.content}} />
+    var content = $.isEmptyObject(question) ? <i className="notched circle loading icon"></i> : <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(question.content)}} />
     var question_date = new Date(question.created_at)
     var share_statement = `You can past this link on slack or send directly via email: http://${window.location.host + window.location.pathname}`;
     var question_dom_id = `question-${question.id}`;

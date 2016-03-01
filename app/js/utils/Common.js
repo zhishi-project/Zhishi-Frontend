@@ -88,8 +88,8 @@ Common = {
     }]}
   },
 
-  replaceAtMentionsWithLinks: (meta, data) => {
-    return text.replace(/@([a-z\d_]+)/ig, '<a href="https://andela.slack.com/messages/@$1/team/$1">@$1</a>')
+  replaceAtMentionsWithLinks: (text) => {
+    return text.replace(/@([a-z\d_]+)/ig, '<a href="https://andela.slack.com/messages/@$1/team/$1" target="_blank">@$1</a>')
   },
 
   pushAtMentionsToSlack: (meta, data) => {

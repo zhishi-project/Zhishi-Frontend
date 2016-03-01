@@ -5,6 +5,7 @@ import AuthStore from '../../stores/AuthStore.js'
 import Votes from "../layouts/CommentVotes.react"
 import EditCommentForm from './Form.react'
 import ShareButton from "../layouts/ShareButton.react"
+import Common from '../../utils/Common.js'
 
 class AllComments extends React.Component {
   constructor(props, context){
@@ -47,8 +48,7 @@ class AllComments extends React.Component {
        comment_edit_btn = <a href="#" className="reply" data-resource-id={meta.resource_id}  data-id={comment.id} onClick={this.editComment.bind(this)}>edit</a>
        comment_delete_btn = <a href="#" className="reply">delete</a>
      }
-
-     let content = comment.status == 'editing' ? <EditCommentForm comment={comment} meta={meta} /> : <div dangerouslySetInnerHTML={{__html: comment.content}} />
+     let content = comment.status == 'editing' ? <EditCommentForm comment={comment} meta={meta} /> : <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(comment.content)}} />
 
      return (
        <div id={comment_dom_id} className={`comment  ${comment.status}`}>
