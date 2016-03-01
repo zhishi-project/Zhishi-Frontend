@@ -25,7 +25,7 @@ class NewQuestion extends React.Component {
      var question_data = { title: title, content: desc, tags: tags }
      webAPI.processRequest('/questions', 'POST', question_data, QuestionActions.createQuestion, $(".submitQuestionBtn")[0])
    }
-   
+
    render () {
      return (
        <div className="ask-question">

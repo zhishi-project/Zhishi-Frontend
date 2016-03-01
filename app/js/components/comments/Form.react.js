@@ -25,6 +25,7 @@ class NewCommentForm extends React.Component {
      webAPI.processRequest(path, action, { content: $(comment_box).val() }, (data) => {
        callback({meta: meta, comment: data})
      })
+    //  callback({meta:meta, comment: {content: $(comment_box).val(), user:{name: 'Cent'}}})
    }
 
 

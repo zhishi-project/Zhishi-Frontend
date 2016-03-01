@@ -27,9 +27,10 @@ class SearchBar extends React.Component {
      var search_results;
      if (event.target.value != '') {
        initial_questions = initial_questions ? initial_questions : this.questionsToSearch();
-       var search_results = initial_questions;
+       var search_results = initial_questions, value, title;
        search_results = search_results.filter(function(question) {
-         return (question.title.toLowerCase().search(event.target.value.toLowerCase()) != -1)
+         value = event.target.value.toLowerCase(), title = question.title.toLowerCase();
+         return value.length > 2 ? (title.search(value) != -1) : (title.substring(0, value.length) == value)
        });
      } else {
        search_results = []

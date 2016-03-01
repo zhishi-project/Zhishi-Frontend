@@ -61,7 +61,7 @@ CommentActions = {
     if (data && data.comment) {
       let meta = data.meta, comment = data.comment;
       let question = QuestionStore.getQuestion(meta.question_id) || {}
-      let intro = `${prefix[parseInt(Math.random() * 7)]} from ${comment.user.name} in response to ${question.user.name}'s ${meta.resource_name}'s`
+      let intro = `${prefix[parseInt(Math.random() * 7)]} from ${comment.user.name} in response to ${question.user.name}'s ${meta.resource_name}`
       Common.sendToSlack({id: question.id, title: question.title, content: comment.content, intro: intro})
     }
   }

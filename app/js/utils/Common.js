@@ -89,7 +89,13 @@ Common = {
   },
 
   replaceAtMentionsWithLinks: (text) => {
-    return text.replace(/@([a-z\d_]+)/ig, '<a href="https://andela.slack.com/messages/@$1/team/$1" target="_blank">@$1</a>')
+    var link_end = "</a>", tailingLinkIndex;
+    return text.replace(/@([a-z\d_]+)/ig, function(mention, contents, offset){
+      tailingLinkIndex = offset + mention.length + link_end.length;
+      if ((text.length < tailingLinkIndex) || (text.substring(tailingLinkIndex - link_end.length, tailingLinkIndex) != link_end) ) {
+        return `<a href="https://andela.slack.com/messages/${mention}/team/${contents}" target="_blank">${mention}</a>`
+      } else { return mention }
+    })
   },
 
   pushAtMentionsToSlack: (meta, data) => {
