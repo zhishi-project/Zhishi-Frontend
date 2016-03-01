@@ -64,6 +64,7 @@ class SearchBar extends React.Component {
          question = questions[keys[i]];
          url = `http://${window.location.host + window.location.pathname}/${Common.createPermalink(question.id, question.title)}`
          search_results.push(<li key={i}><a href={url}>{question.title}</a></li>)
+         if (i > 8) { break; }
        }
      } else {
        hide_class = "hide"
