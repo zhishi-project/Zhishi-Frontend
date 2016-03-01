@@ -16,8 +16,8 @@ CommentActions = {
   },
 
   createComment: (data) => {
-    CommentActions.sendCommentsToSlack(data)
     CommentActions.receiveComment(data);
+    CommentActions.sendCommentsToSlack(data)
   },
 
   receiveTopComments: (data) => {

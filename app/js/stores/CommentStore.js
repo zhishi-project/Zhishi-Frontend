@@ -29,7 +29,8 @@ let edit = (meta, id) => {
 }
 
 let update = (meta, comment) => {
-  Common.update(_comments[meta.resource_name][meta.resource_id], comment.id, comment)
+  var existing_comment = _comments[meta.resource_name][meta.resource_id]
+  $.extend(_comments[meta.resource_name], Common.update(existing_comment, comment.id, comment))
   _new_comments[meta.resource_name][meta.resource_id] = {}
 }
 
@@ -49,7 +50,7 @@ let CommentStore = assign({}, EventEmitter.prototype, {
   },
 
   getComments: (resource_name, resource_id) => {
-    return ( _comments[resource_name] ? _comments[resource_name][resource_id] : {} );
+    return ( _comments[resource_name] ? _comments[resource_name][resource_id] : false );
   },
 
   getNewCommentFormStatus: (resource_name, resource_id) => {

@@ -47,8 +47,10 @@ Common = {
   },
 
   update: (collection, id, updates, dont_reset_status) => {
+    collection = collection ? collection : {}
     collection[id] = Assign({}, collection[id], updates);
     if (!dont_reset_status) {collection[id]['status'] = ''; }
+    return collection;
   },
 
   createPermalink: (id, title) => {
@@ -74,7 +76,7 @@ Common = {
   },
 
   slackData: (meta) => {
-    let permalink = `http://${window.location.host + window.location.pathname}/${Common.createPermalink(meta.id || 2, meta.title)}`
+    let permalink = `http://${window.location.host}/questions/${Common.createPermalink(meta.id || 2, meta.title)}`
     let fallback = meta.intro;
     let text = Common.sanitizeString(meta.content);
     text = text.length > 100 ? text.substring(0, 100) + "..." : text
@@ -92,12 +94,14 @@ Common = {
 
   pushAtMentionsToSlack: (meta, data) => {
     var mentions = meta.content.match(/@([a-z\d_]+)/ig);
-    mentions.map(function(mention){
-      var data_copy = data
-      data_copy.channel = mention
-      data_copy = JSON.stringify(data_copy);
-      $.ajax({url: Config.slackZhishiChannel, type: 'POST', data: data_copy });
-    });
+    if (!$.isEmptyObject(mentions)) {
+      mentions.map(function(mention){
+        var data_copy = data
+        data_copy.channel = mention
+        data_copy = JSON.stringify(data_copy);
+        $.ajax({url: Config.slackZhishiChannel, type: 'POST', data: data_copy });
+      });
+    }
   }
 }
 export default Common;

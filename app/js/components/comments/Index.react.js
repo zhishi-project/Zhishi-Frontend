@@ -7,14 +7,13 @@ import webAPI from '../../utils/webAPI.js'
 import Common from "../../utils/Common"
 
 
- function getCommentsState(resource_name, resource_id){
-   var comments = CommentStore.getComments(resource_name, resource_id)
+ function getCommentsState(meta){
+   var comments = CommentStore.getComments(meta.resource_name, meta.resource_id)
    if (comments) {
      return { comments: comments }
    } else {
-     if (resource_id) {
-       var meta = {resource_name: resource_name, resource_id: resource_id}
-       webAPI.processRequest(`/${resource_name}/${resource_id}/comments`, 'GET', "", (data) => {
+     if (meta.resource_id) {
+       webAPI.processRequest(`/${meta.resource_name}/${meta.resource_id}/comments`, 'GET', "", (data) => {
          CommentActions.receiveComments({meta: meta, comments: data})
        })
      }
@@ -25,7 +24,7 @@ import Common from "../../utils/Common"
 class AllComments extends React.Component {
   constructor(props, context){
     super(props)
-    this.state = getCommentsState(props.resource_name, props.resource_id)
+    this.state = getCommentsState(props.meta)
    }
 
    componentDidMount(){
@@ -35,13 +34,13 @@ class AllComments extends React.Component {
      CommentStore.removeChangeListener(this._onChange).bind(this);
    }
    _onChange() {
-     this.setState(getCommentsState(this.props.resource_name, this.props.resource_id))
+     this.setState(getCommentsState(this.props.meta))
    }
 
    render () {
      var comments = [], keys=[];
      var meta = this.props.meta;
-     if (!$.isEmptyObject(this.state.comments)) {
+     if (this.state.comments) {
        keys = Object.keys(this.state.comments)
        for (var i = 0; i < keys.length; i++) {
          comments.push(<CommentShow key={i} meta={meta} comment={this.state.comments[keys[i]]} />)
