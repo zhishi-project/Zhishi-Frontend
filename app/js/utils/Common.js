@@ -72,7 +72,7 @@ Common = {
   sendToSlack: (meta) => {
     let general_data = Common.slackData(meta, meta.intro.general);
     let personal_data = Common.slackData(meta, meta.intro.personal);
-    Common.pushAtMentionsToSlack(meta, personal_data)
+    Common.pushAtMentionsToSlack(meta, general_data, personal_data)
     general_data = JSON.stringify(general_data);
     $.ajax({url: Config.slackZhishiChannel, type: 'POST', data: general_data });
   },
@@ -104,18 +104,17 @@ Common = {
     return /[@|#]([a-z\d_.-]+)/ig
   },
 
-  pushAtMentionsToSlack: (meta, data) => {
+  pushAtMentionsToSlack: (meta, general, personal) => {
     meta.content += " #zhishi_feedback";
     var mentions = meta.content.match(Common.mentionsRegex());
     if (!$.isEmptyObject(mentions)) {
       mentions.map(function(mention){
-        var data_copy = data
+        var data_copy = (mention[0] == "@") ? personal : general
         data_copy.channel = mention
         data_copy = JSON.stringify(data_copy);
         $.ajax({url: Config.slackZhishiChannel, type: 'POST', data: data_copy });
       });
     }
-
   }
 }
 export default Common;
