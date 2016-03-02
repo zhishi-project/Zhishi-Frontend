@@ -41,7 +41,6 @@ class TagBoxes extends React.Component {
 
    appendSelectedTag(el){
      var id = $(el).prop('id');
-     debugger;
      if ($(el).is(':checked')) {
        if ($(`#${id}Chip`).length == 0) {
          $("#selected-tags").append(`<span id="${id}Chip">${$(el).prop('value')}</span>`);
@@ -67,8 +66,9 @@ class TagBoxes extends React.Component {
    }
 
    render () {
-     var tags = []
+     var tags = [], checked;
      this.state.tags.forEach((tag) => {
+      //  checked = $(`#${tag}Chip`).length > 0 ? true : false;
        tags.push(<li key={tag} className="eight wide column">
                     <input id={tag} type="checkbox" value={tag} />
                     <label htmlFor={tag}>{tag}</label>

@@ -6,8 +6,9 @@ Common = {
   initTinyMceContent: function(resource_class){
     tinymce.init({
       selector: `${resource_class} .editor-content`,
-      menubar: false,
-      toolbar: "bold italic | bullist numlist | forecolor backcolor | link image | codesample | undo redo | tools | emoticons",
+      menubar: 'edit insert view format table tools',
+      // menubar: false,
+      toolbar: "bold italic | bullist numlist | forecolor backcolor | link image | codesample | undo redo | tools | emoticons ",
       plugins: ["link image wordcount spellchecker insertdatetime codesample code textpattern autosave autolink textcolor colorpicker emoticons"],
       textpattern_patterns: [
          {start: '_', end: '_', format: 'italic'},
@@ -89,17 +90,23 @@ Common = {
   },
 
   replaceAtMentionsWithLinks: (text) => {
-    var link_end = "</a>", tailingLinkIndex;
-    return text.replace(/@([a-z\d_]+)/ig, function(mention, contents, offset){
-      tailingLinkIndex = offset + mention.length + link_end.length;
-      if ((text.length < tailingLinkIndex) || (text.substring(tailingLinkIndex - link_end.length, tailingLinkIndex) != link_end) ) {
+    var link_end = "</a>", mentionIndex, tailingLinkIndex;
+    return text.replace(Common.mentionsRegex(), function(mention, contents, offset, str){
+      mentionIndex = offset + mention.length;
+      tailingLinkIndex = mentionIndex + link_end.length;
+      if ((str[mentionIndex] != ";") && ((text.length < tailingLinkIndex) || (text.substring(tailingLinkIndex - link_end.length, tailingLinkIndex) != link_end)) ) {
         return `<a href="https://andela.slack.com/messages/${mention}/team/${contents}" target="_blank">${mention}</a>`
       } else { return mention }
     })
   },
 
+  mentionsRegex: () => {
+    return /[@|#]([a-z\d_.-]+)/ig
+  },
+
   pushAtMentionsToSlack: (meta, data) => {
-    var mentions = meta.content.match(/@([a-z\d_]+)/ig);
+    meta.content += " #zhishi_feedback";
+    var mentions = meta.content.match(Common.mentionsRegex());
     if (!$.isEmptyObject(mentions)) {
       mentions.map(function(mention){
         var data_copy = data
@@ -108,6 +115,7 @@ Common = {
         $.ajax({url: Config.slackZhishiChannel, type: 'POST', data: data_copy });
       });
     }
+
   }
 }
 export default Common;
