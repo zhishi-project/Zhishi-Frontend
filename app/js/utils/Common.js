@@ -105,7 +105,7 @@ Common = {
   },
 
   pushAtMentionsToSlack: (meta, general, personal) => {
-    meta.content += " #zhishi_feedback";
+    // meta.content += " #zhishi_feedback";
     var mentions = meta.content.match(Common.mentionsRegex());
     if (!$.isEmptyObject(mentions)) {
       mentions.map(function(mention){
