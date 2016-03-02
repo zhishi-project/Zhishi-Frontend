@@ -41,10 +41,13 @@ class TagBoxes extends React.Component {
 
    appendSelectedTag(el){
      var id = $(el).prop('id');
+     debugger;
      if ($(el).is(':checked')) {
-       $("#selected-tags").append(`<span class="${id}">${$(el).prop('value')}</span>`);
+       if ($(`#${id}Chip`).length == 0) {
+         $("#selected-tags").append(`<span id="${id}Chip">${$(el).prop('value')}</span>`);
+       }
      } else {
-       $("#selected-tags ." + id).remove()
+       $(`#${id}Chip`).remove()
      }
      $("input#new-question-tags").val("");
      this.calcInputWidth()
