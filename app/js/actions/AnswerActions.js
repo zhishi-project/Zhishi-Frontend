@@ -54,8 +54,9 @@ AnswerActions = {
     let compliments = ['Nice', 'Bravo', 'Helpful indeed', 'Oshey']
     let question = QuestionStore.getQuestion(answer.question_id)
     if (question) {
-      let intro = `${compliments[parseInt(Math.random() * 4)]}! ${answer.user.name} answered ${question.user.name}'s question`
-      Common.sendToSlack({id: answer.question_id, title: question.title, content: answer.content, intro: intro})
+      let general = `${compliments[parseInt(Math.random() * 4)]}! ${answer.user.name} answered ${question.user.name}'s question`
+      let personal = `${compliments[parseInt(Math.random() * 4)]}! ${answer.user.name} mentioned you in an answer to ${question.user.name}'s question`
+      Common.sendToSlack({id: answer.question_id, title: question.title, content: answer.content,  intro: {general: general, personal: personal}})
     }
   }
 }

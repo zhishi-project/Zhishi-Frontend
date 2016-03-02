@@ -59,8 +59,9 @@ QuestionActions = {
   sendQuestionsToSlack: (question) => {
     let prefix = ["Got a bit of time?", 'Hey, you down?', 'Hey, can you help?', 'SOS']
     if (question) {
-      let intro = `${prefix[parseInt(Math.random() * 4)]}! ${question.user.name} just asked a question`
-      Common.sendToSlack({id: question.id, title: question.title, content: question.content, intro: intro})
+      let general = `${prefix[parseInt(Math.random() * 4)]}! ${question.user.name} just asked a question`
+      let personal = `${prefix[parseInt(Math.random() * 4)]}! ${question.user.name} just asked a question and mentioned you.`
+      Common.sendToSlack({id: question.id, title: question.title, content: question.content, intro: {general: general, personal: personal}})
     }
   }
 }

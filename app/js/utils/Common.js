@@ -69,15 +69,15 @@ Common = {
   },
 
   sendToSlack: (meta) => {
-    let data = Common.slackData(meta);
-    Common.pushAtMentionsToSlack(meta, data)
-    data = JSON.stringify(data);
-    $.ajax({url: Config.slackZhishiChannel, type: 'POST', data: data });
+    let general_data = Common.slackData(meta, meta.intro.general);
+    let personal_data = Common.slackData(meta, meta.intro.personal);
+    Common.pushAtMentionsToSlack(meta, personal_data)
+    general_data = JSON.stringify(general_data);
+    $.ajax({url: Config.slackZhishiChannel, type: 'POST', data: general_data });
   },
 
-  slackData: (meta) => {
+  slackData: (meta, fallback) => {
     let permalink = `http://${window.location.host}/questions/${Common.createPermalink(meta.id || 2, meta.title)}`
-    let fallback = meta.intro;
     let text = Common.sanitizeString(meta.content);
     text = text.length > 100 ? text.substring(0, 100) + "..." : text
     let pretext = fallback;
