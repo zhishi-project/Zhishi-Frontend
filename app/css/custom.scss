@@ -40,6 +40,16 @@ pre[class*="language-"] {
   margin: 20px 0;
   line-height: 50px;
 }
+.new-answer {
+  .title {
+    span.tips {
+      font-size: 0.6em;
+      padding-left: 10px;
+      font-weight: 300;
+      color: #888;
+    }
+  }
+}
 .user-question-area {
   .options {
     margin-top: 3rem;

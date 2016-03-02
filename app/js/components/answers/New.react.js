@@ -25,7 +25,7 @@ class NewAnswerForm extends React.Component {
      return (
        <div className="row new-answer">
          <div className="sixteen wide column">
-           <h3>Give your own answer</h3>
+           <h3 className="title">Give your own answer<span className="tips">markdown works (some), for beloved emoticons, ctrl + cmd + spacebar</span></h3>
 
            <form id="answerForm" className="ui form">
              <div className="field">

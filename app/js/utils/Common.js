@@ -7,8 +7,8 @@ Common = {
     tinymce.init({
       selector: `${resource_class} .editor-content`,
       menubar: false,
-      toolbar: "bold italic | bullist numlist | link image | codesample | undo redo | tools",
-      plugins: ["link image wordcount spellchecker insertdatetime codesample code textpattern autosave autolink"],
+      toolbar: "bold italic | bullist numlist | forecolor backcolor | link image | codesample | undo redo | tools | emoticons",
+      plugins: ["link image wordcount spellchecker insertdatetime codesample code textpattern autosave autolink textcolor colorpicker emoticons"],
       textpattern_patterns: [
          {start: '_', end: '_', format: 'italic'},
          {start: '*', end: '*', format: 'bold'},
