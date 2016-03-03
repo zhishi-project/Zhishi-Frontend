@@ -7,6 +7,7 @@ import AuthStore from './stores/AuthStore.js';
 import AuthActions from './actions/AuthActions.js'
 import webAPI from './utils/webAPI.js'
 import ZhishiInit from './utils/ZhishiInit.js';
+import CookieVar from './config/CookieVariables.js'
 
 import Zhishi from './components/Zhishi.react';
 import Home from './components/Home.react';
@@ -22,9 +23,11 @@ $.cookie.json = true
 
 let user_logged_in = function(nextState, replaceState) {
   if (!AuthStore.userLoggedIn()) {
+    $.cookie(CookieVar.referrer, nextState.location.pathname, {path: '/'})
     replaceState({ nextPathname: nextState.location.pathname }, '/login')
   }
 }
+
 
 let user_logged_out = function(nextState, replaceState) {
   if (AuthStore.userLoggedIn()) {
@@ -73,7 +76,7 @@ ReactDOM.render(
       <Route path="/questions" component={Questions}  onEnter={user_logged_in}>
         <IndexRoute component={QuestionIndex} onEnter={user_logged_in} />
         <Route path="/questions/new" component={NewQuestion} />
-        <Route path="/questions/:id" component={Question} />
+        <Route path="/questions/:id" component={Question}  />
       </Route>
 
       <Route path="*" component={Zhishi} onEnter={user_logged_in}/>

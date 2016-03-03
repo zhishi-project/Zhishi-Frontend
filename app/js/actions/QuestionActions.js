@@ -12,7 +12,7 @@ QuestionActions = {
   createQuestion: (question) => {
     QuestionActions.receiveQuestion(question)
     QuestionActions.sendQuestionsToSlack(question)
-    window.location.href = `/questions/${question.id}`
+    window.location.href = `/questions/${Common.createPermalink(question.id, question.title)}`
   },
 
   receiveQuestions: (data) => {

@@ -27,6 +27,7 @@ class NewQuestion extends React.Component {
    }
 
    render () {
+     let title_tip = "It'll be super nice if this title is a summarized and descriptive question ¯\\_(ツ)_/¯";
      return (
        <div className="ask-question">
           <Header />
@@ -47,6 +48,7 @@ class NewQuestion extends React.Component {
 
                          <div className="fourteen wide column">
                            <input type="text" id="new_question_title" placeholder="Enter question" required />
+                           <div className="tips">{title_tip}</div>
                          </div>
                        </div>
 

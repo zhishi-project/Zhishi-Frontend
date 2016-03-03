@@ -3,5 +3,6 @@
 module.exports = {
   current_user: "ndsmewp",
   user_token: "hekdwu2aw",
-  user_logged_in: "iwengjk"
+  user_logged_in: "iwengjk",
+  referrer: 'ehdieleda'
 }

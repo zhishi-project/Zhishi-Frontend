@@ -1,8 +1,10 @@
-
+var AuthActions;
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var ZhishiConstants = require('../constants/ZhishiConstants');
 
-var AuthActions = {
+import CookieVar from '../config/CookieVariables.js'
+
+AuthActions = {
 
   // Receive inital product data
 
@@ -18,7 +20,7 @@ var AuthActions = {
         data: data
       });
     }
-    window.location.href = '/'
+    AuthActions.redirectToReferrerIfAny()
   },
 
   logoutUser: function() {
@@ -50,6 +52,16 @@ var AuthActions = {
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.USER_DESTROY_COMPLETED
     });
+  },
+
+  redirectToReferrerIfAny: (nextState, replaceState) => {
+    if ($.cookie(CookieVar.referrer)) {
+      var referrer = $.cookie(CookieVar.referrer)
+      $.removeCookie(CookieVar.referrer)
+      window.location.href = referrer;
+    } else {
+      window.location.href = '/'
+    }
   }
 
 };
