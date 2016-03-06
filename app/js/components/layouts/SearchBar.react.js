@@ -62,7 +62,7 @@ class SearchBar extends React.Component {
        keys = Object.keys(questions)
        for (var i = keys.length - 1; i >= 0; i--) {
          question = questions[keys[i]];
-         url = `http://${window.location.host + window.location.pathname}/${Common.createPermalink(question.id, question.title)}`
+         url = `http://${window.location.hos}/questions/${Common.createPermalink(question.id, question.title)}`
          search_results.push(<li key={i}><a href={url}>{question.title}</a></li>)
          if (i > 8) { break; }
        }
