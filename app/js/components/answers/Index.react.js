@@ -14,9 +14,9 @@ import Common from "../../utils/Common"
      }
    } else {
      if (question_id) {
-       webAPI.processRequest(`/questions/${question_id}/answers`, 'GET', "", (data) => {
-         AnswerActions.receiveAnswers({question_id: question_id, answers: data })
-       })
+      //  webAPI.processRequest(`/questions/${question_id}/answers`, 'GET', "", (data) => {
+      //    AnswerActions.receiveAnswers({question_id: question_id, answers: data })
+      //  })
      }
      return {}
    }
@@ -53,9 +53,10 @@ class AllAnswers extends React.Component {
        for (var i = keys.length - 1; i >= 0; i--) {
          answers.push(<AnswerShow key={i} answer={this.state.answers[keys[i]]} />)
        }
-     } else if (!this.state.answers) {
-        answers.push(<i key={0} className="notched circle centered loading icon"></i>)
      }
+    //  else if (!this.state.answers) {
+    //     answers.push(<i key={0} className="notched circle centered loading icon"></i>)
+    //  }
      var ans_statement = keys.length == 1 ? "Answer" : "Answers"
      return (
        <div className="sixteen wide answers column">

@@ -31,7 +31,6 @@ let destroy = (id) => {
   delete _user[id];
 }
 
-
 let AnswerStore = assign({}, EventEmitter.prototype, {
 
   getAnswer: (question_id, id) => {
@@ -64,6 +63,13 @@ AnswerStore.dispatchToken = AppDispatcher.register((action) => {
   var text;
 
   switch(action.actionType) {
+
+    case ZhishiConstants.QUESTION_UPDATE:
+      if (action.data) {
+        loadAnswers(action.data.id, action.data.answers)
+        AnswerStore.emitChange();
+      }
+      break;
 
     case ZhishiConstants.ANSWER_INDEX:
       if (action.data) {

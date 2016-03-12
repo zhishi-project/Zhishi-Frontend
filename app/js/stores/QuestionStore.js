@@ -27,7 +27,7 @@ let edit = (id) => {
 }
 
 let update = (question) => {
-  var id = question.id
+  var id = question.id;
   Common.update(_questions, question.id, question)
 }
 
@@ -74,12 +74,12 @@ QuestionStore.dispatchToken = AppDispatcher.register((action) => {
   switch(action.actionType) {
 
     case ZhishiConstants.RECEIVE_QUESTIONS:
-      loadQuestions(action.data);
+      loadQuestions(action.data.questions);
       QuestionStore.emitChange();
       break;
 
     case ZhishiConstants.RECEIVE_TOP_QUESTIONS:
-      loadTopQuestions(action.data);
+      loadTopQuestions(action.data.questions);
       QuestionStore.emitChange();
       break;
 

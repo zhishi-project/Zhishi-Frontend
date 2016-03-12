@@ -48,6 +48,7 @@ let SignUpUser = function(nextState, replaceState){
 
 // make api call if user is logged in and homepage is visited
 let initData = function(nextState) {
+  debugger;
   if (nextState.location.pathname === '/' && AuthStore.userLoggedIn() ) {
     ZhishiInit.getInitData();
   }

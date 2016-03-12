@@ -15,6 +15,10 @@ let loadComments = (meta, comments) => {
   Common.update(_comments[meta.resource_name], meta.resource_id, comments, true)
 }
 
+let loadAnswersComments = (answers) => {
+  answers.forEach(answer => loadComments(get_meta('answers', answer.id), answer.comments))
+}
+
 let _new = (resource_name, resource_id) => {
   _new_comments[resource_name][resource_id] = {}
   _new_comments[resource_name][resource_id]['show_new_form'] = true
@@ -40,6 +44,10 @@ let update_votes_count = (id, votes_count, meta) => {
 
 let destroy = (id) => {
   delete _user[id];
+}
+
+let get_meta = (resource_name, resource_id) => {
+  return {resource_name: resource_name, resource_id: resource_id}
 }
 
 
@@ -80,12 +88,13 @@ CommentStore.dispatchToken = AppDispatcher.register((action) => {
 
   switch(action.actionType) {
 
-    // case ZhishiConstants.QUESTION_UPDATE:
-    //   if (action.data && action.data.comments) {
-    //     loadComments("questions", action.data.id, action.data.comments)
-    //     CommentStore.emitChange();
-    //   }
-    //   break;
+    case ZhishiConstants.QUESTION_UPDATE:
+      if (action.data && action.data.comments) {
+        loadComments(get_meta('questions', action.data.id), action.data.comments)
+        loadAnswersComments(action.data.answers);
+        CommentStore.emitChange();
+      }
+      break;
 
     case ZhishiConstants.COMMENT_INDEX:
       if (action.data && action.data.comments) {

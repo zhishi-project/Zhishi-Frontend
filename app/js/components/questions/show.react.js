@@ -18,7 +18,7 @@ import Common from "../../utils/Common.js"
 function getQuestionState(question_id){
   if (QuestionStore.getQuestion(question_id)) {
     return {
-      question: QuestionStore.getQuestion(question_id),
+      question: QuestionStore.getQuestion(question_id)
     }
   } else {
     if (question_id) {

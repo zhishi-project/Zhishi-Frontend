@@ -20,6 +20,7 @@ var webAPI = {
       accept: "application/json, text/javascript, */*",
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     };
+    this._headers = {}
     if (this._method == 'GET') {
       if (this._dataString.length > 0) { this._path += '?' + encodeURIComponent(this._dataString); }
     }
@@ -29,7 +30,7 @@ var webAPI = {
     $.ajax({
       headers: this._headers,
       url: Config.host + this._path,
-      dataType: 'json',
+      // dataType: 'json',
       method: method,
       data: data,
       beforeSend: function() {
@@ -41,7 +42,7 @@ var webAPI = {
         callback(data);
       }.bind(this),
       error: function(xhr, status, err) {
-        callback({_error: data});
+        callback({_error: err});
         console.log(this._path, status, err.toString());
       }.bind(this),
       complete: function(){

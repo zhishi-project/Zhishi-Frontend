@@ -13,9 +13,9 @@ import Common from "../../utils/Common"
      return { comments: comments }
    } else {
      if (meta.resource_id) {
-       webAPI.processRequest(`/${meta.resource_name}/${meta.resource_id}/comments`, 'GET', "", (data) => {
-         CommentActions.receiveComments({meta: meta, comments: data})
-       })
+      //  webAPI.processRequest(`/${meta.resource_name}/${meta.resource_id}/comments`, 'GET', "", (data) => {
+      //    CommentActions.receiveComments({meta: meta, comments: data})
+      //  })
      }
      return {}
    }
@@ -45,9 +45,10 @@ class AllComments extends React.Component {
        for (var i = 0; i < keys.length; i++) {
          comments.push(<CommentShow key={i} meta={meta} comment={this.state.comments[keys[i]]} />)
        }
-     } else if (!this.state.comments) {
-        comments.push(<i key={0} className="notched circle loading icon"></i>)
      }
+    //  else if (!this.state.comments) {
+    //     comments.push(<i key={0} className="notched circle loading icon"></i>)
+    //  }
      return (
        <div className="ui minimal comments">
          <div className="ui dividing header"></div>

@@ -2,15 +2,25 @@ import React from 'react'
 import QuestionStore from '../../stores/QuestionStore.js'
 import Common from '../../utils/Common.js'
 
-let searchBarState = () => {
+let searchBarState = (search_query) => {
+  initial_questions = {};
+  // if (search_query) {
+  //   if (QuestionStore.getSearchResults) {
+  //     initial_questions = QuestionStore.getSearchResults()
+  //   } else {
+  //     webAPI.processRequest('/questions/search', 'GET', search_query, QuestionActions.searchResults);
+  //   }
+  // }
   return {
-    initial_questions: {},
+    initial_questions: initial_questions,
     questions: []
   }
 }
 
 var search_results;
 var initial_questions;
+
+
 class SearchBar extends React.Component {
   constructor(props, context){
     super(props)
@@ -73,7 +83,7 @@ class SearchBar extends React.Component {
        <div className="search-area ui container">
          <form action="/search" method="GET" className="ui search">
            <div className="ui icon input">
-             <input type="text" className="prompt" placeholder="Check if someone's asked that..." onChange={this.search.bind(this)} />
+             <input name="query" type="text" className="prompt" placeholder="Check if someone's asked that..." onChange={this.search.bind(this)} />
              <i className="search icon"></i>
            </div>
            <button className="search ui button" type="submit">
