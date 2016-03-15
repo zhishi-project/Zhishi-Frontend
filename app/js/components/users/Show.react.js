@@ -68,19 +68,19 @@ class Show extends React.Component {
                   Stats
                 </h3>
                 <p>
-                  Member since {user.created_at}
+                  Member since {user.member_since}
                 </p>
 
                 <p>
-                  3 Profile views
+                  {/* 3 Profile views*/}
                 </p>
 
                 <p>
-                  2 Questions asked
+                  {/* 2 Questions asked*/}
                 </p>
 
                 <p>
-                  5 questions answered
+                  {/*5 questions answered*/}
                 </p>
               </div>
 

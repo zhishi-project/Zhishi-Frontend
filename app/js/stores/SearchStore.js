@@ -9,10 +9,7 @@ var CHANGE_EVENT = 'change';
 var search_results = [];
 
 let loadSearchResults = (results) => {
-  search_results = results;
-  // if (typeof results !== "undefined") {
-  //   search_results = Common.serializeByKey(results)
-  // }
+  search_results = results.reverse();
 }
 
 var SearchStore = assign({}, EventEmitter.prototype, {
