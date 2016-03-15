@@ -5,13 +5,14 @@ import webAPI from '../../utils/webAPI.js'
 import Common from '../../utils/Common.js'
 
 let searchBarState = (search_query) => {
-
   var initial_questions = SearchStore.getSearchResults();
   return {
     initial_questions: initial_questions,
     questions: initial_questions
   }
 }
+
+var timer;
 
 class SearchBar extends React.Component {
   constructor(props, context){
@@ -35,7 +36,7 @@ class SearchBar extends React.Component {
 
    search(event) {
      var search_results;
-    //  this.search_server(event);
+     this.search_server(event);
      if (event.target.value != '') {
        var search_results = this.state.initial_questions, value, title;
        search_results = search_results.filter(function(question) {
@@ -49,10 +50,13 @@ class SearchBar extends React.Component {
    }
 
   search_server(event) {
-    if (event.keyCode === 32) {     // 32 is keycode for space
-      webAPI.processRequest('/questions/search', 'GET',
-        {q: event.target.value.trim()}, SearchActions.receiveSearchResults);
-    }
+    clearTimeout(timer);
+    timer = setTimeout(this.hit_server, 1500, event.target.value);
+  }
+
+  hit_server(query_value){
+    webAPI.processRequest('/questions/search', 'GET',
+      {q: query_value.trim()}, SearchActions.receiveSearchResults);
   }
 
    resizeSearchBar(){
@@ -91,7 +95,7 @@ class SearchBar extends React.Component {
        <div className="search-area ui container">
          <form action="/search" method="GET" className="ui search">
            <div className="ui icon input">
-             <input id="searchInputBox" name="q" type="text" className="prompt" placeholder="Check if someone's asked that..." onChange={this.search.bind(this)} onKeyDown={this.search_server.bind(this)} />
+             <input id="searchInputBox" name="q" type="text" className="prompt" placeholder="Check if someone's asked that..." onChange={this.search.bind(this)} />
              <i className="search icon"></i>
            </div>
            <button className="search ui button" type="submit">
