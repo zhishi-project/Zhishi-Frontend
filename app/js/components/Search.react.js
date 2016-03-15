@@ -4,12 +4,16 @@ import QuestionsList from './questions/QuestionsList.react'
 import Sidebar from './layouts/Sidebar.react'
 
 import AuthStore from '../stores/AuthStore.js'
-import QuestionStore from '../stores/QuestionStore.js'
+import SearchStore from '../stores/SearchStore.js'
+import SearchActions from '../actions/SearchActions.js'
+import webAPI from '../utils/webAPI.js'
 
-
-function getSearchState(){
+function getSearchState(search_query, first_load){
+  if (search_query && first_load) {
+    webAPI.processRequest('/questions/search', 'GET', search_query, SearchActions.receiveSearchResults);
+  }
   return {
-    questions: QuestionStore.getQuestions(),
+    questions: SearchStore.getSearchResults(),
     current_user: AuthStore.getCurrentUser()
   }
 }
@@ -17,14 +21,14 @@ function getSearchState(){
 class Search extends React.Component {
   constructor(props, context){
     super(props);
-    this.state = getSearchState();
+    this.state = getSearchState(props.location.query, true);
   }
 
   componentDidMount(){
-    QuestionStore.addChangeListener(this._onChange.bind(this));
+    SearchStore.addChangeListener(this._onChange.bind(this));
   }
   componentWillUnmount(){
-    QuestionStore.removeChangeListener(this._onChange).bind(this);
+    SearchStore.removeChangeListener(this._onChange).bind(this);
 
   }
   _onChange() {

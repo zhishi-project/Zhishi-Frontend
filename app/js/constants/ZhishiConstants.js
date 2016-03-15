@@ -20,5 +20,6 @@ module.exports = keyMirror({
   COMMENT_NEW: null,
   COMMENT_EDIT: null,
   COMMENT_UPDATE: null,
-  COMMENT_UPDATE_VOTES: null
+  COMMENT_UPDATE_VOTES: null,
+  RECEIVE_SEARCH_RESULTS: null
 });

@@ -1,25 +1,17 @@
 import React from 'react'
-import QuestionStore from '../../stores/QuestionStore.js'
+import SearchStore from '../../stores/SearchStore.js'
+import SearchActions from "../../actions/SearchActions.js"
+import webAPI from '../../utils/webAPI.js'
 import Common from '../../utils/Common.js'
 
 let searchBarState = (search_query) => {
-  initial_questions = {};
-  // if (search_query) {
-  //   if (QuestionStore.getSearchResults) {
-  //     initial_questions = QuestionStore.getSearchResults()
-  //   } else {
-  //     webAPI.processRequest('/questions/search', 'GET', search_query, QuestionActions.searchResults);
-  //   }
-  // }
+
+  var initial_questions = SearchStore.getSearchResults();
   return {
     initial_questions: initial_questions,
-    questions: []
+    questions: initial_questions
   }
 }
-
-var search_results;
-var initial_questions;
-
 
 class SearchBar extends React.Component {
   constructor(props, context){
@@ -30,14 +22,22 @@ class SearchBar extends React.Component {
    componentDidMount() {
      this.resizeSearchBar();
      $(window).resize(this.resizeSearchBar)
-     this.setState({initial_questions: QuestionStore.getQuestions()})
+     SearchStore.addChangeListener(this._onChange.bind(this))
+   }
+
+   componentWillUnmount()  {
+     SearchStore.removeChangeListener(this._onChange);
+   }
+
+   _onChange() {
+     this.setState(searchBarState())
    }
 
    search(event) {
      var search_results;
+    //  this.search_server(event);
      if (event.target.value != '') {
-       initial_questions = initial_questions ? initial_questions : this.questionsToSearch();
-       var search_results = initial_questions, value, title;
+       var search_results = this.state.initial_questions, value, title;
        search_results = search_results.filter(function(question) {
          value = event.target.value.toLowerCase(), title = question.title.toLowerCase();
          return value.length > 2 ? (title.search(value) != -1) : (title.substring(0, value.length) == value)
@@ -48,6 +48,13 @@ class SearchBar extends React.Component {
      this.setState({questions: search_results})
    }
 
+  search_server(event) {
+    if (event.keyCode === 32) {     // 32 is keycode for space
+      webAPI.processRequest('/questions/search', 'GET',
+        {q: event.target.value.trim()}, SearchActions.receiveSearchResults);
+    }
+  }
+
    resizeSearchBar(){
      var total_width = $(".search-area.ui.container").width();
      var search_width = total_width - $("#askQuestion").width() - 52;
@@ -56,19 +63,20 @@ class SearchBar extends React.Component {
    }
 
    questionsToSearch() {
-     var questions =  QuestionStore.getQuestions();
-     var keys = Object.keys(questions), questions_array =[], question;
-     keys.map(function(key) {
-       question = questions[key];
-       question = {id: question.id, title: question.title}
-       questions_array.push(question)
-     })
+    //  var questions =  SearchStore.getQuestions();
+    //  var keys = Object.keys(questions), questions_array = [], question;
+    //  keys.map(function(key) {
+    //    question = questions[key];
+    //    question = {id: question.id, title: question.title}
+    //    questions_array.push(question)
+    //  })
+
      return questions_array;
    }
 
    render () {
      var questions = this.state.questions, question, search_results = [], keys, url, hide_class;
-     if (!$.isEmptyObject(questions)) {
+     if (!$.isEmptyObject(questions) && $("#searchInputBox").val() !== '') {
        keys = Object.keys(questions)
        for (var i = keys.length - 1; i >= 0; i--) {
          question = questions[keys[i]];
@@ -83,7 +91,7 @@ class SearchBar extends React.Component {
        <div className="search-area ui container">
          <form action="/search" method="GET" className="ui search">
            <div className="ui icon input">
-             <input name="query" type="text" className="prompt" placeholder="Check if someone's asked that..." onChange={this.search.bind(this)} />
+             <input id="searchInputBox" name="q" type="text" className="prompt" placeholder="Check if someone's asked that..." onChange={this.search.bind(this)} onKeyDown={this.search_server.bind(this)} />
              <i className="search icon"></i>
            </div>
            <button className="search ui button" type="submit">

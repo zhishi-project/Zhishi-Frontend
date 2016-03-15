@@ -48,7 +48,6 @@ let SignUpUser = function(nextState, replaceState){
 
 // make api call if user is logged in and homepage is visited
 let initData = function(nextState) {
-  debugger;
   if (nextState.location.pathname === '/' && AuthStore.userLoggedIn() ) {
     ZhishiInit.getInitData();
   }
@@ -69,7 +68,7 @@ ReactDOM.render(
 
 
       <IndexRoute component={Home} onEnter={initData} />
-      <Route path="/search" component={Search} onEnter={initData} />
+      <Route path="/search" component={Search} />
       <Route path="/users" component={Users}  onEnter={user_logged_in}>
         <Route path="/users/:id" component={Login} />
       </Route>
