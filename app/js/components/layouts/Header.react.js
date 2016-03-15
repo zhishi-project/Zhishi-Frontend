@@ -1,7 +1,7 @@
 import React from 'react'
 import SearchBar from './SearchBar.react'
+import Common from '../../utils/Common.js'
 import AuthStore from '../../stores/AuthStore.js'
-
 
 class Header extends React.Component {
   constructor (props, context) {
@@ -15,6 +15,7 @@ class Header extends React.Component {
 
   render() {
     var current_user = AuthStore.getCurrentUser() || {};
+    var permalink = Common.createPermalink(current_user.id, current_user.name)
     var heading_helper_text = '<div class=header-text><span>Zhishi</span> means <span>Knowledge</span> in chinese</div>'
     return (
       <header>
@@ -36,7 +37,7 @@ class Header extends React.Component {
                   <i className="dropdown icon"></i>
 
                   <div className="menu">
-                    <a href="/users" className="item"><i className="user icon"></i> Profile</a>
+                    <a href={`/users/${permalink}`} className="item"><i className="user icon"></i> Profile</a>
                     <a href="#" className="item"><i className="setting icon"></i> Settings</a>
                     <a href="/logout" className="item"><i className="privacy icon"></i> Log out</a>
                   </div>

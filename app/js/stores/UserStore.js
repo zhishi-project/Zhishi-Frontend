@@ -2,7 +2,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var ZhishiConstants = require('../constants/ZhishiConstants');
 var assign = require('object-assign');
-import CVar from "../components/auth/CookieVariables.js"
+import CVar from "../config/CookieVariables.js"
 import AuthStore from "./AuthStore.js"
 
 var CHANGE_EVENT = 'change';
@@ -110,6 +110,12 @@ UserStore.dispatchToken = AppDispatcher.register(function(action) {
 
     case ZhishiConstants.AUTH_LOG_OUT:
       if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([AuthStore.dispatchToken]) };
+      UserStore.emitChange();
+      break;
+
+    case ZhishiConstants.RECEIVE_USER:
+      if (action.data)
+      update(action.data.id, action.data)
       UserStore.emitChange();
       break;
 

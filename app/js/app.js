@@ -13,7 +13,9 @@ import Zhishi from './components/Zhishi.react';
 import Home from './components/Home.react';
 import Search from './components/Search.react';
 import Login from './components/Login.react';
-import Users from './components/users/Index.react';
+import Users from './components/users/Users.react';
+import UsersIndex from './components/users/Index.react';
+import User from './components/users/Show.react';
 import Questions from './components/questions/Question.react';
 import QuestionIndex from './components/questions/Index.react';
 import NewQuestion from './components/questions/New.react';
@@ -69,8 +71,9 @@ ReactDOM.render(
 
       <IndexRoute component={Home} onEnter={initData} />
       <Route path="/search" component={Search} />
-      <Route path="/users" component={Users}  onEnter={user_logged_in}>
-        <Route path="/users/:id" component={Login} />
+      <Route path="/users" component={Users} >
+        <Route path="/users" component={UsersIndex} />
+        <Route path="/users/:id" component={User} />
       </Route>
 
       <Route path="/questions" component={Questions}  onEnter={user_logged_in}>
