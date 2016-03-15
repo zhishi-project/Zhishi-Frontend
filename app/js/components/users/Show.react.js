@@ -7,7 +7,7 @@ import AuthStore from '../../stores/AuthStore.js'
 import webAPI from '../../utils/webAPI.js'
 
 function getUserState(user_id){
-  if (user_id) {
+  if (user_id && !UserStore.getUser(user_id)) {
     webAPI.processRequest(`/users/${user_id}`, 'GET', user_id, UserActions.receiveUser);
   }
   return {
