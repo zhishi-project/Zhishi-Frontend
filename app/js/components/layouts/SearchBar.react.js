@@ -51,7 +51,7 @@ class SearchBar extends React.Component {
 
   search_server(event) {
     clearTimeout(timer);
-    timer = setTimeout(this.hit_server, 1500, event.target.value);
+    timer = setTimeout(this.hit_server, 1000, event.target.value);
   }
 
   hit_server(query_value){
