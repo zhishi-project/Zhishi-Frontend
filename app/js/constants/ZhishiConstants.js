@@ -21,5 +21,6 @@ module.exports = keyMirror({
   COMMENT_EDIT: null,
   COMMENT_UPDATE: null,
   COMMENT_UPDATE_VOTES: null,
-  RECEIVE_SEARCH_RESULTS: null
+  RECEIVE_SEARCH_RESULTS: null,
+  RECEIVE_USER: null
 });
