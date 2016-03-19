@@ -260,3 +260,10 @@ code {
 .ask-question .ui.form .ui.row:last-of-type {
   right: 0;
 }
+blockquote {
+  border-left: 4px solid #BDD2BD;
+  margin-left: 5px;
+  padding: 10px;
+  background: rgba(238, 238, 238, 0.67);
+  color: #444;
+}

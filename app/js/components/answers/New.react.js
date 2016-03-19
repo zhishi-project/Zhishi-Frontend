@@ -29,7 +29,7 @@ class NewAnswerForm extends React.Component {
 
            <form id="answerForm" className="ui form">
              <div className="field">
-               <textarea className="editor-content" data-question-id={this.props.question_id} cols="30" rows="10" value=""></textarea>
+               <textarea className="new-answer editor-content" data-question-id={this.props.question_id} cols="30" rows="10" value=""></textarea>
              </div>
              <button className="ui button" onClick={this.submitAnswer}>
                Post Answer

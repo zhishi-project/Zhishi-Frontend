@@ -50,6 +50,7 @@ class Question extends React.Component {
     if (this.state.question.status == "editing editor-content") {
       Common.initTinyMceTitle();
       Common.initTinyMceContent('.question');
+      $(".question-title.editing").popup('show');
     }
   }
 
@@ -60,10 +61,9 @@ class Question extends React.Component {
     if ($(edit_btn).html() == 'edit') {
       $(edit_btn).removeClass().addClass('ui button').html('Save');
       QuestionActions.editQuestion(id)
-      $(".question-title").popup('show');
     } else {
       this.saveQuestionEdit(id, edit_btn)
-      $(".question-title").popup('hide');
+      $(".question-title.editing").popup('hide');
     }
   }
 
