@@ -64,7 +64,7 @@ class AllAnswers extends React.Component {
        {<Votes resource={answer} resource_name="answer" meta={{question_id: answer.question_id}} callback={AnswerActions.updateVote} />}
 
          <div className="fourteen wide column">
-           <div className={`main-comment ${answer.status}`}>
+           <div className={`answer main-comment ${answer.status}`}>
              <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(answer.content)}} />
            </div>
 

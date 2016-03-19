@@ -33,12 +33,15 @@ Common = {
     tinymce.init({
       selector: ".editor-title",
       inline: true,
+      toolbar: "undo redo",
+      plugins: [],
       menubar: false,
+      custom_shortcuts : false
     })
   },
 
   removeTinyMce: (resource_class) => {
-    tinyMCE.remove(`${resource_class} .editor-content`)
+    tinyMCE.remove(`${resource_class}[class*="editor-"]`)
   },
 
   serializeByKey: (array, key) => {

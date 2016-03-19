@@ -71,7 +71,7 @@ class Question extends React.Component {
     $(edit_btn).removeClass().addClass('item').html('edit');
     tinymce.triggerSave();
     webAPI.processRequest(`/questions/${id}`, 'PATCH', this.questionData(), QuestionActions.receiveQuestion, edit_btn)
-    Common.removeTinyMce('.question')
+    Common.removeTinyMce('.question');
     $(".question-title").popup('hide');
   }
 
@@ -104,8 +104,8 @@ class Question extends React.Component {
 
         <main className="ui container main">
           <div className="ui grid">
-            <div className="sixteen wide tablet twelve wide computer column user-question-area">
-              <h2 className={`question-title ${title_editor_class}`}  data-content={edit_tip} data-variation="very wide">
+            <div className="sixteen wide tablet twelve wide computer column question user-question-area">
+              <h2 className={`question question-title ${title_editor_class}`}  data-content={edit_tip} data-variation="very wide">
                 {question.title || ""}
               </h2>
 
@@ -118,7 +118,7 @@ class Question extends React.Component {
                       {<Tags tags={question.tags} />}
                     </div>
 
-                    <article className={`main-comment ${question.status}`}>
+                    <article className={`question main-comment ${question.status}`}>
                       {content}
                     </article>
 
