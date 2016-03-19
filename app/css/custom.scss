@@ -225,3 +225,32 @@ code {
     margin-top: 5px;
   }
 }
+.main-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  main {
+    flex: 1 0 auto;
+  }
+}
+.footer .ui.grid {
+  margin: 0 -1rem;
+  .floated {
+    padding: 30px 0;
+  }
+}
+.ui.grid.mobile-meta {
+    float: right;
+    padding: 0 10px;
+    span, a {
+    color: #ABA9A9;
+    line-height: 40px;
+    padding: 0;
+  }
+}
+.main .ui.grid.stats-values {
+  .column {
+    padding: 0;
+    text-align: center;
+  }
+}

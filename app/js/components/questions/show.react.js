@@ -104,7 +104,7 @@ class Question extends React.Component {
 
         <main className="ui container main">
           <div className="ui grid">
-            <div className="twelve wide stacked column user-question-area">
+            <div className="sixteen wide tablet twelve wide computer column user-question-area">
               <h2 className={`question-title ${title_editor_class}`}  data-content={edit_tip} data-variation="very wide">
                 {question.title || ""}
               </h2>

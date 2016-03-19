@@ -9,7 +9,7 @@ class Sidebar extends React.Component {
 
   render(){
     return (
-      <aside className="four wide stacked column">
+      <aside className="four wide computer only column">
         <div className="sidebar wide column">
           <TrendingQuestions top_questions={this.props.top_questions}/>
         </div>

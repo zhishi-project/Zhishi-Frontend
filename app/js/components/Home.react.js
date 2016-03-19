@@ -34,12 +34,12 @@ class Home extends React.Component {
   }
   render(){
     return (
-      <div>
+      <div className="main-wrapper">
         <Header />
 
         <main className="ui container main">
           <div className="ui grid">
-            <div className="twelve wide stacked column">
+            <div className="sixteen wide tablet twelve wide computer column">
               <h2>Recent Questions</h2>
               {<QuestionsList questions={this.state.questions}/>}
             </div>

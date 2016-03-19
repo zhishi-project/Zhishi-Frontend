@@ -36,7 +36,7 @@ class Show extends React.Component {
     let current_user = this.state.current_user;
     let user = this.state.user || {};
     return (
-      <div>
+      <div className="main-wrapper">
         <Header />
 
         <main className="ui container main">
