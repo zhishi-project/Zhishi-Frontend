@@ -254,3 +254,9 @@ code {
     text-align: center;
   }
 }
+.wide.column.label-wrapper {
+  line-height: 40px;
+}
+.ask-question .ui.form .ui.row:last-of-type {
+  right: 0;
+}
