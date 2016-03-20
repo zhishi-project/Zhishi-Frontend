@@ -5,10 +5,10 @@ import Config from '../config/environment.js'
 Common = {
   initTinyMceContent: function(resource_class){
     tinymce.init({
-      selector: `${resource_class} .editor-content`,
+      selector: `${resource_class}.editor-content`,
       menubar: 'edit insert view format table tools',
       // menubar: false,
-      toolbar: "bold italic | bullist numlist | forecolor backcolor | link image | codesample | undo redo | tools | emoticons ",
+      toolbar: "bold italic blockquote | codesample link | bullist numlist | forecolor backcolor | undo redo | emoticons ",
       plugins: ["link image wordcount spellchecker insertdatetime codesample code textpattern autosave autolink textcolor colorpicker emoticons"],
       textpattern_patterns: [
          {start: '_', end: '_', format: 'italic'},
@@ -33,12 +33,15 @@ Common = {
     tinymce.init({
       selector: ".editor-title",
       inline: true,
+      toolbar: "undo redo",
+      plugins: [],
       menubar: false,
+      custom_shortcuts : false
     })
   },
 
   removeTinyMce: (resource_class) => {
-    tinyMCE.remove(`${resource_class} .editor-content`)
+    tinyMCE.remove(`${resource_class}[class*="editor-"]`)
   },
 
   serializeByKey: (array, key) => {
@@ -94,10 +97,14 @@ Common = {
     return text.replace(Common.mentionsRegex(), function(mention, contents, offset, str){
       mentionIndex = offset + mention.length;
       tailingLinkIndex = mentionIndex + link_end.length;
-      if ((str[mentionIndex] != ";") && ((text.length < tailingLinkIndex) || (text.substring(tailingLinkIndex - link_end.length, tailingLinkIndex) != link_end)) ) {
+      if (Common.should_replace_link(str, mentionIndex, text, tailingLinkIndex, link_end)) {
         return `<a href="https://andela.slack.com/messages/${mention}/team/${contents}" target="_blank">${mention}</a>`
       } else { return mention }
     })
+  },
+
+  should_replace_link: (str, mentionIndex, text, tailingLinkIndex, link_end) => {
+    return (str[mentionIndex].match(/[;<]/g) || []).length == 0 && ((text.length < tailingLinkIndex) || (text.substring(tailingLinkIndex - link_end.length, tailingLinkIndex) != link_end))
   },
 
   mentionsRegex: () => {

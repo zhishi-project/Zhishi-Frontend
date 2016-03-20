@@ -38,7 +38,7 @@ class AllAnswers extends React.Component {
      $(edit_btn).removeClass().addClass('item').html('edit');
      tinymce.triggerSave();
      webAPI.processRequest(`/questions/${question_id}/answers/${id}`, 'PATCH', this.questionData(), AnswerActions.receiveAnswer, edit_btn)
-     Common.removeTinyMce('.answers')
+     Common.removeTinyMce('.answer')
    }
 
    questionData(){
@@ -64,7 +64,7 @@ class AllAnswers extends React.Component {
        {<Votes resource={answer} resource_name="answer" meta={{question_id: answer.question_id}} callback={AnswerActions.updateVote} />}
 
          <div className="fourteen wide column">
-           <div className={`main-comment ${answer.status}`}>
+           <div className={`answer main-comment ${answer.status}`}>
              <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(answer.content)}} />
            </div>
 

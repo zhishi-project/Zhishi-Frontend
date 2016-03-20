@@ -7,6 +7,7 @@ class QuestionsListItem extends React.Component {
     super(props)
   }
 
+
   render(){
     var tags = [];
     var question = this.props.question;
@@ -19,9 +20,10 @@ class QuestionsListItem extends React.Component {
     var user_avatar = question.user ? question.user.image : "";
     var question_date = new Date(question.created_at);
     var permalink = Common.createPermalink(question.id, question.title);
+    var userPermalink = Common.createPermalink(question.user.id, username);
     return(
       <div className="ui grid question-section">
-        <div className="four wide column stats">
+        <div className="four wide computer only column stats">
           <div className="ui grid divided three column stats-values stats-values">
             <div className="row">
 
@@ -45,14 +47,16 @@ class QuestionsListItem extends React.Component {
         </div>
 
 
-        <div className="twelve wide question column">
+        <div className="sixteen wide mobile twelve wide computer question column">
           <p className="question-container">
             <a href={`/questions/${permalink}` || "#"} className="question-link">
               {question.title || "No title"}
             </a>
           </p>
-
-          <div className="equal width ui grid metadata">
+          <p className="ui tablet only mobile only grid mobile-meta">
+            asked by &nbsp;<a href={`/users/${userPermalink}`}>{username}</a>
+          </p>
+          <div className="equal width ui computer only grid metadata">
             <div className="eight wide column">
               <div className="tags">
                 {tags}

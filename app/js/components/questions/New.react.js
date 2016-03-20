@@ -33,40 +33,40 @@ class NewQuestion extends React.Component {
           <Header />
            <main className="ui container main">
              <div className="ui grid">
-               <div className="twelve wide column">
+               <div className="sixteen wide tablet twelve wide computer column">
                  <h2>New Question</h2>
 
                  <div className="new-question">
                    <form className="ui form">
                      <div className="ui grid">
                        <div className="ui row group">
-                         <div className="two wide column label-wrapper">
+                         <div className="sixteen wide mobile two wide tablet two wide computer column label-wrapper">
                            <label>
-                             Title:
+                             Question:
                            </label>
                          </div>
 
-                         <div className="fourteen wide column">
-                           <input type="text" id="new_question_title" placeholder="Enter question" required />
-                           <div className="tips">{title_tip}</div>
+                         <div className="sixteen wide mobile fourteen wide tablet fourteen wide computer column">
+                           <input type="text" id="new_question_title" placeholder="How do I install software on Andela NAS?" required />
+                           <div className="tips"></div>
                          </div>
                        </div>
 
                         <div className="ui row group">
-                         <div className="two wide column label-wrapper">
+                         <div className="sixteen wide mobile two wide tablet two wide computer column label-wrapper">
                            <label>
                              Details:
                            </label>
                          </div>
 
-                         <div className="fourteen wide column">
-                           <textarea id="new_question_desc" cols="30" rows="15" className="editor-content"></textarea>
+                         <div className="sixteen wide mobile fourteen wide tablet fourteen wide computer column">
+                           <textarea id="new_question_desc" cols="30" rows="15" className="ask-question editor-content"></textarea>
                          </div>
                        </div>
 
                        <TagInputBox />
-                       <div className="ui row">
-                         <div className="fourteen wide column">
+                       <div className="ui row group">
+                         <div className="sixteen wide mobile fourteen wide tablet fourteen wide computer column right floated">
                            <button id="submitQuestionBtn" className="ui button" onClick={this.createQuestion}>
                              Post Question
                            </button>

@@ -43,7 +43,7 @@ class AllAnswers extends React.Component {
    initAnswersComponent(){
      Prism.highlightAll();
      // tinyMCE.activeEditor.setContent('');
-     Common.initTinyMceContent('.answers');
+     Common.initTinyMceContent('.answer');
    }
 
    render () {

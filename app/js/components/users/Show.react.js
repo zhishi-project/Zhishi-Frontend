@@ -36,14 +36,14 @@ class Show extends React.Component {
     let current_user = this.state.current_user;
     let user = this.state.user || {};
     return (
-      <div>
+      <div className="main-wrapper">
         <Header />
 
         <main className="ui container main">
           <div className="ui stackable grid">
 
               <div className="five wide column">
-                <div className="ui card">
+                <div className="ui card user">
                   <div className="image">
                     <img src={current_user.image || "/assets/img/profile.jpg"} alt="Profile" />
                   </div>

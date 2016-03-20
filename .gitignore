@@ -2,3 +2,5 @@ node_modules
 .DS_Store
 /app/js/bundle.js
 /build/assets/css/.sass-cache
+
+/dist/server2.js

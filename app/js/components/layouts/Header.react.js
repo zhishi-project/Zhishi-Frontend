@@ -3,6 +3,8 @@ import SearchBar from './SearchBar.react'
 import Common from '../../utils/Common.js'
 import AuthStore from '../../stores/AuthStore.js'
 
+var lastScroll = $(window).scrollTop();
+
 class Header extends React.Component {
   constructor (props, context) {
     super(props)
@@ -11,6 +13,25 @@ class Header extends React.Component {
   componentDidMount() {
     $(".ui.dropdown").dropdown();
     $(".share-popup").popup();
+
+    $(window).scroll(function() {
+      var scroll = $(this).scrollTop(), header = $("header");
+      if (scroll > lastScroll) {
+        header.slideUp();
+      } else {
+        changeHeaderCSS(header, scroll);
+        header.slideDown();
+      }
+      lastScroll = scroll;
+    })
+
+    function changeHeaderCSS(header, scroll) {
+      if (scroll > 0) {
+        if (!header.hasClass('scrolling')) { header.addClass('scrolling'); }
+      } else {
+        header.removeClass('scrolling');
+      }
+    }
   }
 
   render() {
@@ -29,8 +50,7 @@ class Header extends React.Component {
               </div>
 
               <div className="right menu">
-                <a href="#" className="item">Tag</a>
-                <a href="#" className="item">Users</a>
+                <a href="#" className="item">Tags</a>
                 <a href="#" className="item">Help</a>
                 <div className="pointing ui dropdown item">
                   <img src={current_user.image || "/assets/img/profile.jpg"} alt="user-profile-image" className="profile-img" />

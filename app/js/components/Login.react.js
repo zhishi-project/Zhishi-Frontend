@@ -15,6 +15,7 @@ class Login extends React.Component {
     let path = '/login/google?redirect_url=http://localhost:8080/login/auth';
     window.location.href = signUpPath;
   }
+  
   render(){
     return (
       <div className="index center aligned ui container full-height">
@@ -33,6 +34,7 @@ class Login extends React.Component {
             </a>
           </div>
         </section>
+
 
         <footer className="footer">
           <p>

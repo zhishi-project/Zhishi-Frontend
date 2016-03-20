@@ -76,13 +76,13 @@ class TagBoxes extends React.Component {
      })
      return (
        <div className="ui row group">
-         <div className="two wide column label-wrapper">
+         <div className="sixteen wide mobile two wide tablet two wide computer column column label-wrapper">
            <label>
              Tags:
            </label>
          </div>
 
-         <div className="select-tags fourteen wide column">
+         <div className="select-tags sixteen wide mobile fourteen wide tablet fourteen wide computer column">
            <div id="selects" className="selects">
              <span id="selected-tags">
              </span>

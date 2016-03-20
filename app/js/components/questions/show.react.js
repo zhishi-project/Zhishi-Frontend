@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../layouts/Header.react'
+import Footer from '../layouts/Footer.react'
 import Sidebar from '../layouts/Sidebar.react'
 import Tags from '../layouts/Tags.react'
 import NewQuestionForm from '../answers/New.react.js'
@@ -50,6 +51,7 @@ class Question extends React.Component {
     if (this.state.question.status == "editing editor-content") {
       Common.initTinyMceTitle();
       Common.initTinyMceContent('.question');
+      $(".question-title.editing").popup('show');
     }
   }
 
@@ -60,10 +62,9 @@ class Question extends React.Component {
     if ($(edit_btn).html() == 'edit') {
       $(edit_btn).removeClass().addClass('ui button').html('Save');
       QuestionActions.editQuestion(id)
-      $(".question-title").popup('show');
     } else {
       this.saveQuestionEdit(id, edit_btn)
-      $(".question-title").popup('hide');
+      $(".question-title.editing").popup('destroy');
     }
   }
 
@@ -71,7 +72,7 @@ class Question extends React.Component {
     $(edit_btn).removeClass().addClass('item').html('edit');
     tinymce.triggerSave();
     webAPI.processRequest(`/questions/${id}`, 'PATCH', this.questionData(), QuestionActions.receiveQuestion, edit_btn)
-    Common.removeTinyMce('.question')
+    Common.removeTinyMce('.question');
     $(".question-title").popup('hide');
   }
 
@@ -104,8 +105,8 @@ class Question extends React.Component {
 
         <main className="ui container main">
           <div className="ui grid">
-            <div className="twelve wide stacked column user-question-area">
-              <h2 className={`question-title ${title_editor_class}`}  data-content={edit_tip} data-variation="very wide">
+            <div className="sixteen wide tablet twelve wide computer column question user-question-area">
+              <h2 className={`question question-title ${title_editor_class}`}  data-content={edit_tip} data-variation="very wide">
                 {question.title || ""}
               </h2>
 
@@ -118,7 +119,7 @@ class Question extends React.Component {
                       {<Tags tags={question.tags} />}
                     </div>
 
-                    <article className={`main-comment ${question.status}`}>
+                    <article className={`question main-comment ${question.status}`}>
                       {content}
                     </article>
 
@@ -163,7 +164,7 @@ class Question extends React.Component {
 
           </div>
         </main>
-
+        <Footer />
 
       </div>
     )

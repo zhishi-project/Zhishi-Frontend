@@ -225,3 +225,58 @@ code {
     margin-top: 5px;
   }
 }
+.main-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  main {
+    flex: 1 0 auto;
+  }
+  header {
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    &.scrolling {
+      position: fixed;
+      background: rgba(210, 207, 207, 0.29);
+    }
+  }
+}
+.footer .ui.grid {
+  margin: 0 -1rem;
+  .floated {
+    padding: 30px 0;
+  }
+}
+.ui.grid.mobile-meta {
+    float: right;
+    padding: 0 10px;
+    span, a {
+    color: #ABA9A9;
+    line-height: 40px;
+    padding: 0;
+  }
+}
+.main .ui.grid.stats-values {
+  .column {
+    padding: 0;
+    text-align: center;
+  }
+}
+.wide.column.label-wrapper {
+  line-height: 40px;
+}
+.ask-question .ui.form .ui.row:last-of-type {
+  right: 0;
+}
+blockquote {
+  border-left: 4px solid #BDD2BD;
+  margin-left: 5px;
+  padding: 10px;
+  background: rgba(238, 238, 238, 0.67);
+  color: #444;
+}
+.ui.card.user {
+  margin: 0 auto;
+}

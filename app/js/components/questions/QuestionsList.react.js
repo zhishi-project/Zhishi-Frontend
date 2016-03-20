@@ -14,10 +14,10 @@ class QuestionsList extends React.Component {
         items.push(<QuestionsListItem key={i} question={this.props.questions[keys[i]]} />)
       }
     }
-    var content = !$.isEmptyObject(items) ? items : <i className="notched center circle loading icon"></i>
+    // var content = !$.isEmptyObject(items) ? items : <i className="notched center circle loading icon"></i>
     return(
       <div>
-        {content}
+        {items}
       </div>
     )
   }
