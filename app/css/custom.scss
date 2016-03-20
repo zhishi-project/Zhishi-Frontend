@@ -232,6 +232,16 @@ code {
   main {
     flex: 1 0 auto;
   }
+  header {
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    &.scrolling {
+      position: fixed;
+      background: rgba(210, 207, 207, 0.29);
+    }
+  }
 }
 .footer .ui.grid {
   margin: 0 -1rem;
@@ -266,4 +276,7 @@ blockquote {
   padding: 10px;
   background: rgba(238, 238, 238, 0.67);
   color: #444;
+}
+.ui.card.user {
+  margin: 0 auto;
 }

@@ -43,7 +43,7 @@ class Show extends React.Component {
           <div className="ui stackable grid">
 
               <div className="five wide column">
-                <div className="ui card">
+                <div className="ui card user">
                   <div className="image">
                     <img src={current_user.image || "/assets/img/profile.jpg"} alt="Profile" />
                   </div>

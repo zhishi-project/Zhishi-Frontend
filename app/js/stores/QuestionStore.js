@@ -7,12 +7,12 @@ import Common from '../utils/Common.js'
 
 var CHANGE_EVENT = 'change';
 
-var _questions = {}, _top_questions = {};
+var _questions = {}, _top_questions = {}, page_mapping = {}, current_page, shouldFetch = true;
 
 
 let loadQuestions = (questions) => {
   if ((typeof questions !== "undefined") && questions) {
-    _questions = Common.serializeByKey(questions)
+    assign(_questions, Common.serializeByKey(questions))
   }
 }
 
@@ -31,8 +31,21 @@ let update = (question) => {
   Common.update(_questions, question.id, question)
 }
 
-let update_votes_count = (id, votes_count) => {
+let updateVotesCount = (id, votes_count) => {
   _questions[id]['votes_count'] = votes_count
+}
+
+let createPageMapping = (questions, page) => {
+  let question_ids = [];
+  questions.map(question => question_ids.push(question.id))
+  page_mapping[page] = question_ids;
+  current_page = page;
+}
+
+let retrieveQuestions = (ids) => {
+  let questions = {};
+  ids.forEach(id => questions[id] = _questions[id])
+  return questions;
 }
 
 let destroy = (id) => {
@@ -46,12 +59,25 @@ let QuestionStore = assign({}, EventEmitter.prototype, {
     return _questions[id];
   },
 
-  getQuestions: () => {
-    return _questions
+  getQuestions: (ids) => {
+    var questions = ids ? retrieveQuestions(ids) : _questions;
+    return questions;
   },
 
   getTopQuestions: () => {
     return _top_questions
+  },
+
+  getPageMapping: (page) => {
+    return page_mapping[page];
+  },
+
+  getCurrentPage: () => {
+    return current_page;
+  },
+
+  shouldFetchQuestions: () => {
+    return shouldFetch;
   },
 
   emitChange: function() {
@@ -74,7 +100,12 @@ QuestionStore.dispatchToken = AppDispatcher.register((action) => {
   switch(action.actionType) {
 
     case ZhishiConstants.RECEIVE_QUESTIONS:
-      loadQuestions(action.data.questions);
+      if ( !$.isEmptyObject(action.data.questions) ) {
+        loadQuestions(action.data.questions);
+        createPageMapping(action.data.questions, action.data.page);
+      } else {
+        shouldFetch = false;
+      }
       QuestionStore.emitChange();
       break;
 
@@ -100,7 +131,7 @@ QuestionStore.dispatchToken = AppDispatcher.register((action) => {
 
     case ZhishiConstants.QUESTION_UPDATE_VOTES:
       if (action.data && action.data.votes_count) {
-        update_votes_count(action.data.id, action.data.votes_count.response)
+        updateVotesCount(action.data.id, action.data.votes_count.response)
         QuestionStore.emitChange();
       }
       break;
