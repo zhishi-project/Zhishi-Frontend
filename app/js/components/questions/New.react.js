@@ -60,7 +60,7 @@ class NewQuestion extends React.Component {
                          </div>
 
                          <div className="sixteen wide mobile fourteen wide tablet fourteen wide computer column">
-                           <textarea id="new_question_desc" cols="30" rows="15" className="editor-content"></textarea>
+                           <textarea id="new_question_desc" cols="30" rows="15" className="ask-question editor-content"></textarea>
                          </div>
                        </div>
 

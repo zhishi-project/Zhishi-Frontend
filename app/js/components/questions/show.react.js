@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../layouts/Header.react'
+import Footer from '../layouts/Footer.react'
 import Sidebar from '../layouts/Sidebar.react'
 import Tags from '../layouts/Tags.react'
 import NewQuestionForm from '../answers/New.react.js'
@@ -63,7 +64,7 @@ class Question extends React.Component {
       QuestionActions.editQuestion(id)
     } else {
       this.saveQuestionEdit(id, edit_btn)
-      $(".question-title.editing").popup('hide');
+      $(".question-title.editing").popup('destroy');
     }
   }
 
@@ -163,7 +164,7 @@ class Question extends React.Component {
 
           </div>
         </main>
-
+        <Footer />
 
       </div>
     )
