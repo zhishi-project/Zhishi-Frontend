@@ -104,7 +104,7 @@ Common = {
   },
 
   should_replace_link: (str, mentionIndex, text, tailingLinkIndex, link_end) => {
-    return (str[mentionIndex].match(/[;<]/g) || []).length == 0 && ((text.length < tailingLinkIndex) || (text.substring(tailingLinkIndex - link_end.length, tailingLinkIndex) != link_end))
+    return (((str[mentionIndex] || "").match(/[;<]/g) || []).length == 0 && ((text.length < tailingLinkIndex) || (text.substring(tailingLinkIndex - link_end.length, tailingLinkIndex) != link_end)))
   },
 
   mentionsRegex: () => {
