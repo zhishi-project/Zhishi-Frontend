@@ -190,9 +190,9 @@ code {
 .search-area {
   form.ui.search {
   display: inline-flex;
-  .ui.input {
-    flex-grow: 1;
-  }
+    .ui.input {
+      flex-grow: 1;
+    }
   }
   #searchResults {
     border: 1px solid #eee;
@@ -239,7 +239,11 @@ code {
     right: 0px;
     &.scrolling {
       position: fixed;
-      background: rgba(210, 207, 207, 0.29);
+      background: hsl(216, 68%, 82%);
+      .searc-area {
+        margin-bottom: 0;
+        border: none;
+      }
     }
   }
 }
