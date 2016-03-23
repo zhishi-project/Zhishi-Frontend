@@ -240,7 +240,10 @@ code {
     &.scrolling {
       position: fixed;
       background: hsl(216, 68%, 82%);
-      .searc-area {
+      .navigation {
+        margin-bottom: 15px;
+      }
+      .search-area {
         margin-bottom: 0;
         border: none;
       }
