@@ -20,6 +20,11 @@ const SidebarPusher = ({current_user}) => {
         <img src={current_user.image || "/assets/img/profile.jpg"} alt="user-profile-image" className="profile-img" />
         My profile
       </a>
+      <a href="/logout" className="item">
+        <i className="privacy icon"></i>
+        Log out
+      </a>
+
     </div>
   )
 }
