@@ -1,4 +1,33 @@
-$blue: #225be2;
+$primary-color: #225be2;
+$body_color: #656363;
+$mobile-width: 500px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+
+@mixin mobile {
+  @media (min-width: #{100px}) and (max-width: #{$mobile-width}) {
+    @content;
+  }
+}
+
+@mixin phablet {
+  @media (min-width: #{$mobile-width + 1}) and (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
 
 .thumb {
     width: 30px !important;
@@ -10,7 +39,6 @@ aside {
   .sidebar {
     background-color: rgba(0, 0, 0, 0.09);
     padding: 20px;
-    margin-right: -20px;
     margin-top: -20px;
   }
   .trending-link {
@@ -175,7 +203,7 @@ code {
 .copy {
   font-size: 0.8em;
   span {
-    color: $blue;
+    color: $primary-color;
   }
 }
 .share-popup {
@@ -184,7 +212,7 @@ code {
 .header-text {
   font-size: 0.8em;
   span {
-    color: $blue;
+    color: $primary-color;
   }
 }
 .search-area {
@@ -212,6 +240,12 @@ code {
       }
     }
   }
+  #askQuestion {
+    float: right;
+    @include mobile {
+      display: none;
+    }
+  }
 
 }
 .hide {
@@ -223,6 +257,16 @@ code {
     font-weight: 300;
     color: #888;
     margin-top: 5px;
+  }
+}
+.ui.inverted.sidebar {
+  font-size: 1em;
+  background: #6F92E4;
+  .item {
+    img {
+      display: block;
+      margin: 0 auto 5px auto;
+    }
   }
 }
 .main-wrapper {
@@ -237,9 +281,35 @@ code {
     top: 0px;
     left: 0px;
     right: 0px;
+    nav {
+      .item.logo-wrapper {
+        padding: 0;
+      }
+      .ui.menu {
+        background-color: $primary-color;
+        border-radius: 0;
+        a, i {
+          color: #fff;
+        }
+        .right.menu {
+          .item {
+            @include mobile {
+              display: none;
+            }
+          }
+        }
+        .dropdown .menu {
+          a, i {
+            color: $body_color;
+          }
+        }
+      }
+    }
     &.scrolling {
       position: fixed;
-      background: hsl(216, 68%, 82%);
+      background-color: #f1f1f1;
+      box-shadow: 0 1px 2px #ccc;
+
       .navigation {
         margin-bottom: 15px;
       }
@@ -292,5 +362,11 @@ blockquote {
     i.c {
       font-style: normal;
     }
+  }
+}
+.mobile-only {
+  display: none !important;
+  @include mobile {
+    display: inherit !important;
   }
 }

@@ -61,7 +61,9 @@ class SearchBar extends React.Component {
 
    resizeSearchBar(){
      var total_width = $(".search-area.ui.container").width();
-     var search_width = total_width - $("#askQuestion").width() - 52;
+     var search_width = total_width > 500
+          ? total_width - $("#askQuestion").width() - 52
+          : '100%'
      $(".search-area form").css('width', search_width);
      $("#searchResults").css('width', $(".search-area .ui.input").width() - 4)
    }

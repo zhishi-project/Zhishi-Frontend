@@ -24,7 +24,8 @@ var _quotes = [
   "Ask the right questions if you're going to find the right answers. - <em>Vanessa Redgrave</em>",
   "Asking the right questions takes as much skill as giving the right answers. - <em>Robert Half</em>",
   "What people think of as the moment of discovery is really the discovery of the question. - <em>Jonas Salk</em>",
-  "He who asks a question is a fool for five minutes; he who does not ask a question remains a fool forever. - <em>Chinese proverb</em>"
+  "He who asks a question is a fool for five minutes; he who does not ask a question remains a fool forever. - <em>Chinese proverb</em>",
+  "Nobody expects you to jump on a new stack/codebase and get productive in a week - It makes sense to ask questions. So ask questions! - <em>Jibola</em>"
 ];
 
 let loadQuotes = () => {

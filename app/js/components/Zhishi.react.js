@@ -1,5 +1,5 @@
 import React from "react"
-
+import SidebarPusher from './layouts/SidebarPusher.react'
 
 require("../../css/semantic.min.css");
 require("../../css/prism.css");
@@ -18,9 +18,12 @@ class Zhishi extends React.Component {
   render(){
     return (
       <div className="full-height">
-        {this.props.children && React.cloneElement(this.props.children, {
-          app_state: this.state
-        })}
+        <SidebarPusher />
+        <div className="pusher">
+          {this.props.children && React.cloneElement(this.props.children, {
+            app_state: this.state
+          })}
+        </div>
       </div>
     )
   }
