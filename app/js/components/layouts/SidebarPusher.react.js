@@ -2,7 +2,7 @@ import React from "react"
 import AuthStore from '../../stores/AuthStore.js'
 
 const SidebarPusher = ({current_user}) => {
-  $(".sidebar.icon").click(function() {
+  $(".sidebar-icon").click(function() {
     $('.ui.sidebar').sidebar('toggle');
   })
   var current_user = AuthStore.getCurrentUser() || {};
