@@ -43,7 +43,7 @@ class Header extends React.Component {
         <nav className="navigation">
           <div className="ui menu">
             <div className="ui container">
-              <a href="#" className="item mobile-only">
+              <a href="#" className="item sidebar-icon mobile-only">
                 <i className="sidebar icon"></i>
               </a>
               <div className="item logo-wrapper">
