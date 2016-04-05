@@ -3,7 +3,8 @@ $body_color: #656363;
 $mobile-width: 500px;
 $tablet-width: 768px;
 $desktop-width: 1024px;
-
+$light-grey: #F1F1F1;
+$accent-color: #008b67;
 
 @mixin mobile {
   @media (min-width: #{100px}) and (max-width: #{$mobile-width}) {
@@ -35,6 +36,9 @@ $desktop-width: 1024px;
 .full-height {
   height: 100%;
 }
+
+
+
 aside {
   .sidebar {
     background-color: rgba(0, 0, 0, 0.09);
@@ -49,11 +53,13 @@ aside {
     .question_title {
       flex-grow: 1;
     }
+    a {
+      color: rgba(34, 44, 66, 0.77) !important;
+    }
   }
 }
-.main aside .trending-link a {
-  color: rgba(34, 44, 66, 0.77) !important;
-}
+
+
 pre[class*="language-"] {
   padding: 20px 0;
   margin: 20px 0;
@@ -278,7 +284,7 @@ code {
     flex: 1 0 auto;
   }
   header {
-    z-index: 1;
+    z-index: 2;
     top: 0px;
     left: 0px;
     right: 0px;
@@ -369,5 +375,59 @@ blockquote {
   display: none !important;
   @include mobile {
     display: inherit !important;
+  }
+}
+.answer {
+  &.accepted {
+    position: relative;
+    border: 2px solid $light-grey;
+    padding: 5em 1em 1em 1em;
+    border-radius: 4px;
+
+    .ribbon {
+      position: absolute;
+      display: flex;
+      padding: 5px 0;
+      position: absolute;
+      top: 0;
+      right: 1em;
+      z-index: 1;
+      color: $light-grey;
+      font-size: 2em;
+      cursor: pointer;
+      width: 1.5em;
+      line-height: 0.5em;
+
+      &::before {
+        content: "";
+        font-size: 0.5em;
+        position: absolute;
+        border-style: solid;
+        border-color: transparent transparent $accent-color transparent;
+        top: -1em;
+        right: 3em;
+        border-width: 0 0 1em 0.7em;
+        z-index: -1
+      }
+
+      &::after {
+        content: "";
+        font-size: 0.5em;
+        position: absolute;
+        height: 5em;
+        border: 1.5em solid #01D860;
+        z-index: -1;
+        top: -1em;
+        border-top-width: 1.5em;
+        border-bottom-color: transparent;
+        right: 0;
+        -webkit-transition: height 0.5s;
+        transition: height 0.5s;
+      }
+
+      .icon {
+        margin: 0 auto;
+      }
+    }
   }
 }

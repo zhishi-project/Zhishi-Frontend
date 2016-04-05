@@ -154,7 +154,7 @@ class Question extends React.Component {
                   </div>
                 </div>
 
-                <Answers question_id={this.props.question_id}/>
+                <Answers question={question}/>
 
                 <NewQuestionForm question_id={this.props.question_id} />
               </div>

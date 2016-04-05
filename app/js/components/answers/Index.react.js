@@ -25,7 +25,7 @@ import Common from "../../utils/Common"
 class AllAnswers extends React.Component {
   constructor(props, context){
     super(props);
-    this.state = getAnswersState(props.question_id)
+    this.state = getAnswersState(props.question.id)
    }
 
    componentDidMount(){
@@ -37,7 +37,7 @@ class AllAnswers extends React.Component {
      QuestionStore.removeChangeListener(this._onChange).bind(this);
    }
    _onChange() {
-     this.setState(getAnswersState(this.props.question_id), this.initAnswersComponent)
+     this.setState(getAnswersState(this.props.question.id), this.initAnswersComponent)
    }
 
    initAnswersComponent(){
@@ -46,12 +46,33 @@ class AllAnswers extends React.Component {
      Common.initTinyMceContent('.answer');
    }
 
+   sortAnswers(answers_obj){
+    let answers_arr = [], accepted_answer;
+
+    // converted the object into an array so we can sort
+    for (var key in answers_obj) {
+      answers_obj[key].accepted
+      ? accepted_answer = answers_obj[key]
+      : answers_arr.push(answers_obj[key]);
+    }
+    answers_arr = answers_arr.sort((current, next) => {
+      return current.votes_count - next.votes_count;
+    })
+    if (accepted_answer) answers_arr.push(accepted_answer);
+    return answers_arr;
+   }
+
    render () {
      var answers = [], keys=[];
-     if (!$.isEmptyObject(this.state.answers)) {
-       keys = Object.keys(this.state.answers)
+     let sorted_answers = this.sortAnswers(this.state.answers);
+     if (!$.isEmptyObject(sorted_answers)) {
+       keys = Object.keys(sorted_answers)
        for (var i = keys.length - 1; i >= 0; i--) {
-         answers.push(<AnswerShow key={i} answer={this.state.answers[keys[i]]} />)
+         answers.push(<AnswerShow
+                        key={i}
+                        answer={sorted_answers[keys[i]]}
+                        question={this.props.question}
+                      />)
        }
      }
     //  else if (!this.state.answers) {

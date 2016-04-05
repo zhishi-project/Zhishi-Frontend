@@ -38,7 +38,13 @@ class AllAnswers extends React.Component {
      $(edit_btn).removeClass().addClass('item').html('edit');
      tinymce.triggerSave();
      webAPI.processRequest(`/questions/${question_id}/answers/${id}`, 'PATCH', this.questionData(), AnswerActions.receiveAnswer, edit_btn)
-     Common.removeTinyMce('.answer')
+     Common.removeTinyMce('.answer');
+   }
+
+   acceptAnswer() {
+    debugger;
+     event.preventDefault();
+     webAPI.processRequest(`/questions/${this.props.question.id}/answers/${this.props.answer.id}/accept`, 'POST', {}, AnswerActions.receiveAnswer)
    }
 
    questionData(){
@@ -48,30 +54,45 @@ class AllAnswers extends React.Component {
 
    render () {
      let answer = this.props.answer || {};
+     let question = this.props.question || {};
      let user = answer.user || {};
      let current_user = AuthStore.getCurrentUser();
-     let answer_edit_btn, answer_delete_btn;
+     let answer_edit_btn, answer_delete_btn, answer_accept_btn, accepted_answer_ribbon, accepted_answer;
      let answer_date = new Date(answer.created_at);
      let answer_dom_id = `answer-${answer.id}`;
-     var text_to_copy = `http://${window.location.host + window.location.pathname}#${answer_dom_id}`;
+     
+     var answer_href = `http://${window.location.host + window.location.pathname}#${answer_dom_id}`;
      if (current_user.id == user.id) {
        answer_edit_btn = <a href="#" className="item" data-question-id={answer.question_id}  data-id={answer.id} onClick={this.editAnswer.bind(this)}>edit</a>
        answer_delete_btn = <a href="#" className="item">delete</a>
      }
-     var comments_meta = {question_id: answer.question_id, resource_name: "answers", resource_id: answer.id}
+     if (question.user && current_user.id === question.user.id) {
+        answer_accept_btn = <a href="#" className="item" onClick={this.acceptAnswer.bind(this)}>accept as answer</a>
+     }
+     if (answer.accepted) {
+        accepted_answer = "accepted";
+        accepted_answer_ribbon = <div className="ribbon">
+          <i className="checkmark icon"></i></div>
+     }
+     var comments_meta = {question_id: answer.question_id, resource_name: "answers", resource_id: answer.id};
+
      return (
        <div id={answer_dom_id} className="row answer-comment">
-       {<Votes resource={answer} resource_name="answer" meta={{question_id: answer.question_id}} callback={AnswerActions.updateVote} />}
+       {<Votes resource={answer} resource_name="answer" 
+       meta={{question_id: answer.question_id}} c
+       allback={AnswerActions.updateVote} />}
 
          <div className="fourteen wide column">
-           <div className={`answer main-comment ${answer.status}`}>
-             <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(answer.content)}} />
+           <div className={`answer ${accepted_answer} main-comment ${answer.status}`}>
+            {accepted_answer_ribbon}
+             <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(answer.content || "")}} />
            </div>
 
            <div className="options">
              {answer_edit_btn}
-             <ShareButton type="answer" dom_id={answer_dom_id} text_to_copy={text_to_copy} custom_class="item" />
+             <ShareButton type="answer" dom_id={answer_dom_id} text_to_copy={answer_href} custom_class="item" />
              {answer_delete_btn}
+             {answer_accept_btn}
            </div>
             <div className="user-metadata clearfix">
              <p className="time-ago">
