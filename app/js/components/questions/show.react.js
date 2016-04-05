@@ -139,7 +139,7 @@ class Question extends React.Component {
                           <p className="user-fullname">
                             {user.name || "No name yet"}
                             <span className="badges">
-                              {question.points || 0}
+                              {user.points || 0}
                             </span>
                           </p>
                         </div>
