@@ -11,6 +11,7 @@ import ShareButton from "../layouts/ShareButton.react"
 class AllAnswers extends React.Component {
   constructor(props, context){
     super(props)
+    this.acceptAnswer = this.acceptAnswer.bind(this);
    }
 
    componentDidMount()  {
@@ -41,10 +42,14 @@ class AllAnswers extends React.Component {
      Common.removeTinyMce('.answer');
    }
 
-   acceptAnswer() {
-    debugger;
+   acceptAnswer(event) {
      event.preventDefault();
-     webAPI.processRequest(`/questions/${this.props.question.id}/answers/${this.props.answer.id}/accept`, 'POST', {}, AnswerActions.receiveAnswer)
+     let answer = Object.assign({}, this.props.answer, {accepted: true})
+     webAPI.processRequest(
+       `/questions/${this.props.question.id}/answers/${this.props.answer.id}/accept`,
+       'POST', {},
+       (data) => { if (!data._error) AnswerActions.receiveAnswer(answer) }
+     )
    }
 
    questionData(){
@@ -60,14 +65,18 @@ class AllAnswers extends React.Component {
      let answer_edit_btn, answer_delete_btn, answer_accept_btn, accepted_answer_ribbon, accepted_answer;
      let answer_date = new Date(answer.created_at);
      let answer_dom_id = `answer-${answer.id}`;
-     
+
      var answer_href = `http://${window.location.host + window.location.pathname}#${answer_dom_id}`;
      if (current_user.id == user.id) {
        answer_edit_btn = <a href="#" className="item" data-question-id={answer.question_id}  data-id={answer.id} onClick={this.editAnswer.bind(this)}>edit</a>
        answer_delete_btn = <a href="#" className="item">delete</a>
      }
      if (question.user && current_user.id === question.user.id) {
-        answer_accept_btn = <a href="#" className="item" onClick={this.acceptAnswer.bind(this)}>accept as answer</a>
+        answer_accept_btn = (
+          <a href="#" className="item" onClick={this.acceptAnswer}>
+            accept as answer
+          </a>
+        );
      }
      if (answer.accepted) {
         accepted_answer = "accepted";
@@ -78,7 +87,7 @@ class AllAnswers extends React.Component {
 
      return (
        <div id={answer_dom_id} className="row answer-comment">
-       {<Votes resource={answer} resource_name="answer" 
+       {<Votes resource={answer} resource_name="answer"
        meta={{question_id: answer.question_id}} c
        allback={AnswerActions.updateVote} />}
 

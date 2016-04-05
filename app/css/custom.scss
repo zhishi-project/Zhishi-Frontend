@@ -383,6 +383,8 @@ blockquote {
     border: 2px solid $light-grey;
     padding: 5em 1em 1em 1em;
     border-radius: 4px;
+    transition: all 1s ease-in;
+    -webkit-transition: all 1s ease-in;
 
     .ribbon {
       position: absolute;
