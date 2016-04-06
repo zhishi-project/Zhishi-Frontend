@@ -112,7 +112,11 @@ class Question extends React.Component {
 
               <div data-id={question.id} className="ui grid question">
                 <div className="row main-question">
-                  {<Votes resource={question} resource_name="question" callback={QuestionActions.updateVote} />}
+                  {<Votes
+                    resource={question}
+                    resource_name="question"
+                    callback={QuestionActions.updateVote}
+                   />}
 
                   <div  className="question-content fourteen wide column">
                     <div className="tags">

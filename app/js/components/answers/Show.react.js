@@ -88,8 +88,8 @@ class AllAnswers extends React.Component {
      return (
        <div id={answer_dom_id} className="row answer-comment">
        {<Votes resource={answer} resource_name="answer"
-       meta={{question_id: answer.question_id}} c
-       allback={AnswerActions.updateVote} />}
+       meta={{question_id: answer.question_id}}
+       callback={AnswerActions.updateVote} />}
 
          <div className="fourteen wide column">
            <div className={`answer ${accepted_answer} main-comment ${answer.status}`}>
