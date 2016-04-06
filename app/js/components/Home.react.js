@@ -52,7 +52,7 @@ class Home extends React.Component {
     var questions = QuestionStore.getQuestions(this.state.question_ids);
     let ajax_icon = this.state.should_fetch ? <i className="notched center circle loading icon"></i> : null
     return (
-      <div className="main-wrapper">
+      <div className="main-wrapper homepage">
         <Header />
 
         <main className="ui container main">
