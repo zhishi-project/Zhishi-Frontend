@@ -1,17 +1,11 @@
 import React from 'react'
 
-class Tag extends React.Component {
-  constructor(props, context){
-    super(props)
-   }
-
-   render () {
+const Tag = (tag) => {
      return (
        <span>
-         {this.props.tag}
+         {tag}
        </span>
      )
-   }
  }
 
 class Tags extends React.Component {

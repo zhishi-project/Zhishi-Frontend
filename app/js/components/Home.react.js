@@ -8,6 +8,8 @@ import ZhishiQuestions from '../utils/ZhishiInit.js'
 import AuthStore from '../stores/AuthStore.js'
 import QuestionStore from '../stores/QuestionStore.js'
 
+import Modal from './partials/Modal.react'
+
 
 function getHomeState(){
   return {
@@ -35,6 +37,14 @@ class Home extends React.Component {
         console.log('next page: ', next_page)
      }
     });
+
+  }
+
+  componentDidUpdate() {
+    $('.ui.modal')
+    .modal('setting', 'closable', false)
+    .modal('show');
+    // setInterval(()=>{}, 3000);
   }
   componentWillUnmount(){
     QuestionStore.removeChangeListener(this._onChange).bind(this);
@@ -64,7 +74,7 @@ class Home extends React.Component {
             </div>
 
             <Sidebar top_questions={this.state.top_questions} />
-
+            <Modal />
           </div>
         </main>
 

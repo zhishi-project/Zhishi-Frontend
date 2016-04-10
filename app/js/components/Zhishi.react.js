@@ -3,7 +3,7 @@ import SidebarPusher from './layouts/SidebarPusher.react'
 
 require("../../css/semantic.min.css");
 require("../../css/prism.css");
-require("../../css/main.css");
+require("../../css/main.scss");
 require("../../css/custom.scss");
 
 
