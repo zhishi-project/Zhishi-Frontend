@@ -14,9 +14,11 @@ class Question extends React.Component {
   render(){
     return (
       <div className="full-height">
-        {this.props.children && React.cloneElement(this.props.children, {
-          question_id: retreive_id_from_params(this.props.params.id)
-        })}
+        <div className="main-wrapper">
+          {this.props.children && React.cloneElement(this.props.children, {
+            question_id: retreive_id_from_params(this.props.params.id)
+          })}
+        </div>
       </div>
     )
   }

@@ -16,7 +16,7 @@ class Header extends React.Component {
 
     $(window).scroll(function() {
       var scroll = $(this).scrollTop(), header = $("header");
-      if (scroll > lastScroll) {
+      if (scroll > header.height) {
         header.slideUp();
       } else {
         changeHeaderCSS(header, scroll);
@@ -43,13 +43,20 @@ class Header extends React.Component {
         <nav className="navigation">
           <div className="ui menu">
             <div className="ui container">
+              <a href="#" className="item sidebar-icon mobile-only">
+                <i className="sidebar icon"></i>
+              </a>
               <div className="item logo-wrapper">
                 <a href="/" className="share-popup" data-html={heading_helper_text} data-variation="very wide">
-                  <img src="/assets/img/logo-header.png" alt="zhishi-logo" className="logo" />
+                  <img src="/assets/img/logo-footer.png" alt="zhishi-logo" className="logo" />
                 </a>
               </div>
 
               <div className="right menu">
+                <a href="/questions/new" className="item mobile-only">
+                  <i className="plus icon"></i>
+                  Ask Question
+                </a>
                 <a href="#" className="item">Tags</a>
                 <a href="#" className="item">Help</a>
                 <div className="pointing ui dropdown item">
@@ -62,12 +69,11 @@ class Header extends React.Component {
                     <a href="/logout" className="item"><i className="privacy icon"></i> Log out</a>
                   </div>
                 </div>
-
               </div>
+
             </div>
           </div>
         </nav>
-
         <SearchBar />
       </header>
     )

@@ -58,7 +58,7 @@ class Login extends React.Component {
         <section className="header">
           <header>
             <div className="logo-container">
-              <img src="assets/img/logo-landing.png" alt="Zhishi-Logo" />
+              <img src="/assets/img/logo-landing.png" alt="Zhishi-Logo" />
             </div>
           </header>
 
