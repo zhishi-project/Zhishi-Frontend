@@ -59,6 +59,14 @@ let redirectToRoot = (nextState) => {
   replaceState({ nextPathname: nextState.location.pathname }, '/')
 }
 
+let history = createBrowserHistory();
+
+history.listen(function(location) {
+  console.log(location.pathname);
+  window.ga('create', 'UA-76284809-1', 'auto');
+  window.ga('send', 'pageview', location.pathname);
+});
+
 ReactDOM.render(
   (<Router history={createBrowserHistory()}>
     <Route path="/logout" onEnter={log_out} />

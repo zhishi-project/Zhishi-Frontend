@@ -34,14 +34,16 @@
           transform: scale(1.1);
           img {
           }
-          
+
           .overlay {
             z-index: 20;
             visibility: visible;
           }
         }
-        
+
         img {
+          // width: 150px;
+          // height: 150px;
         }
 
         &.selected {

@@ -1,55 +1,154 @@
-.index {
-  .header {
-    @include display(flex);
-    @include flex-direction(column);
-    @include justify-content(center);
-    @include align-items(center);
-    height: calc(100% - 50px);
-    
-    header {
-      padding-bottom: 45px;
+.user-index {
 
-      .logo-container img {
-        width: 208px;
+}
+
+.navigation {
+  margin-bottom: 25px;
+
+  .ui.menu {
+    font-family: $roboto;
+    height: 40px;
+
+    .logo-wrapper {
+      .logo {
+        width: 90px;
       }
     }
 
-    .sign-in-area {
-      h1 {
-        font-size: $medium;
-        font-weight: 300;
-        padding-bottom: 12px;
+    .right.menu {
+      .item {
+        font-size: em(12px);
+        font-weight: 500;
       }
+    }
 
-      .ui.button {
-        background-color: $primary-color;
-        color: $site-bg;
-        border-radius: 0;
+  }
 
-        .icon {
-          position: relative;
-          padding-right: 30px;
+}
 
-          &::after {
-            content: "";
-            position: absolute;
-            top: -12px;
-            left: 12px;
-            border-right: 1px solid $lines;
-            height: 41.125px;
-            width: 12px;
-          }
-        }
-      }
+.search-area {
+  border-bottom: 1px solid $lines;
+  padding-bottom: 15px;
+  margin-bottom: 35px;
+  font-family: $roboto;
+  font-size: inherit;
+  width: 100%;
+
+  .ui.icon.input {
+    width: 78%;
+
+    .prompt {
+      background-color: $box-fill;
+      border: 1px solid $lines;
+      border-radius: 0;
+      color: inherit;
+      font-family: inherit;
+      text-indent: 35px;
+    }
+
+    .search.icon {
+      left: 0;
     }
   }
 
-  .footer {
-    margin-top: auto;
-    background: transparent;
-    color: inherit;
-    border-top: 1px solid $lines;
-    padding-top: 15px;
-    height: 50px;
+  .ui.button {
+    border-radius: 0;
+    font-family: $roboto;
+    font-size: inherit;
+    font-weight: 400;
+    background-color: $accent-color;
+    color: $site-bg;
+
+    &.search {
+      background-color: $primary-color;
+      margin-left: -4px;
+      margin-right: 8px;
+    }
+  }
+}
+
+.main {
+
+  h2 {
+    font-weight: 300;
+    font-size: $medium;
+    padding-bottom: 15px;
+  }
+
+  .question-section {
+    border-bottom: 1px solid $lines;
+    margin-bottom: 25px;
+
+    &:last-of-type {
+      border: 0;
+    }
+  }
+
+  .divided.three.column {
+    text-align: center;
+
+    [class$="-count"] {
+      color: $primary-color;
+      font-size: $small;
+    }
+
+    [class$="-title"] {
+      font-weight: 300;
+      font-size: $base-size;
+    }
+  }
+
+  .ten.wide.column {
+    padding-bottom: 22px;
+
+    .question-link {
+      font-size: $small;
+    }
+
+    .equal.width.grid {
+      margin-top: -5px;
+
+      .tags {
+        span {
+          background-color: $box-fill;
+          padding: 5px;
+          margin-right: 5px;
+          margin-left: 5px;
+
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+      }
+
+      .username {
+        margin-right: 15px;
+        font-weight: 700;
+      }
+
+      [alt="profile-image"] {
+        width: 20px;
+        transform: translateY(-4px);
+      }
+    }
+  }
+}
+
+.footer {
+  background-color: $body-text;
+  color: $site-bg;
+  margin-top: 50px;
+
+  .ui.grid {
+    @include display(flex);
+    @include align-items(center);
+
+    .floated {
+      padding-top: 40px;
+    }
+  }
+
+  img {
+    width: 120px;
   }
 }

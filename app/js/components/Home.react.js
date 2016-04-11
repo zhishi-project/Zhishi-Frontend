@@ -47,7 +47,7 @@ class Home extends React.Component {
     // setInterval(()=>{}, 3000);
   }
   componentWillUnmount(){
-    QuestionStore.removeChangeListener(this._onChange).bind(this);
+    QuestionStore.removeChangeListener(this._onChange);
     $(window).unbind('scroll');
   }
 
