@@ -10,7 +10,7 @@ let ModalEffects = InnerComponent => class extends React.Component {
      var close = modal.querySelector( '.md-close' ),
          app_body = document.querySelector("#zhishi-body");
 
-     function removeModal( hasPerspective ) {
+     function removeModal () {
         $(modal).removeClass('md-show' );
         $(app_body).removeClass('md-show' );
      }

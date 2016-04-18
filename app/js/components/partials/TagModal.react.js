@@ -35,7 +35,6 @@ class Tag extends React.Component{
         <div className="overlay">
           <i className="heart icon" data-tag-id={tag.id} />
         </div>
-        {/*<img src={`http://lorempixel.com/150/150/${options[index]}`} />*/}
         <img src={`/assets/img/tags/${options[index]}.jpg`} />
         <p className="desc">
           {tag.name}
