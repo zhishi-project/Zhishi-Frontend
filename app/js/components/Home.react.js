@@ -8,7 +8,7 @@ import ZhishiQuestions from '../utils/ZhishiInit.js'
 import AuthStore from '../stores/AuthStore.js'
 import QuestionStore from '../stores/QuestionStore.js'
 
-import Modal from './partials/Modal.react'
+import TagModal from './partials/TagModal.react'
 
 
 function getHomeState(){
@@ -40,12 +40,6 @@ class Home extends React.Component {
 
   }
 
-  componentDidUpdate() {
-    $('.ui.modal')
-    .modal('setting', 'closable', false)
-    .modal('show');
-    // setInterval(()=>{}, 3000);
-  }
   componentWillUnmount(){
     QuestionStore.removeChangeListener(this._onChange);
     $(window).unbind('scroll');
@@ -61,6 +55,7 @@ class Home extends React.Component {
   render(){
     var questions = QuestionStore.getQuestions(this.state.question_ids);
     let ajax_icon = this.state.should_fetch ? <i className="notched center circle loading icon"></i> : null
+    let current_user = this.state.current_user || {}
     return (
       <div className="main-wrapper homepage">
         <Header />
@@ -74,7 +69,7 @@ class Home extends React.Component {
             </div>
 
             <Sidebar top_questions={this.state.top_questions} />
-            <Modal />
+            {current_user.tags ? "" : <TagModal trigger="tagModalTrigger" />}
           </div>
         </main>
 

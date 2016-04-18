@@ -12,10 +12,10 @@ TagActions = {
     })
   },
 
-  selectTagForSubscription: (tag_id) => {
+  selectTagForSubscription: (tag) => {
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.TAG_SELECT_FOR_SUBSCRIPTION,
-      data: tag_id
+      data: tag
     })
   }
 }

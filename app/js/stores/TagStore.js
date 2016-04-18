@@ -12,11 +12,20 @@ const loadTags = (tags) => {
   if (tags) assign(_tags, Common.serializeByKey(tags))
 }
 
-const selectTagsForSubscription = (tag_id) => {
-  if (_tags[tag_id]) {
-    assign(_selected_tags, tag_id);
-    let status = _tags[tag_id]['status'] == 'selected' ? '' : 'selected'
-    assign(_tags[tag_id], { status } )
+const selectTagsForSubscription = (tag) => {
+  if (_tags[tag.id]) {
+    let status = _tags[tag.id]['status'] == 'selected' ? '' : 'selected'
+    assign(_tags[tag.id], { status } )
+    updateSelectedTags(tag.name)
+  }
+}
+
+const updateSelectedTags = (tag_name) => {
+  let index = _selected_tags.indexOf(tag_name);
+  if (index == -1) {
+    _selected_tags.push(tag_name)
+  } else {
+    _selected_tags.splice(index, 1)
   }
 }
 

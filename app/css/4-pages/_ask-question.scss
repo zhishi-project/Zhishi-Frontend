@@ -1,0 +1,21 @@
+.ask-question {
+  .ui.form {
+    input, input:focus, textarea {
+      border-radius: 0;
+      font-size: $base-size;
+      resize: none;
+    }
+
+    .ui.row:last-of-type {
+      position: relative;
+      right: -12.8%;
+    }
+
+    .ui.button {
+      background-color: $accent-color;
+      border-radius: 0;
+      color: #fff;
+      font-size: $base-size;
+    }
+  }
+}
