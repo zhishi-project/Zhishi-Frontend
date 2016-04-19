@@ -1,5 +1,5 @@
 
-@keyframes open_door {
+@keyframes open-door {
     0% {transform: perspective(20em) rotateX(0deg); }
     50% {transform: perspective(20em) rotateX(3deg);}
     100% {transform: perspective(20em) rotateX(0deg);}
@@ -152,7 +152,7 @@
   -ms-transform: translateX(-50%) translateY(-200%);
   transform: translateX(-50%) translateY(-200%);
 
-  transition: transform 1s ease-out, position 1s;
+  transition: transform 1s ease-out;
   transition-delay: 0.5s;
   display: flex;
   justify-content: center;
@@ -165,7 +165,6 @@
   	.item-page {
   		margin: 20px;
   	}
-
   }
 }
 
@@ -188,6 +187,6 @@
 .md-show ~ .md-overlay {
 	opacity: 1;
 	visibility: visible;
-  animation-name: open_door;
+  animation-name: open-door;
   animation-duration: 3s;
 }

@@ -97,7 +97,7 @@ class TagModal extends React.Component {
     let number_selected = selected_tags.length;
     let selection_valid = number_selected >= valid_count ? "valid" : ""
     let selection_countdown = number_selected < valid_count
-      ? `Select ${valid_count - number_selected} more tags`
+      ? `Select ${valid_count - number_selected} more categories`
       :  <a href="#" className="md-close" onClick={this.persistSelection}>
           Continue
          </a>
@@ -106,7 +106,7 @@ class TagModal extends React.Component {
         <div className="modal-container">
           <div className="header">
             <h4>
-              Choose tags that are important to you
+              Choose categories that are important to you
             </h4>
             <p>
               So we can make your feed more . . . personal!
