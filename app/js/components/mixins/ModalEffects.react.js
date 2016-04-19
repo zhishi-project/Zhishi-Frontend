@@ -7,8 +7,7 @@ let ModalEffects = InnerComponent => class extends React.Component {
    }
 
    mountAsModal(modal, trigger, settings={}) {
-     var close = modal.querySelector( '.md-close' ),
-         app_body = document.querySelector("#zhishi-body");
+     var app_body = document.querySelector("#zhishi-body");
 
      function removeModal () {
         $(modal).removeClass('md-show' );
@@ -26,9 +25,12 @@ let ModalEffects = InnerComponent => class extends React.Component {
 
      });
 
-     close.addEventListener( 'click', function( ev ) {
+
+     $(modal).on('click', '.md-close', function( ev ) {
        ev.stopPropagation();
+       removeModal();
      });
+
    }
 
     render() {

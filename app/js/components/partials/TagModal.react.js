@@ -98,7 +98,7 @@ class TagModal extends React.Component {
     let selection_valid = number_selected >= valid_count ? "valid" : ""
     let selection_countdown = number_selected < valid_count
       ? `Select ${valid_count - number_selected} more tags`
-      :  <a href="#" className="close-modal" onClick={this.persistSelection}>
+      :  <a href="#" className="md-close" onClick={this.persistSelection}>
           Continue
          </a>
     return (
@@ -119,7 +119,7 @@ class TagModal extends React.Component {
           </div>
 
           <div className={`actions ${selection_valid}`}>
-            <span className="md-close">{selection_countdown}</span>
+            {selection_countdown}
           </div>
           <a className={`${this.props.trigger} hidden`} />
         </div>
