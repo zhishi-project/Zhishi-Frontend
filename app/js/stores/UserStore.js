@@ -1,14 +1,13 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var ZhishiConstants = require('../constants/ZhishiConstants');
-var assign = require('object-assign');
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import { EventEmitter } from 'events'
+import ZhishiConstants from '../constants/ZhishiConstants';
+import assign from 'object-assign';
 import CVar from "../config/CookieVariables.js"
 import AuthStore from "./AuthStore.js"
 
-var CHANGE_EVENT = 'change';
+let CHANGE_EVENT = 'change';
 
-var _users = {}, _followers = {}, _following = {}, _current_user = {};
-// $.cookie("_users", {});
+let _users = {}, _followers = {}, _following = {}, _current_user = {};
 
 function create_user(text) {
   // returns a newly created user. Necessary?
@@ -23,13 +22,10 @@ function loadUsers(data) {
 
 function clearUsers(data) {
   _users = {};
-  _following = {}
-  _followers = {}
+  _following = {};
+  _followers = {};
 }
 
-function currentUser(){
-  return JSON.parse($.cookie(CVar.current_user) || "{}");
-}
 /**
  * Update a single User
  */
@@ -77,7 +73,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
     return _users[id];
   },
   getCurrentUser: function() {
-    return currentUser();
+    return AuthStore.getCurrentUser();
   },
 
   getFullName: function(user) {
@@ -103,10 +99,10 @@ UserStore.dispatchToken = AppDispatcher.register(function(action) {
 
   switch(action.actionType) {
 
-    case ZhishiConstants.RECEIVE_DATA:
-      loadUsers(action.data);
-      UserStore.emitChange();
-      break;
+    // case ZhishiConstants.RECEIVE_DATA:
+    //   loadUsers(action.data);
+    //   UserStore.emitChange();
+    //   break;
 
     case ZhishiConstants.AUTH_LOG_OUT:
       if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([AuthStore.dispatchToken]) };
@@ -123,7 +119,6 @@ UserStore.dispatchToken = AppDispatcher.register(function(action) {
       update(action.id, {complete: true});
       UserStore.emitChange();
       break;
-
 
     case ZhishiConstants.CURRENT_USER_UPDATE:
       updateCurrentUser(action.data)
@@ -150,4 +145,4 @@ UserStore.dispatchToken = AppDispatcher.register(function(action) {
   }
 });
 
-module.exports = UserStore;
+export default UserStore;

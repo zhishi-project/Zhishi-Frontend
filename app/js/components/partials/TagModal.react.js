@@ -1,7 +1,9 @@
 import React from 'react'
 import ModalEffects from '../mixins/ModalEffects.react'
 import TagStore from '../../stores/TagStore'
+import UserStore from '../../stores/UserStore'
 import TagActions from '../../actions/TagActions'
+import UserActions from '../../actions/UserActions'
 import webAPI from '../../utils/webAPI'
 import _ from 'jquery'
 
@@ -75,7 +77,13 @@ class TagModal extends React.Component {
 
   persistSelection() {
     webAPI.processRequest('/tags/update_subscription', 'POST',
-      {tags: this.state.selected_tags}, TagActions.receiveTags);
+      {tags: this.state.selected_tags}, (data) => {
+        if (data.tags) {
+          let current_user = UserStore.getCurrentUser()
+          current_user['tags'] = data.tags
+          UserActions.updateCurrentUser(current_user)
+        }
+      });
   }
 
   render () {

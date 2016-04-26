@@ -58,7 +58,7 @@ SearchStore.dispatchToken = AppDispatcher.register(function(action) {
   switch (action.actionType) {
     case ZhishiConstants.TAG_INDEX:
       if (action.data) {
-        loadTags(action.data);
+        loadTags(action.data.tags);
       }
       SearchStore.emitChange();
 

@@ -8,6 +8,13 @@ UserActions = {
       actionType: ZhishiConstants.RECEIVE_USER,
       data: data
     })
+  },
+
+  updateCurrentUser: function(user) {
+    AppDispatcher.dispatch({
+      actionType: ZhishiConstants.CURRENT_USER_UPDATE,
+      data: user
+    })
   }
 }
 

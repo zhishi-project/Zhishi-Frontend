@@ -27,7 +27,7 @@ let ModalEffects = InnerComponent => class extends React.Component {
 
 
      $(modal).on('click', '.md-close', function( ev ) {
-       ev.stopPropagation();
+       ev.preventDefault();
        removeModal();
      });
 

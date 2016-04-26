@@ -1,12 +1,11 @@
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import { EventEmitter } from 'events'
+import ZhishiConstants from '../constants/ZhishiConstants';
+import assign from 'object-assign';
 import CVar from "../config/CookieVariables.js"
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var ZhishiConstants = require('../constants/ZhishiConstants');
-var assign = require('object-assign');
-
 var CHANGE_EVENT = 'change';
 
-var _shown_form = "login", _error_msg = "";
+let _shown_form = "login", _error_msg = "";
 
 
 function setShownForm(text) {
@@ -14,14 +13,20 @@ function setShownForm(text) {
 }
 
 function setCurrentUser(user) {
-  var cookie_meta = get_cookie_meta()
+  let cookie_meta = get_cookie_meta()
   $.cookie(CVar.current_user, JSON.stringify(user) || "", cookie_meta);
   $.cookie(CVar.user_logged_in, (userToken() ? true : false), cookie_meta);
-
 }
 
 function userToken(){
-  return JSON.parse($.cookie(CVar.current_user) || "{}").api_key;
+  return currentUser().api_key
+}
+
+let currentUser = () => {
+  let current_user =  $.cookie(CVar.current_user) || {}
+  return typeof current_user === 'object'
+          ? current_user
+          : JSON.parse(current_user)
 }
 
 function setErrorMessage(_error) {
@@ -50,7 +55,11 @@ function logoutUser() {
 
 function get_cookie_meta(){
   var currentDate = new Date();
-  var expirationDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 0, 0, 0);
+  var expirationDate = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    currentDate.getDate()+1,
+    0, 0, 0);
   return {path: '/', expires: expirationDate}
 }
 
@@ -59,12 +68,15 @@ var AuthStore = assign({}, EventEmitter.prototype, {
   getShownForm: function() {
     return _shown_form;
   },
+
   getCurrentUser: function() {
-    return JSON.parse($.cookie(CVar.current_user) || "{}");
+    return currentUser()
   },
+
   getCurrentUserToken: function() {
     return userToken();
   },
+
   getErrorMessage: function(){
     var _msg = _error_msg
     _error_msg = "";

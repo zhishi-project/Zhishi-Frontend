@@ -58,7 +58,7 @@ Common = {
   },
 
   createPermalink: (id, title) => {
-    var sanitized_string = title.replace(/[^\w\s]/gi, '')
+    var sanitized_string = title ? title.replace(/[^\w\s]/gi, '') : ""
     var max_length = 100;
     var trimmed_string = sanitized_string.substring(0, max_length);
     if (sanitized_string.length > max_length) {
