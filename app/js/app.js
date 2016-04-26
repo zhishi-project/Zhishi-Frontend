@@ -62,7 +62,6 @@ let redirectToRoot = (nextState) => {
 let history = createBrowserHistory();
 
 history.listen(function(location) {
-  console.log(location.pathname);
   window.ga('create', 'UA-76284809-1', 'auto');
   window.ga('send', 'pageview', location.pathname);
 });
