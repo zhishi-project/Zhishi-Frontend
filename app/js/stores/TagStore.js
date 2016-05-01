@@ -6,30 +6,42 @@ import Common from '../utils/Common.js'
 
 var CHANGE_EVENT = 'change';
 
-var _tags = {}, _selected_tags = [];
+var _tags = {}, _selected_tags = [], _tags_loaded = false;
 
-const loadTags = (tags) => {
-  if (tags) assign(_tags, Common.serializeByKey(tags))
+const loadTags = (tags=[]) => {
+  tags.forEach(tag => update(tag))
+  _tags_loaded = true;
 }
 
-const selectTagsForSubscription = (tag) => {
-  if (_tags[tag.id]) {
+const update = (tag) => {
+  Common.update(_tags, tag.id, tag);
+}
+
+const selectTagForSubscription = (tag) => {
+  if (tag && _tags[tag.id]) {
     let status = _tags[tag.id]['status'] == 'selected' ? '' : 'selected'
-    assign(_tags[tag.id], { status } )
-    updateSelectedTags(tag.name)
+    assign(_tags[tag.id], { status } );
+    updateSelectedTag(tag.name);
   }
 }
 
-const updateSelectedTags = (tag_name) => {
+const updateSelectedTag = (tag_name) => {
   let index = _selected_tags.indexOf(tag_name);
   if (index == -1) {
     _selected_tags.push(tag_name)
   } else {
-    _selected_tags.splice(index, 1)
+    _selected_tags.splice(index, 1);
   }
 }
 
-var SearchStore = assign({}, EventEmitter.prototype, {
+const updateBatchTags = (tags=[]) => {
+  tags.forEach(tag => {
+    Common.update(_tags, tag.id, tag);
+    selectTagForSubscription(tag)
+  })
+}
+
+var TagStore = assign({}, EventEmitter.prototype, {
 
   getAllTags: function() {
     return _tags;
@@ -37,6 +49,10 @@ var SearchStore = assign({}, EventEmitter.prototype, {
 
   getSelectedTags: function() {
     return _selected_tags;
+  },
+
+  tags_loaded: function() {
+    return _tags_loaded;
   },
 
   emitChange: function() {
@@ -53,26 +69,37 @@ var SearchStore = assign({}, EventEmitter.prototype, {
 
 })
 
-SearchStore.dispatchToken = AppDispatcher.register(function(action) {
+TagStore.dispatchToken = AppDispatcher.register(function(action) {
 
   switch (action.actionType) {
     case ZhishiConstants.TAG_INDEX:
       if (action.data) {
         loadTags(action.data.tags);
       }
-      SearchStore.emitChange();
+      TagStore.emitChange();
+      break;
 
     case ZhishiConstants.TAG_SELECT:
       if (action.data) {
         loadTags(action.data.tags);
       }
-      SearchStore.emitChange();
+      TagStore.emitChange();
+      break;
 
     case ZhishiConstants.TAG_SELECT_FOR_SUBSCRIPTION:
       if (action.data) {
-        selectTagsForSubscription(action.data);
+        selectTagForSubscription(action.data);
       }
-      SearchStore.emitChange();
+      TagStore.emitChange();
+      break;
+
+    case ZhishiConstants.TAG_BATCH_UPDATE:
+      if (action.data) {
+        updateBatchTags(action.data)
+      }
+      debugger;
+      TagStore.emitChange();
+      break;
 
     default:
       break
@@ -80,4 +107,4 @@ SearchStore.dispatchToken = AppDispatcher.register(function(action) {
   }
 })
 
-export default SearchStore;
+export default TagStore;

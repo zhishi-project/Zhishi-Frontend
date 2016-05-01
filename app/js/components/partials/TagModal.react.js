@@ -1,18 +1,26 @@
 import React from 'react'
 import ModalEffects from '../mixins/ModalEffects.react'
 import TagStore from '../../stores/TagStore'
-import UserStore from '../../stores/UserStore'
+import AuthStore from '../../stores/AuthStore'
 import TagActions from '../../actions/TagActions'
-import UserActions from '../../actions/UserActions'
+import AuthActions from '../../actions/AuthActions'
 import webAPI from '../../utils/webAPI'
 import _ from 'jquery'
+
+const updateSelectedTagsFromUserTags = () => {
+  let { tags } = AuthStore.getCurrentUser();
+  TagActions.updateBatchTags(tags)
+}
 
 let getTagState = () => {
   let tags = TagStore.getAllTags();
   let selected_tags = TagStore.getSelectedTags();
 
-  if (_.isEmptyObject(tags)) {
-    webAPI.processRequest('/tags/recent', 'GET', {}, TagActions.receiveTags);
+  if (!TagStore.tags_loaded()) {
+    webAPI.processRequest('/tags/recent', 'GET', {}, (tags)=>{
+      TagActions.receiveTags(tags)
+      updateSelectedTagsFromUserTags();
+    });
   }
   return { tags, selected_tags }
 }
@@ -79,9 +87,10 @@ class TagModal extends React.Component {
     webAPI.processRequest('/tags/update_subscription', 'POST',
       {tags: this.state.selected_tags}, (data) => {
         if (data.tags) {
-          let current_user = UserStore.getCurrentUser()
+          let current_user = AuthStore.getCurrentUser()
+          data.tags.map(tag => { tag['status'] = 'selected' })
           current_user['tags'] = data.tags
-          UserActions.updateCurrentUser(current_user)
+          AuthActions.updateCurrentUser(current_user)
         }
       });
   }
@@ -89,6 +98,7 @@ class TagModal extends React.Component {
   render () {
     let view_tags = [], keys = [], valid_count = 3;
     const { tags, selected_tags } = this.state;
+
     if (!_.isEmptyObject(tags)) {
       keys = Object.keys(tags)
       for (let i=0; i < keys.length; i++) {
@@ -101,7 +111,8 @@ class TagModal extends React.Component {
         )
       }
     }
-    index = 0;
+
+    index = 0; // The index for the picture array
     let number_selected = selected_tags.length;
     let selection_valid = number_selected >= valid_count ? "valid" : ""
     let selection_countdown = number_selected < valid_count
@@ -109,6 +120,7 @@ class TagModal extends React.Component {
       :  <a href="#" className="md-close" onClick={this.persistSelection}>
           Continue
          </a>
+
     return (
       <div id="selectTagModal" className="md-modal" ref="tagModal">
         <div className="modal-container">

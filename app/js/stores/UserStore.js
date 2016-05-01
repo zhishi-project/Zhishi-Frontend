@@ -11,14 +11,14 @@ let _users = {}, _current_user = {};
 
 
 
-
 function update(id, updates) {
   _users[id] = assign({}, _users[id], updates);
 }
 
 function updateCurrentUser(user){
-  $.cookie(CVar.current_user, JSON.stringify(user) || {});
-  update(user.id, user);
+  // user = (typeof user === 'object') ? JSON.stringify(user) : user
+  // $.cookie(CVar.current_user, user || {});
+  // update(user.id, user);
 }
 
 
@@ -39,6 +39,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
   getUser: function(id) {
     return _users[id];
   },
+
   getCurrentUser: function() {
     return AuthStore.getCurrentUser();
   },
@@ -76,11 +77,6 @@ UserStore.dispatchToken = AppDispatcher.register(function(action) {
     case ZhishiConstants.RECEIVE_USER:
       if (action.data)
       update(action.data.id, action.data)
-      UserStore.emitChange();
-      break;
-
-    case ZhishiConstants.CURRENT_USER_UPDATE:
-      updateCurrentUser(action.data)
       UserStore.emitChange();
       break;
 

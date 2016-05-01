@@ -5,10 +5,10 @@ import Common from '../utils/Common.js'
 let TagActions;
 
 TagActions = {
-  receiveTags: (data) => {
+  receiveTags: (tags) => {
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.TAG_INDEX,
-      data: data
+      data: tags
     })
   },
 
@@ -16,6 +16,13 @@ TagActions = {
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.TAG_SELECT_FOR_SUBSCRIPTION,
       data: tag
+    })
+  },
+
+  updateBatchTags: (tags) => {
+    AppDispatcher.dispatch({
+      actionType: ZhishiConstants.TAG_BATCH_UPDATE,
+      data: tags
     })
   }
 }

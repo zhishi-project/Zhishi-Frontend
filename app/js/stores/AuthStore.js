@@ -2,7 +2,8 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import { EventEmitter } from 'events'
 import ZhishiConstants from '../constants/ZhishiConstants';
 import assign from 'object-assign';
-import CVar from "../config/CookieVariables.js"
+import CVar from "../config/CookieVariables.js";
+
 var CHANGE_EVENT = 'change';
 
 let _shown_form = "login", _error_msg = "";
@@ -13,8 +14,9 @@ function setShownForm(text) {
 }
 
 function setCurrentUser(user) {
-  let cookie_meta = get_cookie_meta()
-  $.cookie(CVar.current_user, JSON.stringify(user) || "", cookie_meta);
+  let cookie_meta = get_cookie_meta();
+  user = (typeof user === 'object') ? JSON.stringify(user) : user
+  $.cookie(CVar.current_user, user, cookie_meta);
   $.cookie(CVar.user_logged_in, (userToken() ? true : false), cookie_meta);
 }
 
@@ -26,7 +28,13 @@ let currentUser = () => {
   let current_user =  $.cookie(CVar.current_user) || {}
   return typeof current_user === 'object'
           ? current_user
-          : JSON.parse(current_user)
+          : parseUser(current_user)
+}
+
+let parseUser = (user) => {
+  return typeof user === 'object'
+  ? user
+  : parseUser( JSON.parse(user) )
 }
 
 function setErrorMessage(_error) {
@@ -112,6 +120,11 @@ AuthStore.dispatchToken = AppDispatcher.register(function(action) {
       if (!AuthStore.userLoggedIn() && action.data) {
         setCurrentUser(action.data);
       }
+      break;
+
+    case ZhishiConstants.CURRENT_USER_UPDATE:
+      setCurrentUser(action.data)
+      AuthStore.emitChange();
       break;
 
     case ZhishiConstants.AUTH_LOG_IN_ERROR:

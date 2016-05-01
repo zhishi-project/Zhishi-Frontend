@@ -17,7 +17,7 @@ let ModalEffects = InnerComponent => class extends React.Component {
      $("."+trigger).on( 'click', function( ev ) {
        $(app_body).addClass('md-show');
        $(modal).addClass('md-show');
-       if (!settings.closable) {
+       if (settings.closable) {
          var overlay = document.querySelector( '.md-overlay' );
          overlay.removeEventListener( 'click', removeModal );
          overlay.addEventListener( 'click', removeModal );
