@@ -43,7 +43,6 @@ var webAPI = {
       }.bind(this),
       error: function(xhr, status, err) {
         callback({_error: err});
-        console.log(this._path, status, err.toString());
       }.bind(this),
       complete: function(){
         if (typeof(this.parentElement) !== 'undefined') {

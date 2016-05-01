@@ -12,8 +12,10 @@ class Votes extends React.Component {
      var action = $(event.target).data('action');
      var props = this.props;
      webAPI.processRequest(`/${this.props.resource_name}s/${this.props.resource.id}/${action}vote`, 'POST', "", (data) => {
-       var votes_data = {id: props.resource.id, votes_count: data, meta: props.meta}
-       props.callback(votes_data)
+       if (!data._error) {
+         var votes_data = {id: props.resource.id, votes_count: data, meta: props.meta}
+         props.callback(votes_data)
+       }
      })
    }
 

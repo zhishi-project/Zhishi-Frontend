@@ -1,7 +1,3 @@
-.user-index {
-
-}
-
 .navigation {
   margin-bottom: 25px;
 
@@ -33,7 +29,7 @@
   font-family: $roboto;
   font-size: inherit;
   width: 100%;
-
+  
   .ui.icon.input {
     width: 78%;
 
@@ -69,66 +65,10 @@
 
 .main {
 
-  h2 {
-    font-weight: 300;
-    font-size: $medium;
-    padding-bottom: 15px;
-  }
-
-  .question-section {
-    border-bottom: 1px solid $lines;
-    margin-bottom: 25px;
-
-    &:last-of-type {
-      border: 0;
-    }
-  }
-
-  .divided.three.column {
-    text-align: center;
-
-    [class$="-count"] {
-      color: $primary-color;
-      font-size: $small;
-    }
-
-    [class$="-title"] {
-      font-weight: 300;
-      font-size: $base-size;
-    }
-  }
-
-  .ten.wide.column {
-    padding-bottom: 22px;
-
-    .question-link {
-      font-size: $small;
-    }
-
-    .equal.width.grid {
-      margin-top: -5px;
-
-      .tags {
-        span {
-          background-color: $box-fill;
-          padding: 5px;
-          margin-right: 5px;
-          margin-left: 5px;
-
-          &:first-child {
-            margin-left: 0;
-          }
-        }
-      }
-
-      .username {
-        margin-right: 15px;
-        font-weight: 700;
-      }
-
-      [alt="profile-image"] {
-        width: 20px;
-        transform: translateY(-4px);
+  aside {
+    .trending-link {
+      a {
+        color: $primary-color;
       }
     }
   }
@@ -138,6 +78,7 @@
   background-color: $body-text;
   color: $site-bg;
   margin-top: 50px;
+  height: 116px;
 
   .ui.grid {
     @include display(flex);

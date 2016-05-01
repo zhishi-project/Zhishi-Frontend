@@ -24,7 +24,6 @@ AuthActions = {
   },
 
   logoutUser: function() {
-
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.AUTH_LOG_OUT
     })
@@ -53,6 +52,16 @@ AuthActions = {
       actionType: ZhishiConstants.USER_DESTROY_COMPLETED
     });
   },
+
+  updateCurrentUser: (user) => {
+    AppDispatcher.dispatch({
+      actionType: ZhishiConstants.CURRENT_USER_UPDATE,
+      data: user
+    })
+    window.location.href = '/'
+
+  },
+
 
   redirectToReferrerIfAny: (nextState, replaceState) => {
     if ($.cookie(CookieVar.referrer)) {

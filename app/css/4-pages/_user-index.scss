@@ -33,7 +33,7 @@
   font-family: $roboto;
   font-size: inherit;
   width: 100%;
-  
+
   .ui.icon.input {
     width: 78%;
 
@@ -120,7 +120,7 @@
           }
         }
       }
-      
+
       .username {
         margin-right: 15px;
         font-weight: 700;
@@ -150,5 +150,95 @@
 
   img {
     width: 120px;
+  }
+}
+.user-index {
+
+}
+
+.main {
+
+  h2 {
+    font-weight: 300;
+    font-size: $medium;
+    padding-bottom: 15px;
+  }
+
+  .question-section {
+    border-bottom: 1px solid $lines;
+    margin-bottom: 25px;
+
+    &:last-of-type {
+      border: 0;
+    }
+  }
+
+  .stats-values {
+    text-align: center;
+
+    [class$="-count"] {
+      color: $primary-color;
+      font-size: $small;
+      text-align: center;
+    }
+
+    [class$="-title"] {
+      font-weight: 300;
+      font-size: $base-size;
+      text-transform: lowercase;
+    }
+  }
+
+  .question {
+    padding-bottom: 22px;
+
+    .question-link {
+      color: $primary-color;
+      font-size: $small;
+    }
+
+    .metadata {
+      font-size: 12px;
+      margin-top: -5px;
+
+      .column:last-of-type {
+        text-align: right;
+
+        @media screen and (max-width: 767px) {
+          text-align: left;
+
+          .username {
+            display: inline;
+          }
+        }
+      }
+
+      .tags {
+        @include display(flex);
+        @include flex-direction(row);
+        @include flex-wrap(wrap);
+        @include justify-content(flex-start);
+        span {
+          margin-left: 0;
+          margin-top: -5px;
+          text-transform: lowercase;
+        }
+      }
+      
+      .username {
+        display: inline-block;
+        font-weight: 700;
+        margin-right: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 120px;
+      }
+
+      [alt="profile-image"] {
+        width: 20px;
+        transform: translateY(-4px);
+      }
+    }
   }
 }

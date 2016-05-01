@@ -51,13 +51,20 @@ let SignUpUser = function(nextState, replaceState){
 // make api call if user is logged in and homepage is visited
 let initData = function(nextState) {
   if (nextState.location.pathname === '/' && AuthStore.userLoggedIn() ) {
-    ZhishiInit.getQuestions();
+    // ZhishiInit.getQuestions();
   }
 }
 
 let redirectToRoot = (nextState) => {
   replaceState({ nextPathname: nextState.location.pathname }, '/')
 }
+
+let history = createBrowserHistory();
+
+history.listen(function(location) {
+  window.ga('create', 'UA-76284809-1', 'auto');
+  window.ga('send', 'pageview', location.pathname);
+});
 
 ReactDOM.render(
   (<Router history={createBrowserHistory()}>

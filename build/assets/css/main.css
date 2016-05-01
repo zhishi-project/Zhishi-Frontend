@@ -2,105 +2,219 @@
 html {
   color: #222;
   font-size: 1em;
-  line-height: 1.4; }
-
+  line-height: 1.4
+}
 body {
-  background-color: #ffffff;
-  color: #444444;
-  font-family: "Roboto", "Lato", sans-serif;
-  font-size: 0.875em; }
-
+  background-color: #fff;
+  color: #656363;
+  font-family: "Roboto", "Lato", sanws-serif;
+  font-size: .875em
+}
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Roboto", "Lato", sans-serif; }
-
+  font-family: "Roboto", "Lato", sans-serif
+}
 img {
-  max-width: 100%; }
-
+  max-width: 100%
+}
 ::-moz-selection {
   background: #b3d4fc;
-  text-shadow: none; }
-
+  text-shadow: none
+}
 ::selection {
   background: #b3d4fc;
-  text-shadow: none; }
-
+  text-shadow: none
+}
 hr {
   display: block;
   height: 1px;
   border: 0;
   border-top: 1px solid #ccc;
   margin: 1em 0;
-  padding: 0; }
-
-audio,
-canvas,
-iframe,
-img,
-svg,
-video {
-  vertical-align: middle; }
-
+  padding: 0
+}
+audio, canvas, iframe, img, svg, video {
+  vertical-align: middle
+}
 fieldset {
   border: 0;
   margin: 0;
-  padding: 0; }
-
+  padding: 0
+}
 textarea {
-  resize: vertical; }
-
+  resize: vertical
+}
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;
   color: #000;
-  padding: 0.2em 0; }
-
+  padding: 0.2em 0
+}
 @media print {
-  *,
-  *:before,
-  *:after {
+  *, *:before, *:after {
     background: transparent !important;
     color: #000 !important;
     box-shadow: none !important;
-    text-shadow: none !important; }
-
-  a,
-  a:visited {
-    text-decoration: underline; }
-
+    text-shadow: none !important
+  }
+  a, a:visited {
+    text-decoration: underline
+  }
   a[href]:after {
-    content: " (" attr(href) ")"; }
-
+    content: " (" attr(href) ")"
+  }
   abbr[title]:after {
-    content: " (" attr(title) ")"; }
-
-  a[href^="#"]:after,
-  a[href^="javascript:"]:after {
-    content: ""; }
-
-  pre,
-  blockquote {
+    content: " (" attr(title) ")"
+  }
+  a[href^="#"]:after, a[href^="javascript:"]:after {
+    content: ""
+  }
+  pre, blockquote {
     border: 1px solid #999;
-    page-break-inside: avoid; }
-
+    page-break-inside: avoid
+  }
   thead {
-    display: table-header-group; }
-
-  tr,
+    display: table-header-group
+  }
+  tr, img {
+    page-break-inside: avoid
+  }
   img {
-    page-break-inside: avoid; }
-
-  img {
-    max-width: 100% !important; }
-
-  p,
-  h2,
-  h3 {
+    max-width: 100% !important
+  }
+  p, h2, h3 {
     orphans: 3;
-    widows: 3; }
-
-  h2,
-  h3 {
-    page-break-after: avoid; } }
+    widows: 3
+  }
+  h2, h3 {
+    page-break-after: avoid
+  }
+}
+.hidden {
+  display: none !important;
+  visibility: hidden
+}
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px
+}
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto
+}
+.invisible {
+  visibility: hidden
+}
+.clearfix:before, .clearfix:after {
+  content: " ";
+  display: table
+}
+.clearfix:after {
+  clear: both
+}
+.clearfix {
+  *zoom: 1
+}
+.tags span {
+  background-color: #fbfbfb;
+  padding: 5px;
+  margin-right: 5px;
+  margin-left: 5px;
+  text-transform: uppercase
+}
+.tags span:first-child {
+  margin-left: 0
+}
+.navigation {
+  margin-bottom: 25px
+}
+.navigation .ui.menu {
+  font-family: "Roboto", "Lato", sans-serif;
+  height: 40px
+}
+.navigation .ui.menu .logo-wrapper .logo {
+  width: 90px
+}
+.navigation .ui.menu .right.menu .item {
+  font-size: .75em;
+  font-weight: 500
+}
+.search-area {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 35px;
+  font-family: "Roboto", "Lato", sans-serif;
+  font-size: inherit;
+  width: 100%
+}
+.search-area .ui.icon.input {
+  width: 78%
+}
+.search-area .ui.icon.input .prompt {
+  background-color: #fbfbfb;
+  border: 1px solid #eee;
+  border-radius: 0;
+  color: inherit;
+  font-family: inherit;
+  text-indent: 35px
+}
+.search-area .ui.icon.input .search.icon {
+  left: 0
+}
+.search-area .ui.button {
+  border-radius: 0;
+  font-family: "Roboto", "Lato", sans-serif;
+  font-size: inherit;
+  font-weight: 400;
+  background-color: #008b67;
+  color: #fff
+}
+.search-area .ui.button.search {
+  background-color: #225be2;
+  margin-left: -4px;
+  margin-right: 8px
+}
+.main aside .trending-link a {
+  color: #225be2
+}
+.footer {
+  background-color: #444;
+  color: #fff;
+  margin-top: 50px
+}
+.footer .ui.grid {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  box-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  -ms-flex-align: center
+}
+.footer .ui.grid .floated {
+  padding-top: 40px
+}
+.footer img {
+  width: 120px
+}
 .index .header {
   display: -webkit-box;
   display: -moz-box;
@@ -137,144 +251,227 @@ textarea {
   -o-align-items: center;
   align-items: center;
   -ms-flex-align: center;
-  height: calc(100% - 50px); }
-  .index .header header {
-    padding-bottom: 45px; }
-    .index .header header .logo-container img {
-      width: 208px; }
-  .index .header .sign-in-area h1 {
-    font-size: 2.29068em;
-    font-weight: 300;
-    padding-bottom: 12px; }
-  .index .header .sign-in-area .ui.button {
-    background-color: #225be2;
-    color: #ffffff;
-    border-radius: 0; }
-    .index .header .sign-in-area .ui.button .icon {
-      position: relative;
-      padding-right: 30px; }
-      .index .header .sign-in-area .ui.button .icon::after {
-        content: "";
-        position: absolute;
-        top: -12px;
-        left: 12px;
-        border-right: 1px solid #eeeeee;
-        height: 41.125px;
-        width: 12px; }
+  height: calc(100% - 50px)
+}
+.index .header header {
+  padding-bottom: 45px
+}
+.index .header header .logo-container img {
+  width: 208px
+}
+.index .header .sign-in-area h1 {
+  font-size: 2.29068em;
+  font-weight: 300;
+  padding-bottom: 12px
+}
+.index .header .sign-in-area .ui.button {
+  background-color: #225be2;
+  color: #fff;
+  border-radius: 0
+}
+.index .header .sign-in-area .ui.button .icon {
+  position: relative;
+  padding-right: 30px
+}
+.index .header .sign-in-area .ui.button .icon::after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 12px;
+  border-right: 1px solid #eee;
+  height: 41.125px;
+  width: 12px
+}
 .index .footer {
   margin-top: auto;
   background: transparent;
   color: inherit;
-  border-top: 1px solid #eeeeee;
+  border-top: 1px solid #eee;
   padding-top: 15px;
-  height: 50px; }
-
-.navigation {
-  margin-bottom: 25px; }
-  .navigation .ui.menu {
-    font-family: "Roboto", "Lato", sans-serif;
-    height: 40px; }
-    .navigation .ui.menu .logo-wrapper .logo {
-      width: 90px; }
-    .navigation .ui.menu .right.menu .item {
-      font-size: 0.75em;
-      font-weight: 500; }
-
-.search-area {
-  border-bottom: 1px solid #eeeeee;
-  padding-bottom: 15px;
-  margin-bottom: 35px;
-  font-family: "Roboto", "Lato", sans-serif;
-  font-size: inherit;
-  width: 100%; }
-  .search-area .ui.icon.input {
-    width: 78%; }
-    .search-area .ui.icon.input .prompt {
-      background-color: #fbfbfb;
-      border: 1px solid #eeeeee;
-      border-radius: 0;
-      color: inherit;
-      font-family: inherit;
-      text-indent: 35px; }
-    .search-area .ui.icon.input .search.icon {
-      left: 0; }
-  .search-area .ui.button {
-    border-radius: 0;
-    font-family: "Roboto", "Lato", sans-serif;
-    font-size: inherit;
-    font-weight: 400;
-    background-color: #008b67;
-    color: #ffffff; }
-    .search-area .ui.button.search {
-      background-color: #225be2;
-      margin-left: -4px;
-      margin-right: 8px; }
-
+  height: 50px
+}
 .main h2 {
   font-weight: 300;
   font-size: 2.29068em;
-  padding-bottom: 15px; }
+  padding-bottom: 15px
+}
 .main .question-section {
-  border-bottom: 1px solid #eeeeee;
-  margin-bottom: 25px; }
-  .main .question-section:last-of-type {
-    border: 0; }
-.main .divided.three.column {
-  text-align: center; }
-  .main .divided.three.column [class$="-count"] {
-    color: #225be2;
-    font-size: 1.41575em; }
-  .main .divided.three.column [class$="-title"] {
-    font-weight: 300;
-    font-size: 0.875em; }
-.main .ten.wide.column {
-  padding-bottom: 22px; }
-  .main .ten.wide.column .question-link {
-    font-size: 1.41575em; }
-  .main .ten.wide.column .equal.width.grid {
-    margin-top: -5px; }
-    .main .ten.wide.column .equal.width.grid .tags span {
-      background-color: #fbfbfb;
-      padding: 5px;
-      margin-right: 5px;
-      margin-left: 5px; }
-      .main .ten.wide.column .equal.width.grid .tags span:first-child {
-        margin-left: 0; }
-    .main .ten.wide.column .equal.width.grid .username {
-      margin-right: 15px;
-      font-weight: 700; }
-    .main .ten.wide.column .equal.width.grid [alt="profile-image"] {
-      width: 20px;
-      transform: translateY(-4px); }
-
-.footer {
-  background-color: #444444;
-  color: #ffffff;
-  margin-top: 50px; }
-  .footer .ui.grid {
-    display: -webkit-box;
-    display: -moz-box;
-    display: box;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -moz-box-align: center;
-    box-align: center;
-    -webkit-align-items: center;
-    -moz-align-items: center;
-    -ms-align-items: center;
-    -o-align-items: center;
-    align-items: center;
-    -ms-flex-align: center; }
-    .footer .ui.grid .floated {
-      padding-top: 40px; }
-  .footer img {
-    width: 120px; }
+  border-bottom: 1px solid #eee;
+  margin-bottom: 25px
+}
+.main .question-section:last-of-type {
+  border: 0
+}
+.main .stats-values {
+  text-align: center
+}
+.main .stats-values [class$="-count"] {
+  color: #225be2;
+  font-size: 1.41575em;
+  text-align: center
+}
+.main .stats-values [class$="-title"] {
+  font-weight: 300;
+  font-size: .875em;
+  text-transform: lowercase
+}
+.main .question {
+  padding-bottom: 22px
+}
+.main .question .question-link {
+  color: #225be2;
+  font-size: 1.41575em
+}
+.main .question .metadata {
+  font-size: 12px;
+  margin-top: -5px
+}
+.main .question .metadata .column:last-of-type {
+  text-align: right
+}
+.main .question .metadata .tags {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  box-direction: normal;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  -webkit-box-lines: multiple;
+  -moz-box-lines: multiple;
+  box-lines: multiple;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: start;
+  -moz-box-pack: start;
+  box-pack: start;
+  -webkit-justify-content: flex-start;
+  -moz-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  -o-justify-content: flex-start;
+  justify-content: flex-start;
+  -ms-flex-pack: start
+}
+.main .question .metadata .tags span {
+  margin-left: 0;
+  margin-top: -5px;
+  text-transform: lowercase
+}
+.main .question .metadata .username {
+  display: inline-block;
+  font-weight: 700;
+  margin-right: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 120px
+}
+.main .question .metadata [alt="profile-image"] {
+  width: 20px;
+  transform: translateY(-4px)
+}
+.question-thread .main-question, .question-thread .answer-comment {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 25px
+}
+.question-thread .main-question .rate-up, .question-thread .main-question .rate-down, .question-thread .answer-comment .rate-up, .question-thread .answer-comment .rate-down {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  margin: 15px auto;
+  cursor: pointer
+}
+.question-thread .main-question .rate-up, .question-thread .answer-comment .rate-up {
+  border-bottom: 12px solid #444
+}
+.question-thread .main-question .rate-down, .question-thread .answer-comment .rate-down {
+  border-top: 12px solid #444
+}
+.question-thread .main-question .rate-count, .question-thread .answer-comment .rate-count {
+  color: #225be2;
+  font-size: 1.41575em;
+  text-align: center
+}
+.question-thread .main-question .user-metadata, .question-thread .answer-comment .user-metadata {
+  background-color: #fbfbfb;
+  padding: 5px 25px 5px 50px;
+  text-align: right;
+  margin-top: 10px;
+  position: relative
+}
+.question-thread .main-question .user-metadata::before, .question-thread .answer-comment .user-metadata::before {
+  content: "";
+  background-color: #fff;
+  width: 68%;
+  height: 82.25px;
+  position: absolute;
+  top: 0;
+  left: 0
+}
+.question-thread .main-question .user-metadata .time-ago, .question-thread .answer-comment .user-metadata .time-ago {
+  font-size: .875em
+}
+.question-thread .main-question .user-metadata .user-fullname, .question-thread .answer-comment .user-metadata .user-fullname {
+  font-weight: 700;
+  position: relative;
+  right: -8%
+}
+.question-thread .main-question .user-metadata .badges, .question-thread .answer-comment .user-metadata .badges {
+  display: block;
+  padding-top: 5px;
+  font-weight: 400
+}
+.question-thread .main-question .user-metadata .profile-img, .question-thread .answer-comment .user-metadata .profile-img {
+  width: 30px;
+  -webkit-transform: translateY(9px);
+  -moz-transform: translateY(9px);
+  -ms-transform: translateY(9px);
+  -o-transform: translateY(9px);
+  transform: translateY(9px)
+}
+.question-thread .main-question .main-comment {
+  padding-top: 15px
+}
+.question-thread .answer-comment:last-of-type {
+  border: 0
+}
+.question-thread .new-answer .field textarea {
+  border-radius: 0;
+  resize: none
+}
+.question-thread .new-answer .ui.button {
+  background-color: #008b67;
+  color: #fff;
+  border-radius: 0;
+  font-size: .875em
+}
+.ask-question .ui.form input, .ask-question .ui.form input:focus, .ask-question .ui.form textarea {
+  border-radius: 0;
+  font-size: .875em;
+  resize: none
+}
+.ask-question .ui.form .ui.row:last-of-type {
+  position: relative;
+  right: -12.8%
+}
+.ask-question .ui.form .ui.button {
+  background-color: #008b67;
+  border-radius: 0;
+  color: #fff;
+  font-size: .875em
+}
 
 /*# sourceMappingURL=main.css.map */
-
-.full-height {
-  height: 100%;
-}

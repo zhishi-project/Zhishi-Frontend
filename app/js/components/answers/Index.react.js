@@ -48,15 +48,17 @@ class AllAnswers extends React.Component {
 
    sortAnswers(answers_obj){
     let answers_arr = [], accepted_answer;
+
+    // converted the object into an array so we can sort
     for (var key in answers_obj) {
-      answers_obj[key].accepted 
+      answers_obj[key].accepted
       ? accepted_answer = answers_obj[key]
       : answers_arr.push(answers_obj[key]);
     }
     answers_arr = answers_arr.sort((current, next) => {
       return current.votes_count - next.votes_count;
     })
-    answers_arr.push(accepted_answer);
+    if (accepted_answer) answers_arr.push(accepted_answer);
     return answers_arr;
    }
 
@@ -66,7 +68,11 @@ class AllAnswers extends React.Component {
      if (!$.isEmptyObject(sorted_answers)) {
        keys = Object.keys(sorted_answers)
        for (var i = keys.length - 1; i >= 0; i--) {
-         answers.push(<AnswerShow key={i} answer={sorted_answers[keys[i]]} question={this.props.question} />)
+         answers.push(<AnswerShow
+                        key={i}
+                        answer={sorted_answers[keys[i]]}
+                        question={this.props.question}
+                      />)
        }
      }
     //  else if (!this.state.answers) {

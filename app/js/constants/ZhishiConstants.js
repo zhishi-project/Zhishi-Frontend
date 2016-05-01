@@ -21,6 +21,12 @@ module.exports = keyMirror({
   COMMENT_EDIT: null,
   COMMENT_UPDATE: null,
   COMMENT_UPDATE_VOTES: null,
+  TAG_INDEX: null,
+  TAG_CREATE: null,
+  TAG_SELECT_FOR_SUBSCRIPTION: null,
+  TAG_BATCH_UPDATE: null,
   RECEIVE_SEARCH_RESULTS: null,
-  RECEIVE_USER: null
+  RECEIVE_USER: null,
+  CURRENT_USER_UPDATE: null
+
 });

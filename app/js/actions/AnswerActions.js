@@ -7,7 +7,7 @@ import QuestionStore from "../stores/QuestionStore.js"
 
 AnswerActions = {
   createAnswer: (answer) => {
-    AnswerActions.sendAnswersToSlack(answer)
+    // AnswerActions.sendAnswersToSlack(answer)
     AnswerActions.receiveAnswer(answer)
   },
 
