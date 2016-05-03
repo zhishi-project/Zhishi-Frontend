@@ -1,12 +1,11 @@
 import React from 'react'
+import _ from 'jquery'
 
-const Tag = (tag) => {
-     return (
-       <span>
-         {tag}
-       </span>
-     )
- }
+class Tag extends React.Component{
+  render(){
+    return <span>{this.props.tag}</span>
+  }
+}
 
 class Tags extends React.Component {
   constructor(props, context){
@@ -14,15 +13,16 @@ class Tags extends React.Component {
    }
 
    render () {
-     var tags = [];
-     if (!$.isEmptyObject(this.props.tags)) {
-       for(var i = 0; i < this.props.tags.length; i++) {
-         tags.push(<Tag key={i} tag={this.props.tags[i]} />)
+     const { tags } = this.props;
+     let tags_array = [];
+     if (!_.isEmptyObject(tags)) {
+       for(var i = 0; i < tags.length; i++) {
+         tags_array.push(<Tag key={i} tag={tags[i]} />)
        }
      }
      return (
-       <div>{tags}</div>
+       <div class="tags">{tags_array}</div>
      )
    }
  }
-module.exports = Tags
+export default Tags;

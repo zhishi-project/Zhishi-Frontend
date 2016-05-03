@@ -17,7 +17,7 @@
 
 @mixin box-orient($orient: inline-axis) {
 // horizontal|vertical|inline-axis|block-axis|inherit
-  @include prefixer(box-orient, $orient, webkit moz spec);
+  @include prefspaixer(box-orient, $orient, webkit moz spec);
 }
 
 @mixin box-pack($pack: start) {
