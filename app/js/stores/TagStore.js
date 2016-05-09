@@ -97,7 +97,6 @@ TagStore.dispatchToken = AppDispatcher.register(function(action) {
       if (action.data) {
         updateBatchTags(action.data)
       }
-      debugger;
       TagStore.emitChange();
       break;
 

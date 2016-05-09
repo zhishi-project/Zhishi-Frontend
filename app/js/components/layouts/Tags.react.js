@@ -1,10 +1,8 @@
 import React from 'react'
-import _ from 'jquery'
+import $ from 'jquery'
 
-class Tag extends React.Component{
-  render(){
-    return <span>{this.props.tag}</span>
-  }
+const Tag = ({ tag }) => {
+  return <span>{tag}</span>
 }
 
 class Tags extends React.Component {
@@ -15,7 +13,7 @@ class Tags extends React.Component {
    render () {
      const { tags } = this.props;
      let tags_array = [];
-     if (!_.isEmptyObject(tags)) {
+     if (!$.isEmptyObject(tags)) {
        for(var i = 0; i < tags.length; i++) {
          tags_array.push(<Tag key={i} tag={tags[i]} />)
        }
