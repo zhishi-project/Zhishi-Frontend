@@ -23,8 +23,9 @@ let update = (answer) => {
   Common.update(_answers[answer.question_id], answer.id, answer)
 }
 
-let update_votes_count = (id, votes_count, meta) => {
-  _answers[meta.question_id][id]['votes_count'] = votes_count
+let update_votes_count = ({id, votes_count, meta, value}) => {
+  _answers[meta.question_id][id]['votes_count'] = votes_count.response
+  _answers[meta.question_id][id]['user_vote'] = value
 }
 
 let destroy = (id) => {
@@ -100,7 +101,7 @@ AnswerStore.dispatchToken = AppDispatcher.register((action) => {
 
     case ZhishiConstants.ANSWER_UPDATE_VOTES:
       if (action.data) {
-        update_votes_count(action.data.id, action.data.votes_count.response, action.data.meta)
+        update_votes_count({...action.data})
         AnswerStore.emitChange();
       }
       break;

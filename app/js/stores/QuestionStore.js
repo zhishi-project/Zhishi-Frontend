@@ -31,8 +31,9 @@ let update = (question) => {
   Common.update(_questions, question.id, question)
 }
 
-let updateVotesCount = (id, votes_count) => {
-  _questions[id]['votes_count'] = votes_count
+let updateVotesCount = (id, data) => {
+  _questions[id]['votes_count'] = data.votes_count.response;
+  _questions[id]['user_vote'] = data.value
 }
 
 let createPageMapping = (questions, page) => {
@@ -131,7 +132,7 @@ QuestionStore.dispatchToken = AppDispatcher.register((action) => {
 
     case ZhishiConstants.QUESTION_UPDATE_VOTES:
       if (action.data && action.data.votes_count) {
-        updateVotesCount(action.data.id, action.data.votes_count.response)
+        updateVotesCount(action.data.id, action.data)
         QuestionStore.emitChange();
       }
       break;

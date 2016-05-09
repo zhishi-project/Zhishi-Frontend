@@ -3,7 +3,7 @@ import webAPI from '../utils/webAPI.js'
 import AuthStore from '../stores/AuthStore.js'
 import DisplayStore from '../stores/DisplayStore.js'
 import AuthActions from '../actions/AuthActions.js'
-import Config from "../config/environment.js"
+import Config from '../config/environment.js'
 
 
 let signUpPath = `${Config.host}/login/google?redirect_url=http://${window.parent.location.host}/login/auth`;
@@ -11,6 +11,7 @@ let signUpPath = `${Config.host}/login/google?redirect_url=http://${window.paren
 let loginState = () => {
   return { quotes: DisplayStore.getQuotes() }
 }
+
 
 class Login extends React.Component {
   constructor(props, context) {
@@ -42,7 +43,7 @@ class Login extends React.Component {
     $(".messages").typeIt({
       strings: chosenQuotes(this.state.quotes),
       speed: 90,
-      startDelay: 1000,
+      startDelay: 10,
       breakDelay: 3000,
       cursor: true,
       breakLines: false,
@@ -50,6 +51,8 @@ class Login extends React.Component {
       lifeLike: false,
       loopDelay: 500
     });
+
+    setTimeout(this.signIn, 1000, this)
   }
 
   render(){
@@ -69,6 +72,11 @@ class Login extends React.Component {
               Sign in with your Andela email
             </a>
           </div>
+
+          <div className="sign-in-desc">
+            Ushering you in in few seconds &nbsp;<i className="ui active small inline loader"></i>
+          </div>
+
         </section>
 
 

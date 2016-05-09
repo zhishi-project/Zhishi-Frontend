@@ -21,7 +21,7 @@ class Tags extends React.Component {
        }
      }
      return (
-       <div class="tags">{tags_array}</div>
+       <div className="tags">{tags_array}</div>
      )
    }
  }
