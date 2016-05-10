@@ -9,22 +9,26 @@ class Votes extends React.Component {
    }
 
    vote(event){
-     var action = $(event.target).data('action');
-     var props = this.props;
-     webAPI.processRequest(`/${this.props.resource_name}s/${this.props.resource.id}/${action}vote`, 'POST', "", (data) => {
+     let action = $(event.target).data('action');
+     let value = action == 'up' ? 1 : -1
+     let { resource_name, resource, meta, callback } = this.props;
+     webAPI.processRequest(`/${resource_name}s/${resource.id}/${action}vote`, 'POST', "", function(data){
        if (!data._error) {
-         var votes_data = {id: props.resource.id, votes_count: data, meta: props.meta}
-         props.callback(votes_data)
+         var votes_data = {id: resource.id, votes_count: data, meta, value}
+         callback(votes_data)
        }
      })
    }
 
    render () {
+     let { resource } = this.props;
+     let upvoted = resource.user_vote && resource.user_vote == 1 ? 'active' : ''
+     let downvoted = resource.user_vote && resource.user_vote == -1 ? 'active' : ''
      return (
        <div className="two wide column">
-         <div data-action="up" className="rate-up" onClick={this.vote.bind(this)}></div>
-         <div className="rate-count">{this.props.resource.votes_count || 0}</div>
-         <div data-action="down" className="rate-down" onClick={this.vote.bind(this)}></div>
+         <div data-action="up" className={`rate-up ${upvoted}`} onClick={this.vote.bind(this)}></div>
+         <div className="rate-count">{resource.votes_count || 0}</div>
+         <div data-action="down" className={`rate-down ${downvoted}`} onClick={this.vote.bind(this)}></div>
        </div>
      )
    }

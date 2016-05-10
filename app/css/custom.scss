@@ -109,10 +109,14 @@ code {
 }
 .two.wide.column, .ui.comments .comment {
   .rate-up, {
-    &:hover { border-bottom-color: #79AFE8; }
+    &:hover, &.active {
+      border-bottom-color: #79AFE8;
+    }
   }
   .rate-down, {
-    &:hover { border-top-color: #79AFE8; }
+    &:hover, &.active {
+      border-top-color: #79AFE8;
+    }
   }
   .flag, {
     &:hover { color: #79AFE8; }

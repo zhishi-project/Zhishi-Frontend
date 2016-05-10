@@ -38,8 +38,9 @@ let update = (meta, comment) => {
   _new_comments[meta.resource_name][meta.resource_id] = {}
 }
 
-let update_votes_count = (id, votes_count, meta) => {
-  _comments[meta.resource_name][meta.resource_id][id]['votes_count'] = votes_count
+let update_votes_count = ({id, votes_count, meta, value}) => {
+  _comments[meta.resource_name][meta.resource_id][id]['votes_count'] = votes_count.response
+  _comments[meta.resource_name][meta.resource_id][id]['user_vote'] = value
 }
 
 let destroy = (id) => {
@@ -141,7 +142,7 @@ CommentStore.dispatchToken = AppDispatcher.register((action) => {
 
     case ZhishiConstants.COMMENT_UPDATE_VOTES:
       if (action.data) {
-        update_votes_count(action.data.id, action.data.votes_count.response, action.data.meta)
+        update_votes_count({...action.data})
         CommentStore.emitChange();
       }
       break;

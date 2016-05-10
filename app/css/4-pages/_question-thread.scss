@@ -186,4 +186,19 @@
       font-size: $base-size;
     }
   }
+  
+  .tags span:first-child {
+    margin-left: 0;
+  }
+  .tags {
+    margin-top: -10px;
+    margin-bottom: 10px;
+    span {
+      background-color: #fbfbfb;
+      padding: 5px;
+      margin-right: 5px;
+      margin-left: 5px;
+      text-transform: uppercase;
+    }
+  }
 }
