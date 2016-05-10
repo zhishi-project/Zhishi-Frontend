@@ -4,6 +4,7 @@ module.exports = keyMirror({
   RECEIVE_INIT_DATA: null,
   AUTH_LOG_IN: null,
   AUTH_LOG_OUT: null,
+  FIRST_TIME_LOGIN_TODAY: null,
   RECEIVE_QUESTIONS: null,
   RECEIVE_TOP_QUESTIONS: null,
   QUESTION_CREATE: null,

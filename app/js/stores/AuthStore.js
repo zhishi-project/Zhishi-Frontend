@@ -8,7 +8,6 @@ var CHANGE_EVENT = 'change';
 
 let _shown_form = "login", _error_msg = "";
 
-
 function setShownForm(text) {
   _shown_form = text;
 }
@@ -37,31 +36,21 @@ let parseUser = (user) => {
   : parseUser( JSON.parse(user) )
 }
 
-function setErrorMessage(_error) {
+let setErrorMessage = (_error) => {
   _error_msg = "Invalid details. Please cross-check";
 }
 
-function setUserLoginStatus(status){
+let setUserLoginStatus = (status) => {
   $.cookie(CVar.user_logged_in, status);
 }
 
-function update(id, updates) {
-  _users[id] = assign({}, _users[id], updates);
-}
 
-function updateAll(updates) {
-  for (var id in _users) {
-    update(id, updates);
-  }
-}
-
-function logoutUser() {
+let logoutUser = () => {
   $.removeCookie(CVar.current_user);
   $.removeCookie(CVar.user_logged_in);
 }
 
-
-function get_cookie_meta(){
+let get_cookie_meta = () => {
   var currentDate = new Date();
   var expirationDate = new Date(
     currentDate.getFullYear(),
@@ -71,18 +60,26 @@ function get_cookie_meta(){
   return {path: '/', expires: expirationDate}
 }
 
+let setFirstTimeMarker = (bool) => {
+  $.cookie(CVar.first_time_marker, bool, get_cookie_meta());
+}
+
 var AuthStore = assign({}, EventEmitter.prototype, {
 
-  getShownForm: function() {
+  getShownForm: () => {
     return _shown_form;
   },
 
-  getCurrentUser: function() {
+  getCurrentUser: () => {
     return currentUser()
   },
 
-  getCurrentUserToken: function() {
+  getCurrentUserToken: () => {
     return userToken();
+  },
+
+  getFirstTimeMarker: () => {
+    return $.cookie(CVar.first_time_marker)
   },
 
   getErrorMessage: function(){
@@ -129,6 +126,11 @@ AuthStore.dispatchToken = AppDispatcher.register(function(action) {
 
     case ZhishiConstants.AUTH_LOG_IN_ERROR:
       setErrorMessage(action._error)
+      AuthStore.emitChange();
+      break;
+
+    case ZhishiConstants.FIRST_TIME_LOGIN_TODAY:
+      setFirstTimeMarker(action.data);
       AuthStore.emitChange();
       break;
 
