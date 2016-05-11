@@ -53,10 +53,10 @@ class Home extends React.Component {
   componentDidMount(){
     QuestionStore.addChangeListener(this._onChange.bind(this));
     UserStore.addChangeListener(this._onChange.bind(this));
+    let next_page = this.state.current_page
     $( window ).scroll(function() {
       if($(window).scrollTop() + $(window).height() == $(document).height()) {
-        let _home = new Home;
-        let next_page = _home.state.current_page + 1;
+        next_page++
         ZhishiQuestions.getQuestions(next_page);
      }
     });

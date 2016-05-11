@@ -1,12 +1,10 @@
-import React from "react"
-import SidebarPusher from './layouts/SidebarPusher.react'
+import React from 'react';
+import SidebarPusher from './layouts/SidebarPusher.react';
 
-require("../../css/semantic.min.css");
-require("../../css/prism.css");
-require("../../css/main.scss");
-require("../../css/custom.scss");
-
-
+import '../../css/semantic.min.css';
+import '../../css/prism.css';
+import '../../css/main.scss';
+import '../../css/custom.scss';
 
 class Zhishi extends React.Component {
   constructor(props, context){

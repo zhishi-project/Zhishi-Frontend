@@ -7,7 +7,7 @@ import Common from '../utils/Common.js'
 
 var CHANGE_EVENT = 'change';
 
-var _questions = {}, _top_questions = {}, page_mapping = {}, current_page, shouldFetch = true;
+var _questions = {}, _top_questions = {}, page_mapping = {}, current_page=1, shouldFetch = true;
 var _userQuestions = [];
 
 
