@@ -1,14 +1,35 @@
 import React from 'react'
 import Header from '../layouts/Header.react'
 import Footer from '../layouts/Footer.react'
+import Sidebar from '../layouts/Sidebar.react'
 import UserActions from '../../actions/UserActions.js'
 import UserStore from '../../stores/UserStore.js'
 import AuthStore from '../../stores/AuthStore.js'
 import webAPI from '../../utils/webAPI.js'
+import QuestionStore from '../../stores/QuestionStore.js'
+import TagStore from '../../stores/TagStore.js'
+import TagActions from '../../actions/TagActions.js';
+import QuestionActions from '../../actions/QuestionActions.js';
+
+import SettingsSection from './Settings.react';
+import ProfileTagSection from './ProfileTag.react';
+import UserAnswers from './UserAnswers.react';
+
+import QuestionsList from '../questions/QuestionsList.react'
+import QuestionsListItem from '../questions/QuestionsListItem.react'
+
+
+
+function getHomeState(){
+  return {
+    userQuestions: QuestionStore.retrieveUserQuestions()
+  }
+}
+
 
 function getUserState(user_id){
   if (user_id && !UserStore.getUser(user_id)) {
-    webAPI.processRequest(`/users/${user_id}`, 'GET', user_id, UserActions.receiveUser);
+    webAPI.processRequest(`/users/${user_id}`, 'GET', null, UserActions.receiveUser);
   }
   return {
     user: UserStore.getUser(user_id),
@@ -20,21 +41,39 @@ class Show extends React.Component {
   constructor(props, context){
     super(props);
     this.state = getUserState(props.user_id);
-  }
 
+  }
+  componentWillMount() {
+    webAPI.processRequest(`/users/${this.props.user_id}/tags`, "GET", null, (data) => {
+      TagActions.receiveUserTags(data.tags);
+    });
+    webAPI.processRequest(`/users/${this.props.user_id}/questions`, "GET", null, (data) => {
+      QuestionActions.recieveUserQuestions(data);
+    });
+  }
   componentDidMount(){
+    QuestionStore.addChangeListener(this._onChange.bind(this));
     UserStore.addChangeListener(this._onChange.bind(this));
+    // TagStore.addChangeListener(this._onChange.bind(this));
   }
   componentWillUnmount(){
     UserStore.removeChangeListener(this._onChange).bind(this);
+    QuestionStore.removeChangeListener(this._onChange.bind(this));
 
   }
   _onChange() {
-    this.setState(getUserState(this.props.user_id))
+    this.setState(getUserState(this.props.e))
+    this.setState(getHomeState());
+
+  }
+  createUserQuestionsDiv(question, index){
+      return (<QuestionsListItem key={index} question={question} />);
+  }
+  userAnswers(question, index){
+    return (<UserAnswers />);
   }
   render(){
     let current_user = this.state.current_user;
-    let user = this.state.user || {};
     return (
       <div className="main-wrapper">
         <Header />
@@ -55,38 +94,36 @@ class Show extends React.Component {
               </div>
 
               <div className="seven wide column">
-                <h3>
+                <h2>
                   {current_user.name}
-                </h3>
-                <p>
-                  Thanks for using Zhishi. . We are definitely working on making this page more useful. . And shortly, hopefully, it will.
-                </p>
+                </h2>
+                <ProfileTagSection />
               </div>
-
-              <div className="three wide column">
-                <h3>
-                  Stats
-                </h3>
-                <p>
-                  Member since {user.member_since}
-                </p>
-
-                <p>
-                  {/* 3 Profile views*/}
-                </p>
-
-                <p>
-                  {/* 2 Questions asked*/}
-                </p>
-
-                <p>
-                  {/*5 questions answered*/}
-                </p>
-              </div>
-
+            <SettingsSection />
 
           </div>
+
+          <div className="ui grid">
+            <div className="sixteen wide tablet twelve wide computer column">
+                     <div className="ui divider"></div>
+              <h2>Top Questions</h2>
+            {this.state.userQuestions ? this.state.userQuestions.splice(0,2).map(this.createUserQuestionsDiv) : `<div />`}
+          </div>
+          </div>
+
+          <div className="ui grid">
+            <div className="sixteen wide tablet twelve wide computer column">
+                <div className="ui divider"></div>
+                <h2>Top Answers</h2>
+                {[1,3].map(this.userAnswers)}
+            </div>
+          </div>
+
+
+
+
         </main>
+
         <Footer />
 
       </div>

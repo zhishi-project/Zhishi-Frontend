@@ -1,10 +1,10 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import ZhishiConstants from '../constants/ZhishiConstants';
-import Common from '../utils/Common.js'
+import Common from '../utils/Common.js';
 
 var QuestionActions;
 
-var waitForQuestionStore =  function(){
+var waitForQuestionStore =  function() {
   if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([QuestionStore.dispatchToken]) }
 }
 
@@ -19,6 +19,13 @@ QuestionActions = {
     waitForQuestionStore();
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.RECEIVE_QUESTIONS,
+      data: data
+    });
+  },
+  recieveUserQuestions: data => {
+    waitForQuestionStore();
+    AppDispatcher.dispatch({
+      actionType: ZhishiConstants.RECEIVE_USER_QUESTIONS,
       data: data
     });
   },

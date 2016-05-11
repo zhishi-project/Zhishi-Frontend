@@ -8,6 +8,7 @@ import Common from '../utils/Common.js'
 var CHANGE_EVENT = 'change';
 
 var _questions = {}, _top_questions = {}, page_mapping = {}, current_page, shouldFetch = true;
+var _userQuestions = [];
 
 
 let loadQuestions = (questions) => {
@@ -24,6 +25,10 @@ let loadTopQuestions = (top_questions) => {
 
 let edit = (id) => {
   _questions[id]['status'] = 'editing editor-content'
+}
+
+let loadUserQuestions = questions => {
+  _userQuestions = questions;
 }
 
 let update = (question) => {
@@ -67,6 +72,9 @@ let QuestionStore = assign({}, EventEmitter.prototype, {
 
   getTopQuestions: () => {
     return _top_questions
+  },
+  retrieveUserQuestions: () => {
+    return _userQuestions;
   },
 
   getPageMapping: (page) => {
@@ -112,6 +120,10 @@ QuestionStore.dispatchToken = AppDispatcher.register((action) => {
 
     case ZhishiConstants.RECEIVE_TOP_QUESTIONS:
       loadTopQuestions(action.data.questions);
+      QuestionStore.emitChange();
+      break;
+    case ZhishiConstants.RECEIVE_USER_QUESTIONS:
+      loadUserQuestions(action.data.questions);
       QuestionStore.emitChange();
       break;
 
