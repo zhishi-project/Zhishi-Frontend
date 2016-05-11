@@ -1,6 +1,7 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import ZhishiConstants from '../constants/ZhishiConstants';
 import Common from '../utils/Common.js';
+import QuestionStore from '../stores/QuestionStore';
 
 var QuestionActions;
 
