@@ -38,7 +38,6 @@ class AuthStore extends BaseStore {
     return this.currentUser().api_key;
   }
   setCurrentUser(user) {
-    debugger;
     let cookieMeta = this.getCookieMeta();
     this.user = (typeof user === 'object') ? JSON.stringify(user) : user;
     $.cookie(CVar.current_user, user, cookieMeta);
