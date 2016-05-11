@@ -1,9 +1,76 @@
-.user-profile {
-  .main {
-    height: 60%;
+/* profile page custom tags */
 
-    @media screen and (max-width: 767px) {
-      height: auto;
+.ui.profile-tags {
+    width: 100%;
+    position: relative;
+    height: 200px;
+    .subscribed {
+      position: absolute;
+      top:0;
+      left:0;
+      margin:0;
     }
+    .addmore{
+      position: absolute;
+      top:0;
+      right:0;
+      margin:0;
+    }
+}
+.answers > .row {
+  .column{
+    box-shadow:  1px 0px 0px 0px rgba(34, 36, 38, 0.15) !important;
   }
 }
+.answer-col{
+  padding-top:0 !important;
+  p {
+    .right-text {
+    float: right;
+    font-size: 10px;
+    font-weight: normal;
+    }
+    &.content{
+      font-weight:normal
+    }
+    font-weight: bold;
+
+  }
+
+}
+.column.tag-buttons{
+  height:40px;
+  button{
+    margin: 5px
+  }
+}
+.ui.divider{
+  margin-left:0;
+  margin-right:0;
+}
+h2.headers {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  font-family: $roboto;
+  text-align: center;
+}
+
+.settings{
+  padding: 0 10px;
+  label{
+      font-size: 15px;
+    }
+  .ui.checkbox{
+    vertical-align: middle;
+  }
+}
+.thumb {
+    width: 30px !important;
+}
+.full-height {
+  height: 100%;
+}
+
+
+
+/* end of profile page custom tags */
