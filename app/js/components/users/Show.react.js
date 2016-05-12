@@ -105,17 +105,18 @@ class Show extends React.Component {
 
           <div className="ui grid">
             <div className="sixteen wide tablet twelve wide computer column">
-                     <div className="ui divider"></div>
+              <div className="ui divider"></div>
               <h2>My Questions</h2>
-            {this.state.userQuestions ? this.state.userQuestions.splice(0,2).map(this.createUserQuestionsDiv) : `<div />`}
+              <div className="ui divider"></div>
+             {this.state.userQuestions ? this.state.userQuestions.map(this.createUserQuestionsDiv) : `<div />`}
           </div>
           </div>
 
           <div className="ui grid">
             <div className="sixteen wide tablet twelve wide computer column">
-                <div className="ui divider"></div>
-                <h2>Answers by me</h2>
-                {[1,3].map(this.userAnswers)}
+                {/*<div className="ui divider"></div>*/}
+                {/*<h2>Answers by me</h2>*/}
+                {/*[1,3].map(this.userAnswers)*/}
             </div>
           </div>
 

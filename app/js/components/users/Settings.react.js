@@ -12,7 +12,7 @@ const SettingsSection = (props) => {
         </div>
         <div className="column">
           <div className="ui test toggle checkbox">
-            <input type="checkbox" />
+            <input type="checkbox" disabled/>
             <label></label>
           </div>
           </div>
@@ -24,7 +24,7 @@ const SettingsSection = (props) => {
         </div>
         <div className="column">
           <div className="ui test toggle checkbox">
-            <input type="checkbox"/>
+            <input type="checkbox" disabled/>
             <label></label>
           </div>
           </div>

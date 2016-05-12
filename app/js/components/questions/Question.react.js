@@ -2,9 +2,7 @@ import React from "react"
 
 
 let retreive_id_from_params = (params_id) => {
-  params_id += '/'
-  let len = params_id.indexOf('-') !== -1 ? params_id.indexOf('-') : params_id.indexOf('-')
-  debugger;
+  let len = params_id.indexOf('-') !== -1 ? params_id.indexOf('-') : params_id.length
   return params_id ? (params_id.substring(0, len)) : params_id
 }
 
