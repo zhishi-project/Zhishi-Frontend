@@ -23,7 +23,7 @@ function getHomeState(){
   let current_user = AuthStore.getCurrentUser();
 
   if (_.isEmptyObject(questions)) {
-    webAPI.processRequest(`/questions/personalized`,
+    webAPI.processRequest(/*`/questions/personalized`*/'/questions',
       "GET", {page: current_page},
       (data) => {
         if (!data._error) {
