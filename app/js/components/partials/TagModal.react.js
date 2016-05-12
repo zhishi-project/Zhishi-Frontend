@@ -7,6 +7,13 @@ import AuthActions from '../../actions/AuthActions'
 import webAPI from '../../utils/webAPI'
 import _ from 'jquery'
 
+/*
+  Tag modal is a State, not behaviour component.
+  All modal behaviour is gotten from ModalEffects
+  which acts as a Higher Order Component.
+
+*/
+
 const updateSelectedTagsFromUserTags = () => {
   let { tags } = AuthStore.getCurrentUser();
   TagActions.updateBatchTags(tags)
@@ -24,6 +31,11 @@ let getTagState = () => {
   }
   return { tags, selected_tags }
 }
+
+/*
+  The options array represent types of pictures
+  to be gotten from /assets/img/tags
+*/
 
 let index=0, options = [
   'nightlife', 'sports', 'abstract',
@@ -63,12 +75,7 @@ class TagModal extends React.Component {
   }
 
   componentDidMount() {
-    const { trigger, mountAsModal, toggleModalShow } = this.props;
     TagStore.addChangeListener(this._onChange.bind(this));
-    mountAsModal(this.refs.tagModal, trigger, {closable: false})
-    setTimeout( () => {
-      toggleModalShow(trigger)
-    }, 2000, this)
   }
 
   componentWillUnmount() {
@@ -121,6 +128,7 @@ class TagModal extends React.Component {
           Continue
          </a>
 
+   let { options } = this.props;
     return (
       <div id="selectTagModal" className="md-modal" ref="tagModal">
         <div className="modal-container">
@@ -141,7 +149,7 @@ class TagModal extends React.Component {
           <div className={`actions ${selection_valid}`}>
             {selection_countdown}
           </div>
-          <a className={`${this.props.trigger} hidden`} />
+          <a className={`${options.modalId}-trigger hidden`} />
         </div>
       </div>
     )

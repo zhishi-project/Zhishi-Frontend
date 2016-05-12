@@ -92,7 +92,12 @@ class Home extends React.Component {
             </div>
 
             <Sidebar top_questions={this.state.top_questions} />
-            {current_user.tags ? "" : <TagModal trigger="tagModalTrigger" />}
+            {current_user.tags ? ""
+            : <TagModal options={{
+                  modalId: "selectTagModal",
+                  autoShow: true,
+                  closable: false
+              }} />}
           </div>
         </main>
 

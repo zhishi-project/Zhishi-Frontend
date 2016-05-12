@@ -18,7 +18,7 @@ import UserAnswers from './UserAnswers.react';
 import QuestionsList from '../questions/QuestionsList.react'
 import QuestionsListItem from '../questions/QuestionsListItem.react'
 
-
+import TagModal from '../partials/TagModal.react'
 
 function getHomeState(){
   return {
@@ -44,9 +44,9 @@ class Show extends React.Component {
 
   }
   componentWillMount() {
-    webAPI.processRequest(`/users/${this.props.user_id}/tags`, "GET", null, (data) => {
-      TagActions.receiveUserTags(data.tags);
-    });
+    // webAPI.processRequest(`/users/${this.props.user_id}/tags`, "GET", null, (data) => {
+    //   TagActions.receiveUserTags(data.tags);
+    // });
     webAPI.processRequest(`/users/${this.props.user_id}/questions`, "GET", null, (data) => {
       QuestionActions.recieveUserQuestions(data);
     });
@@ -59,7 +59,6 @@ class Show extends React.Component {
   componentWillUnmount(){
     UserStore.removeChangeListener(this._onChange).bind(this);
     QuestionStore.removeChangeListener(this._onChange.bind(this));
-
   }
   _onChange() {
     this.setState(getUserState(this.props.e))
@@ -70,10 +69,11 @@ class Show extends React.Component {
       return (<QuestionsListItem key={index} question={question} />);
   }
   userAnswers(question, index){
-    return (<UserAnswers />);
+    return (<UserAnswers key={index} />);
   }
   render(){
-    let current_user = this.state.current_user;
+    let { current_user } = this.state;
+    let modalId = "selectTagModal";
     return (
       <div className="main-wrapper">
         <Header />
@@ -97,7 +97,7 @@ class Show extends React.Component {
                 <h2>
                   {current_user.name}
                 </h2>
-                <ProfileTagSection tags={current_user.tags} />
+                <ProfileTagSection tags={current_user.tags} modalTrigger={`${modalId}-trigger`} />
               </div>
             <SettingsSection />
 
@@ -106,7 +106,7 @@ class Show extends React.Component {
           <div className="ui grid">
             <div className="sixteen wide tablet twelve wide computer column">
                      <div className="ui divider"></div>
-              <h2>Top Questions</h2>
+              <h2>My Questions</h2>
             {this.state.userQuestions ? this.state.userQuestions.splice(0,2).map(this.createUserQuestionsDiv) : `<div />`}
           </div>
           </div>
@@ -114,11 +114,12 @@ class Show extends React.Component {
           <div className="ui grid">
             <div className="sixteen wide tablet twelve wide computer column">
                 <div className="ui divider"></div>
-                <h2>Top Answers</h2>
+                <h2>Answers by me</h2>
                 {[1,3].map(this.userAnswers)}
             </div>
           </div>
 
+          {<TagModal  options={{modalId, closable: true}} />}
 
 
 

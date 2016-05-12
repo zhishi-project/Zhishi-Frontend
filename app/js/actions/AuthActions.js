@@ -58,7 +58,7 @@ AuthActions = {
       actionType: ZhishiConstants.CURRENT_USER_UPDATE,
       data: user
     })
-    window.location.href = '/'
+    location.reload();
   },
 
   setFirstTimeMarker: (bool) => {
