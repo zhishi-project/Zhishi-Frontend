@@ -97,7 +97,7 @@ class Show extends React.Component {
                 <h2>
                   {current_user.name}
                 </h2>
-                <ProfileTagSection />
+                <ProfileTagSection tags={current_user.tags} />
               </div>
             <SettingsSection />
 

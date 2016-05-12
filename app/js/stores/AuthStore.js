@@ -64,6 +64,13 @@ class AuthStore extends BaseStore {
       }
     }
   }
+  getFirstTimeMarker() {
+    return $.cookie(CVar.first_time_marker)
+  }
+  setFirstTimeMarker(bool) {
+    $.cookie(CVar.first_time_marker, bool, this.getCookieMeta());
+  }
+
   parseUser(user) {
     return typeof user === 'object' ? user : this.parseUser(JSON.parse(user));
   }
@@ -98,6 +105,11 @@ class AuthStore extends BaseStore {
 
       case ZhishiConstants.AUTH_LOG_IN_ERROR:
         this.setErrorMessage(action._error);
+        this.emitChange();
+        break;
+
+      case ZhishiConstants.FIRST_TIME_LOGIN_TODAY:
+        this.setFirstTimeMarker(action.data);
         this.emitChange();
         break;
 
