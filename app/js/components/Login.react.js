@@ -9,7 +9,10 @@ import Config from '../config/environment.js'
 let signUpPath = `${Config.host}/login/google?redirect_url=http://${window.parent.location.host}/login/auth`;
 
 let loginState = () => {
-  return { quotes: DisplayStore.getQuotes() }
+  return {
+    quotes: DisplayStore.getQuotes(),
+    loggedInToday: AuthStore.getFirstTimeMarker()
+  }
 }
 
 
@@ -52,10 +55,23 @@ class Login extends React.Component {
       loopDelay: 500
     });
 
-    setTimeout(this.signIn, 1000, this)
+    this.autoLogUserIn();
+  }
+
+  autoLogUserIn(){
+    if (!this.state.loggedInToday) {
+      AuthActions.setFirstTimeMarker(true)
+      setTimeout(this.signIn, 1000, this)
+    }
   }
 
   render(){
+    let autoSignInMsg = !this.state.loggedInToday
+      ? <span>
+          Ushering you in in few seconds &nbsp;
+          <i className="ui active small inline loader"></i>
+        </span>
+      : ''
     return (
       <div className="index center aligned ui container full-height">
         <section className="header">
@@ -74,7 +90,7 @@ class Login extends React.Component {
           </div>
 
           <div className="sign-in-desc">
-            Ushering you in in few seconds &nbsp;<i className="ui active small inline loader"></i>
+            {autoSignInMsg}
           </div>
 
         </section>

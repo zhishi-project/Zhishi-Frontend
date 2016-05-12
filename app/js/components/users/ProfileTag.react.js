@@ -6,9 +6,8 @@ export default class ProfileTagSection extends Component {
     super(props)
   }
 
-  renderButtons(tagName, index){
-    return (<button className="ui button" key={index}>{tagName} </button>)
-
+  renderButtons(tag, index){
+    return (<button className="ui button" key={index}>{tag.name} </button>)
   }
 
   render(){
@@ -17,12 +16,12 @@ export default class ProfileTagSection extends Component {
           <div className="column tag-buttons">
             <button className="ui button subscribed">Subscribed tags
             </button>
-            <button className="ui primary button addmore">
+            <button className={`ui primary button addmore ${this.props.modalTrigger}`}>
               Add more
               </button>
           </div>
         <div className="column tag-buttons">
-        {['amity', 'food', 'programming', 'success', 'shower'].map(this.renderButtons)}
+        {this.props.tags.map(this.renderButtons)}
         </div>
          </div>
         </div>)

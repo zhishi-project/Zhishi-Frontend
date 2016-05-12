@@ -58,10 +58,15 @@ AuthActions = {
       actionType: ZhishiConstants.CURRENT_USER_UPDATE,
       data: user
     })
-    window.location.href = '/'
-
+    location.reload();
   },
 
+  setFirstTimeMarker: (bool) => {
+    AppDispatcher.dispatch({
+      actionType: ZhishiConstants.FIRST_TIME_LOGIN_TODAY,
+      data: bool
+    })
+  },
 
   redirectToReferrerIfAny: (nextState, replaceState) => {
     if ($.cookie(CookieVar.referrer)) {

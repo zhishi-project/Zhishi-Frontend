@@ -2,7 +2,7 @@ import React from 'react'
 import $ from 'jquery'
 
 const Tag = ({ tag }) => {
-  return <span>{tag}</span>
+  return <span>{tag.name}</span>
 }
 
 const Tags = ({ tags }) => {
