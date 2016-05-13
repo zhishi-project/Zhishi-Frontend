@@ -1,7 +1,6 @@
 import BaseStore from './BaseStore';
 import ZhishiConstants from '../constants/ZhishiConstants';
-import Common from '../utils/Common.js'
-
+import Common from '../utils/Common.js';
 
 class TagStore extends BaseStore {
   constructor() {
@@ -88,7 +87,6 @@ class TagStore extends BaseStore {
 
 }
 export default new TagStore();
-
 
 // var AppDispatcher = require('../dispatcher/AppDispatcher');
 // var EventEmitter = require('events').EventEmitter;

@@ -99,7 +99,7 @@ class Show extends React.Component {
                 </h2>
                 <ProfileTagSection tags={current_user.tags} modalTrigger={`${modalId}-trigger`} />
               </div>
-            <SettingsSection />
+            { /*<SettingsSection /> */}
 
           </div>
 
