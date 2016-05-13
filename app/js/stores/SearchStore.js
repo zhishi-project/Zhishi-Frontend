@@ -9,6 +9,7 @@ class SearchStore extends BaseStore {
   constructor() {
     super();
     this.search_results = [];
+    this.subscribe(() => this._registerActions.bind(this));
   }
 
   loadSearchResult(results) {
@@ -23,9 +24,9 @@ class SearchStore extends BaseStore {
     switch (action.actionType) {
       case ZhishiConstants.RECEIVE_SEARCH_RESULTS:
         if (action.data) {
-          loadSearchResults(action.data.questions);
+          this.loadSearchResult(action.data.questions);
         }
-        SearchStore.emitChange();
+        this.emitChange();
         break;
 
       default:
@@ -35,47 +36,3 @@ class SearchStore extends BaseStore {
 }
 
 export default new SearchStore();
-
-// var CHANGE_EVENT = 'change';
-//
-// var search_results = [];
-//
-// let loadSearchResults = (results) => {
-//   search_results = results.reverse();
-// }
-//
-// var SearchStore = assign({}, EventEmitter.prototype, {
-//
-//   getSearchResults: function() {
-//     return search_results;
-//   },
-//
-//   emitChange: function() {
-//     this.emit(CHANGE_EVENT);
-//   },
-//
-//   addChangeListener: function(callback) {
-//     this.on(CHANGE_EVENT, callback);
-//   },
-//
-//   removeChangeListener: function(callback) {
-//     this.removeListener(CHANGE_EVENT, callback);
-//   }
-//
-// })
-//
-// SearchStore.dispatchToken = AppDispatcher.register(function(action) {
-//
-//   switch (action.actionType) {
-    // case ZhishiConstants.RECEIVE_SEARCH_RESULTS:
-    //   if (action.data) {
-    //     loadSearchResults(action.data.questions);
-    //   }
-    //   SearchStore.emitChange();
-    //   break;
-//     default:
-//
-//   }
-// })
-//
-// export default SearchStore;
