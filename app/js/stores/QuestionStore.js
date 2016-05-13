@@ -124,6 +124,7 @@ class QuestionStore extends BaseStore {
         break;
 
       default:
+        break;
     }
   }
 }
