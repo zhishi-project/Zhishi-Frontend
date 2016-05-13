@@ -1,8 +1,4 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
-import {EventEmitter} from 'events';
 import ZhishiConstants from '../constants/ZhishiConstants';
-import assign from 'object-assign';
-import Common from '../utils/Common.js';
 import BaseStore from './BaseStore';
 
 class SearchStore extends BaseStore {

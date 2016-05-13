@@ -1,5 +1,4 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
-import { EventEmitter } from 'events';
 import ZhishiConstants from '../constants/ZhishiConstants';
 import assign from 'object-assign';
 import CVar from '../config/CookieVariables.js';
@@ -43,15 +42,17 @@ class UserStore extends BaseStore {
   _registerActions(action) {
     switch (action.actionType) {
       case ZhishiConstants.RECEIVE_USER:
-      if (AppDispatcher.isDispatching()) { AppDispatcher.waitFor([AuthStore.dispatchToken]) };
+        if (AppDispatcher.isDispatching()) {
+          AppDispatcher.waitFor([AuthStore.dispatchToken]);
+        }
         if (action.data) {
-          this.update(action.data.id, action.data)
+          this.update(action.data.id, action.data);
           this.emitChange();
         }
         break;
       default:
           // Nothing for now
-      }
     }
   }
+}
 export default new UserStore();

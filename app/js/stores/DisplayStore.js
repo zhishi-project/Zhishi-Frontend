@@ -1,7 +1,3 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
-import {EventEmitter} from 'events';
-import ZhishiConstants from '../constants/ZhishiConstants';
-import assign from 'object-assign';
 import BaseStore from './BaseStore';
 
 class DisplayStore extends BaseStore {
@@ -41,11 +37,6 @@ class DisplayStore extends BaseStore {
 
   _registerActions(action) {
     switch (action.actionType) {
-      // case ZhishiConstants.QUESTION_UPDATE:
-      //   if (action.data && action.data.answers) {
-      //     loadAnswers(action.data.id, action.data.answers)
-      //   }
-      //   break;
       default:
       // Nothing for now
     }
