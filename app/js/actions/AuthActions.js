@@ -2,7 +2,7 @@ var AuthActions;
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var ZhishiConstants = require('../constants/ZhishiConstants');
 
-import CookieVar from '../config/CookieVariables.js'
+import CookieVar from '../config/CookieVariables.js';
 
 AuthActions = {
 
@@ -20,13 +20,13 @@ AuthActions = {
         data: data
       });
     }
-    AuthActions.redirectToReferrerIfAny()
+    AuthActions.redirectToReferrerIfAny();
   },
 
   logoutUser: function() {
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.AUTH_LOG_OUT
-    })
+    });
   },
 
   signupUser: function(id, data) {
@@ -74,7 +74,7 @@ AuthActions = {
       $.removeCookie(CookieVar.referrer)
       window.location.href = referrer;
     } else {
-      window.location.href = '/'
+      window.location.href = '/';
     }
   }
 

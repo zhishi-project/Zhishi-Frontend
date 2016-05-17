@@ -3,6 +3,7 @@ import Header from './layouts/Header.react'
 import Footer from './layouts/Footer.react'
 import QuestionsList from './questions/QuestionsList.react'
 import Sidebar from './layouts/Sidebar.react'
+import TagSelection from './layouts/TagSelection.react'
 import ZhishiQuestions from '../utils/ZhishiInit.js'
 
 import AuthStore from '../stores/AuthStore.js'
@@ -48,11 +49,14 @@ class Home extends React.Component {
   constructor(props, context){
     super(props);
     this.state = getHomeState(1);
+    this.state.showFilters = false;
+    this.showFilterAction = this.showFilterAction.bind(this);
+    this._onChange = this._onChange.bind(this);
   }
 
   componentDidMount(){
-    QuestionStore.addChangeListener(this._onChange.bind(this));
-    UserStore.addChangeListener(this._onChange.bind(this));
+    QuestionStore.addChangeListener(this._onChange);
+    UserStore.addChangeListener(this._onChange);
     let next_page = this.state.current_page
     $( window ).scroll(function() {
       if($(window).scrollTop() + $(window).height() == $(document).height()) {
@@ -71,6 +75,13 @@ class Home extends React.Component {
   shouldComponendUpdate() {
     return this.state.should_fetch
   }
+  loadTagSelection (tag, i) {
+    return (<TagSelection  tag={tag} key={i}/>);
+  }
+  showFilterAction(){
+    console.log('got here');
+    this.setState({showFilters: !this.state.showFilters});
+  }
 
   _onChange() {
     this.setState(getHomeState(this.state.current_page))
@@ -79,12 +90,25 @@ class Home extends React.Component {
     var questions = QuestionStore.getQuestions(this.state.question_ids);
     let ajax_icon = this.state.should_fetch ? <i className="notched center circle loading icon"></i> : null
     let current_user = this.state.current_user || {}
+    let filterDiv = this.state.showFilters ? <div className="ui form"> <div className="inline fields">
+            {current_user.tags.map(this.loadTagSelection)} </div>
+            <button className="ui blue basic button">
+            Filter Questions
+            </button>
+            </div>: null
     return (
       <div className="main-wrapper homepage">
         <Header />
 
         <main className="ui container main">
           <div className="ui grid">
+            <div className="sixteen wide tablet sixteen wide computer column">
+             <button className="mini ui primary button" onClick={this.showFilterAction}>Show filters</button>
+
+                {filterDiv}
+
+
+            </div>
             <div className="sixteen wide tablet twelve wide computer column">
               <h2>Recent Questions</h2>
               {<QuestionsList questions={questions} current_page={this.state.current_page} />}
