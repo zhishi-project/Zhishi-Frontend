@@ -2,14 +2,14 @@ import React from "react"
 
 
 let retreive_id_from_params = (params_id) => {
-  let len = params_id ?
-    params_id.indexOf('-') !== -1 ? params_id.indexOf('-') : params_id.length
+  let len = params_id
+    ? params_id.indexOf('-') !== -1 ? params_id.indexOf('-') : params_id.length
     : 0
   return params_id ? (params_id.substring(0, len)) : params_id
 }
 
 
-class Question extends React.Component {
+class Question extends Reacts.Component {
   constructor(props, context){
     super(props);
   }
