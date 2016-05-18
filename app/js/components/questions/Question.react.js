@@ -9,7 +9,7 @@ let retreive_id_from_params = (params_id) => {
 }
 
 
-class Question extends Reacts.Component {
+class Question extends React.Component {
   constructor(props, context){
     super(props);
   }
