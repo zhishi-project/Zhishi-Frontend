@@ -4,7 +4,7 @@ const TagSelection = (props) => {
   return (
       <div className="field">
         <div className="ui checkbox">
-          <input type="checkbox" name={props.tag.name}/>
+          <input type="checkbox" value={props.tag.name} onClick={props.onTagSelect}/>
           <label>{props.tag.name}</label>
         </div>
     </div>

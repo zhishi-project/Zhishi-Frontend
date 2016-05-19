@@ -52,6 +52,8 @@ class Home extends React.Component {
     this.state.showFilters = false;
     this.showFilterAction = this.showFilterAction.bind(this);
     this._onChange = this._onChange.bind(this);
+    this.onTagSelect = this.onTagSelect.bind(this);
+    this.loadTagSelection = this.loadTagSelection.bind(this);
   }
 
   componentDidMount(){
@@ -75,8 +77,12 @@ class Home extends React.Component {
   shouldComponendUpdate() {
     return this.state.should_fetch
   }
+  onTagSelect(e){
+    console.log(e.target.value, e.target.checked)
+    console.log('got here');
+  }
   loadTagSelection (tag, i) {
-    return (<TagSelection  tag={tag} key={i}/>);
+    return (<TagSelection onTagSelect={this.onTagSelect} tag={tag} key={i}/>);
   }
   showFilterAction(){
     console.log('got here');
@@ -88,6 +94,7 @@ class Home extends React.Component {
   }
   render(){
     var questions = QuestionStore.getQuestions(this.state.question_ids);
+    console.log(questions);
     let ajax_icon = this.state.should_fetch ? <i className="notched center circle loading icon"></i> : null
     let current_user = this.state.current_user || {}
     let filterDiv = this.state.showFilters ? <div className="ui form"> <div className="inline fields">

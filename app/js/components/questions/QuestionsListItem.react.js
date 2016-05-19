@@ -12,6 +12,7 @@ class QuestionsListItem extends React.Component {
     var tags = [];
     var question = this.props.question;
     if (question && question.tags) {
+      console.log(question.tags, 'got to the tags');
       question.tags.forEach(function(tag) {
         tags.push(<span>{tag}</span>);
       })
