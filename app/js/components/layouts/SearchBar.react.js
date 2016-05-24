@@ -70,11 +70,11 @@ class SearchBar extends React.Component {
    }
 
    searchIcon(questions) {
-     // if the box is empty, no search is done
-     // once results are returned, no searching is done (until keyboard is pressed again)
-     return this.refs.searchBox && (this.refs.searchBox.value == '' || !$.isEmptyObject(questions))
-       ? <i className="search icon"></i>
-       : <div className="ui active small inline search-box loader"></div>
+     // If the box is empty, no search is done
+     // Once results are returned, no searching is done (until keyboard is pressed again)
+     return this.refs.searchBox && (this.refs.searchBox.value !== '' && $.isEmptyObject(questions))
+       ? <div className="ui active small inline search-box loader"></div>
+       : <i className="search icon"></i>
    }
 
    shouldShowSearchResults(questions) {
