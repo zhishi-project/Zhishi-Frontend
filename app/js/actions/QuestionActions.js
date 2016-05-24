@@ -11,7 +11,7 @@ var waitForQuestionStore =  function() {
 
 QuestionActions = {
   createQuestion: (question) => {
-    // QuestionActions.sendQuestionsToSlack(question)
+    QuestionActions.sendQuestionsToSlack(question)
     QuestionActions.receiveQuestion(question)
     window.location.href = `/questions/${Common.createPermalink(question.id, question.title)}`
   },
