@@ -46,6 +46,7 @@ var webAPI = {
       }.bind(this),
       complete: function(){
         if (typeof(this.parentElement) !== 'undefined') {
+          this.parentElement.prop( "disabled", true )
           this.parentElement.innerHTML = this.el_html;
         }
       }.bind(this)

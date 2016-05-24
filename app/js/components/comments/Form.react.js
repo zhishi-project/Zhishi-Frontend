@@ -9,6 +9,7 @@ class NewCommentForm extends React.Component {
 
    submitComment(event){
      event.preventDefault();
+     $("#submitCommentBtn").prop( "disabled", true )
      var comment_box = $(event.target.parentElement).find('textarea');
      var meta = this.props.meta;
      var resource_id = meta.resource_id;
@@ -24,7 +25,7 @@ class NewCommentForm extends React.Component {
      }
      webAPI.processRequest(path, action, { content: $(comment_box).val() }, (data) => {
        callback({meta: meta, comment: data})
-     })
+     }, $("#submitCommentBtn"))
     //  callback({meta:meta, comment: {content: $(comment_box).val(), user:{name: 'Cent'}}})
    }
 
@@ -36,7 +37,7 @@ class NewCommentForm extends React.Component {
          <div className="field">
            <textarea style={{height:'auto'}} defaultValue={comment.content}></textarea>
          </div>
-         <button className="ui button" onClick={this.submitComment.bind(this)}>
+         <button id="submitCommentBtn" className="ui button" onClick={this.submitComment.bind(this)}>
            Post Comment
          </button>
        </form>

@@ -7,7 +7,7 @@ import QuestionStore from "../stores/QuestionStore.js"
 
 AnswerActions = {
   createAnswer: (answer) => {
-    AnswerActions.sendAnswersToSlack(answer)
+    // AnswerActions.sendAnswersToSlack(answer)
     AnswerActions.receiveAnswer(answer)
   },
 
@@ -20,11 +20,10 @@ AnswerActions = {
 
   receiveAnswers: (data) => {
     AppDispatcher.dispatch({
-      actionType: ZhishiConstants.ANSWER_INDEX,
+      actionType: ZhishiConstants.ANSWER_INDX,
       data: data
-    });
+    })
   },
-
   receiveAnswer: (answer) => {
     if (answer) {
       AppDispatcher.dispatch({
@@ -41,7 +40,6 @@ AnswerActions = {
       data: data
     });
   },
-
 
   updateVote: (data) => {
     AppDispatcher.dispatch({

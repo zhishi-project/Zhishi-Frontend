@@ -14,10 +14,11 @@ class NewAnswerForm extends React.Component {
 
    submitAnswer(event){
      event.preventDefault();
+     $("#submitAnswerBtn").prop( "disabled", true )
      tinyMCE.triggerSave();
      var answer = $("#answerForm textarea").val();
      var question_id = $("#answerForm textarea").data('question-id');
-     webAPI.processRequest(`/questions/${question_id}/answers`, 'POST', { content: answer }, AnswerActions.createAnswer)
+     webAPI.processRequest(`/questions/${question_id}/answers`, 'POST', { content: answer }, AnswerActions.createAnswer, $("#submitAnswerBtn"))
      tinyMCE.activeEditor.setContent('');
    }
 
@@ -31,7 +32,7 @@ class NewAnswerForm extends React.Component {
              <div className="field">
                <textarea className="new-answer editor-content" data-question-id={this.props.question_id} cols="30" rows="10" value=""></textarea>
              </div>
-             <button className="ui button" onClick={this.submitAnswer}>
+             <button id="submitAnswerBtn" className="ui button" onClick={this.submitAnswer}>
                Post Answer
              </button>
            </form>

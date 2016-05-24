@@ -60,7 +60,7 @@ class Header extends React.Component {
                 <a href="#" className="item">Tags</a>
                 <a href="#" className="item">Help</a>
                 <div className="pointing ui dropdown item">
-                  <img src={current_user.image || "/assets/img/profile.jpg"} alt="user-profile-image" className="profile-img" />
+                  <img src={current_user.image || "/assets/img/avatar.png"} alt="user-profile-image" className="profile-img" />
                   <i className="dropdown icon"></i>
 
                   <div className="menu">

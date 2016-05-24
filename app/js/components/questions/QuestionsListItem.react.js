@@ -69,7 +69,7 @@ class QuestionsListItem extends React.Component {
 
             <div className="five wide column">
               <span className="username" title={username}>{username}</span>
-              <img src={user_avatar || "/assets/img/profile.jpg"} alt="profile-image" className={"thumb"} />
+              <img src={user_avatar || "/assets/img/avatar.png"} alt="profile-image" className={"thumb"} />
             </div>
 
           </div>

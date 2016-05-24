@@ -149,7 +149,7 @@ class Question extends React.Component {
                         </div>
 
                         <div className="two wide column">
-                          <img src={user.image || "/assets/img/profile.jpg"} alt="profile-image" className="profile-img" />
+                          <img src={user.image || "/assets/img/avatar.png"} alt="profile-image" className="profile-img" />
                         </div>
                       </div>
                     </div>
