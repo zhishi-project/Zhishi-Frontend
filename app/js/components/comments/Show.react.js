@@ -50,11 +50,13 @@ class AllComments extends React.Component {
      }
      let content = comment.status == 'editing' ? <EditCommentForm comment={comment} meta={meta} /> : <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(comment.content)}} />
 
+     let userPermalink = Common.createPermalink(user.id, user.name);
+
      return (
        <div id={comment_dom_id} className={`comment  ${comment.status}`}>
        {<Votes resource={comment} meta={meta} callback={CommentActions.updateVote} />}
          <div className="content">
-           <a className="author">{user.name}</a>
+           <a href={`/users/${userPermalink}`} className="author">{user.name}</a>
            <div className="metadata">
              <span className="date">On {comment_date.toDateString() || "(no date )"}</span>
            </div>

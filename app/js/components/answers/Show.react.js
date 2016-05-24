@@ -83,6 +83,8 @@ class AllAnswers extends React.Component {
         accepted_answer_ribbon = <div className="ribbon">
           <i className="checkmark icon"></i></div>
      }
+     let userPermalink = Common.createPermalink(user.id, user.name);
+
      var comments_meta = {question_id: answer.question_id, resource_name: "answers", resource_id: answer.id};
 
      return (
@@ -111,7 +113,7 @@ class AllAnswers extends React.Component {
              <div className="two equal width ui grid">
                <div className="fourteen wide column">
                  <p className="user-fullname">
-                   {user.name}
+                   <a href={`/users/${userPermalink}`}>{user.name || "No name yet"}</a>
                    <span className="badges">
                      {user.points || 0}
                    </span>
@@ -120,7 +122,7 @@ class AllAnswers extends React.Component {
 
 
                <div className="two wide column">
-                 <img src={ user.image || "/assets/img/profile.jpg"} alt="profile-image" className="profile-img" />
+                 <img src={ user.image || "/assets/img/avatar.png"} alt="profile-image" className="profile-img" />
                </div>
              </div>
 

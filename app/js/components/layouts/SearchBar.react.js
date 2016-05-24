@@ -3,6 +3,7 @@ import SearchStore from '../../stores/SearchStore.js'
 import SearchActions from "../../actions/SearchActions.js"
 import webAPI from '../../utils/webAPI.js'
 import Common from '../../utils/Common.js'
+import MarketingConfig from '../../config/Marketing.js'
 
 let searchBarState = (search_query) => {
   var initial_questions = SearchStore.getSearchResults();
@@ -35,10 +36,10 @@ class SearchBar extends React.Component {
    }
 
    search(event) {
-     var search_results;
+     let search_results;
      this.search_server(event);
      if (event.target.value != '') {
-       var search_results = this.state.initial_questions, value, title;
+       let search_results = this.state.initial_questions, value, title;
        search_results = search_results.filter(function(question) {
          value = event.target.value.toLowerCase(), title = question.title.toLowerCase();
          return value.length > 2 ? (title.search(value) != -1) : (title.substring(0, value.length) == value)
@@ -68,25 +69,26 @@ class SearchBar extends React.Component {
      $("#searchResults").css('width', $(".search-area .ui.input").width() - 4)
    }
 
-   questionsToSearch() {
-    //  var questions =  SearchStore.getQuestions();
-    //  var keys = Object.keys(questions), questions_array = [], question;
-    //  keys.map(function(key) {
-    //    question = questions[key];
-    //    question = {id: question.id, title: question.title}
-    //    questions_array.push(question)
-    //  })
+   searchIcon(questions) {
+     // If the box is empty, no search is done
+     // Once results are returned, no searching is done (until keyboard is pressed again)
+     return this.refs.searchBox && (this.refs.searchBox.value !== '' && $.isEmptyObject(questions))
+       ? <div className="ui active small inline search-box loader"></div>
+       : <i className="search icon"></i>
+   }
 
-     return questions_array;
+   shouldShowSearchResults(questions) {
+     return !$.isEmptyObject(questions) && this.refs.searchBox && this.refs.searchBox.value  !== ''
    }
 
    render () {
-     var questions = this.state.questions, question, search_results = [], keys, url, hide_class;
-     if (!$.isEmptyObject(questions) && $("#searchInputBox").val() !== '') {
+     const { questions } = this.state;
+     let question, search_results = [], keys, url, hide_class;
+     if (this.shouldShowSearchResults(questions)) {
        keys = Object.keys(questions)
        for (var i = keys.length - 1; i >= 0; i--) {
          question = questions[keys[i]];
-         url = `http://${window.location.host}/questions/${Common.createPermalink(question.id, question.title)}`
+         url = `http://${window.location.host}/questions/${Common.createPermalink(question.id, question.title)}?${MarketingConfig.searchBoxTracker}`;
          search_results.push(<li key={i}><a href={url}>{question.title}</a></li>)
          if (i > 8) { break; }
        }
@@ -97,8 +99,8 @@ class SearchBar extends React.Component {
        <div className="search-area ui container">
          <form action="/search" method="GET" className="ui search">
            <div className="ui icon input">
-             <input id="searchInputBox" name="q" type="text" className="prompt" placeholder="Check if someone's asked that..." onChange={this.search.bind(this)} />
-             <i className="search icon"></i>
+             <input id="searchInputBox" name="q" type="text" className="prompt" placeholder="Check if someone's asked that..." ref="searchBox" onChange={this.search.bind(this)} />
+             {this.searchIcon(questions)}
            </div>
            <button className="search ui button" type="submit">
              Search

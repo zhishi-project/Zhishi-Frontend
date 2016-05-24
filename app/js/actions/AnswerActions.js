@@ -22,9 +22,8 @@ AnswerActions = {
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.ANSWER_INDEX,
       data: data
-    });
+    })
   },
-
   receiveAnswer: (answer) => {
     if (answer) {
       AppDispatcher.dispatch({
@@ -41,7 +40,6 @@ AnswerActions = {
       data: data
     });
   },
-
 
   updateVote: (data) => {
     AppDispatcher.dispatch({

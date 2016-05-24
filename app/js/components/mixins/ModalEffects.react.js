@@ -16,7 +16,19 @@ import React from 'react'
   E.g., if modalId='myModal', then modal trigger element would have class 'myModal-trigger'
 */
 
-let ModalEffects = InnerComponent => class extends React.Component {
+const HowToLearnProgramming = () => {
+  return {
+    1: "Learn on the job",
+    2: "Learn online",
+    3: "Learn online",
+    4: "Learn by doing",
+    5: "Just do it"
+  }
+}
+
+
+
+const ModalEffects = InnerComponent => class extends React.Component {
 
    toggleModalShow(trigger) {
      $("."+trigger).click();

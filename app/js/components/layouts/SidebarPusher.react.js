@@ -17,7 +17,7 @@ const SidebarPusher = ({current_user}) => {
         Help
       </a>
       <a className="item">
-        <img src={current_user.image || "/assets/img/profile.jpg"} alt="user-profile-image" className="profile-img" />
+        <img src={current_user.image || "/assets/img/avatar.png"} alt="user-profile-image" className="profile-img" />
         My profile
       </a>
       <a href="/logout" className="item">

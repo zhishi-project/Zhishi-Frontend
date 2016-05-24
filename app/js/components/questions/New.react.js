@@ -17,13 +17,14 @@ class NewQuestion extends React.Component {
 
    createQuestion(event){
      event.preventDefault();
+     $("#submitQuestionBtn").prop( "disabled", true )
      tinymce.triggerSave();
      var title = $("form #new_question_title").val();
      var desc = $("form #new_question_desc").val();
      var tags = [];
      $("#selected-tags").children().each(function(){ tags.push($(this).html())})
      var question_data = { title: title, content: desc, tags: tags }
-     webAPI.processRequest('/questions', 'POST', question_data, QuestionActions.createQuestion, $(".submitQuestionBtn")[0])
+     webAPI.processRequest('/questions', 'POST', question_data, QuestionActions.createQuestion, $("#submitQuestionBtn"))
    }
 
    render () {

@@ -68,7 +68,7 @@ class Login extends React.Component {
   render(){
     let autoSignInMsg = !this.state.loggedInToday
       ? <span>
-          Ushering you in in few seconds &nbsp;
+          Ushering you in in a few seconds &nbsp;
           <i className="ui active small inline loader"></i>
         </span>
       : ''
