@@ -1,49 +1,34 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var ZhishiConstants = require('../constants/ZhishiConstants');
-var assign = require('object-assign');
-import Common from '../utils/Common.js'
+import ZhishiConstants from '../constants/ZhishiConstants';
+import BaseStore from './BaseStore';
 
-var CHANGE_EVENT = 'change';
+class SearchStore extends BaseStore {
+  constructor() {
+    super();
+    this.search_results = [];
+    this.subscribe(() => this._registerActions.bind(this));
+  }
 
-var search_results = [];
+  loadSearchResult(results) {
+    this.search_results = results.reverse();
+  }
 
-let loadSearchResults = (results) => {
-  search_results = results.reverse();
+  getSearchResults() {
+    return this.search_results;
+  }
+
+  _registerActions(action) {
+    switch (action.actionType) {
+      case ZhishiConstants.RECEIVE_SEARCH_RESULTS:
+        if (action.data) {
+          this.loadSearchResult(action.data.questions);
+        }
+        this.emitChange();
+        break;
+
+      default:
+        // Nothing for now
+    }
+  }
 }
 
-var SearchStore = assign({}, EventEmitter.prototype, {
-
-  getSearchResults: function() {
-    return search_results;
-  },
-
-  emitChange: function() {
-    this.emit(CHANGE_EVENT);
-  },
-
-  addChangeListener: function(callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-
-  removeChangeListener: function(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  }
-
-})
-
-SearchStore.dispatchToken = AppDispatcher.register(function(action) {
-
-  switch (action.actionType) {
-    case ZhishiConstants.RECEIVE_SEARCH_RESULTS:
-      if (action.data) {
-        loadSearchResults(action.data.questions);
-      }
-      SearchStore.emitChange();
-      break;
-    default:
-
-  }
-})
-
-export default SearchStore;
+export default new SearchStore();

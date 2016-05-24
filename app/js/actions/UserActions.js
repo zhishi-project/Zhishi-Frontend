@@ -9,7 +9,6 @@ UserActions = {
       data: data
     })
   },
-
 }
 
 export default UserActions;

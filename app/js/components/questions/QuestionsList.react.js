@@ -6,7 +6,7 @@ class QuestionsList extends React.Component {
     super(props)
   }
 
-  render(){
+  render() {
     var items = [], keys=[];
     if (this.props.questions) {
       keys = Object.keys(this.props.questions)

@@ -1,0 +1,17 @@
+.ui.form{
+  padding: 20px;
+  border: solid 0.5px #eee;
+
+  .inline.fields {
+    margin:0px 0px 10px 0px;
+    flex-wrap: wrap;
+
+    .field {
+      margin: 10px;
+    }
+  }
+}
+.mini.ui.primary.button{
+  background-color: #225BE2;
+  margin-bottom:5px;
+}

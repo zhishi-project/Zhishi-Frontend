@@ -99,7 +99,7 @@ class Show extends React.Component {
                 </h2>
                 <ProfileTagSection tags={current_user.tags} modalTrigger={`${modalId}-trigger`} />
               </div>
-            <SettingsSection />
+            { /*<SettingsSection /> */}
 
           </div>
 
@@ -108,7 +108,7 @@ class Show extends React.Component {
               <div className="ui divider"></div>
               <h2>My Questions</h2>
               <div className="ui divider"></div>
-             {this.state.userQuestions ? this.state.userQuestions.map(this.createUserQuestionsDiv) : `<div />`}
+             {this.state.userQuestions ? this.state.userQuestions.map(this.createUserQuestionsDiv) : null}
           </div>
           </div>
 
