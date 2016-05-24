@@ -219,15 +219,18 @@
         @include flex-wrap(wrap);
         @include justify-content(flex-start);
         span {
-          margin-left: 0;
-          margin-top: -5px;
+          margin: -5px 5px 5px;
+          background: lighten($body-text, 65%);
+          padding: 2px 5px;
+          border-radius: 5px;
           text-transform: lowercase;
         }
       }
-      
+
       .username {
+        color: $primary-color;
         display: inline-block;
-        font-weight: 700;
+        font-weight: 400;
         margin-right: 15px;
         overflow: hidden;
         text-overflow: ellipsis;

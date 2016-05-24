@@ -14,7 +14,7 @@ class QuestionsListItem extends React.Component {
     if (question && question.tags) {
       console.log(question.tags, 'got to the tags');
       question.tags.forEach(function(tag) {
-        tags.push(<span>{tag}</span>);
+        tags.push(<span>{tag.name}</span>);
       })
     }
     var username = question.user ? question.user.name : "";
@@ -69,7 +69,7 @@ class QuestionsListItem extends React.Component {
             </div>
 
             <div className="five wide column">
-              <span className="username" title={username}>{username}</span>
+              <a href={`/users/${userPermalink}`} className="username" title={username}>{username}</a>
               <img src={user_avatar || "/assets/img/avatar.png"} alt="profile-image" className={"thumb"} />
             </div>
 

@@ -77,24 +77,25 @@ class Question extends React.Component {
   }
 
   questionData(){
-    var title = $(".question-title").html();
-    var desc = $(".question-content .main-comment").html();
+    let title = $(".question-title").html();
+    let desc = $(".question-content .main-comment").html();
     return { title: title, content: desc }
   }
 
   render(){
-    var question = this.state.question || {};
-    var user = question.user ? question.user : {};
-    var current_user = AuthStore.getCurrentUser();
-    var question_edit_btn, question_delete_btn;
-    var content = $.isEmptyObject(question) ? <i className="notched circle loading icon"></i> : <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(question.content)}} />
-    var question_date = new Date(question.created_at)
-    var share_statement = `You can past this link on slack or send directly via email: http://${window.location.host + window.location.pathname}`;
-    var question_dom_id = `question-${question.id}`;
-    var text_to_copy = `http://${window.location.host + window.location.pathname}`;
-    var edit_tip = "You can click on the question title to edit it."
-    var title_editor_class = question.status != '' ? 'editing editor-title' : ''
-    var comments_meta = {question_id: this.props.question_id, resource_name: "questions", resource_id: this.props.question_id}
+    let question = this.state.question || {};
+    let user = question.user ? question.user : {};
+    let current_user = AuthStore.getCurrentUser();
+    let question_edit_btn, question_delete_btn;
+    let content = $.isEmptyObject(question) ? <i className="notched circle loading icon"></i> : <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(question.content)}} />
+    let question_date = new Date(question.created_at)
+    let share_statement = `You can past this link on slack or send directly via email: http://${window.location.host + window.location.pathname}`;
+    let question_dom_id = `question-${question.id}`;
+    let text_to_copy = `http://${window.location.host + window.location.pathname}`;
+    let edit_tip = "You can click on the question title to edit it."
+    let title_editor_class = question.status != '' ? 'editing editor-title' : ''
+    let comments_meta = {question_id: this.props.question_id, resource_name: "questions", resource_id: this.props.question_id}
+    let userPermalink = Common.createPermalink(user.id, user.name);
     if (current_user.id == user.id) {
       question_edit_btn = <a href="#" className="item" onClick={this.editQuestion.bind(this)}>edit</a>
       question_delete_btn = <a href="#" className="item">delete</a>
@@ -140,8 +141,8 @@ class Question extends React.Component {
 
                       <div className="two equal width ui grid">
                         <div className="fourteen wide column">
-                          <p className="user-fullname">
-                            {user.name || "No name yet"}
+                          <p className="user-fullname username">
+                            <a href={`/users/${userPermalink}`}>{user.name || "No name yet"}</a>
                             <span className="badges">
                               {user.points || 0}
                             </span>

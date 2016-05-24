@@ -57,15 +57,15 @@ class Header extends React.Component {
                   <i className="plus icon"></i>
                   Ask Question
                 </a>
-                <a href="#" className="item">Tags</a>
-                <a href="#" className="item">Help</a>
+                {/*<a href="#" className="item">Tags</a>*/}
+                {/*}<a href="#" className="item">Help</a>*/}
                 <div className="pointing ui dropdown item">
                   <img src={current_user.image || "/assets/img/avatar.png"} alt="user-profile-image" className="profile-img" />
                   <i className="dropdown icon"></i>
 
                   <div className="menu">
                     <a href={`/users/${permalink}`} className="item"><i className="user icon"></i> Profile</a>
-                    <a href="#" className="item"><i className="setting icon"></i> Settings</a>
+                    {/*<a href="#" className="item"><i className="setting icon"></i> Settings</a>*/}
                     <a href="/logout" className="item"><i className="privacy icon"></i> Log out</a>
                   </div>
                 </div>
