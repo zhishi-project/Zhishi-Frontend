@@ -60,7 +60,7 @@ class Login extends React.Component {
 
   autoLogUserIn(){
     if (!this.state.loggedInToday) {
-      AuthActions.setFirstTimeMarker(true)
+      AuthActions.setFirstTimeMarker(true);
       setTimeout(this.signIn, 1000, this)
     }
   }
