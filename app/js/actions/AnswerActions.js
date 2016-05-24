@@ -20,7 +20,7 @@ AnswerActions = {
 
   receiveAnswers: (data) => {
     AppDispatcher.dispatch({
-      actionType: ZhishiConstants.ANSWER_INDX,
+      actionType: ZhishiConstants.ANSWER_INDEX,
       data: data
     })
   },
