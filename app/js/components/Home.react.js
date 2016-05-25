@@ -120,7 +120,7 @@ class Home extends React.Component {
             </div>
 
             <Sidebar top_questions={this.state.top_questions} />
-            {current_user.tags ? ""
+            {$.isEmptyObject(current_user.tags) ? ""
             : <TagModal options={{
                   modalId: "selectTagModal",
                   autoShow: true,
