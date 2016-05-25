@@ -42,8 +42,13 @@ class Show extends React.Component {
   componentWillMount() {
     const { user_id } = this.props;
     webAPI.processRequest(`/users/${user_id}`, 'GET', null, UserActions.receiveUser);
-    webAPI.processRequest(`/users/${user_id}/questions`,
-      "GET", null, QuestionActions.recieveUserQuestions);
+    // webAPI.processRequest(`/users/${user_id}/questions`,
+      // "GET", null, QuestionActions.recieveUserQuestions);
+      webAPI.processRequest(`/users/${user_id}/activities`,
+        "GET", null, (data) => {
+          debugger;
+          QuestionActions.recieveUserQuestions
+        });
   }
 
   componentDidMount(){
