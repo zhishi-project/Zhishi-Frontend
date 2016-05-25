@@ -9,12 +9,11 @@ class QuestionsListItem extends React.Component {
 
 
   render(){
-    var tags = [];
+    var tags = [], index=0;
     var question = this.props.question;
     if (question && question.tags) {
-      console.log(question.tags, 'got to the tags');
       question.tags.forEach(function(tag) {
-        tags.push(<span>{tag.name}</span>);
+        tags.push(<span key={index++}>{tag.name}</span>);
       })
     }
     var username = question.user ? question.user.name : "";

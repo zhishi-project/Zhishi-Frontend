@@ -78,14 +78,12 @@ class Home extends React.Component {
     return this.state.should_fetch
   }
   onTagSelect(e){
-    console.log(e.target.value, e.target.checked)
-    console.log('got here');
+    // console.log(e.target.value, e.target.checked)
   }
   loadTagSelection (tag, i) {
     return (<TagSelection onTagSelect={this.onTagSelect} tag={tag} key={i}/>);
   }
   showFilterAction(){
-    console.log('got here');
     this.setState({showFilters: !this.state.showFilters});
   }
 
@@ -94,7 +92,6 @@ class Home extends React.Component {
   }
   render(){
     var questions = QuestionStore.getQuestions(this.state.question_ids);
-    console.log(questions);
     let ajax_icon = this.state.should_fetch ? <i className="notched center circle loading icon"></i> : null
     let current_user = this.state.current_user || {}
     let filterDiv = this.state.showFilters ? <div className="ui form"> <div className="inline fields">
