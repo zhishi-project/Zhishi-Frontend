@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import BaseStore from './BaseStore';
 import ZhishiConstants from '../constants/ZhishiConstants';
@@ -13,12 +14,28 @@ class QuestionStore extends BaseStore {
     this.page_mapping = {};
     this.current_page = 1;
     this._questions = {};
+    this._filteredQuestions = {};
     this._userQuestions = [];
   }
 
   loadQuestions(questions) {
+    console.log(questions);
     if (questions) {
       Object.assign(this._questions, Common.serializeByKey(questions));
+    }
+  }
+  filterQuestionsWithTags(tags) {
+
+    if (tags.length === 0) {
+      this._filteredQuestions = this._questions;
+    } else {
+
+      let filteredQuestions = _.filter(this._questions, function(o) {
+        let userMap = _.map(o.tags, k => k.id.toString());
+        console.log(userMap, tags);
+        return _.intersection(userMap, tags).length > 0;
+      });
+      this._filteredQuestions = filteredQuestions;
     }
   }
 
@@ -26,6 +43,9 @@ class QuestionStore extends BaseStore {
     if (top_questions) {
       this._top_questions = Common.serializeByKey(top_questions);
     }
+  }
+  get filteredQuestions() {
+    return this._filteredQuestions;
   }
   edit(id) {
     this._questions[id]['status'] = 'editing editor-content';
@@ -115,7 +135,10 @@ class QuestionStore extends BaseStore {
           this.emitChange();
         }
         break;
-
+      case ZhishiConstants.FILTER_QUESTIONS_WITH_TAGS:
+        this.filterQuestionsWithTags(action.data);
+        this.emitChange();
+        break;
       case ZhishiConstants.QUESTION_UPDATE_VOTES:
         if (action.data && action.data.votes_count) {
           this.updateVotesCount(action.data.id, action.data);

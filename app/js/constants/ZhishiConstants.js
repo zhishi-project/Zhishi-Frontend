@@ -29,6 +29,7 @@ module.exports = keyMirror({
   RECEIVE_SEARCH_RESULTS: null,
   RECEIVE_USER: null,
   RECEIVE_USER_QUESTIONS: null,
+  FILTER_QUESTIONS_WITH_TAGS: null,
   CURRENT_USER_UPDATE: null
 
 });

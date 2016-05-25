@@ -66,8 +66,8 @@ class Show extends React.Component {
   userAnswers(question, index){
     return (<UserAnswers key={index} />);
   }
-  render(){
-    let { current_user, user } = this.state;
+  render() {
+    let {current_user, user } = this.state;
     let modalId = "selectTagModal";
     return (
       <div className="main-wrapper">
