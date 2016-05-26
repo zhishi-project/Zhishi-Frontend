@@ -12,6 +12,7 @@ class QuestionStore extends BaseStore {
     this.shouldFetch = true;
     this._top_questions = {};
     this.page_mapping = {};
+    this._filtered=  {};
     this.current_page = 1;
     this._questions = {};
     this._filteredQuestions = {};
@@ -24,19 +25,20 @@ class QuestionStore extends BaseStore {
       Object.assign(this._questions, Common.serializeByKey(questions));
     }
   }
-  filterQuestionsWithTags(tags) {
+  filterQuestionsWithTags(questions) {
+    this._questions = Common.serializeByKey(questions);
 
-    if (tags.length === 0) {
-      this._filteredQuestions = this._questions;
-    } else {
+    // if (tags.length === 0) {
+    //   this._filteredQuestions = this._questions;
+    // } else {
 
-      let filteredQuestions = _.filter(this._questions, function(o) {
-        let userMap = _.map(o.tags, k => k.id.toString());
-        console.log(userMap, tags);
-        return _.intersection(userMap, tags).length > 0;
-      });
-      this._filteredQuestions = filteredQuestions;
-    }
+    //   let filteredQuestions = _.filter(this._questions, function(o) {
+    //     let userMap = _.map(o.tags, k => k.id.toString());
+    //     console.log(userMap, tags);
+    //     return _.intersection(userMap, tags).length > 0;
+    //   });
+    //   this._filteredQuestions = filteredQuestions;
+    // }
   }
 
   loadTopQuestions(top_questions) {
@@ -136,7 +138,7 @@ class QuestionStore extends BaseStore {
         }
         break;
       case ZhishiConstants.FILTER_QUESTIONS_WITH_TAGS:
-        this.filterQuestionsWithTags(action.data);
+        this.filterQuestionsWithTags(action.data.questions);
         this.emitChange();
         break;
       case ZhishiConstants.QUESTION_UPDATE_VOTES:

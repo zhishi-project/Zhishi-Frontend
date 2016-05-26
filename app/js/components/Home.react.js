@@ -23,18 +23,6 @@ function getHomeState(){
   let current_page = QuestionStore.getCurrentPage();
   let current_user = AuthStore.getCurrentUser();
 
-  if (_.isEmptyObject(questions)) {
-    webAPI.processRequest(/*`/questions/personalized`*/'/questions',
-      "GET", {page: current_page},
-      (data) => {
-        if (!data._error) {
-          QuestionActions.receiveQuestions({
-            questions: data.questions ,
-            page: current_page
-          })
-        }
-    });
-  }
 
   return {
     questions: questions,
@@ -58,13 +46,18 @@ class Home extends React.Component {
     this.loadTagSelection = this.loadTagSelection.bind(this);
   }
 
+  componentWillMount() {
+    let currentPage = QuestionStore.getCurrentPage();
+    ZhishiQuestions.getQuestions(currentPage);
+  }
+
   componentDidMount(){
     QuestionStore.addChangeListener(this._onChange);
     UserStore.addChangeListener(this._onChange);
     console.log(this.state);
     var self = this;
     let next_page = this.state.current_page
-    $( window ).scroll(function() {
+    $( window ).on('scroll', function() {
       if($(window).scrollTop() + $(window).height() == $(document).height()) {
         next_page++
         ZhishiQuestions.getQuestions(next_page, self.state.selectedTags);
@@ -81,17 +74,29 @@ class Home extends React.Component {
   shouldComponendUpdate() {
     return this.state.should_fetch
   }
+
   onTagSelect(e){
-    if(this.state.selectedTags.indexOf(e.target.value) == -1  && e.target.checked){
-      this.state.selectedTags.push(e.target.value);
+    let selectedTags = this.state.selectedTags;
+    selectedTags = this.populateArray(e, selectedTags);
+    if ($.isEmptyObject(selectedTags)) {
+      ZhishiQuestions.getQuestions();
+    } else {
+      ZhishiQuestions.getFilteredQuestions(null, this.state.selectedTags);
+    }
+  }
+
+  populateArray(e, selectedTags) {
+    if(selectedTags.indexOf(e.target.value) == -1  && e.target.checked){
+      selectedTags.push(e.target.value);
     }
     else {
-      let index = this.state.selectedTags.indexOf(e.target.value);
-      this.state.selectedTags.splice(index, 1);
+      let index = selectedTags.indexOf(e.target.value);
+      selectedTags.splice(index, 1);
     }
-    console.log(this.state.selectedTags);
-    ZhishiQuestions.getQuestions(null, this.state.selectedTags);
+    this.setState({selectedTags: selectedTags});
+    return selectedTags;
   }
+
   loadTagSelection (tag, i) {
     return (<TagSelection onTagSelect={this.onTagSelect} tag={tag} key={i}/>);
   }

@@ -50,16 +50,6 @@ var webAPI = {
         }
       }.bind(this)
     });
-  },
-  getFilteredQuestions(url, data, cb) {
-    $.ajax({url: Config.host + url,
-      data: data,
-      headers: {'Authorization': "Token token=" + AuthStore.getCurrentUserToken()}})
-    .done((data, textStatus) => {
-      console.log(textStatus);
-      console.log(data);
-      cb(data)
-    }).fail((data, textStatus, xhr) => console.log(data, textStatus, xhr));
   }
 };
 module.exports = webAPI;
