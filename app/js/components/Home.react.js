@@ -81,7 +81,7 @@ class Home extends React.Component {
     if ($.isEmptyObject(selectedTags)) {
       ZhishiQuestions.getQuestions();
     } else {
-      ZhishiQuestions.getFilteredQuestions(null, this.state.selectedTags);
+      ZhishiQuestions.getFilteredQuestions(null, selectedTags);
     }
   }
 
@@ -93,7 +93,6 @@ class Home extends React.Component {
       let index = selectedTags.indexOf(e.target.value);
       selectedTags.splice(index, 1);
     }
-    this.setState({selectedTags: selectedTags});
     return selectedTags;
   }
 
