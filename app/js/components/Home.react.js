@@ -84,7 +84,6 @@ class Home extends React.Component {
       ZhishiQuestions.getFilteredQuestions(null, selectedTags);
     }
   }
-
   populateArray(e, selectedTags) {
     if(selectedTags.indexOf(e.target.value) == -1  && e.target.checked){
       selectedTags.push(e.target.value);
@@ -95,7 +94,6 @@ class Home extends React.Component {
     }
     return selectedTags;
   }
-
   loadTagSelection (tag, i) {
     return (<TagSelection onTagSelect={this.onTagSelect} tag={tag} key={i}/>);
   }

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import BaseStore from './BaseStore';
 import ZhishiConstants from '../constants/ZhishiConstants';
@@ -27,18 +26,6 @@ class QuestionStore extends BaseStore {
   }
   filterQuestionsWithTags(questions) {
     this._questions = Common.serializeByKey(questions);
-
-    // if (tags.length === 0) {
-    //   this._filteredQuestions = this._questions;
-    // } else {
-
-    //   let filteredQuestions = _.filter(this._questions, function(o) {
-    //     let userMap = _.map(o.tags, k => k.id.toString());
-    //     console.log(userMap, tags);
-    //     return _.intersection(userMap, tags).length > 0;
-    //   });
-    //   this._filteredQuestions = filteredQuestions;
-    // }
   }
 
   loadTopQuestions(top_questions) {
