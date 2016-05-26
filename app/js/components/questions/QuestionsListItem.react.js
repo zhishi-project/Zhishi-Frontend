@@ -2,17 +2,12 @@ import React from 'react'
 import Common from '../../utils/Common.js'
 
 
-class QuestionsListItem extends React.Component {
-  constructor(props, context) {
-    super(props)
-  }
+const QuestionsListItem =  (props) => {
 
 
-  render(){
     var tags = [];
-    var question = this.props.question;
+    var question = props.question;
     if (question && question.tags) {
-      console.log(question.tags, 'got to the tags');
       question.tags.forEach(function(tag) {
         tags.push(<span>{tag.name}</span>);
       })
@@ -79,5 +74,4 @@ class QuestionsListItem extends React.Component {
 
     )
   }
-}
-module.exports = QuestionsListItem;
+export default QuestionsListItem

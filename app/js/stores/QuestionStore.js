@@ -11,21 +11,30 @@ class QuestionStore extends BaseStore {
     this.shouldFetch = true;
     this._top_questions = {};
     this.page_mapping = {};
+    this._filtered=  {};
     this.current_page = 1;
     this._questions = {};
+    this._filteredQuestions = {};
     this._userQuestions = [];
   }
 
   loadQuestions(questions) {
+    console.log(questions);
     if (questions) {
       Object.assign(this._questions, Common.serializeByKey(questions));
     }
+  }
+  filterQuestionsWithTags(questions) {
+    this._questions = Common.serializeByKey(questions);
   }
 
   loadTopQuestions(top_questions) {
     if (top_questions) {
       this._top_questions = Common.serializeByKey(top_questions);
     }
+  }
+  get filteredQuestions() {
+    return this._filteredQuestions;
   }
   edit(id) {
     this._questions[id]['status'] = 'editing editor-content';
@@ -115,7 +124,10 @@ class QuestionStore extends BaseStore {
           this.emitChange();
         }
         break;
-
+      case ZhishiConstants.FILTER_QUESTIONS_WITH_TAGS:
+        this.filterQuestionsWithTags(action.data.questions);
+        this.emitChange();
+        break;
       case ZhishiConstants.QUESTION_UPDATE_VOTES:
         if (action.data && action.data.votes_count) {
           this.updateVotesCount(action.data.id, action.data);

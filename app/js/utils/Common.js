@@ -46,7 +46,9 @@ Common = {
 
   serializeByKey: (array, key) => {
     var collection = {};
-    array.map(item => Common.update(collection, item[key || 'id'], item))
+    if (array) {
+      array.map(item => Common.update(collection, item[key || 'id'], item))
+    }
     return collection;
   },
 

@@ -17,7 +17,7 @@ QuestionActions = {
   },
 
   receiveQuestions: (data) => {
-    waitForQuestionStore();
+    console.log(data);
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.RECEIVE_QUESTIONS,
       data: data
@@ -60,6 +60,12 @@ QuestionActions = {
   updateVote: (data) => {
     AppDispatcher.dispatch({
       actionType: ZhishiConstants.QUESTION_UPDATE_VOTES,
+      data: data
+    });
+  },
+  filterQuestionWithTags: (data) => {
+    AppDispatcher.dispatch({
+      actionType: ZhishiConstants.FILTER_QUESTIONS_WITH_TAGS,
       data: data
     });
   },

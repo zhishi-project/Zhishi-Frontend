@@ -11,7 +11,8 @@ export default class ProfileTagSection extends Component {
   }
 
   render(){
-   return (<div className="ui card profile-tags">
+   return (
+    <div className="ui card profile-tags">
       <div className="content">
           <div className="column tag-buttons">
             <button className="ui button subscribed">Subscribed tags
@@ -20,10 +21,10 @@ export default class ProfileTagSection extends Component {
               Add more
               </button>
           </div>
-        <div className="column tag-buttons">
-        {this.props.tags.map(this.renderButtons)}
-        </div>
-         </div>
-        </div>)
+          <div className="column tag-buttons">
+            {this.props.tags.map(this.renderButtons)}
+          </div>
+       </div>
+   </div>)
   }
 }

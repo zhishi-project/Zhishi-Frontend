@@ -23,24 +23,13 @@ function getHomeState(){
   let current_page = QuestionStore.getCurrentPage();
   let current_user = AuthStore.getCurrentUser();
 
-  if (_.isEmptyObject(questions)) {
-    webAPI.processRequest(/*`/questions/personalized`*/'/questions',
-      "GET", {page: current_page},
-      (data) => {
-        if (!data._error) {
-          QuestionActions.receiveQuestions({
-            questions: data.questions ,
-            page: current_page
-          })
-        }
-    });
-  }
 
   return {
     questions: questions,
     current_page: current_page,
     current_user: current_user,
     top_questions: QuestionStore.getTopQuestions(),
+    filteredQuestions: QuestionStore.filtedQuestion,
     should_fetch: QuestionStore.shouldFetchQuestions()
   }
 }
@@ -50,20 +39,28 @@ class Home extends React.Component {
     super(props);
     this.state = getHomeState(1);
     this.state.showFilters = false;
+    this.state.selectedTags = [];
     this.showFilterAction = this.showFilterAction.bind(this);
     this._onChange = this._onChange.bind(this);
     this.onTagSelect = this.onTagSelect.bind(this);
     this.loadTagSelection = this.loadTagSelection.bind(this);
   }
 
+  componentWillMount() {
+    let currentPage = QuestionStore.getCurrentPage();
+    ZhishiQuestions.getQuestions(currentPage);
+  }
+
   componentDidMount(){
     QuestionStore.addChangeListener(this._onChange);
     UserStore.addChangeListener(this._onChange);
+    console.log(this.state);
+    var self = this;
     let next_page = this.state.current_page
-    $( window ).scroll(function() {
+    $( window ).on('scroll', function() {
       if($(window).scrollTop() + $(window).height() == $(document).height()) {
         next_page++
-        ZhishiQuestions.getQuestions(next_page);
+        ZhishiQuestions.getQuestions(next_page, self.state.selectedTags);
      }
     });
   }
@@ -77,15 +74,30 @@ class Home extends React.Component {
   shouldComponendUpdate() {
     return this.state.should_fetch
   }
+
   onTagSelect(e){
-    console.log(e.target.value, e.target.checked)
-    console.log('got here');
+    let selectedTags = this.state.selectedTags;
+    selectedTags = this.populateArray(e, selectedTags);
+    if ($.isEmptyObject(selectedTags)) {
+      ZhishiQuestions.getQuestions();
+    } else {
+      ZhishiQuestions.getFilteredQuestions(null, selectedTags);
+    }
+  }
+  populateArray(e, selectedTags) {
+    if(selectedTags.indexOf(e.target.value) == -1  && e.target.checked){
+      selectedTags.push(e.target.value);
+    }
+    else {
+      let index = selectedTags.indexOf(e.target.value);
+      selectedTags.splice(index, 1);
+    }
+    return selectedTags;
   }
   loadTagSelection (tag, i) {
     return (<TagSelection onTagSelect={this.onTagSelect} tag={tag} key={i}/>);
   }
   showFilterAction(){
-    console.log('got here');
     this.setState({showFilters: !this.state.showFilters});
   }
 
@@ -93,8 +105,7 @@ class Home extends React.Component {
     this.setState(getHomeState(this.state.current_page))
   }
   render(){
-    var questions = QuestionStore.getQuestions(this.state.question_ids);
-    console.log(questions);
+    var questions = QuestionStore.getQuestions();
     let ajax_icon = this.state.should_fetch ? <i className="notched center circle loading icon"></i> : null
     let current_user = this.state.current_user || {}
     let filterDiv = this.state.showFilters ? <div className="ui form"> <div className="inline fields">
