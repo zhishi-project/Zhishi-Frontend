@@ -17,7 +17,7 @@ const RelatedInformation = ({ relatedInformation }) => {
       </div>
       <div className="meta">
         <a className="like">
-          <i className="terminal icon"></i> {content}
+          {content}
         </a>
       </div>
     </div>
