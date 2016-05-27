@@ -11,19 +11,23 @@ export default class ProfileTagSection extends Component {
   }
 
   render(){
+   const { user, current_user, modalTrigger } = this.props;
+    let addMoreBtn = user.id === current_user.id
+    ?   <button className={`ui primary button addmore ${modalTrigger}`}>
+          Add more
+        </button>
+    : ""
    return (<div className="ui card profile-tags">
       <div className="content">
           <div className="column tag-buttons">
             <button className="ui button subscribed">Subscribed tags
             </button>
-            <button className={`ui primary button addmore ${this.props.modalTrigger}`}>
-              Add more
-              </button>
+            {addMoreBtn}
           </div>
         <div className="column tag-buttons">
-        {this.props.tags.map(this.renderButtons)}
+          {this.props.tags.map(this.renderButtons)}
         </div>
-         </div>
-        </div>)
+      </div>
+    </div>)
   }
 }
