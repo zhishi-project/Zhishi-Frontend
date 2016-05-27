@@ -142,4 +142,3 @@ class QuestionStore extends BaseStore {
 }
 
 export default new QuestionStore();
-

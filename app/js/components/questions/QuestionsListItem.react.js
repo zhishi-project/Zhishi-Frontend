@@ -2,14 +2,13 @@ import React from 'react'
 import Common from '../../utils/Common.js'
 
 
-const QuestionsListItem =  (props) => {
+const QuestionsListItem =  ({ question }) => {
 
 
-    var tags = [];
-    var question = props.question;
+    var tags = [], index=0;
     if (question && question.tags) {
       question.tags.forEach(function(tag) {
-        tags.push(<span>{tag.name}</span>);
+        tags.push(<span key={index++}>{tag.name}</span>);
       })
     }
     var username = question.user ? question.user.name : "";

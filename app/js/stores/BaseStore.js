@@ -14,10 +14,10 @@ export default class BaseStore extends EventEmitter {
   emitChange() {
     this.emit('CHANGE');
   }
-  addChangeListener(cb) {
-    this.on('CHANGE', cb);
+  addChangeListener(callback) {
+    this.on('CHANGE', callback);
   }
-  removeChangeListener(cb) {
-    this.removeListener('CHANGE', cb);
+  removeChangeListener(callback) {
+    this.removeListener('CHANGE', callback);
   }
 }

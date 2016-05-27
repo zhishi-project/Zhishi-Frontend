@@ -8,7 +8,9 @@ module.exports =  {
     // 'webpack-dev-server/client?http://localhost:8000',
     path.resolve(__dirname, './app/js/app.js')
   ],
-
+  devServer: {
+    inline: true
+  },
   output: {
     path: '/',
     filename: 'bundle.js',

@@ -108,12 +108,11 @@ class Home extends React.Component {
     var questions = QuestionStore.getQuestions();
     let ajax_icon = this.state.should_fetch ? <i className="notched center circle loading icon"></i> : null
     let current_user = this.state.current_user || {}
-    let filterDiv = this.state.showFilters ? <div className="ui form"> <div className="inline fields">
+    let filterDiv = this.state.showFilters
+      ? <div className="ui form"> <div className="inline fields">
             {current_user.tags.map(this.loadTagSelection)} </div>
-            <button className="ui blue basic button">
-            Filter Questions
-            </button>
-            </div>: null
+        </div>
+      : null
     return (
       <div className="main-wrapper homepage">
         <Header />
@@ -134,7 +133,7 @@ class Home extends React.Component {
             </div>
 
             <Sidebar top_questions={this.state.top_questions} />
-            {current_user.tags ? ""
+            {!$.isEmptyObject(current_user.tags) ? ""
             : <TagModal options={{
                   modalId: "selectTagModal",
                   autoShow: true,

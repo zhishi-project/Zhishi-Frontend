@@ -3,7 +3,9 @@
 .ui.profile-tags {
     width: 100%;
     position: relative;
-    height: 200px;
+    flex-grow: 1;
+    overflow: scroll;
+
     .subscribed {
       position: absolute;
       top:0;
@@ -71,7 +73,30 @@ h2.headers {
 .full-height {
   height: 100%;
 }
+.ui.large.feed {
+  > .event {
+    margin: 20px 10px;
+    .content {
+      .summary {
+        font-weight: 400;
+        margin: 0em;
+      }
+      .content {
+        margin: 20px;
+      }
+    }
+  }
+}
+h3.activity-header {
+  font-weight: 500;
+}
 
-
+.ui.grid.user-details {
+  > .wide.column {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+  }
+}
 
 /* end of profile page custom tags */
