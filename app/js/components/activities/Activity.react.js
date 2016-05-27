@@ -8,6 +8,7 @@ const Activity = ({ activity, user, pronoun}) => {
   let relatedInformation = $.isEmptyObject(activity_on.related_information) ? ""
     : <RelatedInformation relatedInformation={activity_on.related_information} />
   let iconTypes = { comment: 'comment', question: 'terminal', answer: 'write'}
+  let content = Common.elipsize(Common.sanitizeString(activity_on.content), 200);
 
   return (
 
@@ -28,7 +29,7 @@ const Activity = ({ activity, user, pronoun}) => {
           </div>
           <div className="meta">
             <a className="like">
-               {Common.sanitizeString(activity_on.content)}
+               {content}
             </a>
           </div>
 

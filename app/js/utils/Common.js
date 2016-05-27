@@ -71,7 +71,7 @@ Common = {
   },
 
   sanitizeString: (text) => {
-    return text.replace(/<(?:.|\n)*?>/gm, '')
+    return text.replace(/<(?:.|\n)*?>|&nbsp;/gm, '')
   },
 
   sendToSlack: (meta) => {
@@ -85,13 +85,17 @@ Common = {
   slackData: (meta, fallback) => {
     let permalink = `http://${window.location.host}/questions/${Common.createPermalink(meta.id || 2, meta.title)}`
     let text = Common.sanitizeString(meta.content);
-    text = text.length > 100 ? text.substring(0, 100) + "..." : text
+    text = Common.elipsize(text, 100);
     let pretext = fallback;
     let color = "#666";
     let fields = [{title: 'The question', value: `<${permalink}|${meta.title}>`, short: 'false'}]
     return { username: Config.slackHookName, attachments: [{
         fallback: fallback, pretext: pretext, color: color, text: text, fields: fields
     }]}
+  },
+
+  elipsize: (text, limit) => {
+    return text.length > limit ? text.substring(0, limit) + "..." : text
   },
 
   replaceAtMentionsWithLinks: (text) => {
