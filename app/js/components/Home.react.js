@@ -139,6 +139,7 @@ class Home extends React.Component {
                   autoShow: true,
                   closable: false
               }} />}
+
           </div>
         </main>
 

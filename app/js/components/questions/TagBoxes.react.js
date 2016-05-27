@@ -1,22 +1,33 @@
 import React from 'react'
+import TagStore from '../../stores/TagStore.js'
+import TagActions from '../../actions/TagActions'
+import webAPI from '../../utils/webAPI'
 
 require("../../../css/tags.scss")
 
 let getTagState = () => {
-  return(['success', 'operations', 'societies', 'rails', 'Javascript', 'sales', 'available-fellows', 'python', 'amity']);
+  return {
+    initialTags: TagStore.getAllTags(),
+    tags: []
+  }
 }
 
 class TagBoxes extends React.Component {
   constructor(props, context){
     super(props)
-    this.state = {initialTags: getTagState(), tags:[] }
+    this._onChange = this._onChange.bind(this);
+    this.state = getTagState();
    }
 
    componentWillMount(){
-    this.setState({tags: this.state.initialTags})
+    webAPI.processRequest('/tags/recent', 'GET', {}, (tags)=>{
+      TagActions.receiveTags(tags)
+    });
    }
 
    componentDidMount() {
+     TagStore.addChangeListener(this._onChange);
+
      this.calcInputWidth()
      $(window).resize(this.calcInputWidth)
      this.componentDidUpdate()
@@ -32,11 +43,27 @@ class TagBoxes extends React.Component {
     })
    }
 
+   componentWillUnmount(){
+     TagStore.removeChangeListener(this._onChange);
+   }
    componentDidUpdate(){
      $("#tag-list input[type='checkbox']").on('click', function(e){
        var tagBoxes = new TagBoxes;
        tagBoxes.appendSelectedTag(this);
      })
+   }
+
+   _onChange() {
+     let tags = this.retrieveTagArray(TagStore.getAllTags())
+     this.setState({initialTags: tags, tags } )
+   }
+
+   retrieveTagArray(tagsObj) {
+     let tags = []
+      for (var key in tagsObj) {
+        tags.push(tagsObj[key].name)
+      }
+      return tags;
    }
 
    appendSelectedTag(el){

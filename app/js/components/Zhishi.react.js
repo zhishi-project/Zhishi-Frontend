@@ -1,5 +1,6 @@
 import React from 'react';
 import SidebarPusher from './layouts/SidebarPusher.react';
+import FeedbackModal from './partials/FeedbackModal.react'
 
 import '../../css/semantic.min.css';
 import '../../css/prism.css';
@@ -22,6 +23,11 @@ class Zhishi extends React.Component {
             {this.props.children && React.cloneElement(this.props.children, {
               app_state: this.state
             })}
+            <FeedbackModal options={{
+                modalId: "selectFeedbackModal",
+                autoShow: false,
+                closable: true
+            }} />}
           </div>
         </div>
         <div className="md-overlay"></div>

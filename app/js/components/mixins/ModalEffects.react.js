@@ -16,18 +16,6 @@ import React from 'react'
   E.g., if modalId='myModal', then modal trigger element would have class 'myModal-trigger'
 */
 
-const HowToLearnProgramming = () => {
-  return {
-    1: "Learn on the job",
-    2: "Learn online",
-    3: "Learn online",
-    4: "Learn by doing",
-    5: "Just do it"
-  }
-}
-
-
-
 const ModalEffects = InnerComponent => class extends React.Component {
 
    toggleModalShow(trigger) {
@@ -35,6 +23,7 @@ const ModalEffects = InnerComponent => class extends React.Component {
    }
 
    mountAsModal(options={}) {
+     let that = this;
      let app_body = document.querySelector("#zhishi-body");
      let modal = document.querySelector("#"+options.modalId)
 
@@ -51,7 +40,6 @@ const ModalEffects = InnerComponent => class extends React.Component {
          overlay.removeEventListener( 'click', removeModal );
          overlay.addEventListener( 'click', removeModal );
        }
-
      });
 
 
@@ -59,6 +47,10 @@ const ModalEffects = InnerComponent => class extends React.Component {
        ev.preventDefault();
        removeModal();
      });
+
+   }
+
+   closeModal(closable) {
 
    }
 
