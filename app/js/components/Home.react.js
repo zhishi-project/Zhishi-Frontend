@@ -13,7 +13,6 @@ import UserStore from '../stores/UserStore.js'
 import QuestionActions from '../actions/QuestionActions.js'
 
 import TagModal from './partials/TagModal.react'
-import FeedbackModal from './partials/FeedbackModal.react'
 
 import _ from 'jquery'
 
@@ -141,11 +140,6 @@ class Home extends React.Component {
                   closable: false
               }} />}
 
-            <FeedbackModal options={{
-                  modalId: "selectFeedbackModal",
-                  autoShow: false,
-                  closable: true
-              }} />}
           </div>
         </main>
 
