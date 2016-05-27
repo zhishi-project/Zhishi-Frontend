@@ -1,0 +1,12 @@
+.ui.grid.feedback.container {
+  height: 100%;
+
+  .ui.form {
+    border: none;
+    width: 60%;
+    align-self: center;
+    .ui.submit.button {
+      display: block;
+    }
+  }
+}
