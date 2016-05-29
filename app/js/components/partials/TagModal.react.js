@@ -11,7 +11,6 @@ import _ from 'jquery'
   Tag modal is a State, not behaviour component.
   All modal behaviour is gotten from ModalEffects
   which acts as a Higher Order Component.
-
 */
 
 const updateSelectedTagsFromUserTags = () => {
@@ -22,13 +21,6 @@ const updateSelectedTagsFromUserTags = () => {
 let getTagState = () => {
   let tags = TagStore.getAllTags();
   let selected_tags = TagStore.getSelectedTags();
-
-  if (!TagStore.tags_loaded()) {
-    webAPI.processRequest('/tags/recent', 'GET', {}, (tags)=>{
-      TagActions.receiveTags(tags)
-      updateSelectedTagsFromUserTags();
-    });
-  }
   return { tags, selected_tags }
 }
 
@@ -44,26 +36,19 @@ let index=0, options = [
 ];
 
 
-class Tag extends React.Component{
-  constructor(props){
-    super(props);
-  }
-
-  render(){
-    const { tag, _onTagClick } = this.props;
-    index = (index >= options.length - 1) ? 0 : index + 1
-    return (
-      <div className={`tag ${tag.status}`} onClick={_onTagClick.bind(this, tag.id)} >
-        <div className="overlay">
-          <i className="heart icon" data-tag-id={tag.id} />
-        </div>
-        <img src={`/assets/img/tags/${options[index]}.jpg`} />
-        <p className="desc">
-          {tag.name}
-        </p>
+const Tag = ({ tag, selectedStatus, onTagClick}) => {
+  index = (index >= options.length - 1) ? 0 : index + 1
+  return (
+    <div className={`tag ${selectedStatus}`} onClick={onTagClick.bind(this, tag)} >
+      <div className="overlay">
+        <i className="heart icon" data-tag-id={tag.id} />
       </div>
-    )
-  }
+      <img src={`/assets/img/tags/${options[index]}.jpg`} />
+      <p className="desc">
+        {tag.name}
+      </p>
+    </div>
+  )
 }
 
 
@@ -72,6 +57,15 @@ class TagModal extends React.Component {
     super(props);
     this.state = getTagState();
     this.persistSelection = this.persistSelection.bind(this);
+  }
+
+  componentWillMount() {
+    if (!TagStore.tags_loaded()) {
+      webAPI.processRequest('/tags/recent', 'GET', {}, (tags)=>{
+        TagActions.receiveTags(tags);
+      });
+    }
+    updateSelectedTagsFromUserTags();
   }
 
   componentDidMount() {
@@ -86,8 +80,8 @@ class TagModal extends React.Component {
     this.setState( getTagState() )
   }
 
-  _onTagClick(tag_id) {
-    TagActions.selectTagForSubscription(this.props.tag);
+  onTagClick(tag) {
+    TagActions.selectTagForSubscription(tag);
   }
 
   persistSelection() {
@@ -103,17 +97,19 @@ class TagModal extends React.Component {
   }
 
   render () {
-    let view_tags = [], keys = [], valid_count = 3;
+    let view_tags = [], keys = [], valid_count = 3, selectedStatus;
     const { tags, selected_tags } = this.state;
 
     if (!_.isEmptyObject(tags)) {
       keys = Object.keys(tags)
       for (let i=0; i < keys.length; i++) {
+        selectedStatus = (selected_tags.indexOf(tags[keys[i]].name) === -1) ? '' : 'selected'
         view_tags.push(
           <Tag
             key={i}
             tag={tags[keys[i]] }
-            _onTagClick={this._onTagClick}
+            selectedStatus={selectedStatus}
+            onTagClick={this.onTagClick}
           />
         )
       }

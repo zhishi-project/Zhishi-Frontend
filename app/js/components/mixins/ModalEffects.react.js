@@ -23,7 +23,6 @@ const ModalEffects = InnerComponent => class extends React.Component {
    }
 
    mountAsModal(options={}) {
-     let that = this;
      let app_body = document.querySelector("#zhishi-body");
      let modal = document.querySelector("#"+options.modalId)
 
@@ -50,9 +49,6 @@ const ModalEffects = InnerComponent => class extends React.Component {
 
    }
 
-   closeModal(closable) {
-
-   }
 
    componentDidMount(){
      const { options } = this.props;

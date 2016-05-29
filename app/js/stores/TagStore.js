@@ -17,25 +17,25 @@ class TagStore extends BaseStore {
   update(tag) {
     Common.update(this._tags, tag.id, tag);
   }
-  selectTagForSubscription(tag) {
+  selectTagForSubscription(tag, forceUpdate) {
     if (tag && this._tags[tag.id]) {
       let status = this._tags[tag.id]['status'] === 'selected' ? '' : 'selected';
       Object.assign(this._tags[tag.id], {status});
-      this.updateSelectedTag(tag.name);
+      this.updateSelectedTag(tag.name, forceUpdate);
     }
   }
-  updateSelectedTag(tag_name) {
+  updateSelectedTag(tag_name, forceUpdate) {
     let index = this._selected_tags.indexOf(tag_name);
     if (index === -1) {
       this._selected_tags.push(tag_name);
-    } else {
+    } else if (index !== -1 && !forceUpdate) {
       this._selected_tags.splice(index, 1);
     }
   }
   updateBatchTags(tags = []) {
     tags.forEach(tag => {
       Common.update(this._tags, tag.id, tag);
-      this.selectTagForSubscription(tag);
+      this.selectTagForSubscription(tag, true);
     });
   }
   getAllTags() {
@@ -76,7 +76,7 @@ class TagStore extends BaseStore {
         if (action.data) {
           this.updateBatchTags(action.data);
         }
-        this.emitChange();
+        // this.emitChange();
         break;
 
       default:
