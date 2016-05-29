@@ -16,7 +16,7 @@ class Header extends React.Component {
 
     $(window).scroll(function() {
       var scroll = $(this).scrollTop(), header = $("header");
-      if (scroll > header.height) {
+      if (scroll < header.height) {
         header.slideUp();
       } else {
         changeHeaderCSS(header, scroll);
