@@ -44,7 +44,7 @@ class NewCommentForm extends React.Component {
          <button ref="submitBtn" className="ui button" onClick={this.submitComment}>
            Post Comment
          </button>
-         <a id="cancelBtn" className="ui button" data-id={comment.id} onClick={this.props.cancelComment}>
+         <a id="cancelBtn" className="ui basic button" data-id={comment.id} onClick={this.props.cancelComment}>
            Cancel
          </a>
        </form>
