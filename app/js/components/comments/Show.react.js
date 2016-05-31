@@ -40,9 +40,8 @@ class AllComments extends React.Component {
    }
 
    retrieveCommentInfo(event) {
-     var edit_btn = event.target;
-     var meta = this.props.meta || {}
-     var id = $(edit_btn).data('id');
+     let meta = this.props.meta || {}
+     let id = $(event.target).data('id');
      return  { meta, id }
    }
 
