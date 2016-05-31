@@ -27,11 +27,10 @@ class FeedbackModal extends React.Component {
 
   }
 
-
   render () {
    let { options } = this.props;
     return (
-      <div id={`${options.modalId}`} className="md-modal" ref="tagModal">
+      <div id={`${options.modalId}`} className="md-modal" ref="feedbackModal">
         <div className="modal-container">
           <div className="header">
             <h4 ref="headerText">

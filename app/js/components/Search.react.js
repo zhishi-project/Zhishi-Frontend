@@ -35,6 +35,10 @@ class Search extends React.Component {
     this.setState(getSearchState())
   }
   render(){
+    const { questions } = this.state;
+    let headerMsg = $.isEmptyObject(questions)
+    ? <span>We found nothing. . . <a href="/questions/new">Ask a question?</a> </span>
+    : "What we found. . ."
     return (
       <div>
         <Header />
@@ -42,7 +46,7 @@ class Search extends React.Component {
         <main className="ui container main">
           <div className="ui grid">
             <div className="twelve wide stacked column">
-              <h2>What we found. . .</h2>
+              <h2>{headerMsg}</h2>
               {<QuestionsList questions={this.state.questions}/>}
             </div>
 

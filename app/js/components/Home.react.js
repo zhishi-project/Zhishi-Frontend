@@ -12,7 +12,6 @@ import UserStore from '../stores/UserStore.js'
 
 import QuestionActions from '../actions/QuestionActions.js'
 
-import TagModal from './partials/TagModal.react'
 
 import _ from 'jquery'
 
@@ -133,12 +132,7 @@ class Home extends React.Component {
             </div>
 
             <Sidebar top_questions={this.state.top_questions} />
-            {!$.isEmptyObject(current_user.tags) ? ""
-            : <TagModal options={{
-                  modalId: "selectTagModal",
-                  autoShow: true,
-                  closable: false
-              }} />}
+
 
           </div>
         </main>

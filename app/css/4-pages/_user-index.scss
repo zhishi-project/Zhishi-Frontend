@@ -218,8 +218,9 @@
         @include flex-direction(row);
         @include flex-wrap(wrap);
         @include justify-content(flex-start);
+        margin-top: -5px;
         span {
-          margin: -5px 5px 5px;
+          margin: 5px;
           background: lighten($body-text, 65%);
           padding: 2px 5px;
           border-radius: 5px;

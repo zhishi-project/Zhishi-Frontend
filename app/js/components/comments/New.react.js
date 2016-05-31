@@ -14,6 +14,7 @@ let getFormState = (resource_name, resource_id) => {
 class NewQuestionForm extends React.Component {
   constructor(props, context){
     super(props)
+    this.cancelComment = this.cancelComment.bind(this);
     this.state = getFormState(props.meta.resource_name, props.meta.resource_id)
    }
 
@@ -37,8 +38,17 @@ class NewQuestionForm extends React.Component {
      });
    }
 
+   cancelComment(event){
+     event.preventDefault();
+     this.setState({show_new_form: false})
+   }
+
    render () {
-     var new_comment = this.state.show_new_form ? <NewForm meta={this.props.meta}  /> : <a href="#" className="new-comment-link" onClick={this.showNewForm.bind(this)}>Add a comment</a>
+     let new_comment = this.state.show_new_form
+     ? <NewForm meta={this.props.meta} cancelComment={this.cancelComment}  />
+     : <a href="#" className="new-comment-link" onClick={this.showNewForm.bind(this)}>
+      Add a comment
+    </a>
      return (
        <div className="new-comment-actions">
         {new_comment}

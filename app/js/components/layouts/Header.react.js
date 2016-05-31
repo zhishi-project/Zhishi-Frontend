@@ -58,6 +58,7 @@ class Header extends React.Component {
                   Ask Question
                 </a>
                 {/*<a href="#" className="item">Tags</a>*/}
+                <a href="#" className="selectTagModal-trigger item">Tags</a>
                 <a href="#" className="selectFeedbackModal-trigger item">Feedback ? </a>
                 <div className="pointing ui dropdown item">
                   <img src={current_user.image || "/assets/img/avatar.png"} alt="user-profile-image" className="profile-img" />

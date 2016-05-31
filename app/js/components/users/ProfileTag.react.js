@@ -4,6 +4,11 @@ import React, {Component} from 'react';
 export default class ProfileTagSection extends Component {
   constructor(props){
     super(props)
+    this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  toggleModal() {
+    $(`.${this.props.modalTrigger}`).click()
   }
 
   renderButtons(tag, index){
@@ -13,7 +18,7 @@ export default class ProfileTagSection extends Component {
   render(){
     const { user, current_user, modalTrigger } = this.props;
     let addMoreBtn = user.id === current_user.id
-    ?   <button className={`ui primary button addmore ${modalTrigger}`}>
+    ?   <button onClick={this.toggleModal} className={`ui primary button addmore ${modalTrigger}`}>
           Add more
         </button>
     : ""
