@@ -10,6 +10,8 @@ import Common from '../../utils/Common.js'
 class AllComments extends React.Component {
   constructor(props, context){
     super(props)
+    this.editComment = this.editComment.bind(this)
+    this.cancelComment = this.cancelComment.bind(this);
    }
 
    componentDidMount()  {
@@ -18,10 +20,7 @@ class AllComments extends React.Component {
 
    editComment(event){
      event.preventDefault();
-     var edit_btn = event.target;
-     var meta = this.props.meta || {}
-     var id = $(edit_btn).data('id');
-     CommentActions.editComment({meta: meta, id: id})
+     CommentActions.editComment(this.retrieveCommentInfo(event))
    }
 
    saveCommentEdit(resource_id, id, edit_btn){
@@ -35,6 +34,18 @@ class AllComments extends React.Component {
      return { content: desc }
    }
 
+   cancelComment(event){
+     event.preventDefault();
+     CommentActions.editComment(this.retrieveCommentInfo(event))
+   }
+
+   retrieveCommentInfo(event) {
+     var edit_btn = event.target;
+     var meta = this.props.meta || {}
+     var id = $(edit_btn).data('id');
+     return  { meta, id }
+   }
+
    render () {
      let comment = this.props.comment || {};
      let meta = this.props.meta || {}
@@ -44,11 +55,15 @@ class AllComments extends React.Component {
      let comment_date = new Date(comment.created_at)
      let comment_dom_id = `${meta.resource_name}-comment-${comment.id}`;
      let text_to_copy = `http://${window.location.host + window.location.pathname }#${comment_dom_id}`;
+
      if (current_user.id == user.id) {
        comment_edit_btn = <a href="#" className="reply" data-resource-id={meta.resource_id}  data-id={comment.id} onClick={this.editComment.bind(this)}>edit</a>
        comment_delete_btn = <a href="#" className="reply">delete</a>
      }
-     let content = comment.status == 'editing' ? <EditCommentForm comment={comment} meta={meta} /> : <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(comment.content)}} />
+
+     let content = comment.status == 'editing'
+     ? <EditCommentForm comment={comment} meta={meta} cancelComment={this.cancelComment} />
+     : <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(comment.content)}} />
 
      let userPermalink = Common.createPermalink(user.id, user.name);
 

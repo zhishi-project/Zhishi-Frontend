@@ -30,20 +30,23 @@ class AllComments extends React.Component {
    componentDidMount(){
      CommentStore.addChangeListener(this._onChange.bind(this));
    }
+
    componentWillUnmount(){
      CommentStore.removeChangeListener(this._onChange).bind(this);
    }
+
    _onChange() {
      this.setState(getCommentsState(this.props.meta))
    }
 
    render () {
-     var comments = [], keys=[];
-     var meta = this.props.meta;
-     if (this.state.comments) {
-       keys = Object.keys(this.state.comments)
+     let AllComments = [], keys=[], index = 0;
+     const { meta } = this.props;
+     const { comments } = this.state;
+     if (comments) {
+       keys = Object.keys(comments)
        for (var i = 0; i < keys.length; i++) {
-         comments.push(<CommentShow key={i} meta={meta} comment={this.state.comments[keys[i]]} />)
+         AllComments.push(<CommentShow key={i} meta={meta} comment={comments[keys[i]]} />)
        }
      }
     //  else if (!this.state.comments) {
@@ -52,7 +55,7 @@ class AllComments extends React.Component {
      return (
        <div className="ui minimal comments">
          <div className="ui dividing header"></div>
-         {comments}
+         {AllComments}
 
          <NewComment meta={meta} />
        </div>

@@ -28,7 +28,9 @@ class CommentStore extends BaseStore {
     this._new_comments[resource_name] = resource_id;
  }
   edit(meta, id){
-   this._comments[meta.resource_name][meta.resource_id][id]['status'] = 'editing';
+   let status = this._comments[meta.resource_name][meta.resource_id][id]['status'];
+   status = status === 'editing' ? '' : 'editing'
+   this._comments[meta.resource_name][meta.resource_id][id]['status'] = status;
 }
   update(meta, comment){
     var existing_comment = this._comments[meta.resource_name][meta.resource_id];
@@ -112,5 +114,3 @@ class CommentStore extends BaseStore {
 
 }
 export default new CommentStore();
-
-

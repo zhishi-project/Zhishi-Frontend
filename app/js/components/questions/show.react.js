@@ -71,7 +71,7 @@ class Question extends React.Component {
   saveQuestionEdit(id, edit_btn){
     $(edit_btn).removeClass().addClass('item').html('edit');
     tinymce.triggerSave();
-    webAPI.processRequest(`/questions/${id}`, 'PATCH', this.questionData(), QuestionActions.receiveQuestion, edit_btn)
+    webAPI.processRequest(`/questions/${id}`, 'PATCH', this.questionData(), QuestionActions.receiveQuestion, $(edit_btn))
     Common.removeTinyMce('.question');
     $(".question-title").popup('hide');
   }

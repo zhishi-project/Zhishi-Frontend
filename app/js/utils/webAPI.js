@@ -34,6 +34,7 @@ var webAPI = {
       data: data,
       beforeSend: function() {
         if (typeof(this.parentElement) !== 'undefined') {
+          $(this.parentElement).prop('disabled', true)
           this.parentElement.innerHTML = '<i className="notched center circle loading icon"></i>'
         }
       }.bind(this),
@@ -45,7 +46,7 @@ var webAPI = {
       }.bind(this),
       complete: function(){
         if (typeof(this.parentElement) !== 'undefined') {
-          this.parentElement.prop( "disabled", true );
+          $(this.parentElement).prop('disabled', false)
           this.parentElement.innerHTML = this.el_html;
         }
       }.bind(this)
