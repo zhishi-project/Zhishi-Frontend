@@ -39,7 +39,7 @@ class NewCommentForm extends React.Component {
      return (
        <form className="ui comment form">
          <div className="field">
-           <textarea style={{height:'auto'}} refs="commentBox" defaultValue={comment.content}></textarea>
+           <textarea style={{height:'auto'}} ref="commentBox" defaultValue={comment.content}></textarea>
          </div>
          <button ref="submitBtn" className="ui button" onClick={this.submitComment}>
            Post Comment
