@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import AuthStore from '../../../app/js/stores/AuthStore.js';
 import AllAnswers from '../../../app/js/components/answers/Show.react';
 
-describe('Answers All Index', function() {
+describe('Answers All Show Index', function() {
   var question;
   beforeEach(() => {
     global.$ = () => {
@@ -45,8 +45,8 @@ describe('Answers All Index', function() {
   it('calls componentDidMount and relevant functions', () => {
     sinon.spy(AllAnswers.prototype, 'componentDidMount');
     const wrapper = mount(<AllAnswers question={question} />);
-    wrapper.unmount();
     expect(AllAnswers.prototype.componentDidMount.calledOnce).to.be.true;
     AllAnswers.prototype.componentDidMount.restore();
+
   });
 });

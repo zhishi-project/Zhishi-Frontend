@@ -38,7 +38,6 @@ describe('Answers All Index', function() {
     sinon.spy(AllAnswers.prototype, 'componentDidMount');
     sinon.spy(AnswerStore, 'addChangeListener');
     const wrapper = mount(<AllAnswers question={question} />);
-    wrapper.unmount();
     expect(AllAnswers.prototype.componentDidMount.calledOnce).to.be.true;
     expect(AnswerStore.addChangeListener.calledOnce).to.be.true;
     AllAnswers.prototype.componentDidMount.restore();
