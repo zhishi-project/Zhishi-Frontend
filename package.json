@@ -53,6 +53,7 @@
     "react-router": "^1.0.0-rc3",
     "react-static-container": "^1.0.0",
     "sass-loader": "^3.0.0",
+    "sinon": "^1.17.4",
     "style-loader": "^0.12.4",
     "twitter-bootstrap-wizard": "^1.2.0",
     "url-loader": "^0.5.6",
