@@ -18,14 +18,15 @@ describe('Answers All Index', function() {
 
     };
   });
-  it('contains expected calss name', function() {
+  it('contains expected class names', function() {
     let question = {
       id: 1
     };
-    let answers = shallow(<AllAnswers question={question}>
-      <div className="sixteen wide answers column"/>
-      </AllAnswers>);
-      console.log(answers);
-    expect(answers.contains(<div className="sixteen wide answers column"/>)).to.equal(true);
+    let answers = shallow(<AllAnswers question={question}/>);
+    expect(answers.find("div.sixteen")).to.have.length(1);
+    expect(answers.find(".ui")).to.have.length(2);
+   // expect(answers.find("h4.ui")).to.have.length(1);
+
+
   });
 });
