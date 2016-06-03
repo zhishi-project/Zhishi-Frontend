@@ -29,15 +29,16 @@ describe('Answers All Index', function() {
       }
     };
   });
-  it('contains expected class names', function() {
+  it('contains expected class names', () => {
     let answers = shallow(<AllAnswers question={question}/>);
-    expect(answers.find("div.sixteen")).to.have.length(1);
-    expect(answers.find(".ui")).to.have.length(2);
-   });
+    expect(answers.find('div.sixteen')).to.have.length(1);
+    expect(answers.find('.ui')).to.have.length(2);
+  });
   it('calls componentDidMount and relevant functions', () => {
     sinon.spy(AllAnswers.prototype, 'componentDidMount');
     sinon.spy(AnswerStore, 'addChangeListener');
     const wrapper = mount(<AllAnswers question={question} />);
+    wrapper.unmount();
     expect(AllAnswers.prototype.componentDidMount.calledOnce).to.be.true;
     expect(AnswerStore.addChangeListener.calledOnce).to.be.true;
     AllAnswers.prototype.componentDidMount.restore();
@@ -54,18 +55,16 @@ describe('Answers All Index', function() {
   });
   it('calls the this.setState in the onChange function', () => {
     let allAnswersComponent = new AllAnswers({question});
-    sinon.spy(allAnswersComponent, 'setState')
-    allAnswersComponent._onChange()
+    sinon.spy(allAnswersComponent, 'setState');
+    allAnswersComponent._onChange();
     expect(allAnswersComponent.setState.calledOnce).to.be.true;
     allAnswersComponent.setState.restore();
-
   });
   it('calls Common and Prism on initAnswersComponent method', () => {
     let allAnswersComponent = new AllAnswers({question});
-    sinon.spy(Prism, 'highlightAll')
-    allAnswersComponent.initAnswersComponent()
+    sinon.spy(Prism, 'highlightAll');
+    allAnswersComponent.initAnswersComponent();
     expect(Prism.highlightAll.calledOnce).to.be.true;
     Prism.highlightAll.restore();
-
   });
 });
