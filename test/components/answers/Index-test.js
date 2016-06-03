@@ -33,6 +33,11 @@ describe('Answers All Index', function() {
     let answers = shallow(<AllAnswers question={question}/>);
     expect(answers.find('div.sixteen')).to.have.length(1);
     expect(answers.find('.ui')).to.have.length(2);
+    expect(answers.text()).to.have.string('No');
+  });
+  it('should contain relevant tests', () => {
+    let answers = shallow(<AllAnswers question={question}/>);
+    expect(answers.text()).to.have.string('No');
   });
   it('calls componentDidMount and relevant functions', () => {
     sinon.spy(AllAnswers.prototype, 'componentDidMount');

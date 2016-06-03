@@ -65,7 +65,7 @@ class AuthStore extends BaseStore {
     }
   }
   getFirstTimeMarker() {
-    return $.cookie(CVar.first_time_marker)
+    return $.cookie(CVar.first_time_marker);
   }
   setFirstTimeMarker(bool) {
     $.cookie(CVar.first_time_marker, bool, this.getCookieMeta());
