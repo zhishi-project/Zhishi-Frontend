@@ -1,6 +1,5 @@
 import React from 'react';
-
-import Activity from './Activity.react'
+import Activity from './Activity.react';
 
 const compliment = (activityCount) => {
   switch (true) {
