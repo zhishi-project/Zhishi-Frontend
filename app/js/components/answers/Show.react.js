@@ -11,6 +11,7 @@ import ShareButton from "../layouts/ShareButton.react"
 class AllAnswers extends React.Component {
   constructor(props, context){
     super(props)
+    this.editAnswer = this.editAnswer.bind(this)
     this.acceptAnswer = this.acceptAnswer.bind(this);
    }
 
@@ -25,13 +26,12 @@ class AllAnswers extends React.Component {
    editAnswer(event){
      event.preventDefault();
      var edit_btn = event.target;
-     var question_id = $(edit_btn).data('question-id');
-     var id = $(edit_btn).data('id');
+     const { answer, question } = this.props;
      if ($(edit_btn).html() == 'edit') {
        $(edit_btn).removeClass().addClass('ui button').html('Save');
-       AnswerActions.editAnswer({question_id: question_id, id: id})
+       AnswerActions.editAnswer({question_id: question.id, id: answer.id})
      } else {
-       this.saveAnswerEdit(question_id, id, edit_btn)
+       this.saveAnswerEdit(question.id, answer.id, edit_btn)
      }
    }
 
@@ -53,8 +53,7 @@ class AllAnswers extends React.Component {
    }
 
    questionData(){
-     var desc = $(".answer-comment .main-comment").html();
-     return { content: desc }
+     return { content: this.refs.answerBox.innerHTML }
    }
 
    render () {
@@ -68,7 +67,7 @@ class AllAnswers extends React.Component {
 
      var answer_href = `http://${window.location.host + window.location.pathname}#${answer_dom_id}`;
      if (current_user.id == user.id) {
-       answer_edit_btn = <a href="#" className="item" data-question-id={answer.question_id}  data-id={answer.id} onClick={this.editAnswer.bind(this)}>edit</a>
+       answer_edit_btn = <a href="#" className="item" data-question-id={answer.question_id}  data-id={answer.id} onClick={this.editAnswer}>edit</a>
        answer_delete_btn = <a href="#" className="item">delete</a>
      }
      if (question.user && current_user.id === question.user.id) {
@@ -94,7 +93,7 @@ class AllAnswers extends React.Component {
        callback={AnswerActions.updateVote} />}
 
          <div className="fourteen wide column">
-           <div className={`answer ${accepted_answer} main-comment ${answer.status}`}>
+           <div ref="answerBox" className={`answer ${accepted_answer} main-comment ${answer.status}`}>
             {accepted_answer_ribbon}
              <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(answer.content || "")}} />
            </div>
