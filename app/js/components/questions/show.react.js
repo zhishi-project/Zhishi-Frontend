@@ -8,9 +8,9 @@ import Answers from '../answers/Index.react.js'
 import Comments from '../comments/Index.react.js'
 import Votes from "../layouts/Votes.react"
 import ShareButton from "../layouts/ShareButton.react"
+
 import webAPI from '../../utils/webAPI.js'
 import AuthStore from '../../stores/AuthStore.js'
-
 import AnswerStore from '../../stores/AnswerStore.js'
 import QuestionStore from '../../stores/QuestionStore.js'
 import QuestionActions from '../../actions/QuestionActions.js'
@@ -111,7 +111,7 @@ class Question extends React.Component {
                 {question.title || ""}
               </h2>
 
-              <div data-id={question.id} className="ui grid question">
+              <div data-id={question.id} className="ui grid question slideMessagePanelParent">
                 <div className="row main-question">
                   {<Votes
                     resource={question}

@@ -3,6 +3,7 @@ import BaseStore from './BaseStore';
 class DisplayStore extends BaseStore {
   constructor() {
     super();
+    this.showMessage
     this.subscribe(() => this._registerActions.bind(this));
     this.quotes = [
       "A problem shared is a problem half-solved! - <em>Daniel Chinedu</em>",
