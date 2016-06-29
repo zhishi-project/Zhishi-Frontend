@@ -17,7 +17,7 @@ import QuestionActions from '../../actions/QuestionActions.js'
 import Common from "../../utils/Common.js"
 
 function getQuestionState(question_id){
-  if (QuestionStore.getQuestion(question_id)) {
+  if (QuestionStore.getQuestion(question_id)) {d
     return {
       question: QuestionStore.getQuestion(question_id)
     }
