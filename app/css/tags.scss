@@ -39,6 +39,9 @@
     margin: 0;
     font-size: 0.85em;
     color: #555;
+    max-height: 200px;
+    overflow: scroll;
+    
     li.eight.wide.column {
       padding: 10px 5px 5px 10px;
       margin-bottom: 7px;

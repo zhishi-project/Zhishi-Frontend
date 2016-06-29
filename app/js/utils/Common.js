@@ -114,7 +114,7 @@ Common = {
   },
 
   mentionsRegex: () => {
-    return /[@|#]([a-z\d_.-]+)/ig
+    return /\s[@|#]([a-z\d_.-]+)/ig
   },
 
   pushAtMentionsToSlack: (meta, general, personal) => {

@@ -61,8 +61,8 @@ class AllComments extends React.Component {
      }
 
      let content = comment.status == 'editing'
-     ? <EditCommentForm comment={comment} meta={meta} cancelComment={this.cancelComment} />
-     : <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(comment.content)}} />
+      ? <EditCommentForm comment={comment} meta={meta} cancelComment={this.cancelComment} />
+      : Common.replaceAtMentionsWithLinks(comment.content)
 
      let userPermalink = Common.createPermalink(user.id, user.name);
 

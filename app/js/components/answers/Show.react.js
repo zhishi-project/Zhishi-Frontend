@@ -95,7 +95,7 @@ class AllAnswers extends React.Component {
          <div className="fourteen wide column">
            <div ref="answerBox" className={`answer ${accepted_answer} main-comment ${answer.status}`}>
             {accepted_answer_ribbon}
-             <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(answer.content || "")}} />
+             <div dangerouslySetInnerHTML={{__html: Common.replaceAtMentionsWithLinks(answer.content) }} />
            </div>
 
            <div className="options">
