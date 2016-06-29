@@ -39,7 +39,7 @@ class TagBoxes extends React.Component {
      });
 
     $(".select-tags").click(function(){
-      $("#tag-list").css('display', 'block')
+      $("#tag-list").css('display', 'block');
     })
    }
 
@@ -94,13 +94,15 @@ class TagBoxes extends React.Component {
 
    render () {
      var tags = [], checked;
-     this.state.tags.forEach((tag) => {
-      //  checked = $(`#${tag}Chip`).length > 0 ? true : false;
-       tags.push(<li key={tag} className="eight wide column">
-                    <input id={tag} type="checkbox" value={tag} />
-                    <label htmlFor={tag}>{tag}</label>
-                  </li>)
-     })
+     if ($("input#new-question-tags").val() != "") {
+       this.state.tags.forEach((tag) => {
+        //  checked = $(`#${tag}Chip`).length > 0 ? true : false;
+         tags.push(<li key={tag} className="eight wide column">
+                      <input id={tag} type="checkbox" value={tag} />
+                      <label htmlFor={tag}>{tag}</label>
+                    </li>)
+       })
+     }
      return (
        <div className="ui row group">
          <div className="sixteen wide mobile two wide tablet two wide computer column column label-wrapper">
@@ -113,7 +115,7 @@ class TagBoxes extends React.Component {
            <div id="selects" className="selects">
              <span id="selected-tags">
              </span>
-             <input id="new-question-tags" type="text" placeholder="amity, food" onChange={this.filterList.bind(this)} />
+             <input ref="tagInput" id="new-question-tags" type="text" placeholder="amity, food" onChange={this.filterList.bind(this)} />
            </div>
 
            <div id="tag-list" className="multi-select sixteen wide column">
