@@ -1,6 +1,4 @@
 import React from 'react'
-import Header from '../layouts/Header.react'
-import Sidebar from '../layouts/Sidebar.react'
 import webAPI from '../../utils/webAPI.js'
 import QuestionActions from '../../actions/QuestionActions.js'
 import Common from "../../utils/Common"
@@ -31,7 +29,6 @@ class NewQuestion extends React.Component {
      let title_tip = "It'll be super nice if this title is a summarized and descriptive question ¯\\_(ツ)_/¯";
      return (
        <div className="ask-question">
-          <Header />
            <main className="ui container main">
              <div className="ui grid">
                <div className="sixteen wide tablet twelve wide computer column">

@@ -1,5 +1,8 @@
 import React from 'react';
+import Header from './layouts/Header.react'
+import Footer from './layouts/Footer.react'
 import SidebarPusher from './layouts/SidebarPusher.react';
+
 import AuthStore from '../stores/AuthStore.js'
 
 import TagModal from './partials/TagModal.react'
@@ -22,6 +25,7 @@ class Zhishi extends React.Component {
     return (
       <div>
         <div id="zhishi-body" className="md-effect-12 full-height">
+          <Header />
           <SidebarPusher />
           <div className="pusher">
             {this.props.children && React.cloneElement(this.props.children, {
@@ -40,6 +44,7 @@ class Zhishi extends React.Component {
                   closable: false
               }} />
           </div>
+          <Footer />
         </div>
         <div className="md-overlay"></div>
       </div>
@@ -47,4 +52,4 @@ class Zhishi extends React.Component {
   }
 }
 
-module.exports = Zhishi;
+export default Zhishi;

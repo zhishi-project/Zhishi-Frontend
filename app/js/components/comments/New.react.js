@@ -23,7 +23,7 @@ class NewQuestionForm extends React.Component {
    }
 
    componentWillUnmount(){
-     CommentStore.removeChangeListener(this._onChange).bind(this);
+     CommentStore.removeChangeListener(this._onChange);;
    }
 
    _onChange(){

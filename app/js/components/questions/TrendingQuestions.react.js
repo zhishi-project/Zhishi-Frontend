@@ -4,9 +4,11 @@ import TrendingQuestion from './TrendingQuestion.react'
 import QuestionActions from '../../actions/QuestionActions.js'
 import webAPI from '../../utils/webAPI.js'
 
-
+let request;
 function getTrendingQuestionsState(){
-  var top_questions = $.isEmptyObject(QuestionStore.getTopQuestions()) ? webAPI.processRequest(`/top_questions`, 'GET', "", QuestionActions.receiveTopQuestions) : QuestionStore.getTopQuestions();
+  var top_questions = $.isEmptyObject(QuestionStore.getTopQuestions())
+  ? request = webAPI.processRequest(`/top_questions`, 'GET', "", QuestionActions.receiveTopQuestions)
+  : QuestionStore.getTopQuestions();
   return { top_questions: top_questions }
 }
 
@@ -14,14 +16,16 @@ function getTrendingQuestionsState(){
 class TrendingQuestions extends React.Component {
   constructor(props, context) {
     super(props);
+  }
+  componentWillMount(){
     this.state = getTrendingQuestionsState();
   }
-
   componentDidMount(){
     QuestionStore.addChangeListener(this._onChange.bind(this));
   }
   componentWillUnmount(){
-    QuestionStore.removeChangeListener(this._onChange).bind(this);
+    // request.abort();
+    QuestionStore.removeChangeListener(this._onChange);
   }
 
   _onChange(){

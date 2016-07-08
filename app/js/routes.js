@@ -1,7 +1,6 @@
 import React from 'react';
-import {render} from 'react-dom';
+import {Route, IndexRoute} from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
-import {Router, Route, IndexRoute} from 'react-router';
 
 import AuthStore from './stores/AuthStore.js';
 import AuthActions from './actions/AuthActions.js';
@@ -20,8 +19,6 @@ import NewQuestion from './components/questions/New.react';
 import Question from './components/questions/Show.react';
 
 import $ from 'jquery';
-
-$.cookie.json = true;
 
 let userLoggedIn = function(nextState, replaceState) {
   if (!AuthStore.userLoggedIn()) {
@@ -73,33 +70,30 @@ history.listen(function(location) {
   window.ga('send', 'pageview', location.pathname);
 });
 
-render((
-  <Router history={history}>
-    <Route path="logout" onEnter={logOut} />
+export default (
+<Route path="/" >
+  <IndexRoute component={Home} />
+  <Route path="/" component={Home} />
 
-    <Route path="login" component={Login} onEnter={userLoggedOut} >
-      <Route path="login/auth" onEnter={SignUpUser} />
-    </Route>
+  <Route path="logout" onEnter={logOut} />
 
-    <Route path="/" component={Zhishi} onEnter={userLoggedIn} >
-      <IndexRoute component={Home} />
+  <Route path="login" component={Login} onEnter={userLoggedOut} >
+  <Route path="login/auth" onEnter={SignUpUser} />
+  </Route>
 
-      <Route path="search" component={Search} />
-      <Route path="users" component={Users} >
-        <Route path="users" component={UsersIndex} />
-        <Route path="users/:id" component={User} />
-      </Route>
+  <Route path="search" component={Search} />
+  <Route path="users" component={Users} >
+    <Route path="users" component={UsersIndex} />
+    <Route path="users/:id" component={User} />
+  </Route>
 
-      <Route path="questions" component={Home} onEnter={redirectToRoot} >
-        <IndexRoute component={QuestionIndex} onEnter={userLoggedIn} />
-        <Route path="questions/new" component={NewQuestion} />
-        <Route path="questions/:id" component={Question} />
-      </Route>
+  <Route path="questions" component={Home} onEnter={redirectToRoot} >
+    <IndexRoute component={QuestionIndex} onEnter={userLoggedIn} />
+    <Route path="questions/new" component={NewQuestion} />
+    <Route path="questions/:id" component={Question} />
+  </Route>
 
-      <Route path="*" component={Zhishi} onEnter={userLoggedIn}/>
+  <Route path="*" component={Zhishi} onEnter={userLoggedIn}/>
 
-    </Route>
-  </Router>
-  ),
-  document.getElementById('app')
+</Route>
 );

@@ -33,8 +33,8 @@ class AllAnswers extends React.Component {
      QuestionStore.addChangeListener(this._onChange.bind(this));
    }
    componentWillUnmount(){
-     AnswerStore.removeChangeListener(this._onChange).bind(this);
-     QuestionStore.removeChangeListener(this._onChange).bind(this);
+     AnswerStore.removeChangeListener(this._onChange);;
+     QuestionStore.removeChangeListener(this._onChange);;
    }
    _onChange() {
      this.setState(getAnswersState(this.props.question.id), this.initAnswersComponent)

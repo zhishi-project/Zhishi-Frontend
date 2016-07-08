@@ -28,7 +28,7 @@ class Search extends React.Component {
     SearchStore.addChangeListener(this._onChange.bind(this));
   }
   componentWillUnmount(){
-    SearchStore.removeChangeListener(this._onChange).bind(this);
+    SearchStore.removeChangeListener(this._onChange);;
 
   }
   _onChange() {

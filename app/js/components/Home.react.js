@@ -114,7 +114,6 @@ class Home extends React.Component {
       : null
     return (
       <div className="main-wrapper homepage">
-        <Header />
 
         <main className="ui container main">
           <div className="ui grid">
@@ -137,7 +136,6 @@ class Home extends React.Component {
           </div>
         </main>
 
-        <Footer />
 
       </div>
     )

@@ -1,11 +1,11 @@
 import Config from "../config/environment.js"
 
-var https = require('http');
-var querystring = require('querystring');
-// var _host = 'http://localhost:3001'
-var AuthStore = require('../stores/AuthStore.js');
+import https from 'http';
+import querystring from 'querystring';
+import AuthStore from '../stores/AuthStore.js';
+// let _host = 'http://localhost:3001'
 
-var webAPI = {
+let webAPI = {
   processRequest: function (path, method, data, callback, parentElement) {
     // this._path = "/api/v1" + path;
     this._path = path;
@@ -26,7 +26,7 @@ var webAPI = {
     }
 
     if (this._user_token){this._headers['Authorization'] = 'Token token='+this._user_token}
-    $.ajax({
+    let xhr = $.ajax({
       headers: this._headers,
       url: Config.host + this._path,
       // dataType: 'json',
@@ -51,6 +51,7 @@ var webAPI = {
         }
       }.bind(this)
     });
+    return xhr;
   }
 };
 module.exports = webAPI;

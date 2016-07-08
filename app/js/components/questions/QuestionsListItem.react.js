@@ -1,5 +1,6 @@
 import React from 'react'
 import Common from '../../utils/Common.js'
+import { Link } from 'react-router';
 
 
 const QuestionsListItem =  ({ question }) => {
@@ -44,9 +45,9 @@ const QuestionsListItem =  ({ question }) => {
 
         <div className="sixteen wide mobile twelve wide computer question column">
           <p className="question-container">
-            <a href={`/questions/${permalink}` || "#"} className="question-link">
+            <Link to={`/questions/${permalink}` || "#"} className="question-link">
               {question.title || "No title"}
-            </a>
+            </Link>
           </p>
           <p className="ui tablet only mobile only grid mobile-meta">
             asked by &nbsp;<a href={`/users/${userPermalink}`}>{username}</a>

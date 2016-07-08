@@ -1,30 +1,21 @@
 import React from 'react'
-import Header from '../layouts/Header.react'
-import Footer from '../layouts/Footer.react'
-import Sidebar from '../layouts/Sidebar.react'
-import TagStore from '../../stores/TagStore.js'
-import AuthStore from '../../stores/AuthStore.js'
-import UserStore from '../../stores/UserStore.js'
-import QuestionStore from '../../stores/QuestionStore.js'
+import TagStore from '../../stores/TagStore.js';
+import AuthStore from '../../stores/AuthStore.js';
+import UserStore from '../../stores/UserStore.js';
+import QuestionStore from '../../stores/QuestionStore.js';
 import ActivityStore from '../../stores/ActivityStore.js';
 import TagActions from '../../actions/TagActions.js';
-import UserActions from '../../actions/UserActions.js'
-import QuestionActions from '../../actions/QuestionActions.js';
+import UserActions from '../../actions/UserActions.js';
 import ActivityActions from '../../actions/ActivityActions.js';
 
-import webAPI from '../../utils/webAPI.js'
+import webAPI from '../../utils/webAPI.js';
 
 import UserAnswers from './UserAnswers.react';
-import SettingsSection from './Settings.react';
 import ProfileTagSection from './ProfileTag.react';
-
-import QuestionsList from '../questions/QuestionsList.react';
-import QuestionsListItem from '../questions/QuestionsListItem.react';
 
 import Activities from '../activities/index.react';
 
 import TagModal from '../partials/TagModal.react';
-
 
 const getUserState = (user_id) => {
   return {
@@ -75,8 +66,6 @@ class Show extends React.Component {
     let modalId = "selectTagModal";
     return (
       <div className="main-wrapper">
-        <Header />
-
         <main className="ui container main">
           <div className="ui stackable user-details grid">
 
@@ -129,11 +118,7 @@ class Show extends React.Component {
 
           {<TagModal  options={{modalId, closable: true}} />}
 
-
-
         </main>
-
-        <Footer />
 
       </div>
     )

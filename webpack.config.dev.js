@@ -1,21 +1,33 @@
-var Webpack = require('webpack');
-var path = require('path');
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var buildPath = path.resolve(__dirname, 'build');
-var entryPath = path.resolve(__dirname, 'app', 'js', 'app.js');
+import webpack from 'webpack';
+import path from 'path';
 
-var config = {
-  entry: entryPath,
-  output: {
-    path: buildPath,
-    filename: 'bundle.js'
+export default {
+  devtool: 'inline-source-map',
+  entry: [
+    // necessary for hot reloading with IE
+    'eventsource-polyfill',
+    // reloads the page if hot module reloading fails
+    'webpack-hot-middleware/client?reload=true',
+    path.resolve(__dirname, './app/js/app.js')
+  ],
+  devServer: {
+    inline: true,
+    contentBase: './app'
+
   },
+  output: {
+    path: '/',
+    filename: 'bundle.js',
+    publicPath: '/'
+  },
+  // bundle app the way web browsers can understand
+  target: 'web',
   module: {
     loaders: [
       {
         test: /app\/js\/.+.js$/,
-        loader: 'babel',
-        exclude: [nodeModulesPath]
+        exclude: /node_modules/,
+        loader: 'babel'
       },
       // SASS
       {
@@ -50,8 +62,10 @@ var config = {
         loader: 'url?limit=10000&mimetype=image/svg+xml'
       }
     ]
-  }
-
+  },
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
 };
-
-module.exports = config;

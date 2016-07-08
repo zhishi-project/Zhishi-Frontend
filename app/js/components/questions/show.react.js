@@ -1,6 +1,5 @@
 import React from 'react'
-import Header from '../layouts/Header.react'
-import Footer from '../layouts/Footer.react'
+
 import Sidebar from '../layouts/Sidebar.react'
 import Tags from '../layouts/Tags.react'
 import NewQuestionForm from '../answers/New.react.js'
@@ -40,7 +39,7 @@ class Question extends React.Component {
     QuestionStore.addChangeListener(this._onChange.bind(this));
   }
   componentWillUnmount(){
-    QuestionStore.removeChangeListener(this._onChange).bind(this);
+    QuestionStore.removeChangeListener(this._onChange);
   }
   _onChange() {
     this.setState(getQuestionState(this.props.question_id), this.initShowPage)
@@ -102,7 +101,6 @@ class Question extends React.Component {
     }
     return(
       <div className="question-thread">
-        <Header />
 
         <main className="ui container main">
           <div className="ui grid">
@@ -169,7 +167,6 @@ class Question extends React.Component {
 
           </div>
         </main>
-        <Footer />
 
       </div>
     )

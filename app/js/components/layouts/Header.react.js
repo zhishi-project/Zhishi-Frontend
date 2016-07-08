@@ -2,6 +2,7 @@ import React from 'react'
 import SearchBar from './SearchBar.react'
 import Common from '../../utils/Common.js'
 import AuthStore from '../../stores/AuthStore.js'
+import { Link } from 'react-router';
 
 var lastScroll = $(window).scrollTop();
 
@@ -43,31 +44,31 @@ class Header extends React.Component {
         <nav className="navigation">
           <div className="ui menu">
             <div className="ui container">
-              <a href="#" className="item sidebar-icon mobile-only">
+              <Link to="#" className="item sidebar-icon mobile-only">
                 <i className="sidebar icon"></i>
-              </a>
+              </Link>
               <div className="item logo-wrapper">
-                <a href="/" className="share-popup" data-html={heading_helper_text} data-variation="very wide">
+                <Link to="/" className="share-popup" data-html={heading_helper_text} data-variation="very wide">
                   <img src="/assets/img/logo-footer.png" alt="zhishi-logo" className="logo" />
-                </a>
+                </Link>
               </div>
 
               <div className="right menu">
-                <a href="/questions/new" className="item mobile-only">
+                <Link to="/questions/new" className="item mobile-only">
                   <i className="plus icon"></i>
                   Ask Question
-                </a>
-                {/*<a href="#" className="item">Tags</a>*/}
-                <a href="#" className="selectTagModal-trigger item">Tags</a>
-                <a href="#" className="selectFeedbackModal-trigger item">Feedback ? </a>
+                </Link>
+                {/*<Link to="#" className="item">Tags</Link>*/}
+                <Link to="#" className="selectTagModal-trigger item">Tags</Link>
+                <Link to="#" className="selectFeedbackModal-trigger item">Feedback ? </Link>
                 <div className="pointing ui dropdown item">
                   <img src={current_user.image || "/assets/img/avatar.png"} alt="user-profile-image" className="profile-img" />
                   <i className="dropdown icon"></i>
 
                   <div className="menu">
-                    <a href={`/users/${permalink}`} className="item"><i className="user icon"></i> Profile</a>
-                    {/*<a href="#" className="item"><i className="setting icon"></i> Settings</a>*/}
-                    <a href="/logout" className="item"><i className="privacy icon"></i> Log out</a>
+                    <Link to={`/users/${permalink}`} className="item"><i className="user icon"></i> Profile</Link>
+                    {/*<Link to="#" className="item"><i className="setting icon"></i> Settings</Link>*/}
+                    <Link to="/logout" className="item"><i className="privacy icon"></i> Log out</Link>
                   </div>
                 </div>
               </div>
