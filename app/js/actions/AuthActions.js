@@ -9,6 +9,7 @@ AuthActions = {
   // Receive inital product data
 
   loginUser: function(data) {
+    debugger;
     if (data._error) {
       AppDispatcher.dispatch({
         actionType: ZhishiConstants.AUTH_LOG_IN_ERROR,

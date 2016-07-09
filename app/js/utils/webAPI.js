@@ -1,41 +1,46 @@
-import Config from "../config/environment.js"
+import Config from '../config/environment.js';
 
 import https from 'http';
-import querystring from 'querystring';
 import AuthStore from '../stores/AuthStore.js';
-// let _host = 'http://localhost:3001'
+
+import $ from 'jquery';
 
 let webAPI = {
-  processRequest: function (path, method, data, callback, parentElement) {
-    // this._path = "/api/v1" + path;
-    this._path = path;
-    this._method = method;
-    this._user_token = AuthStore.getCurrentUserToken();
+  processRequest: function(path, method, data, callback, parentElement) {
+    // this.path = '/api/v1' + path;
+    this.path = path;
+    this.method = method;
+    this.userToken = AuthStore.getCurrentUserToken();
     this._dataString = JSON.stringify(data);
-    if (typeof(parentElement) !== 'undefined') {
-      this.parentElement = parentElement
-      this.el_html = this.parentElement.innerHTML;
+    if (typeof (parentElement) !== 'undefined') {
+      this.parentElement = parentElement;
+      this.elHtml = this.parentElement.innerHTML;
     }
-    this._headers = {
-      accept: "application/json, text/javascript, */*",
+    this.headers = {
+      'accept': 'application/json, text/javascript, */*',
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     };
-    this._headers = {}
-    if (this._method == 'GET') {
-      if (this._dataString.length > 0) { this._path += '?' + encodeURIComponent(this._dataString); }
+    this.headers = {};
+    if (this.method === 'GET') {
+      if (this._dataString.length > 0) {
+        this.path += '?' + encodeURIComponent(this._dataString);
+      }
     }
 
-    if (this._user_token){this._headers['Authorization'] = 'Token token='+this._user_token}
+    if (this.userToken) {
+      this.headers['Authorization'] = 'Token token=' + this.userToken;
+    }
     let xhr = $.ajax({
-      headers: this._headers,
-      url: Config.host + this._path,
+      headers: this.headers,
+      url: Config.host + this.path,
       // dataType: 'json',
       method: method,
       data: data,
       beforeSend: function() {
-        if (typeof(this.parentElement) !== 'undefined') {
-          $(this.parentElement).prop('disabled', true)
-          this.parentElement.innerHTML = '<i className="notched center circle loading icon"></i>'
+        if (typeof (this.parentElement) !== 'undefined') {
+          $(this.parentElement).prop('disabled', true);
+          this.parentElement.innerHTML =
+            '<i className="notched center circle loading icon"></i>';
         }
       }.bind(this),
       success: function(data) {
@@ -44,10 +49,10 @@ let webAPI = {
       error: function(xhr, status, err) {
         callback({_error: err});
       }.bind(this),
-      complete: function(){
-        if (typeof(this.parentElement) !== 'undefined') {
-          $(this.parentElement).prop('disabled', false)
-          this.parentElement.innerHTML = this.el_html;
+      complete: function() {
+        if (typeof (this.parentElement) !== 'undefined') {
+          $(this.parentElement).prop('disabled', false);
+          this.parentElement.innerHTML = this.elHtml;
         }
       }.bind(this)
     });

@@ -2,7 +2,7 @@ var Webpack = require('webpack');
 var path = require('path');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var buildPath = path.resolve(__dirname, 'build');
-var entryPath = path.resolve(__dirname, 'app', 'js', 'app.js');
+var entryPath = path.resolve(__dirname, 'app', 'js', 'index.js');
 
 var config = {
   entry: entryPath,

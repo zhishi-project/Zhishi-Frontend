@@ -19,7 +19,7 @@ import QuestionIndex from './components/questions/Index.react';
 import NewQuestion from './components/questions/New.react';
 import Question from './components/questions/Show.react';
 
-import $ from 'jquery';
+// import $ from 'jquery';
 
 $.cookie.json = true;
 
@@ -50,6 +50,7 @@ let logOut = function(nextState, replaceState) {
 };
 
 let SignUpUser = function(nextState) {
+  debugger;
   if (!$.isEmptyObject(nextState.location.query.temp_token)) {
     webAPI.processRequest(
       '/validate_token',

@@ -6,7 +6,7 @@ module.exports = {
   entry: [
     'webpack-hot-middleware/client',
     // 'webpack-dev-server/client?http://localhost:8000',
-    path.resolve(__dirname, './app/js/app.js')
+    path.resolve(__dirname, './app/js/index.js')
   ],
   devServer: {
     inline: true

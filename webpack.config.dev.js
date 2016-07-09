@@ -8,7 +8,7 @@ export default {
     'eventsource-polyfill',
     // reloads the page if hot module reloading fails
     'webpack-hot-middleware/client?reload=true',
-    path.resolve(__dirname, './app/js/app.js')
+    path.resolve(__dirname, './app/js/index.js')
   ],
   devServer: {
     inline: true,

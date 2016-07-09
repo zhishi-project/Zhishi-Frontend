@@ -7,6 +7,7 @@ import AuthActions from './actions/AuthActions.js';
 import webAPI from './utils/webAPI.js';
 import CookieVar from './config/CookieVariables.js';
 
+import App from './components/App.react';
 import Zhishi from './components/Zhishi.react';
 import Home from './components/Home.react';
 import Search from './components/Search.react';
@@ -18,17 +19,19 @@ import QuestionIndex from './components/questions/Index.react';
 import NewQuestion from './components/questions/New.react';
 import Question from './components/questions/Show.react';
 
-import $ from 'jquery';
+// import $ from 'jquery';
+
+$.cookie.json = true;
 
 let userLoggedIn = function(nextState, replaceState) {
-  if (!AuthStore.userLoggedIn()) {
-    $.cookie(CookieVar.referrer, nextState.location.pathname, {
-      path: '/'
-    });
-    replaceState({
-      nextPathname: nextState.location.pathname
-    }, '/login');
-  }
+  // if (!AuthStore.userLoggedIn()) {
+  //   $.cookie(CookieVar.referrer, nextState.location.pathname, {
+  //     path: '/'
+  //   });
+  //   replaceState({
+  //     nextPathname: nextState.location.pathname
+  //   }, '/login');
+  // }
 };
 
 let userLoggedOut = function(nextState, replaceState) {
@@ -71,29 +74,32 @@ history.listen(function(location) {
 });
 
 export default (
-<Route path="/" >
-  <IndexRoute component={Home} />
-  <Route path="/" component={Home} />
+  <Route >
+    <IndexRoute component={Home} />
 
-  <Route path="logout" onEnter={logOut} />
+    <Route path="logout" onEnter={logOut} />
 
-  <Route path="login" component={Login} onEnter={userLoggedOut} >
-  <Route path="login/auth" onEnter={SignUpUser} />
+    <Route path="login" component={Login} onEnter={userLoggedOut} >
+      <Route path="login/auth" onEnter={SignUpUser} />
+    </Route>
+
+    <Route path="/" component={Zhishi} onEnter={userLoggedIn} >
+      <IndexRoute component={Home} />
+
+      <Route path="search" component={Search} />
+      <Route path="users" component={Users} >
+        <Route path="users" component={UsersIndex} />
+        <Route path="users/:id" component={User} />
+      </Route>
+
+      <Route path="questions" component={Home} >
+        <IndexRoute component={QuestionIndex} onEnter={userLoggedIn} />
+        <Route path="questions/new" component={NewQuestion} />
+        <Route path="questions/:id" component={Question} />
+      </Route>
+
+      <Route path="*" component={Zhishi} onEnter={userLoggedIn}/>
+
+    </Route>
   </Route>
-
-  <Route path="search" component={Search} />
-  <Route path="users" component={Users} >
-    <Route path="users" component={UsersIndex} />
-    <Route path="users/:id" component={User} />
-  </Route>
-
-  <Route path="questions" component={Home} onEnter={redirectToRoot} >
-    <IndexRoute component={QuestionIndex} onEnter={userLoggedIn} />
-    <Route path="questions/new" component={NewQuestion} />
-    <Route path="questions/:id" component={Question} />
-  </Route>
-
-  <Route path="*" component={Zhishi} onEnter={userLoggedIn}/>
-
-</Route>
 );
