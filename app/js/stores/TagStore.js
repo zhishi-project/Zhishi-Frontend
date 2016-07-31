@@ -8,11 +8,11 @@ class TagStore extends BaseStore {
     this.subscribe(() => this._registerActions.bind(this));
     this.tags = {};
     this.selectedTags = [];
-    this.tagsLoaded = false;
+    this.tagsLoadedState = false;
   }
  loadTags(tags = []) {
    tags.forEach(tag => this.update(tag));
-   this.tagsLoaded = true;
+   this.tagsLoadedState = true;
  }
   update(tag) {
     Common.update(this.tags, tag.id, tag);
@@ -48,7 +48,7 @@ class TagStore extends BaseStore {
     return this.selectedTags;
   }
   tagsLoaded() {
-    return this.tagsLoaded;
+    return this.tagsLoadedState;
   }
 
   _registerActions(action) {

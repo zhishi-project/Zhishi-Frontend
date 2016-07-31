@@ -1,13 +1,12 @@
 import React from 'react';
-import {Route, IndexRoute} from 'react-router';
+import {render} from 'react-dom';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
+import {Router, Route, IndexRoute, Link, IndexLink} from 'react-router';
 
 import AuthStore from './stores/AuthStore.js';
-import AuthActions from './actions/AuthActions.js';
-import webAPI from './utils/webAPI.js';
+import * as AuthActions from './actions/AuthActions.js';
 import CookieVar from './config/CookieVariables.js';
 
-import App from './components/App.react';
 import Zhishi from './components/Zhishi.react';
 import Home from './components/Home.react';
 import Search from './components/Search.react';
@@ -15,6 +14,7 @@ import Login from './components/Login.react';
 import Users from './components/users/Users.react';
 import UsersIndex from './components/users/Index.react';
 import User from './components/users/Show.react';
+import Questions from './components/questions/Question.react';
 import QuestionIndex from './components/questions/Index.react';
 import NewQuestion from './components/questions/New.react';
 import Question from './components/questions/Show.react';
@@ -24,14 +24,14 @@ import Question from './components/questions/Show.react';
 $.cookie.json = true;
 
 let userLoggedIn = function(nextState, replaceState) {
-  // if (!AuthStore.userLoggedIn()) {
-  //   $.cookie(CookieVar.referrer, nextState.location.pathname, {
-  //     path: '/'
-  //   });
-  //   replaceState({
-  //     nextPathname: nextState.location.pathname
-  //   }, '/login');
-  // }
+  if (!AuthStore.userLoggedIn()) {
+    $.cookie(CookieVar.referrer, nextState.location.pathname, {
+      path: '/'
+    });
+    replaceState({
+      nextPathname: nextState.location.pathname
+    }, '/login');
+  }
 };
 
 let userLoggedOut = function(nextState, replaceState) {
@@ -49,15 +49,9 @@ let logOut = function(nextState, replaceState) {
   }, '/login');
 };
 
-let SignUpUser = function(nextState) {
-  if (!$.isEmptyObject(nextState.location.query.temp_token)) {
-    webAPI.processRequest(
-      '/validate_token',
-      'POST',
-      nextState.location.query,
-      AuthActions.loginUser
-    );
-  }
+const signUpUser = function(nextState) {
+  let tempToken = nextState.location.query.temp_token;
+  if (tempToken) AuthActions.loginUser(tempToken);
 };
 
 let redirectToRoot = (nextState, replaceState) => {
@@ -66,36 +60,27 @@ let redirectToRoot = (nextState, replaceState) => {
   }, '/');
 };
 
-let history = createBrowserHistory();
-
-history.listen(function(location) {
-  window.ga('create', 'UA-76284809-1', 'auto');
-  window.ga('send', 'pageview', location.pathname);
-});
-
 export default (
   <Route >
-    <IndexRoute component={Home} />
+    <Route path="/logout" onEnter={logOut} />
 
-    <Route path="logout" onEnter={logOut} />
-
-    <Route path="login" component={Login} onEnter={userLoggedOut} >
-      <Route path="login/auth" onEnter={SignUpUser} />
+    <Route path="/login" component={Login} onEnter={userLoggedOut} >
+      <Route path="/login/auth" onEnter={signUpUser} />
     </Route>
 
     <Route path="/" component={Zhishi} onEnter={userLoggedIn} >
       <IndexRoute component={Home} />
 
-      <Route path="search" component={Search} />
-      <Route path="users" component={Users} >
-        <Route path="users" component={UsersIndex} />
-        <Route path="users/:id" component={User} />
+      <Route path="/search" component={Search} />
+      <Route path="/users" component={Users} >
+        <Route path="/users" component={UsersIndex} />
+        <Route path="/users/:id" component={User} />
       </Route>
 
-      <Route path="questions" component={Home} >
+      <Route path="/questions" component={Questions} onEnter={userLoggedIn} >
         <IndexRoute component={QuestionIndex} onEnter={userLoggedIn} />
-        <Route path="questions/new" component={NewQuestion} />
-        <Route path="questions/:id" component={Question} />
+        <Route path="/questions/new" component={NewQuestion} />
+        <Route path="/questions/:id" component={Question} />
       </Route>
 
       <Route path="*" component={Zhishi} onEnter={userLoggedIn}/>

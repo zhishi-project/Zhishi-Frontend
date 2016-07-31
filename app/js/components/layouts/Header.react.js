@@ -1,22 +1,22 @@
-import React from 'react'
-import SearchBar from './SearchBar.react'
-import Common from '../../utils/Common.js'
-import AuthStore from '../../stores/AuthStore.js'
-import { Link } from 'react-router';
+import React from 'react';
+import SearchBar from './SearchBar.react';
+import Common from '../../utils/Common.js';
+import AuthStore from '../../stores/AuthStore.js';
+import {Link} from 'react-router';
 
 var lastScroll = $(window).scrollTop();
 
 class Header extends React.Component {
-  constructor (props, context) {
-    super(props)
+  constructor(props, context) {
+    super(props);
   }
 
   componentDidMount() {
-    $(".ui.dropdown").dropdown();
-    $(".share-popup").popup();
+    $('.ui.dropdown').dropdown();
+    $('.share-popup').popup();
 
     $(window).scroll(function() {
-      var scroll = $(this).scrollTop(), header = $("header");
+      var scroll = $(this).scrollTop(), header = $('header');
       if (scroll > header.height) {
         header.slideUp();
       } else {
@@ -24,7 +24,7 @@ class Header extends React.Component {
         header.slideDown();
       }
       lastScroll = scroll;
-    })
+    });
 
     function changeHeaderCSS(header, scroll) {
       if (scroll > 0) {
@@ -37,8 +37,8 @@ class Header extends React.Component {
 
   render() {
     var current_user = AuthStore.getCurrentUser() || {};
-    var permalink = Common.createPermalink(current_user.id, current_user.name)
-    var heading_helper_text = '<div class=header-text><span>Zhishi</span> means <span>Knowledge</span> in chinese</div>'
+    var permalink = Common.createPermalink(current_user.id, current_user.name);
+    var heading_helper_text = '<div class=header-text><span>Zhishi</span> means <span>Knowledge</span> in chinese</div>';
     return (
       <header>
         <nav className="navigation">
@@ -62,7 +62,7 @@ class Header extends React.Component {
                 <Link to="#" className="selectTagModal-trigger item">Tags</Link>
                 <Link to="#" className="selectFeedbackModal-trigger item">Feedback ? </Link>
                 <div className="pointing ui dropdown item">
-                  <img src={current_user.image || "/assets/img/avatar.png"} alt="user-profile-image" className="profile-img" />
+                  <img src={current_user.image || '/assets/img/avatar.png'} alt="user-profile-image" className="profile-img" />
                   <i className="dropdown icon"></i>
 
                   <div className="menu">
@@ -78,7 +78,7 @@ class Header extends React.Component {
         </nav>
         <SearchBar />
       </header>
-    )
+    );
   }
 }
 module.exports = Header;

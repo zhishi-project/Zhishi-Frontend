@@ -13,7 +13,6 @@ export default {
   devServer: {
     inline: true,
     contentBase: './app'
-
   },
   output: {
     path: '/',

@@ -1,91 +1,66 @@
-import React from 'react'
-import CommentActions from '../../actions/CommentActions.js'
-import webAPI from '../../utils/webAPI.js'
-import AuthStore from '../../stores/AuthStore.js'
-import Votes from "../layouts/CommentVotes.react"
-import EditCommentForm from './Form.react'
-import ShareButton from "../layouts/ShareButton.react"
-import Common from '../../utils/Common.js'
+import React from 'react';
+import * as CommentActions from '../../actions/CommentActions.js';
+import ShowPage from './ShowPage.react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-class AllComments extends React.Component {
-  constructor(props, context){
-    super(props)
-    this.editComment = this.editComment.bind(this)
+class Comment extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {comment: props.comment};
+    this.editComment = this.editComment.bind(this);
     this.cancelComment = this.cancelComment.bind(this);
+  }
+
+   componentDidMount() {
+    //  $('.share-popup').popup();
    }
 
-   componentDidMount()  {
-     $(".share-popup").popup();
+   componentWillReceiveProps(newProps) {
+     this.setState({comment: newProps.comment});
    }
 
-   editComment(event){
+   editComment(event) {
      event.preventDefault();
-     CommentActions.editComment(this.retrieveCommentInfo(event))
+     this.props.actions.editComment(this.retrieveCommentInfo());
    }
 
-   saveCommentEdit(resource_id, id, edit_btn){
-     tinymce.triggerSave();
-     webAPI.processRequest(`/resources/${resource_id}/comments/${id}`, 'PATCH', this.resourceData(), CommentActions.receiveComment, edit_btn)
-     tinyMCE.remove();
-   }
-
-   resourceData(){
-     var desc = $(".comment-comment .main-comment").html();
-     return { content: desc }
-   }
-
-   cancelComment(event){
+   cancelComment(event) {
      event.preventDefault();
-     CommentActions.editComment(this.retrieveCommentInfo(event))
+     this.props.actions.cancelComment(this.retrieveCommentInfo());
    }
 
-   retrieveCommentInfo(event) {
-     let meta = this.props.meta || {}
-     let id = $(event.target).data('id');
-     return  { meta, id }
+   retrieveCommentInfo() {
+     return {meta: this.props.meta, comment: this.state.comment};
    }
 
-   render () {
-     let comment = this.props.comment || {};
-     let meta = this.props.meta || {}
-     let user = comment.user || {};
-     let current_user = AuthStore.getCurrentUser();
-     let comment_edit_btn, comment_delete_btn;
-     let comment_date = new Date(comment.created_at)
-     let comment_dom_id = `${meta.resource_name}-comment-${comment.id}`;
-     let text_to_copy = `http://${window.location.host + window.location.pathname }#${comment_dom_id}`;
-
-     if (current_user.id == user.id) {
-       comment_edit_btn = <a href="#" className="reply" data-resource-id={meta.resource_id}  data-id={comment.id} onClick={this.editComment.bind(this)}>edit</a>
-       comment_delete_btn = <a href="#" className="reply">delete</a>
-     }
-
-     let content = comment.status == 'editing'
-      ? <EditCommentForm comment={comment} meta={meta} cancelComment={this.cancelComment} />
-      : Common.replaceAtMentionsWithLinks(comment.content)
-
-     let userPermalink = Common.createPermalink(user.id, user.name);
-
-     return (
-       <div id={comment_dom_id} className={`comment  ${comment.status}`}>
-       {<Votes resource={comment} meta={meta} callback={CommentActions.updateVote} />}
-         <div className="content">
-           <a href={`/users/${userPermalink}`} className="author">{user.name}</a>
-           <div className="metadata">
-             <span className="date">On {comment_date.toDateString() || "(no date )"}</span>
-           </div>
-           <div className={`text main-comment ${comment.status}`}>
-             {content}
-           </div>
-           <div className="actions">
-            {comment_edit_btn}
-            <ShareButton type="comment" dom_id={comment_dom_id} text_to_copy={text_to_copy} custom_class='reply' />
-            {comment_delete_btn}
-           </div>
-         </div>
-         <div className="ui dividing header"></div>
-      </div>
-     )
+   render() {
+     return <ShowPage
+              comment={this.state.comment}
+              meta={this.props.meta}
+              editComment={this.editComment}
+              actions={this.props.actions}
+              updateVote={this.props.actions.updateCommentVoteSuccess}
+              cancelComment={this.cancelComment} />;
    }
  }
- export default AllComments;
+
+ /**
+ * @param {Object} state: from root reducer
+ * @param {Object} ownProps: for functions
+ * @return {Object}  {questions, filteredQuestions, page} for homepage
+ */
+function mapStateToProps(state, ownProps) {
+  return {...ownProps};
+}
+
+/**
+* @param {Func} dispatch: from root reducer
+* @return {Object}  actions to be bound
+*/
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(CommentActions, dispatch)
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Comment);

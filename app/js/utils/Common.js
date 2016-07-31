@@ -119,10 +119,10 @@ Common = {
   },
 
   replaceAtMentionsWithLinks: text => {
-    return text.replace(
+    return text ? text.replace(
       Common.mentionsRegex(),
       Common.replaceMentions
-    );
+    ) : '';
   },
 
   replaceMentions: (mention, contents, offset, str) => {

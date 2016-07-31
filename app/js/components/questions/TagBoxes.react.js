@@ -20,7 +20,7 @@ class TagBoxes extends React.Component {
    }
 
    componentWillMount(){
-    webAPI.processRequest('/tags/recent', 'GET', {}, (tags)=>{
+    webAPI('/tags/recent', 'GET', {}, (tags)=>{
       TagActions.receiveTags(tags)
     });
    }

@@ -2,27 +2,27 @@ import React, {Component} from 'react';
 
 
 export default class ProfileTagSection extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.toggleModal = this.toggleModal.bind(this);
   }
 
   toggleModal() {
-    $(`.${this.props.modalTrigger}`).click()
+    $(`.${this.props.modalTrigger}`).click();
   }
 
-  renderButtons(tag, index){
-    return (<button className="ui button" key={index}>{tag.name} </button>)
+  renderButtons(tag, index) {
+    return (<button className="ui button" key={index}>{tag.name} </button>);
   }
 
-  render(){
-    const { user, current_user, modalTrigger } = this.props;
-    let addMoreBtn = user.id === current_user.id
-    ?   <button onClick={this.toggleModal} className={`ui primary button addmore ${modalTrigger}`}>
+  render() {
+    const {user, currentUser, modalTrigger} = this.props;
+    let addMoreBtn = user.id === currentUser.id
+    ? <button onClick={this.toggleModal} className={`ui primary button addmore ${modalTrigger}`}>
           Add more
         </button>
-    : ""
-   return (
+    : "";
+    return (
     <div className="ui card profile-tags">
       <div className="content">
           <div className="column tag-buttons">
@@ -34,6 +34,6 @@ export default class ProfileTagSection extends Component {
             {this.props.tags.map(this.renderButtons)}
           </div>
        </div>
-   </div>)
+   </div>);
   }
 }

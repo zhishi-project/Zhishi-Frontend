@@ -1,84 +1,61 @@
-var AuthActions;
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var ZhishiConstants = require('../constants/ZhishiConstants');
-
+import types from '../constants/auth/actionTypes';
+import webAPI from './../utils/webAPI.js';
 import CookieVar from '../config/CookieVariables.js';
 
-AuthActions = {
+import $ from 'jquery';
 
+/* eslint-disable camelcase */
+
+/**
+* @param {Object} user to be set as current user
+* @return {Object} same as edit
+*/
+export function loginUserSuccess(user) {
+  return ({type: types.LOGIN_USER_SUCCESS, user});
+}
+
+/**
+* @param {Object} isFirstLogin to be set as current user
+* @return {Object} same as edit
+*/
+export function setFirstTimeMarker(isFirstLogin) {
+  return ({type: types.FIRST_TIME_LOGIN_TODAY, isFirstLogin});
+}
+
+/**
+* @param {Object} user to be set as current user
+* @return {Object} same as edit
+*/
+export function logoutUser(user) {
+  return ({type: types.LOGOUT_USER_SUCCESS, user});
+}
+
+/**
+* @param {Object} resourceId: id of the comment resource (question or answer)
+* @param {Object} id: of the comment
+* @return {Func}  Success action to Comment reducer
+*/
+export function loginUser(temp_token) {
+  return dispatch => {
+    return webAPI(`/validate_token`, 'POST', {temp_token})
+      .then(user => {
+        debugger;
+        dispatch(loginUserSuccess(user));
+      });
+  };
+}
+
+function redirectToReferrerIfAny() {
+  if ($.cookie(CookieVar.referrer)) {
+    var referrer = $.cookie(CookieVar.referrer);
+    $.removeCookie(CookieVar.referrer);
+    window.location.href = referrer;
+  } else {
+    window.location.href = '/';
+  }
+}
+
+let AuthActions = {
   // Receive inital product data
 
-  loginUser: function(data) {
-    debugger;
-    if (data._error) {
-      AppDispatcher.dispatch({
-        actionType: ZhishiConstants.AUTH_LOG_IN_ERROR,
-        data: data
-      });
-    } else if (data) {
-      AppDispatcher.dispatch({
-        actionType: ZhishiConstants.AUTH_LOG_IN,
-        data: data
-      });
-    }
-    AuthActions.redirectToReferrerIfAny();
-  },
-
-  logoutUser: function() {
-    AppDispatcher.dispatch({
-      actionType: ZhishiConstants.AUTH_LOG_OUT
-    });
-  },
-
-  signupUser: function(id, data) {
-    AppDispatcher.dispatch({
-      actionType: ZhishiConstants.AUTH_SIGN_UP,
-      id: id,
-      data: data
-    });
-  },
-
-  destroy: function(id) {
-    AppDispatcher.dispatch({
-      actionType: ZhishiConstants.USER_DESTROY,
-      id: id
-    });
-  },
-
-  /**
-   * Delete all the completed Users
-   */
-  destroyCompleted: function() {
-    AppDispatcher.dispatch({
-      actionType: ZhishiConstants.USER_DESTROY_COMPLETED
-    });
-  },
-
-  updateCurrentUser: (user) => {
-    AppDispatcher.dispatch({
-      actionType: ZhishiConstants.CURRENT_USER_UPDATE,
-      data: user
-    })
-    location.reload();
-  },
-
-  setFirstTimeMarker: (bool) => {
-    AppDispatcher.dispatch({
-      actionType: ZhishiConstants.FIRST_TIME_LOGIN_TODAY,
-      data: bool
-    })
-  },
-
-  redirectToReferrerIfAny: (nextState, replaceState) => {
-    if ($.cookie(CookieVar.referrer)) {
-      var referrer = $.cookie(CookieVar.referrer)
-      $.removeCookie(CookieVar.referrer)
-      window.location.href = referrer;
-    } else {
-      window.location.href = '/';
-    }
-  }
-
 };
-
-module.exports = AuthActions;

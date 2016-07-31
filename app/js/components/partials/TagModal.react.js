@@ -60,8 +60,8 @@ class TagModal extends React.Component {
   }
 
   componentWillMount() {
-    if (!TagStore.tags_loaded()) {
-      webAPI.processRequest('/tags/recent', 'GET', {}, (tags)=>{
+    if (!TagStore.tagsLoaded()) {
+      webAPI('/tags/recent', 'GET', {}, (tags)=>{
         TagActions.receiveTags(tags);
       });
     }
@@ -85,7 +85,7 @@ class TagModal extends React.Component {
   }
 
   persistSelection() {
-    webAPI.processRequest('/tags/update_subscription', 'POST',
+    webAPI('/tags/update_subscription', 'POST',
       {tags: this.state.selected_tags}, (data) => {
         if (data.tags) {
           let current_user = AuthStore.getCurrentUser()

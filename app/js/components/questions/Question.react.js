@@ -5,7 +5,7 @@ const Question = (props) => {
       <div className="full-height">
         <div className="main-wrapper">
           {props.children && React.cloneElement(props.children, {
-            question_id: props.params.id ? props.params.id.split('-')[0]: null
+            questionId: props.params.id ? props.params.id.split('-')[0]: null
           })}
         </div>
       </div>
