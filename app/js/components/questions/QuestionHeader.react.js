@@ -10,12 +10,12 @@ const QuestionHeader = ({question, onChange}) => {
        className="title"
        onChange={onChange}
        value="" /> :
-       question.title;
+       <scan>{question.title}</scan>;
 };
 
 QuestionHeader.propTypes = {
-  question: PropTypes.question,
-  onChange: PropTypes.onChange
+  question: PropTypes.object,
+  onChange: PropTypes.func
 };
 
 export default QuestionHeader;

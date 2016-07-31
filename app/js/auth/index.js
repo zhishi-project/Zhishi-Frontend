@@ -1,4 +1,5 @@
 import CVar from '../config/CookieVariables.js';
+import assign from 'object-assign';
 
 $.cookie.json = true;
 
@@ -25,9 +26,10 @@ class Auth {
     return this.currentUser().api_key;
   }
 
-  setCurrentUser(user) {
+  setCurrentUser(state, user) {
     let cookieMeta = this.getCookieMeta();
-    $.cookie(CVar.current_user, this.stringify(user), cookieMeta);
+    let updatedUser = this.stringify(assign({}, state, user));
+    $.cookie(CVar.current_user, updatedUser, cookieMeta);
     $.cookie(CVar.user_logged_in, (this.userToken() !== undefined), cookieMeta);
     return this.currentUser();
   }

@@ -18,6 +18,7 @@ import Questions from './components/questions/Question.react';
 import QuestionIndex from './components/questions/Index.react';
 import NewQuestion from './components/questions/New.react';
 import Question from './components/questions/Show.react';
+import Auth from './auth';
 
 // import $ from 'jquery';
 
@@ -34,30 +35,23 @@ let userLoggedIn = function(nextState, replaceState) {
   }
 };
 
-let userLoggedOut = function(nextState, replaceState) {
-  if (AuthStore.userLoggedIn()) {
-    replaceState({
-      nextPathname: nextState.location.pathname
-    }, '/');
-  }
-};
-
-let logOut = function(nextState, replaceState) {
-  AuthActions.logoutUser();
-  replaceState({
-    nextPathname: nextState.location.pathname
-  }, '/login');
-};
-
-const signUpUser = function(nextState) {
-  let tempToken = nextState.location.query.temp_token;
-  if (tempToken) AuthActions.loginUser(tempToken);
-};
-
 let redirectToRoot = (nextState, replaceState) => {
   replaceState({
     nextPathname: nextState.location.pathname
   }, '/');
+};
+
+let userLoggedOut = function(nextState, replaceState) {
+  if (AuthStore.userLoggedIn()) {
+    redirectToRoot(nextState, replaceState);
+  }
+};
+
+let logOut = function(nextState, replaceState) {
+  Auth.logoutUser();
+  replaceState({
+    nextPathname: nextState.location.pathname
+  }, '/login');
 };
 
 export default (
@@ -65,7 +59,7 @@ export default (
     <Route path="/logout" onEnter={logOut} />
 
     <Route path="/login" component={Login} onEnter={userLoggedOut} >
-      <Route path="/login/auth" onEnter={signUpUser} />
+      <Route path="/login/auth" component={Login} />
     </Route>
 
     <Route path="/" component={Zhishi} onEnter={userLoggedIn} >

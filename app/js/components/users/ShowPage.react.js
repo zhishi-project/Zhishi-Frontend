@@ -62,7 +62,7 @@ const ShowPage = ({currentUser, user, activities}) => {
 ShowPage.propTypes = {
   currentUser: PropTypes.object,
   user: PropTypes.object,
-  activities: PropTypes.object
+  activities: PropTypes.array
 };
 
 export default ShowPage;

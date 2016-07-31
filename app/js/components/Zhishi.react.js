@@ -3,7 +3,7 @@ import Header from './layouts/Header.react';
 import Footer from './layouts/Footer.react';
 import SidebarPusher from './layouts/SidebarPusher.react';
 
-import AuthStore from '../stores/AuthStore.js';
+import Auth from '../auth';
 
 import TagModal from './partials/TagModal.react';
 import FeedbackModal from './partials/FeedbackModal.react';
@@ -16,11 +16,10 @@ import '../../css/custom.scss';
 // import '../../../node_modules/toastr/build/toastr.css';
 
 class Zhishi extends React.Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props);
-    this.state = {currentUser: AuthStore.getCurrentUser()};
+    this.state = {currentUser: Auth.getCurrentUser()};
   }
-
 
   render() {
     const {currentUser} = this.state;
@@ -31,7 +30,7 @@ class Zhishi extends React.Component {
           <SidebarPusher />
           <div className="pusher">
             {this.props.children && React.cloneElement(this.props.children, {
-              app_state: this.state
+              state: this.state
             })}
 
             <FeedbackModal options={{

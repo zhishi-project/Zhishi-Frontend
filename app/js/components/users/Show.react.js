@@ -1,9 +1,11 @@
 import React from 'react';
-import UserActions from '../../actions/UserActions.js';
-import ActivityActions from '../../actions/ActivityActions.js';
+import ShowPage from './ShowPage.react';
+import * as UserActions from '../../actions/UserActions.js';
+import * as ActivityActions from '../../actions/ActivityActions.js';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-
+import Auth from '../../auth';
+import * as format from '../../utils/stringFormatters';
 import UserAnswers from './UserAnswers.react';
 
 class Show extends React.Component {
@@ -12,7 +14,9 @@ class Show extends React.Component {
   }
 
   componentWillMount() {
-
+    const {userActions, activityActions, userId} = this.props;
+    userActions.loadUser(userId);
+    activityActions.loadActivities(userId);
   }
 
   createUserQuestionsDiv(question, index) {
@@ -32,10 +36,12 @@ class Show extends React.Component {
 * @return {Object}  props for user page
 */
 function mapStateToProps(state, ownProps) {
+  const userId = format.getIdFromPermalink(ownProps.params.id);
   return {
-    user: state.users[ownProps.params.id] || {},
-    currentUser: state.currentUser,
-    activities: state.activities
+    userId,
+    user: state.users[userId] || {},
+    currentUser: Auth.getCurrentUser(),
+    activities: state.activities.activities
   };
 }
 

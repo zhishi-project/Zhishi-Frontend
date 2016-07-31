@@ -1,7 +1,7 @@
 import types from '../../constants/activities/actionTypes';
 import * as storeHelper from './storeHelpers';
 
-const initialState = {};
+const initialState = [];
 
 /**
 * @param {Object} state: json object of questions

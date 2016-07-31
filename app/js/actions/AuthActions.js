@@ -2,7 +2,7 @@ import types from '../constants/auth/actionTypes';
 import webAPI from './../utils/webAPI.js';
 import CookieVar from '../config/CookieVariables.js';
 
-import $ from 'jquery';
+// import $ from 'jquery';
 
 /* eslint-disable camelcase */
 
@@ -10,8 +10,9 @@ import $ from 'jquery';
 * @param {Object} user to be set as current user
 * @return {Object} same as edit
 */
-export function loginUserSuccess(user) {
-  return ({type: types.LOGIN_USER_SUCCESS, user});
+
+export function loadCurrentUserSuccess(user) {
+  return ({type: types.LOAD_CURRENT_USER_SUCCESS, user});
 }
 
 /**
@@ -35,12 +36,11 @@ export function logoutUser(user) {
 * @param {Object} id: of the comment
 * @return {Func}  Success action to Comment reducer
 */
-export function loginUser(temp_token) {
+export function loginUser({temp_token}) {
   return dispatch => {
     return webAPI(`/validate_token`, 'POST', {temp_token})
       .then(user => {
-        debugger;
-        dispatch(loginUserSuccess(user));
+        dispatch(loadCurrentUserSuccess(user));
       });
   };
 }

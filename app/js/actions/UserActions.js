@@ -11,9 +11,9 @@ const loadUserSuccess = user => {
 */
 export function loadUser(userId) {
   return dispatch => {
-    return webAPI(`/users/${userId}`, 'GET', null)
+    return webAPI(`/users/${userId}`, 'GET')
       .then(user => {
-        dispatch(loadUserSuccess({user}));
+        dispatch(loadUserSuccess(user));
       });
   };
 }

@@ -2,7 +2,7 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import ZhishiConstants from '../constants/ZhishiConstants';
 import Common from '../utils/Common.js';
 import types from '../constants/questions/actionTypes';
-import webAPI from './../utils/webAPI';
+import webAPI from '../utils/webAPI';
 import mockQuestionApi from './../api/mockQuestionApi';
 
 var QuestionActions;
@@ -56,6 +56,33 @@ export function loadQuestion(questionId) {
     });
   };
 }
+
+export function loadQuestions(page, tags) {
+  page = page || 1;
+  let path = (tags && tags.length > 0) ? '/questions/by_tags' : '/questions';
+  return dispatch => {
+    return webAPI(path, 'GET', {page, tags})
+    .then(data => {
+      dispatch(loadQuestionsSuccess({questions: data.questions, page}));
+    });
+  };
+}
+
+export function loadFilteredQuestions(page, tagIds) {
+  page = page || 1;
+  webAPI(
+      '/questions/by_tags',
+      'GET',
+    {
+      page, tagIds
+    }, data => {
+      actions.default.filterQuestionWithTags({
+        questions: data.questions, page: page
+      });
+    }
+    );
+}
+
 
 export function updateQuestion({id, title, content}) {
   return dispatch => {

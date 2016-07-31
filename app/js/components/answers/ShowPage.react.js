@@ -1,12 +1,13 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes} from 'react'; // eslint-disable-line no-unused-vars
 import Common from '../../utils/Common';
 import ManageVotes from '../votes/ManageVotes.react';
 import Comments from '../comments/Index.react.js';
 import ShareButton from '../layouts/ShareButton.react';
 import TinyMCE from 'react-tinymce';
+import AnswerUser from './AnswerUser.react';
 import tinymceConfig from '../../config/tinymceConfig.js';
 
-const commentsMeta = (answer) => {
+const commentsMeta = answer => {
   return {
     questionId: answer.question_id,
     resourceName: 'answers',
@@ -30,7 +31,6 @@ const ShowPage = ({
   let answerAcceptBtn;
   let acceptedAnswerRibbon;
   let acceptedAnswer;
-  let answerDate = new Date(answer.created_at);
   let answerDomId = `answer-${answer.id}`;
 
   let answerHref = `http://${window.location.host +
@@ -62,8 +62,6 @@ const ShowPage = ({
                               <i className="checkmark icon"></i>
                             </div>;
   }
-
-  let userPermalink = Common.createPermalink(user.id, user.name);
 
   let answerContent = answer.editing ?
     <TinyMCE
@@ -103,33 +101,8 @@ const ShowPage = ({
           {answerDeleteBtn}
           {answerAcceptBtn}
         </div>
-         <div className="user-metadata clearfix">
-          <p className="time-ago">
-            Answered {answerDate.toDateString() || '(no date )'}
-          </p>
 
-          <div className="two equal width ui grid">
-            <div className="fourteen wide column">
-              <p className="user-fullname">
-                <a href={`/users/${userPermalink}`}>
-                  {user.name || 'No name yet'}
-                </a>
-                <span className="badges">
-                  {user.points || 0}
-                </span>
-              </p>
-            </div>
-
-            <div className="two wide column">
-              <img
-                src={ user.image || '/assets/img/avatar.png'}
-                alt="profile-image"
-                className="profile-img" />
-            </div>
-
-          </div>
-
-        </div>
+        <AnswerUser {...answer} />
 
         <Comments
           comments={answer.comments}

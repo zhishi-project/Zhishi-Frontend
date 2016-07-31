@@ -1,11 +1,13 @@
 import React from 'react';
 import AuthStore from '../stores/AuthStore.js';
 import DisplayStore from '../stores/DisplayStore.js';
-import AuthActions from '../actions/AuthActions.js';
+import * as AuthActions from '../actions/AuthActions.js';
 import Config from '../config/environment.js';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-
-let signUpPath = `${Config.host}/login/google?redirect_url=http://${window.parent.location.host}/login/auth`;
+let signUpPath = `${Config.host}/login/google?redirect_url=http://${
+                            window.parent.location.host}/login/auth`;
 
 let loginState = () => {
   return {
@@ -20,9 +22,9 @@ class Login extends React.Component {
     this.state = loginState();
   }
 
-  signIn() {
-    let path = '/login/google?redirect_url=http://localhost:8080/login/auth';
-    window.location.href = signUpPath;
+  componentWillMount() {
+    const {actions, location} = this.props;
+    if (location.query.temp_token) actions.loginUser(location.query);
   }
 
   componentDidMount() {
@@ -64,12 +66,11 @@ class Login extends React.Component {
   }
 
   render() {
-    let autoSignInMsg = !this.state.loggedInToday
-      ? <span>
-          Ushering you in in a few seconds &nbsp;
-          <i className="ui active small inline loader"></i>
-        </span>
-      : '';
+    let autoSignInMsg = this.state.loggedInToday ? '' :
+      <span>
+        Ushering you in in a few seconds &nbsp;
+        <i className="ui active small inline loader"></i>
+      </span>;
     return (
       <div className="index center aligned ui container full-height">
         <section className="header">
@@ -93,7 +94,6 @@ class Login extends React.Component {
 
         </section>
 
-
         <footer className="footer">
           <p>
             &copy; Copyright 2016. All Rights Reserved.
@@ -104,4 +104,24 @@ class Login extends React.Component {
     );
   }
 }
-module.exports = Login;
+
+/**
+* @param {Object} state: from root reducer
+* @param {Object} ownProps: for functions
+* @return {Object}  {questions, filteredQuestions, page} for homepage
+*/
+function mapStateToProps(state, ownProps) {
+  return {user: {}};
+}
+
+/**
+* @param {Func} dispatch: from root reducer
+* @return {Object}  actions to be bound
+*/
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(AuthActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

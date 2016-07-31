@@ -1,12 +1,8 @@
 import React from 'react';
 import TagSelection from './layouts/TagSelection.react';
-
 import * as ZhishiInit from '../utils/ZhishiInit.js';
-
 import AuthStore from '../stores/AuthStore.js';
-
 import HomePage from './HomePage.react';
-
 import {connect} from 'react-redux';
 
 import $ from 'jquery';

@@ -1,5 +1,4 @@
-import questionTypes from '../../constants/questions/actionTypes';
-import types from '../../constants/comments/actionTypes';
+import types from '../../constants/users/actionTypes';
 import * as storeHelper from './storeHelpers';
 
 const initialState = {};
@@ -11,7 +10,7 @@ const initialState = {};
 */
 export default function commentReducer(state = initialState, action) {
   switch (action.type) {
-    case questionTypes.LOAD_USERS_SUCCESS:
+    case types.LOAD_USERS_SUCCESS:
       return storeHelper.loadAllUsers(state, action.users);
 
     case types.LOAD_USER_SUCCESS:

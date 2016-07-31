@@ -5,8 +5,6 @@ import NewAnswerForm from '../answers/New.react.js';
 import Answers from '../answers/Index.react.js';
 import Comments from '../comments/Index.react.js';
 import ManageVotes from '../votes/ManageVotes.react';
-import Common from '../../utils/Common.js';
-import {Link} from 'react-router';
 import QuestionContent from './QuestionContent.react';
 import QuestionHeader from './QuestionHeader.react';
 import OptionButtons from './OptionButtons.react';

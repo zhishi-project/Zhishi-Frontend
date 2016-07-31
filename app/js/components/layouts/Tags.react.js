@@ -1,19 +1,23 @@
-import React from 'react'
-import $ from 'jquery'
+import React, {PropTypes} from 'react'; // eslint-disable-line no-unused-vars
 
-const Tag = ({ tag }) => {
-  return <span>{tag.name}</span>
-}
+const Tag = ({tag}) => {
+  return <span>{tag.name}</span>;
+};
 
-const Tags = ({ tags }) => {
-   let tags_array = [];
-   if (!$.isEmptyObject(tags)) {
-     for(var i = 0; i < tags.length; i++) {
-       tags_array.push(<Tag key={i} tag={tags[i]} />)
-     }
-   }
-   return (
-     <div className="tags">{tags_array}</div>
-   )
- }
+const Tags = ({tags}) => {
+  let tagsArray = [];
+  if (tags && !Object.is({}, tags)) {
+    for (var i = 0; i < tags.length; i++) {
+      tagsArray.push(<Tag key={i} tag={tags[i]} />);
+    }
+  }
+  return (
+    <div className="tags">{tagsArray}</div>
+  );
+};
+
+Tag.propType = {
+  tags: PropTypes.object
+};
+
 export default Tags;

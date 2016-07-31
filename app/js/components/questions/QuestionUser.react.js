@@ -1,4 +1,6 @@
 import React, {PropTypes} from 'react'; // eslint-disable-line no-unused-vars
+import Common from '../../utils/Common.js';
+import {Link} from 'react-router';
 
 const questionDate = question => {
   return question ?

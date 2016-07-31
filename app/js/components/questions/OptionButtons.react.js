@@ -6,7 +6,7 @@ const OptionButtons = ({question, currentUser, editQuestion}) => {
   let questionDeleteBtn;
   let questionDomId = `question-${question.id}`;
   let textToCopy = `http://${window.location.host + window.location.pathname}`;
-  if (currentUser.id === question.user.id) {
+  if (question.user && currentUser.id === question.user.id) {
     let editBtnClass = question.editing ? 'ui button' : 'item';
     let editBtnText = question.editing ? 'Save' : 'edit';
     questionEditBtn = <a href="#"

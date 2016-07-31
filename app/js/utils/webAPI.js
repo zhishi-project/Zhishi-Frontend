@@ -3,7 +3,7 @@ import Auth from '../auth';
 import fetch from 'isomorphic-fetch';
 import 'babel-polyfill';
 
-const requestPath = (path, method, data) => {
+const requestPath = (path, method, data = {}) => {
   if (method === 'GET' && data.length > 0) {
     return path + '?' + encodeURIComponent(JSON.stringify(data));
   }
@@ -32,7 +32,7 @@ export function requestHeaders() {
 * @param {Function} callback: usually an action
 * @return {Object} fetch: to be used in views that check for success or failure
 */
-export default function processRequest(path, method, data) {
+export default function processRequest(path, method, data = {}) {
   let url = Config.host + requestPath(path, method, data);
   return fetch(url, {
     method: method,
