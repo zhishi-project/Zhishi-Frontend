@@ -14,9 +14,9 @@ If only there were such applications that helps you aggregate all your answers i
 The app itself is live on http://zhishi.andela.com/
 
 
-## Here onward, for core devs
+## Contribute
 
-To **contribute** to it,
+To add your own bit in making zhishi awesome,
 
 1. Fork the project
 2. Clone the project to you local computer.
