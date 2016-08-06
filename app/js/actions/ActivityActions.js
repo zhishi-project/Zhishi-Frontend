@@ -1,17 +1,23 @@
-let ActivityActions;
+import types from '../constants/activities/actionTypes';
+import webAPI from './../utils/webAPI.js';
 
-let AppDispatcher = require('../dispatcher/AppDispatcher');
-let ZhishiConstants = require('../constants/ZhishiConstants');
-
-ActivityActions = {
-
-  recieveActivities: (data) => {
-    AppDispatcher.dispatch({
-      actionType: ZhishiConstants.ACTIVITY_INDEX,
-      data: data
-    });
-  }
-
+/**
+* @param {Object} activities to be loaded in store
+* @return {Object} same as edit
+*/
+export function loadActivitySuccess(activities) {
+  return ({type: types.LOAD_ACTIVITIES_SUCCESS, activities});
 }
 
-export default ActivityActions;
+ /**
+ * @param {Object} userId: id of the activity owner
+ * @return {Func}  Success action to activity reducer
+ */
+export function loadActivities(userId) {
+  return dispatch => {
+    return webAPI(`/users/${userId}/activities`, 'GET')
+     .then(data => {
+       dispatch(loadActivitySuccess(data.activities));
+     });
+  };
+}

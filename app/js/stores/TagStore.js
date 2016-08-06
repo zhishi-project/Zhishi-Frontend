@@ -6,47 +6,49 @@ class TagStore extends BaseStore {
   constructor() {
     super();
     this.subscribe(() => this._registerActions.bind(this));
-    this._tags = {};
-    this._selected_tags = [];
-    this._tags_loaded = false;
+    this.tags = {};
+    this.selectedTags = [];
+    this.tagsLoadedState = false;
   }
- loadTags(tags=[]) {
+ loadTags(tags = []) {
    tags.forEach(tag => this.update(tag));
-   this._tags_loaded = true;
+   this.tagsLoadedState = true;
  }
   update(tag) {
-    Common.update(this._tags, tag.id, tag);
+    Common.update(this.tags, tag.id, tag);
   }
   selectTagForSubscription(tag, forceUpdate) {
-    if (tag && this._tags[tag.id]) {
-      let status = this._tags[tag.id]['status'] === 'selected' ? '' : 'selected';
-      Object.assign(this._tags[tag.id], {status});
+    if (tag && this.tags[tag.id]) {
+      let status = this.tags[tag.id]['status'] === 'selected' ?
+      '' :
+      'selected';
+      Object.assign(this.tags[tag.id], {status});
       this.updateSelectedTag(tag.name, forceUpdate);
     }
   }
-  updateSelectedTag(tag_name, forceUpdate) {
-    let index = this._selected_tags.indexOf(tag_name);
+  updateSelectedTag(tagName, forceUpdate) {
+    let index = this.selectedTags.indexOf(tagName);
     if (index === -1) {
-      this._selected_tags.push(tag_name);
+      this.selectedTags.push(tagName);
     } else if (index !== -1 && !forceUpdate) {
-      this._selected_tags.splice(index, 1);
+      this.selectedTags.splice(index, 1);
     }
   }
   updateBatchTags(tags = []) {
     tags.forEach(tag => {
-      Common.update(this._tags, tag.id, tag);
+      Common.update(this.tags, tag.id, tag);
       this.selectTagForSubscription(tag, true);
     });
   }
   getAllTags() {
-    return this._tags;
+    return this.tags;
   }
 
   getSelectedTags() {
-    return this._selected_tags;
+    return this.selectedTags;
   }
-  tags_loaded() {
-    return this._tags_loaded;
+  tagsLoaded() {
+    return this.tagsLoadedState;
   }
 
   _registerActions(action) {

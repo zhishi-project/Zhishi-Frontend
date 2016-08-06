@@ -1,10 +1,8 @@
-import React from 'react'
-import SlideUpEffect from '../mixins/SlideUpEffect.react'
+import React from 'react'; // eslint-disable-line no-unused-vars
+import SlideUpEffect from '../mixins/SlideUpEffect.react';
 
-import _ from 'jquery'
+const SlideUpMessage = ({options}) => {
+  return options.message;
+};
 
-const SlideUpMessage = ({ toggleMessage, options, currentUser }) => {
-   return options.message
-}
-
- export default SlideUpEffect(SlideUpMessage);
+export default SlideUpEffect(SlideUpMessage);

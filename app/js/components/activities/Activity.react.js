@@ -1,6 +1,7 @@
 import React from 'react'
 import Common from "../../utils/Common.js"
 import RelatedInformation from './RelatedInformation.react'
+import { Link } from 'react-router';
 
 const Activity = ({ activity, user, pronoun}) => {
   const { activity_on } = activity
@@ -25,7 +26,7 @@ const Activity = ({ activity, user, pronoun}) => {
             </div>
           </div>
           <div className="extra text">
-            <a href={`/questions/${permalink}`}>{activity_on.title}</a>
+            <Link to={`/questions/${permalink}`}>{activity_on.title}</Link>
           </div>
           <div className="meta">
             <a className="like">

@@ -1,13 +1,21 @@
-import React from 'react';
-const TagSelection = (props) => {
+import React, {PropTypes} from 'react'; // eslint-disable-line no-unused-vars
 
+const TagSelection = ({tag, onTagSelect}) => {
   return (
       <div className="field">
         <div className="ui checkbox">
-          <input type="checkbox" value={props.tag.id} onClick={props.onTagSelect}/>
-          <label>{props.tag.name}</label>
+          <input type="checkbox"
+            value={tag.id}
+            onClick={onTagSelect}/>
+          <label>{tag.name}</label>
         </div>
     </div>
-    )
-}
+  );
+};
+
+TagSelection.propTypes = {
+  tag: PropTypes.object,
+  onTagSelect: PropTypes.func
+};
+
 export default TagSelection;

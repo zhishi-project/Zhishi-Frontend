@@ -1,5 +1,5 @@
-import React from 'react'
-import TrendingQuestions from '../questions/TrendingQuestions.react.js'
+import React from 'react';
+import TrendingQuestions from '../questions/TrendingQuestions.react';
 
 class Sidebar extends React.Component {
 
@@ -7,14 +7,14 @@ class Sidebar extends React.Component {
     super(props);
   }
 
-  render(){
+  render() {
     return (
       <aside className="four wide computer only column">
         <div className="sidebar wide column">
-          <TrendingQuestions top_questions={this.props.top_questions}/>
+          {<TrendingQuestions topQuestions={this.props.top_questions} />}
         </div>
       </aside>
-    )
+    );
   }
 }
 module.exports = Sidebar;

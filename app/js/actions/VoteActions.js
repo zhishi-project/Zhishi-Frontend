@@ -1,17 +1,27 @@
-var VoteActions;
+import webAPI from './../utils/webAPI.js';
 
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var ZhishiConstants = require('../constants/ZhishiConstants');
+/*
+  The success callback exists in the question, answer or comment action
+  Depending on which resource own the vote. It is passed in the view (Votes.js)
+*/
 
-VoteActions = {
-
-  updateVotes: (data) => {
-    AppDispatcher.dispatch({
-      actionType: ZhishiConstants.QUESTION_UPDATE_VOTES,
-      data: data
-    });
-  },
-
+/**
+* @param {Object} meta: containing question id and resource name
+* @param {Object} action: 'up' or 'down'
+* @param {Object} callback: success action - question, answer or comment vote success
+* @return {Object} containing the action type and data
+*/
+export function updateVote({resource, action, meta, callback}) {
+  let value = action === 'up' ? 1 : -1;
+  return dispatch => {
+    return webAPI(`/${meta.owner}s/${resource.id}/${action}vote`,
+      'POST', '')
+      .then(votesCount => {
+        let votesData = {id: resource.id, votesCount, meta, value};
+        dispatch(callback(votesData));
+        return votesCount;
+      }).catch(err => {
+        throw err;
+      });
+  };
 }
-
-export default VoteActions;

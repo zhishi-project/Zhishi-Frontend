@@ -1,5 +1,6 @@
 import React from 'react'
 import Common from "../../utils/Common.js"
+import { Link } from 'react-router';
 
 const RelatedInformation = ({ relatedInformation }) => {
   let permalink = Common.createPermalink(relatedInformation.id, relatedInformation.title);
@@ -13,7 +14,7 @@ const RelatedInformation = ({ relatedInformation }) => {
       </div>
 
       <div className="extra text">
-        <a href={`/questions/${permalink}`}>{relatedInformation.title}</a>
+        <Link to={`/questions/${permalink}`}>{relatedInformation.title}</Link>
       </div>
       <div className="meta">
         <a className="like">

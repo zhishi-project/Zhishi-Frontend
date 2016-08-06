@@ -1,34 +1,29 @@
-import React from 'react'
-import ModalEffects from '../mixins/ModalEffects.react'
-import FeedbackActions from '../../actions/FeedbackActions'
+import React from 'react';
+import ModalEffects from '../mixins/ModalEffects.react';
+import * as FeedbackActions from '../../actions/FeedbackActions';
+import toastr from 'toastr';
 
 /*
-  Feedback modal is a State, not behaviour component.
+  Feedback modal
   All modal behaviour is gotten from ModalEffects
   which acts as a Higher Order Component.
 */
 
-
 class FeedbackModal extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.submitForm = this.submitForm.bind(this);
   }
 
-  _onChange() {
-    this.setState( getTagState() )
-  }
-
-  submitForm(event) {
-    FeedbackActions.submitFeedback(this.refs.feedbackText.value);
+  submitForm() {
+    FeedbackActions.submitFeedback(this.refs.feedbackText.value)
+    .then(() => toastr.success('Thanks for your feedback'));
     this.refs.feedbackText.text = '';
     this.refs.submitBtn.disabled = true;
-    alert('Thanks for your feedback');
-
   }
 
-  render () {
-   let { options } = this.props;
+  render() {
+    let {options} = this.props;
     return (
       <div id={`${options.modalId}`} className="md-modal" ref="feedbackModal">
         <div className="modal-container">
@@ -53,7 +48,7 @@ class FeedbackModal extends React.Component {
         </div>
 
       </div>
-    )
+    );
   }
 }
 
