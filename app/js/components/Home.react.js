@@ -1,147 +1,109 @@
-import React from 'react'
-import Header from './layouts/Header.react'
-import Footer from './layouts/Footer.react'
-import QuestionsList from './questions/QuestionsList.react'
-import Sidebar from './layouts/Sidebar.react'
-import TagSelection from './layouts/TagSelection.react'
-import ZhishiQuestions from '../utils/ZhishiInit.js'
+import React from 'react';
+import TagSelection from './layouts/TagSelection.react';
+import * as ZhishiInit from '../utils/ZhishiInit.js';
+import HomePage from './HomePage.react';
+import {connect} from 'react-redux';
 
-import AuthStore from '../stores/AuthStore.js'
-import QuestionStore from '../stores/QuestionStore.js'
-import UserStore from '../stores/UserStore.js'
-
-import QuestionActions from '../actions/QuestionActions.js'
-
-
-import _ from 'jquery'
-
-import webAPI from "../utils/webAPI.js";
-
-function getHomeState(){
-  let questions = QuestionStore.getQuestions();
-  let current_page = QuestionStore.getCurrentPage();
-  let current_user = AuthStore.getCurrentUser();
-
-
-  return {
-    questions: questions,
-    current_page: current_page,
-    current_user: current_user,
-    top_questions: QuestionStore.getTopQuestions(),
-    filteredQuestions: QuestionStore.filtedQuestion,
-    should_fetch: QuestionStore.shouldFetchQuestions()
-  }
-}
+import $ from 'jquery';
 
 class Home extends React.Component {
-  constructor(props, context){
-    super(props);
-    this.state = getHomeState(1);
-    this.state.showFilters = false;
-    this.state.selectedTags = [];
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      showFilters: false,
+      selectedTags: []
+    };
+
     this.showFilterAction = this.showFilterAction.bind(this);
-    this._onChange = this._onChange.bind(this);
     this.onTagSelect = this.onTagSelect.bind(this);
     this.loadTagSelection = this.loadTagSelection.bind(this);
   }
 
-  componentWillMount() {
-    let currentPage = QuestionStore.getCurrentPage();
-    ZhishiQuestions.getQuestions(currentPage);
-  }
-
-  componentDidMount(){
-    QuestionStore.addChangeListener(this._onChange);
-    UserStore.addChangeListener(this._onChange);
-    console.log(this.state);
+  componentDidMount() {
     var self = this;
-    let next_page = this.state.current_page
-    $( window ).on('scroll', function() {
-      if($(window).scrollTop() + $(window).height() == $(document).height()) {
-        next_page++
-        ZhishiQuestions.getQuestions(next_page, self.state.selectedTags);
-     }
+    let nextPage = this.state.currentPage;
+    $(window).on('scroll', function() {
+      if ($(window).scrollTop() + $(window).height() === $(document).height()) {
+        nextPage++;
+        ZhishiInit.getQuestions(nextPage, self.state.selectedTags);
+      }
     });
   }
 
-  componentWillUnmount(){
-    QuestionStore.removeChangeListener(this._onChange);
-    UserStore.removeChangeListener(this._onChange);
+  componentWillUnmount() {
     $(window).unbind('scroll');
   }
 
   shouldComponendUpdate() {
-    return this.state.should_fetch
+    return this.props.page.shouldFetch;
   }
 
-  onTagSelect(e){
+  onTagSelect(e) {
     let selectedTags = this.state.selectedTags;
     selectedTags = this.populateArray(e, selectedTags);
-    if ($.isEmptyObject(selectedTags)) {
-      ZhishiQuestions.getQuestions();
+    if (selectedTags.length > 0) {
+      ZhishiInit.getQuestions();
     } else {
-      ZhishiQuestions.getFilteredQuestions(null, selectedTags);
+      ZhishiInit.getFilteredQuestions(null, selectedTags);
     }
   }
+
   populateArray(e, selectedTags) {
-    if(selectedTags.indexOf(e.target.value) == -1  && e.target.checked){
+    if (selectedTags.indexOf(e.target.value) === -1 && e.target.checked) {
       selectedTags.push(e.target.value);
-    }
-    else {
+    } else {
       let index = selectedTags.indexOf(e.target.value);
       selectedTags.splice(index, 1);
     }
     return selectedTags;
   }
-  loadTagSelection (tag, i) {
+
+  loadTagSelection(tag, i) {
     return (<TagSelection onTagSelect={this.onTagSelect} tag={tag} key={i}/>);
   }
-  showFilterAction(){
+
+  showFilterAction() {
     this.setState({showFilters: !this.state.showFilters});
   }
 
-  _onChange() {
-    this.setState(getHomeState(this.state.current_page))
+  filterDiv() {
+    const {currentUser} = this.props;
+    return this.state.showFilters ?
+      <div className="ui form"> <div className="inline fields">
+        {currentUser.tags.map(this.loadTagSelection)} </div>
+      </div> :
+      null;
   }
-  render(){
-    var questions = QuestionStore.getQuestions();
-    let ajax_icon = this.state.should_fetch ? <i className="notched center circle loading icon"></i> : null
-    let current_user = this.state.current_user || {}
-    let filterDiv = this.state.showFilters
-      ? <div className="ui form"> <div className="inline fields">
-            {current_user.tags.map(this.loadTagSelection)} </div>
-        </div>
-      : null
-    return (
-      <div className="main-wrapper homepage">
-        <Header />
 
-        <main className="ui container main">
-          <div className="ui grid">
-            <div className="sixteen wide tablet sixteen wide computer column">
-             <button className="mini ui primary button" onClick={this.showFilterAction}>Show filters</button>
+  ajaxIcon() {
+    return this.props.page.shouldFetch ?
+      <i className="notched center circle loading icon"></i> :
+      null;
+  }
 
-                {filterDiv}
-
-
-            </div>
-            <div className="sixteen wide tablet twelve wide computer column">
-              <h2>Recent Questions</h2>
-              {<QuestionsList questions={questions} current_page={this.state.current_page} />}
-              {ajax_icon}
-            </div>
-
-            <Sidebar top_questions={this.state.top_questions} />
-
-
-          </div>
-        </main>
-
-        <Footer />
-
-      </div>
-    )
+  render() {
+    const {questions, topQuestions, page} = this.props;
+    return <HomePage
+              filterDiv={this.filterDiv}
+              ajaxIcon={this.ajaxIcon}
+              questions={questions}
+              topQuestions={topQuestions}
+              showFilterAction={this.showFilterAction}
+              currentPage={page.currentPage} />;
   }
 }
 
-module.exports = Home;
+/**
+* @param {Object} state: from root reducer
+* @param {Object} ownProps: for functions
+* @return {Object}  {questions, filteredQuestions, page} for homepage
+*/
+function mapStateToProps(state) {
+  return {
+    ...state.questions,
+    currentUser: state.currentUser
+  };
+}
+
+export default connect(mapStateToProps)(Home);

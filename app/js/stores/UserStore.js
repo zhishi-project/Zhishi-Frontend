@@ -5,6 +5,7 @@ import CVar from '../config/CookieVariables.js';
 import BaseStore from './BaseStore';
 import AuthStore from './AuthStore';
 
+
 class UserStore extends BaseStore {
   constructor() {
     super();

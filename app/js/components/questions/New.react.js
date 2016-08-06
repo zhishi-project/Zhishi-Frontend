@@ -1,37 +1,37 @@
-import React from 'react'
-import Header from '../layouts/Header.react'
-import Sidebar from '../layouts/Sidebar.react'
-import webAPI from '../../utils/webAPI.js'
-import QuestionActions from '../../actions/QuestionActions.js'
-import Common from "../../utils/Common"
-import TagInputBox from './TagBoxes.react'
+import React from 'react';
+import webAPI from '../../utils/webAPI.js';
+import QuestionActions from '../../actions/QuestionActions.js';
+import Common from '../../utils/Common';
+import TagInputBox from './TagBoxes.react';
+import Sidebar from '../layouts/Sidebar.react';
+import TinyMCE from 'react-tinymce';
+import tinycceConfig from '../../config/tinymceConfig.js';
 
 class NewQuestion extends React.Component {
-  constructor(props, context){
-    super(props)
-   }
+  constructor(props, context) {
+    super(props);
+  }
 
-   componentDidMount(){
+   componentDidMount() {
      Common.initTinyMceContent('.ask-question');
    }
 
-   createQuestion(event){
+   createQuestion(event) {
      event.preventDefault();
-     $("#submitQuestionBtn").prop( "disabled", true )
+     $('#submitQuestionBtn').prop( 'disabled', true );
      tinymce.triggerSave();
-     var title = $("form #new_question_title").val();
-     var desc = $("form #new_question_desc").val();
+     var title = $('form #new_question_title').val();
+     var desc = $('form #new_question_desc').val();
      var tags = [];
-     $("#selected-tags").children().each(function(){ tags.push($(this).html())})
-     var question_data = { title: title, content: desc, tags: tags }
-     webAPI.processRequest('/questions', 'POST', question_data, QuestionActions.createQuestion, $("#submitQuestionBtn"))
+     $('#selected-tags').children().each(function() { tags.push($(this).html());});
+     var question_data = {title: title, content: desc, tags: tags};
+     webAPI('/questions', 'POST', question_data, QuestionActions.createQuestion, $('#submitQuestionBtn'));
    }
 
-   render () {
-     let title_tip = "It'll be super nice if this title is a summarized and descriptive question ¯\\_(ツ)_/¯";
+   render() {
+     let title_tip = 'It\'ll be super nice if this title is a summarized and descriptive question ¯\\_(ツ)_/¯';
      return (
        <div className="ask-question">
-          <Header />
            <main className="ui container main">
              <div className="ui grid">
                <div className="sixteen wide tablet twelve wide computer column">
@@ -83,7 +83,7 @@ class NewQuestion extends React.Component {
              </div>
            </main>
         </div>
-     )
+     );
    }
  }
- module.exports = NewQuestion
+module.exports = NewQuestion;

@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 class Index extends React.Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props);
   }
 
-  render(){
+  render() {
     return (
       <div className="index center aligned ui container full-height">
         <section className="header">
@@ -16,7 +16,7 @@ class Index extends React.Component {
           </header>
         </section>
       </div>
-    )
+    );
   }
 }
 module.exports = Index;

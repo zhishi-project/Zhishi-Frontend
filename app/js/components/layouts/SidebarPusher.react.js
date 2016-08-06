@@ -1,11 +1,11 @@
-import React from "react"
-import AuthStore from '../../stores/AuthStore.js'
+import React from "react";
+import Auth from '../../auth';
 
 const SidebarPusher = ({current_user}) => {
-  $(".sidebar-icon").click(function() {
+  $('.sidebar-icon').click(function() {
     $('.ui.sidebar').sidebar('toggle');
-  })
-  var current_user = AuthStore.getCurrentUser() || {};
+  });
+  var current_user = Auth.getCurrentUser() || {};
   return (
     <div className="ui left demo vertical inverted sidebar labeled icon menu">
       <a className="item">
@@ -17,7 +17,7 @@ const SidebarPusher = ({current_user}) => {
         Help
       </a>
       <a className="item">
-        <img src={current_user.image || "/assets/img/avatar.png"} alt="user-profile-image" className="profile-img" />
+        <img src={current_user.image || '/assets/img/avatar.png'} alt="user-profile-image" className="profile-img" />
         My profile
       </a>
       <a href="/logout" className="item">
@@ -26,6 +26,6 @@ const SidebarPusher = ({current_user}) => {
       </a>
 
     </div>
-  )
-}
+  );
+};
 export default SidebarPusher;

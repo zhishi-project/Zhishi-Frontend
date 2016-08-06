@@ -1,60 +1,128 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import ZhishiConstants from '../constants/ZhishiConstants';
 import Common from '../utils/Common.js';
-import QuestionStore from '../stores/QuestionStore';
+import types from '../constants/questions/actionTypes';
+import webAPI from '../utils/webAPI';
+import mockQuestionApi from './../api/mockQuestionApi';
 
 var QuestionActions;
 
-var waitForQuestionStore =  function() {
-  if (AppDispatcher._isDispatching) { AppDispatcher.waitFor([QuestionStore.dispatchToken]) }
+/**
+* @param {Object} data: key questions and value is an array of questions
+* @return {Object} containing the action type and data
+*/
+export function loadQuestionsSuccess(data) {
+  return {type: types.LOAD_QUESTIONS_SUCCESS, data};
+}
+
+/**
+* @param {Object} question: an array of questions from backend db
+* @return {Object} containing the action type and data
+*/
+export function loadQuestionSuccess(question) {
+  return {type: types.LOAD_QUESTION_SUCCESS, question};
+}
+
+/**
+* @param {Object} data: an array of top questions from backend db
+* @return {Object} containing the action type and data
+*/
+export function loadTopQuestionsSuccess(data) {
+  return {type: types.LOAD_TOP_QUESTIONS_SUCCESS, data};
+}
+
+/**
+* @param {Object} data: info containing total votes and resource vote belongs
+* @return {Object} containing the action type and data
+*/
+export function updateQuestionVoteSuccess(data) {
+  return {type: types.UPDATE_QUESTION_VOTE_SUCCESS, data};
+}
+
+export function loadTopQuestions() {
+  return dispatch => {
+    return webAPI(`/top_questions`, 'GET', '')
+    .then(data => {
+      dispatch(loadTopQuestionsSuccess(data));
+    });
+  };
+}
+
+export function loadQuestion(questionId) {
+  return dispatch => {
+    return webAPI(`/questions/${questionId}`, 'GET', '')
+    .then(data => {
+      dispatch(loadQuestionSuccess(data));
+    });
+  };
+}
+
+export function loadQuestions(page, tags) {
+  page = page || 1;
+  let path = (tags && tags.length > 0) ? '/questions/by_tags' : '/questions';
+  return dispatch => {
+    return webAPI(path, 'GET', {page, tags})
+    .then(data => {
+      dispatch(loadQuestionsSuccess({questions: data.questions, page}));
+    });
+  };
+}
+
+export function loadFilteredQuestions(page, tagIds) {
+  page = page || 1;
+  webAPI(
+      '/questions/by_tags',
+      'GET',
+    {
+      page, tagIds
+    }, data => {
+      actions.default.filterQuestionWithTags({
+        questions: data.questions, page: page
+      });
+    }
+    );
+}
+
+
+export function updateQuestion({id, title, content}) {
+  return dispatch => {
+    return webAPI(`/questions/${id}`, 'PATCH', {title, content})
+    .then(data => {
+      dispatch(loadQuestionSuccess(data));
+    });
+  };
+}
+
+export function updateTestQuestion({id, title, content}) {
+  return dispatch => {
+    return mockQuestionApi.saveQuestion({title, content})
+      .then(res => {
+        let data = Object.assign({}, res, {id});
+        dispatch(loadQuestionsSuccess(data));
+      }).catch(err => console.log(err));
+  };
+}
+
+export function loadAction(action, data) {
+  return {
+    type: action,
+    data
+  };
+}
+
+export function editQuestion(data) {
+  return {
+    type: types.EDIT_QUESTION,
+    data
+  };
 }
 
 QuestionActions = {
-  createQuestion: (question) => {
+  createQuestion: question => {
     // QuestionActions.sendQuestionsToSlack(question)
-    QuestionActions.receiveQuestion(question)
-    window.location.href = `/questions/${Common.createPermalink(question.id, question.title)}`
-  },
-
-  receiveQuestions: (data) => {
-    console.log(data);
-    AppDispatcher.dispatch({
-      actionType: ZhishiConstants.RECEIVE_QUESTIONS,
-      data: data
-    });
-  },
-  recieveUserQuestions: data => {
-    waitForQuestionStore();
-    AppDispatcher.dispatch({
-      actionType: ZhishiConstants.RECEIVE_USER_QUESTIONS,
-      data: data
-    });
-  },
-
-  receiveQuestion: (question, new_question) => {
-    waitForQuestionStore();
-    if (question && question.id) {
-      AppDispatcher.dispatch({
-        actionType: ZhishiConstants.QUESTION_UPDATE,
-        data: question
-      });
-    }
-  },
-
-  receiveTopQuestions: (data) => {
-    waitForQuestionStore();
-    AppDispatcher.dispatch({
-      actionType: ZhishiConstants.RECEIVE_TOP_QUESTIONS,
-      data: data
-    });
-  },
-
-  editQuestion: (data) => {
-    waitForQuestionStore();
-    AppDispatcher.dispatch({
-      actionType: ZhishiConstants.QUESTION_EDIT,
-      data: data
-    });
+    QuestionActions.receiveQuestion(question);
+    window.location.href =
+      `/questions/${Common.createPermalink(question.id, question.title)}`;
   },
 
   updateVote: (data) => {
@@ -71,13 +139,13 @@ QuestionActions = {
   },
 
   sendQuestionsToSlack: (question) => {
-    let prefix = ["Got a bit of time?", 'Hey, you down?', 'Hey, can you help?', 'SOS']
+    let prefix = ['Got a bit of time?', 'Hey, you down?', 'Hey, can you help?', 'SOS'];
     if (question) {
-      let general = `${prefix[parseInt(Math.random() * 4)]}! ${question.user.name} just asked a question`
-      let personal = `${prefix[parseInt(Math.random() * 4)]}! ${question.user.name} just asked a question and mentioned you.`
-      Common.sendToSlack({id: question.id, title: question.title, content: question.content, intro: {general: general, personal: personal}})
+      let general = `${prefix[parseInt(Math.random() * 4)]}! ${question.user.name} just asked a question`;
+      let personal = `${prefix[parseInt(Math.random() * 4)]}! ${question.user.name} just asked a question and mentioned you.`;
+      Common.sendToSlack({id: question.id, title: question.title, content: question.content, intro: {general: general, personal: personal}});
     }
   }
-}
+};
 
 export default QuestionActions;
