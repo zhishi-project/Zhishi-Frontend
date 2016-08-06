@@ -10,7 +10,6 @@ import CookieVar from '../config/CookieVariables.js';
 * @param {Object} user to be set as current user
 * @return {Object} same as edit
 */
-
 export function loadCurrentUserSuccess(user) {
   return ({type: types.LOAD_CURRENT_USER_SUCCESS, user});
 }

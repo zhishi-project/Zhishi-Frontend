@@ -41,6 +41,7 @@ class Comment extends React.Component {
               editComment={this.editComment}
               actions={this.props.actions}
               updateVote={this.props.actions.updateCommentVoteSuccess}
+              currentUser={this.props.currentUser}
               cancelComment={this.cancelComment} />;
    }
  }
@@ -51,7 +52,10 @@ class Comment extends React.Component {
  * @return {Object}  {questions, filteredQuestions, page} for homepage
  */
 function mapStateToProps(state, ownProps) {
-  return {...ownProps};
+  return {
+    ...ownProps,
+    currentUser: state.currentUser
+  };
 }
 
 /**

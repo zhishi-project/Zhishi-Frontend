@@ -28,14 +28,14 @@ const createPageMapping = (state, questions, currentPage) => {
 };
 
 /**
- * @param {Object} action : new state
- * @param {Object} state: current state
+ * @param {Object} state : new state
+ * @param {Object} action: hash of questions and currentPage
  * @return {Array} it returns the state of mapping
 */
 export default function pageReducer(state = initialState, action) {
   switch (action.type) {
     case types.LOAD_QUESTIONS_SUCCESS:
-      if (Object.keys(action.data).length > 0) {
+      if (action.data.questions) {
         const {questions, currentPage} = action.data;
         return createPageMapping(state, questions, currentPage);
       }

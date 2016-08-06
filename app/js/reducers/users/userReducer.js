@@ -8,7 +8,7 @@ const initialState = {};
 * @param {Object} action Identical to state
 * @return {object} the state is returned
 */
-export default function commentReducer(state = initialState, action) {
+export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case types.LOAD_USERS_SUCCESS:
       return storeHelper.loadAllUsers(state, action.users);

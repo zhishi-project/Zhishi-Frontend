@@ -1,7 +1,6 @@
 import React from 'react';
 import TagSelection from './layouts/TagSelection.react';
 import * as ZhishiInit from '../utils/ZhishiInit.js';
-import AuthStore from '../stores/AuthStore.js';
 import HomePage from './HomePage.react';
 import {connect} from 'react-redux';
 
@@ -69,7 +68,7 @@ class Home extends React.Component {
   }
 
   filterDiv() {
-    let currentUser = AuthStore.getCurrentUser();
+    const {currentUser} = this.props;
     return this.state.showFilters ?
       <div className="ui form"> <div className="inline fields">
         {currentUser.tags.map(this.loadTagSelection)} </div>
@@ -101,7 +100,10 @@ class Home extends React.Component {
 * @return {Object}  {questions, filteredQuestions, page} for homepage
 */
 function mapStateToProps(state) {
-  return {...state.questions};
+  return {
+    ...state.questions,
+    currentUser: state.currentUser
+  };
 }
 
 export default connect(mapStateToProps)(Home);

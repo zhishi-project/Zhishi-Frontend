@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react'; // eslint-disable-line no-unused-vars
-import AuthStore from '../../stores/AuthStore.js';
 import ManageCommentForm from './ManageCommentForm.react';
 import ManageVotes from '../votes/ManageVotes.react';
 import ShareButton from '../layouts/ShareButton.react';
@@ -10,12 +9,18 @@ import assign from 'object-assign';
 const votesMeta = meta => {
   return assign({}, meta, {owner: 'comment'});
 };
-const ShowPage = ({comment, meta, editComment,
-                    actions, updateVote, cancelComment}) => {
+const ShowPage = ({
+  comment,
+  meta,
+  editComment,
+  actions,
+  updateVote,
+  currentUser,
+  cancelComment
+}) => {
   let commentEditBtn;
   let commentDeleteBtn;
   let user = comment.user || {};
-  let currentUser = AuthStore.getCurrentUser();
   let commentDate = new Date(comment.created_at);
   let commentDomId = `${meta.resource_name}-comment-${comment.id}`;
   let textToCopy = `http://${window.location.host +
@@ -85,6 +90,7 @@ ShowPage.propTypes = {
   editComment: PropTypes.func,
   actions: PropTypes.object,
   cancelComment: PropTypes.func,
+  currentUser: PropTypes.object,
   updateVote: PropTypes.func
 };
 

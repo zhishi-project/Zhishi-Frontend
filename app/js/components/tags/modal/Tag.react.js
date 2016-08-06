@@ -19,7 +19,7 @@ const Tag = ({tag, index, options, selectedStatus, onTagClick}) => {
 Tag.propTypes = {
   tag: PropTypes.object,
   index: PropTypes.number,
-  options: PropTypes.object,
+  options: PropTypes.array,
   selectedStatus: PropTypes.string
 };
 

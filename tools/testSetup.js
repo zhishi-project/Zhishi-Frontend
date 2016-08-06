@@ -43,6 +43,7 @@ var exposedProperties = ['window', 'navigator', 'document'];
 
 global.document = jsdom('');
 global.window = document.defaultView;
+global.$ = require('jquery')(window);
 Object.keys(document.defaultView).forEach(property => {
   if (typeof global[property] === 'undefined') {
     exposedProperties.push(property);
@@ -54,5 +55,4 @@ global.navigator = {
   userAgent: 'node.js'
 };
 
-// eslint-disable-line no-undef
-documentRef = document;
+documentRef = document; // eslint-disable-line no-undef

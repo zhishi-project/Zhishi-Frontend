@@ -11,7 +11,7 @@ const initialState = {};
 export default function questionReducer(state = initialState, action) {
   switch (action.type) {
     case types.LOAD_QUESTIONS_SUCCESS:
-      if (Object.keys(action.data.questions).length > 0) {
+      if (action.data.questions) {
         return storeHelper.loadQuestions(state, action.data.questions);
       }
       return state;

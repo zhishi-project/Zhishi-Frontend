@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchBar from './SearchBar.react';
 import Common from '../../utils/Common.js';
-import AuthStore from '../../stores/AuthStore.js';
+import Auth from '../../auth';
 import {Link} from 'react-router';
 
 var lastScroll = $(window).scrollTop();
@@ -36,7 +36,7 @@ class Header extends React.Component {
   }
 
   render() {
-    var current_user = AuthStore.getCurrentUser() || {};
+    var current_user = Auth.getCurrentUser() || {};
     var permalink = Common.createPermalink(current_user.id, current_user.name);
     var heading_helper_text = '<div class=header-text><span>Zhishi</span> means <span>Knowledge</span> in chinese</div>';
     return (

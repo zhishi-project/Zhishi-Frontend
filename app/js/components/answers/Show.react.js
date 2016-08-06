@@ -1,8 +1,5 @@
 import React from 'react';
 import * as AnswerActions from '../../actions/AnswerActions.js';
-import webAPI from '../../utils/webAPI.js';
-import AuthStore from '../../stores/AuthStore.js';
-import Common from '../../utils/Common';
 import ShowPage from './ShowPage.react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -60,7 +57,7 @@ class Answer extends React.Component {
      return <ShowPage
                question={this.props.question}
                answer={this.state.answer}
-               currentUser={AuthStore.getCurrentUser()}
+               currentUser={this.props.currentUser}
                updateVote={this.props.actions.loadAnswerVoteSuccess}
                editAnswer={this.editAnswer}
                onChange={this.updateAnswerState}
@@ -75,7 +72,8 @@ export default Answer;
 */
 function mapStateToProps(state, ownProps) {
   return {
-    answers: state.answers[ownProps.questionId]
+    answers: state.answers[ownProps.questionId],
+    currentUser: state.currentUser
   };
 }
 

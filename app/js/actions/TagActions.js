@@ -1,14 +1,14 @@
-import types from '../constants/activities/actionTypes';
+import types from '../constants/tags/actionTypes';
 import webAPI from '../utils/webAPI.js';
 import Auth from '../auth';
-import AuthActions from './AuthActions';
+import * as AuthActions from './AuthActions';
 
 /**
 * @param {Object} activities to be loaded in store
 * @return {Object} same as edit
 */
-export function loadTagsSuccess(activities) {
-  return ({type: types.LOAD_TAGS_SUCCESS, activities});
+export function loadTagsSuccess(tags) {
+  return {type: types.LOAD_TAGS_SUCCESS, tags};
 }
 
  /**
@@ -30,25 +30,25 @@ export function subscribeToTag(tags) {
 }
 
 /**
-* @param {Object} tags: id of the activity owner
 * @return {Func}  Success action to activity reducer
 */
 export function loadTags() {
   return dispatch => {
     return webAPI('/tags/recent', 'GET')
-    .then(tags => {
-      dispatch(loadTagsSuccess(tags));
+    .then(data => {
+      dispatch(loadTagsSuccess(data.tags));
     });
   };
 }
 
-// let TagActions = {
-//   receiveTags: (tags) => {
-//     AppDispatcher.dispatch({
-//       actionType: ZhishiConstants.TAG_INDEX,
-//       data: tags
-//     });
-//   },
+/**
+* @param {Object} tag: id of the activity owner
+* @return {Func}  Success action to activity reducer
+*/
+export function selectTagForSubscription(tag) {
+  return {type: types.SELECT_TAG_FOR_SUBSCRIPTION, tag};
+}
+
 //
 //   selectTagForSubscription: (tag) => {
 //     AppDispatcher.dispatch({

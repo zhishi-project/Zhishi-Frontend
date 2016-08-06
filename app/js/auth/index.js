@@ -1,11 +1,13 @@
 import CVar from '../config/CookieVariables.js';
 import assign from 'object-assign';
 
-$.cookie.json = true;
+import cookie from 'js-cookie';
+
+// $.cookie.json = true;
 
 class Auth {
   currentUser() {
-    let currentUser = $.cookie(CVar.current_user) || {};
+    let currentUser = cookie.get(CVar.current_user) || {};
     return typeof currentUser === 'object' ?
       currentUser : this.parseUser(currentUser);
   }
@@ -19,7 +21,7 @@ class Auth {
   }
 
   userLoggedIn() {
-    return $.cookie(CVar.user_logged_in);
+    return cookie.get(CVar.user_logged_in);
   }
 
   userToken() {
@@ -29,8 +31,9 @@ class Auth {
   setCurrentUser(state, user) {
     let cookieMeta = this.getCookieMeta();
     let updatedUser = this.stringify(assign({}, state, user));
-    $.cookie(CVar.current_user, updatedUser, cookieMeta);
-    $.cookie(CVar.user_logged_in, (this.userToken() !== undefined), cookieMeta);
+    cookie.set(CVar.current_user, updatedUser, cookieMeta);
+    cookie.set(CVar.user_logged_in,
+      (this.userToken() !== undefined), cookieMeta);
     return this.currentUser();
   }
 
@@ -39,12 +42,12 @@ class Auth {
   }
 
   setUserLoginStatus(status) {
-    $.cookie(CVar.user_logged_in, status);
+    cookie.set(CVar.user_logged_in, status);
   }
 
   logoutUser() {
-    $.removeCookie(CVar.current_user);
-    $.removeCookie(CVar.user_logged_in);
+    cookie.remove(CVar.current_user);
+    cookie.remove(CVar.user_logged_in);
   }
 
   updateAll(updates) {
@@ -56,11 +59,11 @@ class Auth {
   }
 
   getFirstTimeMarker() {
-    return $.cookie(CVar.first_time_marker);
+    return cookie.get(CVar.first_time_marker);
   }
 
   setFirstTimeMarker(bool) {
-    $.cookie(CVar.first_time_marker, bool, this.getCookieMeta());
+    cookie.set(CVar.first_time_marker, bool, this.getCookieMeta());
   }
 
   parseUser(user) {

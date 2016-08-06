@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'; // eslint-disable-line no-unused-vars
 import ProfileTagSection from './ProfileTag.react';
 import Activities from '../activities/index.react';
-import TagModal from '../partials/TagModal.react';
+import TagModal from '../tags/modal/TagModal.react';
 
 const ShowPage = ({currentUser, user, activities}) => {
   let modalId = 'selectTagModal';

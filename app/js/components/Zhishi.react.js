@@ -5,7 +5,7 @@ import SidebarPusher from './layouts/SidebarPusher.react';
 
 import Auth from '../auth';
 
-import TagModal from './partials/TagModal.react';
+import TagModal from './tags/modal/TagModal.react';
 import FeedbackModal from './partials/FeedbackModal.react';
 
 import '../../css/semantic.min.css';

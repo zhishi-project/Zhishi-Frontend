@@ -78,7 +78,7 @@ let CommentActions = {
     // if (data && data.comment) {
     //   let meta = data.meta, comment = data.comment;
     //   let resource = meta.resource_name.substring(0, meta.resource_name.length - 1);
-    //   let question = QuestionStore.getQuestion(meta.question_id) || {};
+    //   let question = getQuestion(meta.question_id) || {};
     //   let general = `${prefix[parseInt(Math.random() * 7)]} from ${comment.user.name} in response to ${question.user.name}'s ${resource}`;
     //   let personal = `Hey, ${comment.user.name} mentioned you in a comment on ${question.user.name}'s ${resource}`;
     //   Common.sendToSlack({id: question.id, title: question.title, content: comment.content, intro: {general: general, personal: personal}});
