@@ -14,6 +14,19 @@ If only there were such applications that helps you aggregate all your answers i
 The app itself is live on http://zhishi.andela.com/
 
 
+### Getting zhishi up and running on your local machine
+
+
+1. Run `git clone https://github.com/zhishi-project/Zhishi-Frontend` to clone this project.
+
+2. Then `npm install` all dependencies (and dev dependencies) required.
+
+3. Once the installation of dependencies is done, `npm start` should start up a server on port `8080`
+
+3. To run just test suits, run `npm run test` or `npm run test:watch` to get the test to watch for file changes
+
+
+
 ## Contribute
 
 To add your own bit in making zhishi awesome,
