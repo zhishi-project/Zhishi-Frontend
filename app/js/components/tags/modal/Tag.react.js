@@ -17,10 +17,11 @@ const Tag = ({tag, index, options, selectedStatus, onTagClick}) => {
 };
 
 Tag.propTypes = {
-  tag: PropTypes.object,
+  tag: PropTypes.object.isRequired,
   index: PropTypes.number,
   options: PropTypes.array,
-  selectedStatus: PropTypes.string
+  selectedStatus: PropTypes.string,
+  onTagClick: PropTypes.func.isRequired
 };
 
 export default Tag;

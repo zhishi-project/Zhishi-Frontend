@@ -11,18 +11,20 @@ function setup() {
     tags: {
       1: {id: 1, name: 'first tag'},
       2: {id: 2, name: 'second tag'}
-    }
+    },
+    selectedTags: ['first tag'],
+    options: ['first pic', 'second pic'],
+    onTagClick: () => {}
   };
-  return mount(<Tags {...props} />);
+  return shallow(<Tags {...props} />);
 }
 
-describe('Tags', () => {
-  it('renders an array of tags', () => {
+describe('<Tags />', () => {
+  it('renders an array of tag components', () => {
     const wrapper = setup();
-    const firstDomTagEl = wrapper.find('span').first();
 
     // assertions
-    expect(wrapper.find('.tags').length).toEqual(1);
-    expect(firstDomTagEl.text()).toEqual('first tag');
+    expect(wrapper.find('.main').length).toEqual(1);
+    expect(wrapper.find('Tag').length).toEqual(2);
   });
 });
