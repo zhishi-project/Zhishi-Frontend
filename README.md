@@ -3,7 +3,7 @@ Zhishi is a Question and Answer platform for Andelans
 
 ## Why Zhishi ?
 
-You've definitely being in this situation before:
+You've definitely been in this situation before:
 
 >Someone asks you a question; Shortly after another person comes with the same question and the cycle continues like that, till you tell the next person to go ask from the last/previous person you answered.
 
