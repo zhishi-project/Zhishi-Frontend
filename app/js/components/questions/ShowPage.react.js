@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react'; // eslint-disable-line no-unused-vars
 import Sidebar from '../layouts/Sidebar.react';
-import Tags from '../layouts/Tags.react';
+import Tags from '../tags/question/Tags.react';
 import NewAnswerForm from '../answers/New.react.js';
 import Answers from '../answers/Index.react.js';
 import Comments from '../comments/Index.react.js';

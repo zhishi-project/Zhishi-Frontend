@@ -1,14 +1,13 @@
 import React, {PropTypes} from 'react'; // eslint-disable-line no-unused-vars
 
-const Tag = ({tag}) => {
-  return <span>{tag.name}</span>;
-};
-
 const Tags = ({tags}) => {
   let tagsArray = [];
   if (tags && !Object.is({}, tags)) {
-    for (var i = 0; i < tags.length; i++) {
-      tagsArray.push(<Tag key={i} tag={tags[i]} />);
+    let keys = Object.keys(tags);
+    for (var i = 0; i < keys.length; i++) {
+      tagsArray.push(<span key={i}>
+                        {tags[keys[i]].name}
+                      </span>);
     }
   }
   return (
@@ -16,7 +15,7 @@ const Tags = ({tags}) => {
   );
 };
 
-Tag.propType = {
+Tags.propType = {
   tags: PropTypes.object
 };
 

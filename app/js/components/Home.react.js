@@ -1,5 +1,5 @@
 import React from 'react';
-import TagSelection from './layouts/TagSelection.react';
+import TagSelection from './tags/homepage/TagSelection.react';
 import * as ZhishiInit from '../utils/ZhishiInit.js';
 import HomePage from './HomePage.react';
 import {connect} from 'react-redux';
