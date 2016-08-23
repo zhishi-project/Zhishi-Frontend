@@ -14,6 +14,7 @@ function setup(selected) {
     },
     selectedTags: [selected],
     options: {modalId: 'modal-id'},
+    TagThumbnails: ['first pic', 'second pic'],
     onTagClick: () => {},
     persistSelection: () => {}
   };

@@ -18,7 +18,8 @@ import {bindActionCreators} from 'redux';
 
 let getInitialTagState = () => {
   return {
-    options: [
+    options: {modalId: 'modal-id'},
+    TagThumbnails: [
       'nightlife', 'sports', 'abstract',
       'city', 'people', 'transport',
       'food', 'nature', 'business'
@@ -48,7 +49,7 @@ export class TagModal extends React.Component {
   render() {
     return <TagBody
             {...this.props}
-            options={this.state.options}
+            {...this.state}
             onTagClick={this.onTagClick}
             persistSelection={this.persistSelection} />;
   }

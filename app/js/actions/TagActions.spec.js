@@ -32,10 +32,11 @@ describe('loadTagsSuccess', () => {
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 
-describe('loadTags', () => {
+describe('loadTags', function() {
   afterEach(() => {
     nock.cleanAll();
   });
+  // this.timeout(15000);
   it('should dispatch a success action on successful API response', done => {
     // setup
     const tags = [{id: 1, name: 'first tag'}];
@@ -49,14 +50,15 @@ describe('loadTags', () => {
     ];
 
     // action
-
     const initialAppState = {tags: []};
     const store = mockStore(initialAppState, expectedActions);
+
     store.dispatch(TagActions.loadTags()).then(() => {
       const actions = store.getActions();
       expect(actions[0].type).toEqual(types.default.LOAD_TAGS_SUCCESS);
-      // expect(actions[0].tags).toEqual(tags);
-      done();
+      expect(actions[0].tags).toEqual(tags);
     });
+
+    done();
   });
 });

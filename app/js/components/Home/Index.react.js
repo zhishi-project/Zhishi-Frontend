@@ -1,12 +1,12 @@
 import React from 'react';
-import TagSelection from './tags/homepage/TagSelection.react';
-import * as ZhishiInit from '../utils/ZhishiInit.js';
+import TagSelection from '../tags/homepage/TagSelection.react';
+import * as ZhishiInit from '../../utils/ZhishiInit.js';
 import HomePage from './HomePage.react';
 import {connect} from 'react-redux';
 
 import $ from 'jquery';
 
-class Home extends React.Component {
+export class Index extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -106,4 +106,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Index);

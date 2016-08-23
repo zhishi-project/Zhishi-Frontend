@@ -1,5 +1,5 @@
 import React from 'react';
-import QuestionsList from './questions/QuestionsList.react';
+import QuestionsList from './Home/questionsList/QuestionsList.react';
 
 import Sidebar from './layouts/Sidebar.react';
 import AuthStore from '../stores/AuthStore.js';
@@ -9,13 +9,13 @@ import webAPI from '../utils/webAPI.js';
 
 import {Link} from 'react-router';
 
-function getSearchState(search_query, first_load) {
-  if (search_query && first_load) {
-    webAPI('/questions/search', 'GET', search_query, SearchActions.receiveSearchResults);
+function getSearchState(searchQuery, firstLoad) {
+  if (searchQuery && firstLoad) {
+    webAPI('/questions/search', 'GET', searchQuery, SearchActions.receiveSearchResults);
   }
   return {
     questions: SearchStore.getSearchResults(),
-    current_user: AuthStore.getCurrentUser()
+    currentUser: AuthStore.getCurrentUser()
   };
 }
 

@@ -13,7 +13,7 @@ function setup() {
       2: {id: 2, name: 'second tag'}
     },
     selectedTags: ['first tag'],
-    options: ['first pic', 'second pic'],
+    TagThumbnails: ['first pic', 'second pic'],
     onTagClick: () => {}
   };
   return shallow(<Tags {...props} />);
