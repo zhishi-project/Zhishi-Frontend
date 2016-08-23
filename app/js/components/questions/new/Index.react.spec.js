@@ -19,7 +19,7 @@ function setup(status) {
 
 describe('<Index />', () => {
   it('renders the tag component', () => {
-    // const wrapper = setup();
+    const wrapper = setup();
 
     // assertions
     // expect(wrapper.find('.tag').length).toEqual(1);
