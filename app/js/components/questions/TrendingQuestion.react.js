@@ -1,8 +1,8 @@
-import React from 'react'
-import Common from '../../utils/Common.js'
+import React, {PropTypes} from 'react';
+import Common from '../../utils/Common.js';
 import {Link} from 'react-router';
 
-const TrendingQuestion = ({ question }) => {
+const TrendingQuestion = ({question}) => {
   var permalink = Common.createPermalink(question.id, question.title);
   return (
     <div className="ui grid trending-link item">
@@ -12,14 +12,16 @@ const TrendingQuestion = ({ question }) => {
 
       <div className="question_title wide column">
         <p>
-          <Link
-            to={`/questions/${permalink}`}
-          >
+          <Link to={`/questions/${permalink}`} >
             {question.title || 'No title'}
           </Link>
         </p>
       </div>
     </div>
   );
+};
+
+TrendingQuestion.propTypes = {
+  question: PropTypes.object
 };
 export default TrendingQuestion;

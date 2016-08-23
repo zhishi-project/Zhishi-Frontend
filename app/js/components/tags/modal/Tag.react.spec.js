@@ -10,7 +10,7 @@ function setup(status) {
   let props = {
     tag: {id: 1, name: 'first tag'},
     index: 1,
-    options: ['first pic', 'second pic'],
+    TagThumbnails: ['first pic', 'second pic'],
     selectedStatus: status,
     onTagClick: () => {}
   };

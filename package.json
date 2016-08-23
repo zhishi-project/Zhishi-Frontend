@@ -55,9 +55,7 @@
     "react-tinymce": "^0.5.1",
     "redux": "3.5.2",
     "redux-thunk": "2.0.1",
-    "sass-loader": "^3.0.0",
     "sinon": "^1.17.4",
-    "style-loader": "^0.12.4",
     "toastr": "2.1.2",
     "twitter-bootstrap-wizard": "^1.2.0",
     "url-loader": "^0.5.6",
@@ -96,6 +94,8 @@
     "redux-immutable-state-invariant": "1.2.3",
     "redux-mock-store": "1.0.2",
     "rimraf": "2.5.2",
+    "sass-loader": "^3.0.0",
+    "style-loader": "^0.12.4",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-dev-server": "^1.12.0",
     "webpack-hot-middleware": "^2.6.0"

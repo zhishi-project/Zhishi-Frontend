@@ -14,7 +14,11 @@ export function update(collection, id, updates, editing) {
   newCollection[id] = resetStatus(newIdValues, editing);
   return newCollection;
 }
-
+questions: {
+  1: {id: 1, title: "blah"},
+  2: {id: 2, title: "blah"},
+  3: {id: 3, title: "blah"}
+}
 /**
 * @param {Object} resource: the collection to check
 * @param {Boolean} editing: the edit status

@@ -10,7 +10,7 @@ const QuestionHeader = ({question, onChange}) => {
        className="title"
        onChange={onChange}
        value="" /> :
-       <scan>{question.title}</scan>;
+       <span>{question.title}</span>;
 };
 
 QuestionHeader.propTypes = {

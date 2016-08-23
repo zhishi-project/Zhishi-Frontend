@@ -31,15 +31,12 @@ export default {
       // SASS
       {
         test: /css\/.+.(scss|css)$/,
-        loader: 'style!css!sass'
+        loaders: ['style', 'css', 'sass']
       },
       {
         test: /\.(png|jpg|gif)$/,
         loader: 'url?limit=25000'
       },
-
-      // Needed for the css-loader when [bootstrap-webpack](https://github.com/bline/bootstrap-webpack)
-      // loads bootstrap's css.
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&mimetype=application/font-woff'
