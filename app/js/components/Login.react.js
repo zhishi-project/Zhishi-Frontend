@@ -1,18 +1,20 @@
-import React from 'react';
-import AuthStore from '../stores/AuthStore.js';
+import React, {PropTypes} from 'react';
+import Auth from '../auth';
 import DisplayStore from '../stores/DisplayStore.js';
 import * as AuthActions from '../actions/AuthActions.js';
 import Config from '../config/environment.js';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import isEmpty from '../utils/isEmpty';
+import CookieVar from '../config/CookieVariables.js';
+import {browserHistory} from 'react-router';
+import cookie from 'js-cookie';
 
-let signUpPath = `${Config.host}/login/google?redirect_url=http://${
-                            window.parent.location.host}/login/auth`;
 
 let loginState = () => {
   return {
     quotes: DisplayStore.getQuotes(),
-    loggedInToday: AuthStore.getFirstTimeMarker()
+    loggedInToday: Auth.getLoggedInToday()
   };
 };
 
@@ -20,6 +22,14 @@ class Login extends React.Component {
   constructor(props, context) {
     super(props);
     this.state = loginState();
+    this.redirectToReferrerIfAny = this.redirectToReferrerIfAny.bind(this);
+    this.signUpPath = this.signUpPath.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!isEmpty(nextProps.currentUser)) {
+      this.redirectToReferrerIfAny();
+    }
   }
 
   componentWillMount() {
@@ -60,9 +70,27 @@ class Login extends React.Component {
 
   autoLogUserIn() {
     if (!this.state.loggedInToday) {
-      AuthActions.setFirstTimeMarker(true);
-      setTimeout(this.signIn, 1000, this);
+      setTimeout(this.signIn, 1000, this.signUpPath());
     }
+  }
+
+  redirectToReferrerIfAny() {
+    if (cookie.get(CookieVar.referrer)) {
+      var referrer = cookie.get(CookieVar.referrer);
+      cookie.remove(CookieVar.referrer);
+      window.location = referrer;
+    } else {
+      window.location = '/';
+    }
+  }
+
+  signIn(signUpPath) {
+    window.location = signUpPath;
+  }
+
+  signUpPath() {
+    return `${Config.host}/login/google?redirect_url=http://${
+          window.parent.location.host}/login/auth`;
   }
 
   render() {
@@ -82,7 +110,7 @@ class Login extends React.Component {
 
           <div className="sign-in-area text container">
             <h1 className="messages"></h1>
-            <a href={signUpPath} className="ui button">
+            <a href={this.signUpPath()} className="ui button">
               <i className="google plus icon"></i>
               Sign in with your Andela email
             </a>
@@ -105,13 +133,17 @@ class Login extends React.Component {
   }
 }
 
+Login.contextTypes = {
+  history: React.PropTypes.object.isRequired,
+};
+
 /**
 * @param {Object} state: from root reducer
 * @param {Object} ownProps: for functions
 * @return {Object}  {questions, filteredQuestions, page} for homepage
 */
 function mapStateToProps(state, ownProps) {
-  return {user: {}};
+  return {...state.auth};
 }
 
 /**

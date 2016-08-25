@@ -31,7 +31,8 @@ export class TagModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = getInitialTagState();
-    this.persistSelection = this.persistSelection.bind(this);
+    this.onTagClick = this.onTagClick.bind(this);
+    this.submitSelectedTags = this.submitSelectedTags.bind(this);
   }
 
   componentWillMount() {
@@ -42,8 +43,9 @@ export class TagModal extends React.Component {
     this.props.actions.selectTagForSubscription(tag);
   }
 
-  persistSelection(tag) {
-    this.props.actions.persistSelection(tag);
+  submitSelectedTags() {
+    const {actions, selectedTags} = this.props;
+    actions.subscribeToTags(selectedTags);
   }
 
   render() {
@@ -51,7 +53,7 @@ export class TagModal extends React.Component {
             {...this.props}
             {...this.state}
             onTagClick={this.onTagClick}
-            persistSelection={this.persistSelection} />;
+            persistSelection={this.submitSelectedTags} />;
   }
 }
 

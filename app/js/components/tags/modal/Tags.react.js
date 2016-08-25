@@ -1,6 +1,10 @@
 import React, {PropTypes} from 'react'; // eslint-disable-line no-unused-vars
 import Tag from './Tag.react';
 
+const getSelectedStatus = (selectedTags, tag) => {
+  return (selectedTags.indexOf(tag.name) === -1) ?
+    '' : 'selected';
+};
 function getViewTags(tags, selectedTags,
               TagThumbnails, onTagClick) {
   let viewTags = [];
@@ -8,8 +12,7 @@ function getViewTags(tags, selectedTags,
   let selectedStatus;
   let keys = Object.keys(tags);
   for (let i = 0; i < keys.length; i++) {
-    selectedStatus = (selectedTags.indexOf(tags[keys[i]].name) === -1) ?
-      '' : 'selected';
+    selectedStatus = getSelectedStatus(selectedTags, tags[keys[i]]);
     index = (index >= TagThumbnails.length - 1) ? 0 : index + 1;
     viewTags.push(
       <Tag
@@ -18,8 +21,7 @@ function getViewTags(tags, selectedTags,
         index={index + 1}
         TagThumbnails={TagThumbnails}
         selectedStatus={selectedStatus}
-        onTagClick={onTagClick}
-      />
+        onTagClick={onTagClick} />
     );
   }
   return viewTags;

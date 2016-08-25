@@ -102,7 +102,7 @@ export class Index extends React.Component {
 function mapStateToProps(state) {
   return {
     ...state.questions,
-    currentUser: state.currentUser
+    currentUser: state.auth.currentUser
   };
 }
 

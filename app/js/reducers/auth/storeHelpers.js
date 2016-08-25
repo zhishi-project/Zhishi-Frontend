@@ -6,7 +6,5 @@ import * as enums from '../../utils/enumsHelpers.js';
 * @return {object} return user
 */
 export function updateCurrentUser(state, user) {
-  user = (typeof user === 'object') ? JSON.stringify(user) : user;
-  $.cookie(CVar.this.currentUser, user || {});
-  return user;
+
 }

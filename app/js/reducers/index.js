@@ -1,12 +1,13 @@
 import {combineReducers} from 'redux';
-import questions from './questions';
 import answers from './answers/answerReducer';
 import comments from './comments/commentReducer';
 import users from './users/userReducer';
-import currentUser from './auth/authReducer';
+import questions from './questions';
 import activities from './activities';
+import auth from './auth';
 import display from './display';
 import tags from './tags';
+import ajaxStatus from './ajaxStatusReducer';
 
 const rootReducer = combineReducers({
   questions,
@@ -14,9 +15,10 @@ const rootReducer = combineReducers({
   comments,
   users,
   activities,
-  currentUser,
+  auth,
   display,
-  tags
+  tags,
+  ajaxStatus
 });
 
 export default rootReducer;

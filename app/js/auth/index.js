@@ -58,12 +58,13 @@ class Auth {
     }
   }
 
-  getFirstTimeMarker() {
-    return cookie.get(CVar.first_time_marker);
+  getLoggedInToday() {
+    return cookie.get(CVar.first_time_marker) || false;
   }
 
-  setFirstTimeMarker(bool) {
+  setLoggedInToday(bool) {
     cookie.set(CVar.first_time_marker, bool, this.getCookieMeta());
+    return bool;
   }
 
   parseUser(user) {

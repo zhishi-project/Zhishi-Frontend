@@ -54,7 +54,7 @@ class Comment extends React.Component {
 function mapStateToProps(state, ownProps) {
   return {
     ...ownProps,
-    currentUser: state.currentUser
+    currentUser: state.auth.currentUser
   };
 }
 
