@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React from 'react';
+import $ from 'jquery';
 /*
   Here's the ultimate modal creator :)
   Okay, it's a pure, presentation component.
@@ -19,55 +19,50 @@ import React from 'react'
 const ModalEffects = InnerComponent => class extends React.Component {
 
    toggleModalShow(trigger) {
-     $("."+trigger).click();
+     $('.' + trigger).click();
    }
 
-   mountAsModal(options={}) {
-     let app_body = document.querySelector("#zhishi-body");
-     let modal = document.querySelector("#"+options.modalId)
+   mountAsModal(options = {}) {
+     let appBody = document.querySelector('#zhishi-body');
+     let modal = document.querySelector('#' + options.modalId);
 
-     function removeModal () {
-        $(modal).removeClass('md-show' );
-        $(app_body).removeClass('md-show' );
+     function removeModal() {
+       $(modal).removeClass('md-show');
+       $(appBody).removeClass('md-show');
      }
 
-     $(`.${options.modalId}-trigger`).on( 'click', function( ev ) {
-       $(app_body).addClass('md-show');
+     $(`.${options.modalId}-trigger`).on('click', function() {
+       $(appBody).addClass('md-show');
        $(modal).addClass('md-show');
        if (options.closable) {
-         var overlay = document.querySelector( '.md-overlay' );
-         overlay.removeEventListener( 'click', removeModal );
-         overlay.addEventListener( 'click', removeModal );
+         var overlay = document.querySelector('.md-overlay');
+         overlay.removeEventListener('click', removeModal);
+         overlay.addEventListener('click', removeModal);
        }
      });
 
-
-     $(modal).on('click', '.md-close', function( ev ) {
+     $(modal).on('click', '.md-close', function(ev) {
        ev.preventDefault();
        removeModal();
      });
-
    }
 
-
-   componentDidMount(){
-     const { options } = this.props;
+   componentDidMount() {
+     const {options} = this.props;
      this.mountAsModal(options);
      if (options.autoShow) {
-       setTimeout( () => {
-         this.toggleModalShow(`${options.modalId}-trigger`)
-       }, 2000)
+       setTimeout(() => {
+         this.toggleModalShow(`${options.modalId}-trigger`);
+       }, 2000);
      }
    }
    render() {
-
-      return <InnerComponent
-                mountAsModal={this.mountAsModal}
-                toggleModalShow={this.toggleModalShow}
-                {...this.state}
-                {...this.props}
-              />
+     return <InnerComponent
+        mountAsModal={this.mountAsModal}
+        toggleModalShow={this.toggleModalShow}
+        {...this.state}
+        {...this.props} />;
    }
-};
+  };
 
-export default ModalEffects
+export default ModalEffects;

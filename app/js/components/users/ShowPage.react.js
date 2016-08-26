@@ -46,8 +46,7 @@ const ShowPage = ({currentUser, user, activities}) => {
              <ProfileTagSection
                tags={tags || []}
                { ...{user, currentUser}}
-               modalTrigger={`${modalId}-trigger`}
-             />
+               modalTrigger={`${modalId}-trigger`} />
            </div>
          </div>
 
