@@ -40,7 +40,7 @@ function mapStateToProps(state, ownProps) {
   return {
     userId,
     user: state.users[userId] || {},
-    currentUser: Auth.getCurrentUser(),
+    currentUser: state.auth.currentUser,
     activities: state.activities.activities
   };
 }

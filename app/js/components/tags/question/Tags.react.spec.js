@@ -20,6 +20,7 @@ describe('Tags', () => {
   it('renders an array of tags', () => {
     const wrapper = setup();
     const firstDomTagEl = wrapper.find('span').first();
+
     // assertions
     expect(wrapper.find('.tags').length).toEqual(1);
     expect(firstDomTagEl.text()).toEqual('first tag');

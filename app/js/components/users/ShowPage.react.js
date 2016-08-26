@@ -5,6 +5,8 @@ import TagModal from '../tags/modal/TagModal.react';
 
 const ShowPage = ({currentUser, user, activities}) => {
   let modalId = 'selectTagModal';
+  let tags = currentUser.id === user.id ?
+    currentUser.tags : user.tags;
   return (
      <div className="main-wrapper">
        <main className="ui container main">
@@ -42,10 +44,9 @@ const ShowPage = ({currentUser, user, activities}) => {
                {user.name}
              </h2>
              <ProfileTagSection
-               tags={user.tags || []}
+               tags={tags || []}
                { ...{user, currentUser}}
-               modalTrigger={`${modalId}-trigger`}
-             />
+               modalTrigger={`${modalId}-trigger`} />
            </div>
          </div>
 

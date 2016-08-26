@@ -15,7 +15,7 @@ export function loadTagsSuccess(tags) {
  * @param {Object} tags: id of the activity owner
  * @return {Func}  Success action to activity reducer
  */
-export function subscribeToTag(tags) {
+export function subscribeToTags(tags) {
   return dispatch => {
     return webAPI('/tags/update_subscription', 'POST', {tags})
       .then(data => {
@@ -40,6 +40,7 @@ export function loadTags() {
     });
   };
 }
+
 
 /**
 * @param {Object} tag: id of the activity owner

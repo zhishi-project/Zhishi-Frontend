@@ -34,7 +34,7 @@ class Question extends React.Component {
   }
 
   componentDidUpdate() {
-    Prism.highlightAll();
+    Prism.highlightAll(); // eslint-disable-line no-undef
   }
 
   editQuestion(event) {
@@ -58,18 +58,18 @@ class Question extends React.Component {
   }
 
   getQuestionField(event) {
-    return event.target.targetElm.className.indexOf('title') === -1 ?
-          'content' : 'title';
+    return event.target.targetElm.className
+      .indexOf('title') === -1 ? 'content' : 'title';
   }
 
   render() {
     let question = this.state.question || {};
     let currentUser = AuthStore.getCurrentUser();
-
+    const {questionId, actions} = this.props;
     return <ShowPage
-            questionId={this.props.questionId}
+            questionId={questionId}
             question={question}
-            updateVote={this.props.actions.updateQuestionVoteSuccess}
+            updateVote={actions.updateQuestionVoteSuccess}
             currentUser={currentUser}
             onChange={this.updateQuestionState}
             editQuestion={this.editQuestion} />;

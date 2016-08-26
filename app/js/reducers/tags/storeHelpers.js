@@ -31,14 +31,16 @@ export function changeTagStatus(tags, tag) {
 * @param {Object} forceUpdate not yet sure. . .
 * @return {object} return user
 */
-export function selectTagForSubscription(selectedTags, tagName, forceUpdate) {
+export function selectTagForSubscription(selectedTags, tagName, ignoreTag) {
   let index = selectedTags.indexOf(tagName);
   if (index === -1) {
     return [...selectedTags, tagName];
-  } else if (index !== -1 && !forceUpdate) {
-    return [...selectedTags.filter(tag => tag.name !== tagName)];
+  } else if (!ignoreTag) {
+    return [...selectedTags.filter(tagname => {
+      return tagname !== tagName;
+    })];
   }
-  return selectedTags;
+  return [...selectedTags];
 }
 
 export function loadUserSusbcribedTags(state, tags = []) {

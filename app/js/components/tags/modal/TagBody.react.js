@@ -5,6 +5,7 @@ import TagSelectionCountdown from './TagSelectionCountdown.react';
 const TagBody = ({
   tags,
   selectedTags,
+  TagThumbnails,
   options,
   onTagClick,
   persistSelection
@@ -20,7 +21,7 @@ const TagBody = ({
              So we can make your feed more . . . personal!
            </p>
          </div>
-         <Tags {...{tags, selectedTags, options, onTagClick}} />
+         <Tags {...{tags, selectedTags, TagThumbnails, onTagClick}} />
 
          <TagSelectionCountdown
            {...{selectedTags, persistSelection}}/>
@@ -34,7 +35,8 @@ const TagBody = ({
 TagBody.propTypes = {
   tags: PropTypes.object,
   selectedTags: PropTypes.array,
-  options: PropTypes.array,
+  options: PropTypes.object,
+  TagThumbnails: PropTypes.array,
   onTagClick: PropTypes.func,
   persistSelection: PropTypes.func
 };

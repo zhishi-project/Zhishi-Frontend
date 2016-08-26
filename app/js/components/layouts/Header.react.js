@@ -3,6 +3,7 @@ import SearchBar from './SearchBar.react';
 import Common from '../../utils/Common.js';
 import Auth from '../../auth';
 import {Link} from 'react-router';
+import LoadingDots from './LoadingDots';
 
 var lastScroll = $(window).scrollTop();
 
@@ -36,6 +37,7 @@ class Header extends React.Component {
   }
 
   render() {
+    const {loading} = this.props;
     var current_user = Auth.getCurrentUser() || {};
     var permalink = Common.createPermalink(current_user.id, current_user.name);
     var heading_helper_text = '<div class=header-text><span>Zhishi</span> means <span>Knowledge</span> in chinese</div>';
@@ -58,7 +60,7 @@ class Header extends React.Component {
                   <i className="plus icon"></i>
                   Ask Question
                 </Link>
-                {/*<Link to="#" className="item">Tags</Link>*/}
+                {loading && <LoadingDots interval={100} dots={20} />}
                 <Link to="#" className="selectTagModal-trigger item">Tags</Link>
                 <Link to="#" className="selectFeedbackModal-trigger item">Feedback ? </Link>
                 <div className="pointing ui dropdown item">

@@ -45,17 +45,5 @@ export default function processRequest(path, method, data = {}) {
   .catch(err => {
     throw (err);
   });
-    //
-  // return $.ajax({
-  //   headers: requestHeaders(),
-  //   url: url,
-  //   method: method,
-  //   data: body,
-  //   success: function(data) {
-  //     callback(data);
-  //   },
-  //   error: function(xhr, status, err) {
-  //     callback({_error: err});
-  //   }
-  // });
+
 }

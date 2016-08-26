@@ -30,7 +30,7 @@ class ManageVotes extends React.Component {
  }
 
   eligibleToVote() {
-    return (this.state.currentUser.points > 14);
+    return (this.state.auth.currentUser.points > 14);
   }
 
   notEnoughPointsToVote() {

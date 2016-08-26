@@ -1,6 +1,6 @@
 import types from '../constants/auth/actionTypes';
 import webAPI from './../utils/webAPI.js';
-import CookieVar from '../config/CookieVariables.js';
+import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 // import $ from 'jquery';
 
@@ -18,8 +18,8 @@ export function loadCurrentUserSuccess(user) {
 * @param {Object} isFirstLogin to be set as current user
 * @return {Object} same as edit
 */
-export function setFirstTimeMarker(isFirstLogin) {
-  return ({type: types.FIRST_TIME_LOGIN_TODAY, isFirstLogin});
+export function hasLoggedInToday(loggedInToday) {
+  return ({type: types.HAS_LOGGED_IN_TODAY, loggedInToday});
 }
 
 /**
@@ -37,24 +37,15 @@ export function logoutUser(user) {
 */
 export function loginUser({temp_token}) {
   return dispatch => {
+    dispatch(beginAjaxCall());
+    dispatch(hasLoggedInToday(true));
     return webAPI(`/validate_token`, 'POST', {temp_token})
       .then(user => {
         dispatch(loadCurrentUserSuccess(user));
+      })
+      .catch(error => {
+        dispatch(ajaxCallError());
+        throw (error);
       });
   };
 }
-
-function redirectToReferrerIfAny() {
-  if ($.cookie(CookieVar.referrer)) {
-    var referrer = $.cookie(CookieVar.referrer);
-    $.removeCookie(CookieVar.referrer);
-    window.location.href = referrer;
-  } else {
-    window.location.href = '/';
-  }
-}
-
-let AuthActions = {
-  // Receive inital product data
-
-};

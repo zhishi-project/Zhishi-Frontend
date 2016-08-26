@@ -11,9 +11,9 @@ import FeedbackModal from './partials/FeedbackModal.react';
 import '../../css/semantic.min.css';
 import '../../css/toastr.css';
 import '../../css/prism.css';
+import '../../css/tags.scss';
 import '../../css/main.scss';
 import '../../css/custom.scss';
-// import '../../../node_modules/toastr/build/toastr.css';
 
 class Zhishi extends React.Component {
   constructor(props) {

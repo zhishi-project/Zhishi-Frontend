@@ -1,6 +1,6 @@
-import React, {PropTypes} from 'react';
-import QuestionsList from './questions/QuestionsList.react';
-import Sidebar from './layouts/Sidebar.react';
+import React, {PropTypes} from 'react'; // eslint-disable-line no-unused-vars
+import QuestionsList from './questionsList/QuestionsList.react';
+import Sidebar from '../layouts/Sidebar.react';
 
 const HomePage = ({
   filterDiv,

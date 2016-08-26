@@ -73,7 +73,7 @@ export default Answer;
 function mapStateToProps(state, ownProps) {
   return {
     answers: state.answers[ownProps.questionId],
-    currentUser: state.currentUser
+    currentUser: state.auth.currentUser
   };
 }
 

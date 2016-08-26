@@ -1,6 +1,5 @@
 import React from 'react';
 import modalEffects from '../../mixins/ModalEffects.react';
-import TagStore from '../../../stores/TagStore';
 import * as TagActions from '../../../actions/TagActions';
 import TagBody from './TagBody.react';
 import {connect} from 'react-redux';
@@ -19,7 +18,8 @@ import {bindActionCreators} from 'redux';
 
 let getInitialTagState = () => {
   return {
-    options: [
+    options: {modalId: 'modal-id'},
+    TagThumbnails: [
       'nightlife', 'sports', 'abstract',
       'city', 'people', 'transport',
       'food', 'nature', 'business'
@@ -27,11 +27,12 @@ let getInitialTagState = () => {
   };
 };
 
-class TagModal extends React.Component {
+export class TagModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = getInitialTagState();
-    this.persistSelection = this.persistSelection.bind(this);
+    this.onTagClick = this.onTagClick.bind(this);
+    this.submitSelectedTags = this.submitSelectedTags.bind(this);
   }
 
   componentWillMount() {
@@ -42,16 +43,17 @@ class TagModal extends React.Component {
     this.props.actions.selectTagForSubscription(tag);
   }
 
-  persistSelection(tag) {
-    this.props.actions.persistSelection(tag);
+  submitSelectedTags() {
+    const {actions, selectedTags} = this.props;
+    actions.subscribeToTags(selectedTags);
   }
 
   render() {
     return <TagBody
             {...this.props}
-            options={this.state.options}
+            {...this.state}
             onTagClick={this.onTagClick}
-            persistSelection={this.persistSelection} />;
+            persistSelection={this.submitSelectedTags} />;
   }
 }
 
