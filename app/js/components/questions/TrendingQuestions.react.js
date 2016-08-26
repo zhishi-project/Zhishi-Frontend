@@ -2,7 +2,7 @@ import React from 'react';
 import TrendingQuestion from './TrendingQuestion.react';
 import {connect} from 'react-redux';
 
-class TrendingQuestions extends React.Component {
+export class TrendingQuestions extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -18,7 +18,7 @@ class TrendingQuestions extends React.Component {
           />);
       }
     }
-    var content = topQuestions && topQuestions.length > 0 ?
+    let content = topQuestions && topQuestions.length > 0 ?
       topQuestions :
       <i className="notched center circle loading icon"></i>;
 

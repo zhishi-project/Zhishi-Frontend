@@ -95,7 +95,7 @@ const ShowPage = ({
 
           <ShareButton type="answer"
             dom_id={answerDomId}
-            text_to_copy={answerHref}
+            textToCopy={answerHref}
             custom_class="item" />
 
           {answerDeleteBtn}

@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
 
-class Answer extends React.Component {
+export class Answer extends React.Component {
   constructor(props, context) {
     super(props);
     this.state = {answer: this.props.answer};
@@ -64,8 +64,8 @@ class Answer extends React.Component {
                acceptAnswer={this.acceptAnswer} />;
    }
  }
-export default Answer;
-/**
+
+ /**
 * @param {Object} state: from root reducer
 * @param {Object} ownProps: for functions
 * @return {Object}  {questions, filteredQuestions, page} for homepage

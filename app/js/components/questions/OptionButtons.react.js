@@ -11,7 +11,8 @@ const OptionButtons = ({question, currentUser, editQuestion}) => {
     let editBtnText = question.editing ? 'Save' : 'edit';
     questionEditBtn = <a href="#"
                         className={editBtnClass}
-                        onClick={editQuestion}>{editBtnText}</a>;
+                        onClick={editQuestion}>{editBtnText}
+                      </a>;
     questionDeleteBtn = <a href="#" className="item">delete</a>;
   }
   return (
@@ -20,7 +21,7 @@ const OptionButtons = ({question, currentUser, editQuestion}) => {
        <ShareButton
          type="question"
          dom_id={questionDomId}
-         text_to_copy={textToCopy}
+         textToCopy={textToCopy}
          custom_class="item" />
        {questionDeleteBtn}
      </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import modalEffects from '../../mixins/ModalEffects.react';
-import TagStore from '../../../stores/TagStore';
 import * as TagActions from '../../../actions/TagActions';
 import TagBody from './TagBody.react';
 import {connect} from 'react-redux';
@@ -19,7 +18,8 @@ import {bindActionCreators} from 'redux';
 
 let getInitialTagState = () => {
   return {
-    options: [
+    options: {modalId: 'modal-id'},
+    TagThumbnails: [
       'nightlife', 'sports', 'abstract',
       'city', 'people', 'transport',
       'food', 'nature', 'business'
@@ -27,7 +27,7 @@ let getInitialTagState = () => {
   };
 };
 
-class TagModal extends React.Component {
+export class TagModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = getInitialTagState();
@@ -49,7 +49,7 @@ class TagModal extends React.Component {
   render() {
     return <TagBody
             {...this.props}
-            options={this.state.options}
+            {...this.state}
             onTagClick={this.onTagClick}
             persistSelection={this.persistSelection} />;
   }
