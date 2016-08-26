@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
 
-class NewQuestion extends React.Component {
+export class NewQuestion extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

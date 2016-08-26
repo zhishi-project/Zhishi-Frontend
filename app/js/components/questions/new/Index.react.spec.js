@@ -1,7 +1,7 @@
 import expect from 'expect';
 import React from 'react'; // eslint-disable-line no-unused-vars
 import {mount, shallow} from 'enzyme'; // eslint-disable-line no-unused-vars
-import Index from './Index.react';
+import {NewQuestion} from './Index.react';
 
 /**
 * @return {Func} A shallow dom for tests
@@ -14,7 +14,7 @@ function setup(status) {
     selectedStatus: status,
     onIndexClick: () => {}
   };
-  return mount(<Index {...props} />);
+  return shallow(<NewQuestion {...props} />);
 }
 
 describe('<Index />', () => {
