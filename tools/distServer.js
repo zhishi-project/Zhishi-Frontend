@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-var open = require('open');
 var compression = require('compression');
 
 /* eslint-disable no-console */
@@ -19,7 +18,6 @@ app.listen(port, function(err) {
   if (err) {
     console.log(err);
   } else {
-    open(`http://localhost:${port}`);
     console.log(`Server running on port: ${port}`);
   }
 });
