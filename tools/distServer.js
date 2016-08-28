@@ -4,8 +4,9 @@ var compression = require('compression');
 
 /* eslint-disable no-console */
 
-const port = 8080;
-const app = express();
+var isDeveloping = process.env.NODE_ENV !== 'production';
+var port = isDeveloping ? 8080 : process.env.PORT;
+var app = express();
 
 app.use(compression());
 app.use(express.static('dist'));
