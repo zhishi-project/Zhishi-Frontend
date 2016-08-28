@@ -1,1 +1,1 @@
-web: ./node_modules/.bin/babel-node tools/distServer.js
+web: babel-node tools/distServer.js
