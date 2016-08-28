@@ -4,8 +4,8 @@ import {Route, IndexRoute} from 'react-router';
 import CookieVar from './config/CookieVariables.js';
 
 import Zhishi from './components/Zhishi.react';
-import Home from './components/Home/Index.react';
-import Search from './components/Search.react';
+import Home from './components/home/Index.react';
+import Search from './components/search/Index.react';
 import Login from './components/Login.react';
 import Users from './components/users/Users.react';
 import UsersIndex from './components/users/Index.react';

@@ -14,7 +14,13 @@
     "test": "mocha --reporter progress tools/testSetup.js \"app/**/*.spec.js\"",
     "test:watch": "npm run test -- --watch",
     "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build --port 8000",
-    "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js"
+    "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js",
+    "clean-dist": "npm run remove-dist && mkdir dist",
+    "remove-dist": "node_modules/.bin/rimraf dist",
+    "build:html": "babel-node tools/buildHtml.js",
+    "prebuild": "npm-run-all clean-dist test build:html",
+    "build": "babel-node tools/build.js",
+    "postbuild": "babel-node tools/distServer.js"
   },
   "dependencies": {
     "body-parser": "^1.4.3",
