@@ -29,8 +29,8 @@ const NewQuestionPage = ({
                        </div>
 
                        <div className="sixteen wide mobile \
-                        fourteen wide tablet fourteen wide \
-                        computer column">
+                        fourteen wide tablet \
+                        fourteen wide computer column">
                          <input
                            type="text" id="new_question_title"
                            placeholder="How do I install \

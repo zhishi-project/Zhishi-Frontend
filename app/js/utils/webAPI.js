@@ -1,4 +1,4 @@
-import Config from '../config/environment.js';
+import Config from '../config/environment';
 import Auth from '../auth';
 import fetch from 'isomorphic-fetch';
 import isEmpty from './isEmpty';
