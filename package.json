@@ -16,9 +16,10 @@
     "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build --port 8000",
     "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js",
     "clean-dist": "npm run remove-dist && mkdir dist",
+    "copy-assets": "cp -r build/assets dist",
     "remove-dist": "node_modules/.bin/rimraf dist",
     "build:html": "babel-node tools/buildHtml.js",
-    "prebuild": "npm-run-all clean-dist test build:html",
+    "prebuild": "npm-run-all clean-dist test copy-assets build:html",
     "build": "babel-node tools/build.js",
     "postbuild": "babel-node tools/distServer.js"
   },

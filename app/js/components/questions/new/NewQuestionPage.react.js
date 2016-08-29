@@ -54,12 +54,6 @@ const NewQuestionPage = ({
                          fourteen wide tablet \
                          fourteen wide computer column">
 
-                         <textarea
-                           id="new_question_desc"
-                           cols="30"
-                           rows="15" className="ask-question editor-content">
-                         </textarea>
-
                          <TinyMCE
                            content=""
                            config={

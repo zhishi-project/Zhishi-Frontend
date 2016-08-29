@@ -39,7 +39,7 @@ const SearchBar = ({
 
 SearchBar.propTypes = {
   searchResults: PropTypes.array,
-  questions: PropTypes.object,
+  questions: PropTypes.array,
   hideClass: PropTypes.string,
   onSarch: PropTypes.func
 };

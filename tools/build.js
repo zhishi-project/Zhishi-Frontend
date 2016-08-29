@@ -5,8 +5,8 @@ import colors from 'colors'; // eslint-disable-line no-unused-vars
 
 // assures the babel dev config for hot reloading doesn't apply
 process.env.NODE_ENV = 'production';
-console.log('generating minified bundle for production via' +
-  'webpack. This will take a moment. . .'.blue);
+console.log('generating minified bundle for production '.blue +
+  'via webpack. This will take a moment. . .'.blue);
 
 webpack(webpackConfig).run((err, stats) => {
   if (err) {
@@ -29,8 +29,8 @@ webpack(webpackConfig).run((err, stats) => {
   console.log(`Webpack stats: ${stats}`);
 
   // if we got this far, the build succeeded
-  console.log('Your app has been compiled in production mode' +
-  'and written to /dist. Roll'.green);
+  console.log('Your app has been compiled in production'.green +
+  ' mode and written to /dist. Roll'.green);
 
   return 0;
 });
