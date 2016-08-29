@@ -1,19 +1,14 @@
-import QuestionActions from "../actions/QuestionActions.js";
-import webAPI from "./webAPI.js";
+import * as questionActions from '../actions/QuestionActions.js';
+import * as authActions from '../actions/AuthActions.js';
+import Auth from '../auth';
+import isEmpty from './isEmpty';
 
-module.exports = {
-  getQuestions: function(page, tags) {
-    page = page || 1;
-    let path = $.isEmptyObject(tags) ? '/questions' : '/questions/by_tags';
-    webAPI.processRequest(path, "GET", {page, tags}, (data) => {
-      QuestionActions.receiveQuestions({questions: data.questions, page: page});
-    });
-  },
-
-  getFilteredQuestions: (page, tag_ids) => {
-    page = page || 1;
-    webAPI.processRequest("/questions/by_tags", "GET", {page, tag_ids}, (data) => {
-      QuestionActions.filterQuestionWithTags({questions: data.questions, page: page});
-    })
+export function loadData(store) {
+  let currentUser = Auth.getCurrentUser();
+  if (!isEmpty(currentUser)) {
+    store.dispatch(questionActions.loadQuestions());
+    store.dispatch(questionActions.loadTopQuestions());
+    store.dispatch(authActions.loadCurrentUserSuccess(currentUser));
+    store.dispatch(authActions.hasLoggedInToday(true));
   }
-};
+}

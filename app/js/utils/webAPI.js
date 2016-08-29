@@ -1,56 +1,50 @@
-import Config from "../config/environment.js"
+import Config from '../config/environment';
+import Auth from '../auth';
+import fetch from 'isomorphic-fetch';
+import isEmpty from './isEmpty';
+import 'babel-polyfill';
 
-var https = require('http');
-var querystring = require('querystring');
-// var _host = 'http://localhost:3001'
-var AuthStore = require('../stores/AuthStore.js');
-
-var webAPI = {
-  processRequest: function (path, method, data, callback, parentElement) {
-    // this._path = "/api/v1" + path;
-    this._path = path;
-    this._method = method;
-    this._user_token = AuthStore.getCurrentUserToken();
-    this._dataString = JSON.stringify(data);
-    if (typeof(parentElement) !== 'undefined') {
-      this.parentElement = parentElement
-      this.el_html = this.parentElement.innerHTML;
-    }
-    this._headers = {
-      accept: "application/json, text/javascript, */*",
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    };
-    this._headers = {}
-    if (this._method == 'GET') {
-      if (this._dataString.length > 0) { this._path += '?' + encodeURIComponent(this._dataString); }
-    }
-
-    if (this._user_token){this._headers['Authorization'] = 'Token token='+this._user_token}
-    $.ajax({
-      headers: this._headers,
-      url: Config.host + this._path,
-      // dataType: 'json',
-      method: method,
-      data: data,
-      beforeSend: function() {
-        if (typeof(this.parentElement) !== 'undefined') {
-          $(this.parentElement).prop('disabled', true)
-          this.parentElement.innerHTML = '<i className="notched center circle loading icon"></i>'
-        }
-      }.bind(this),
-      success: function(data) {
-        callback(data);
-      }.bind(this),
-      error: function(xhr, status, err) {
-        callback({_error: err});
-      }.bind(this),
-      complete: function(){
-        if (typeof(this.parentElement) !== 'undefined') {
-          $(this.parentElement).prop('disabled', false)
-          this.parentElement.innerHTML = this.el_html;
-        }
-      }.bind(this)
-    });
+const requestPath = (path, method, data = {}) => {
+  if (method === 'GET' && !isEmpty(data)) {
+    return path + '?' + encodeURIComponent(JSON.stringify(data));
   }
+  return path;
 };
-module.exports = webAPI;
+
+const requestBody = (data, method) => {
+  return method === 'GET' ?
+    null : JSON.stringify(data);
+};
+
+/**
+* @return {Object} Headers containing auth details
+*/
+export function requestHeaders() {
+  return new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Token token=' + Auth.getCurrentUserToken()
+  });
+}
+
+/**
+* @param {String} path: eg '/questions'
+* @param {String} method: eg 'POST'
+* @param {Object} data: eg {id: 1}
+* @param {Function} callback: usually an action
+* @return {Object} fetch: to be used in views that check for success or failure
+*/
+export default function processRequest(path, method, data = {}) {
+  let url = Config.host + requestPath(path, method, data);
+  return fetch(url, {
+    method: method,
+    headers: requestHeaders(),
+    mode: 'cors',
+    cache: 'default',
+    body: requestBody(data, method)
+  })
+  .then(response => response.json())
+  .catch(err => {
+    throw (err);
+  });
+
+}

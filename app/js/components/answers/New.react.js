@@ -1,44 +1,87 @@
-import React from 'react'
-import webAPI from '../../utils/webAPI.js'
-import AnswerActions from '../../actions/AnswerActions.js'
-import Common from "../../utils/Common"
+import React from 'react';
+import * as AnswerActions from '../../actions/AnswerActions.js';
+import TinyMCE from 'react-tinymce';
+import tinymceConfig from '../../config/tinymceConfig.js';
+import toastr from 'toastr';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 class NewAnswerForm extends React.Component {
-  constructor(props, context){
-    super(props)
-   }
+  constructor(props, context) {
+    super(props);
+    this.state = {content: ''};
+    this.submitAnswer = this.submitAnswer.bind(this);
+    this.updateAnswerState = this.updateAnswerState.bind(this);
+  }
 
-   componentDidMount(){
-     Common.initTinyMceContent('.new-answer');
-   }
-
-   submitAnswer(event){
+   submitAnswer(event) {
      event.preventDefault();
-     $("#submitAnswerBtn").prop( "disabled", true )
-     tinyMCE.triggerSave();
-     var answer = $("#answerForm textarea").val();
-     var question_id = $("#answerForm textarea").data('question-id');
-     webAPI.processRequest(`/questions/${question_id}/answers`, 'POST', { content: answer }, AnswerActions.createAnswer, $("#submitAnswerBtn"))
-     tinyMCE.activeEditor.setContent('');
+     this.props.actions.createAnswer({...this.answerData()})
+       .then(() => {
+         this.resetState();
+         toastr.success('Your answer has been added successfully');
+       }).catch(err => {
+         toastr.error(err);
+       });
    }
 
-   render () {
+   answerData() {
+     return {
+       questionId: this.props.questionId,
+       content: this.state.content
+     };
+   }
+
+   resetState() {
+     this.setState({content: ''});
+   }
+
+   updateAnswerState(event) {
+     this.setState({content: event.target.getContent()});
+   }
+
+   render() {
      return (
        <div className="row new-answer">
          <div className="sixteen wide column">
-           <h3 className="title">Give your own answer<span className="tips">markdown works (some), for beloved emoticons, ctrl + cmd + spacebar</span></h3>
+           <h3 className="title">
+             Give your own answer
+             <span className="tips">markdown works (some),
+              for beloved emoticons, ctrl + cmd + spacebar</span></h3>
 
            <form id="answerForm" className="ui form">
              <div className="field">
-               <textarea className="new-answer editor-content" data-question-id={this.props.question_id} cols="30" rows="10" value=""></textarea>
+               <TinyMCE
+                 content={this.state.content}
+                 config={tinymceConfig.forContent()}
+                 className="new-answer editor-content"
+                 onChange={this.updateAnswerState}
+                 cols="30" rows="10"
+                 value="" />
              </div>
-             <button id="submitAnswerBtn" className="ui button" onClick={this.submitAnswer}>
+
+             <button
+               id="submitAnswerBtn"
+               className="ui button"
+               onClick={this.submitAnswer}>
                Post Answer
              </button>
+
            </form>
          </div>
        </div>
-     )
+     );
    }
  }
- module.exports = NewAnswerForm;
+
+function mapStateToProps(state, ownProps) {
+  return {questionId: ownProps.questionId};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(AnswerActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewAnswerForm);

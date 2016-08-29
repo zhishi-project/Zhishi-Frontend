@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 let signUpPath = 'http://zhishi-engine.herokuapp.com/login/google?redirect_url=http://localhost:8080/login/auth';
+
 class Index extends React.Component {
   constructor(props, context) {
     super(props);
@@ -10,7 +11,8 @@ class Index extends React.Component {
     let path = '/login/google?redirect_url=http://localhost:8080/login/auth';
     window.location.href = signUpPath;
   }
-  render(){
+
+  render() {
     return (
       <div className="index center aligned ui container full-height">
         <section className="header">
@@ -21,7 +23,8 @@ class Index extends React.Component {
           </header>
         </section>
       </div>
-    )
+    );
   }
 }
+
 module.exports = Index;
