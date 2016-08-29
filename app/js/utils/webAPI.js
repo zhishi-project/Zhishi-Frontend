@@ -1,10 +1,11 @@
 import Config from '../config/environment.js';
 import Auth from '../auth';
 import fetch from 'isomorphic-fetch';
+import isEmpty from './isEmpty';
 import 'babel-polyfill';
 
 const requestPath = (path, method, data = {}) => {
-  if (method === 'GET' && data.length > 0) {
+  if (method === 'GET' && !isEmpty(data)) {
     return path + '?' + encodeURIComponent(JSON.stringify(data));
   }
   return path;

@@ -8,6 +8,7 @@ import auth from './auth';
 import display from './display';
 import tags from './tags';
 import ajaxStatus from './ajaxStatusReducer';
+import searchResults from './search/searchReducer';
 
 const rootReducer = combineReducers({
   questions,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   auth,
   display,
   tags,
+  searchResults,
   ajaxStatus
 });
 

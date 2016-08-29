@@ -1,6 +1,6 @@
 import React from 'react';
 
-import searchActions from '../../actions/SearchActions.js';
+import * as searchActions from '../../actions/SearchActions.js';
 import webAPI from '../../utils/webAPI.js';
 
 import {connect} from 'react-redux';
@@ -8,32 +8,11 @@ import {bindActionCreators} from 'redux';
 
 import SearchPage from './SearchPage.react';
 
-function getSearchState(searchQuery, firstLoad) {
-  if (searchQuery && firstLoad) {
-    webAPI('/questions/search', 'GET', searchQuery, SearchActions.receiveSearchResults);
-  }
-  return {
-    questions: SearchStore.getSearchResults(),
-    currentUser: AuthStore.getCurrentUser()
-  };
-}
-
 class Search extends React.Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props);
-    this.state = getSearchState(props.location.query, true);
   }
 
-  componentDidMount() {
-    SearchStore.addChangeListener(this._onChange.bind(this));
-  }
-  componentWillUnmount() {
-    SearchStore.removeChangeListener(this._onChange);
-
-  }
-  _onChange() {
-    this.setState(getSearchState());
-  }
   render() {
     <SearchPage
       {...this.props}
@@ -49,7 +28,7 @@ class Search extends React.Component {
  */
 function mapStateToProps(state, ownProps) {
   return {
-    question: questions.searchResults,
+    question: state.searchResults,
     currentUser: state.auth.currentUser
   };
 }

@@ -5,8 +5,8 @@ import webAPI from '../utils/webAPI.js';
 * @param {Object} data: info containing total votes and resource vote belongs
 * @return {Object} containing the action type and data
 */
-export function loadSearchSuccess(data) {
-  return {type: types.LOAD_SEARCH_SUCCESS, data};
+export function loadSearchSuccess(results) {
+  return {type: types.LOAD_SEARCH_SUCCESS, results};
 }
 
 /**
@@ -15,7 +15,8 @@ export function loadSearchSuccess(data) {
 */
 export function search(searchQuery) {
   return dispatch => {
-    return webAPI('/questions/search', 'GET', searchQuery)
+    return webAPI('/questions/search', 'GET',
+    {q: searchQuery.trim()})
     .then(response => {
       dispatch(loadSearchSuccess(response));
     });
