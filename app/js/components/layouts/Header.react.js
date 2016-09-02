@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchBar from './SearchBar.react';
+import SearchBar from '../search/searchBar/SearchBarContainer.react';
 import Common from '../../utils/Common.js';
 import Auth from '../../auth';
 import {Link} from 'react-router';

@@ -1,6 +1,6 @@
 var Common;
 import assign from 'object-assign';
-import Config from '../config/environment.js';
+import Config from '../config/environment';
 import $ from 'jquery';
 
 Common = {

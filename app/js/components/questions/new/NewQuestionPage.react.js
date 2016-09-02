@@ -29,8 +29,8 @@ const NewQuestionPage = ({
                        </div>
 
                        <div className="sixteen wide mobile \
-                        fourteen wide tablet fourteen wide \
-                        computer column">
+                        fourteen wide tablet \
+                        fourteen wide computer column">
                          <input
                            type="text" id="new_question_title"
                            placeholder="How do I install \
@@ -53,12 +53,6 @@ const NewQuestionPage = ({
                        <div className="sixteen wide mobile \
                          fourteen wide tablet \
                          fourteen wide computer column">
-
-                         <textarea
-                           id="new_question_desc"
-                           cols="30"
-                           rows="15" className="ask-question editor-content">
-                         </textarea>
 
                          <TinyMCE
                            content=""

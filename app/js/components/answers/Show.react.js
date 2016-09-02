@@ -4,9 +4,10 @@ import ShowPage from './ShowPage.react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
+import $ from 'jquery';
 
-class Answer extends React.Component {
-  constructor(props, context) {
+export class Answer extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {answer: this.props.answer};
     this.editAnswer = this.editAnswer.bind(this);
@@ -64,7 +65,7 @@ class Answer extends React.Component {
                acceptAnswer={this.acceptAnswer} />;
    }
  }
-export default Answer;
+
 /**
 * @param {Object} state: from root reducer
 * @param {Object} ownProps: for functions

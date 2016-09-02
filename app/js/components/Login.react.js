@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import Auth from '../auth';
 import DisplayStore from '../stores/DisplayStore.js';
 import * as AuthActions from '../actions/AuthActions.js';
-import Config from '../config/environment.js';
+import Config from '../config/environment';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import isEmpty from '../utils/isEmpty';

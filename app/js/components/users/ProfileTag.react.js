@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 
 export default class ProfileTagSection extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ export default class ProfileTagSection extends React.Component {
           Add more
       </button> : '';
   }
+
   render() {
     return (
     <div className="ui card profile-tags">

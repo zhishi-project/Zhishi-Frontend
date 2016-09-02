@@ -14,7 +14,14 @@
     "test": "mocha --reporter progress tools/testSetup.js \"app/**/*.spec.js\"",
     "test:watch": "npm run test -- --watch",
     "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build --port 8000",
-    "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js"
+    "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js",
+    "clean-dist": "npm run remove-dist && mkdir dist",
+    "copy-assets": "cp -r build/assets dist",
+    "remove-dist": "node_modules/.bin/rimraf dist",
+    "build:html": "babel-node tools/buildHtml.js",
+    "prebuild": "npm-run-all clean-dist test copy-assets build:html",
+    "build": "babel-node tools/build.js",
+    "postbuild": "babel-node tools/distServer.js"
   },
   "dependencies": {
     "body-parser": "^1.4.3",
@@ -26,6 +33,7 @@
     "compression": "1.6.1",
     "cross-env": "1.0.7",
     "css-loader": "^0.19.0",
+    "colors": "1.1.2",
     "es6-promise": "^3.2.1",
     "eslint": "^1.7.3",
     "eslint-config-rackt": "^1.1.0",
@@ -73,7 +81,6 @@
     "babel-preset-react-hmre": "1.1.1",
     "babel-preset-stage-2": "^6.11.0",
     "babel-register": "6.8.0",
-    "colors": "1.1.2",
     "compression": "1.6.1",
     "cross-env": "1.0.7",
     "css-loader": "0.23.1",
