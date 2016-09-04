@@ -44,8 +44,8 @@ var exposedProperties = ['window', 'navigator', 'document'];
 global.document = jsdom('');
 global.window = document.defaultView;
 global.$ = require('jquery')(window);
-global.window.$ = {init: () => {}};
-Object.keys(document.defaultView).forEach(property => {
+global.window.$ = {init: function() {}};
+Object.keys(document.defaultView).forEach(function(property) {
   if (typeof global[property] === 'undefined') {
     exposedProperties.push(property);
     global[property] = document.defaultView[property];
