@@ -20,7 +20,7 @@ export class Answer extends React.Component {
   }
 
    componentDidMount() {
-     $('.share-popup').popup();
+    //  $('.share-popup').popup();
      new Clipboard('.share-popup');
      $('.share-popup').click(function() {
        window.getSelection().removeAllRanges();

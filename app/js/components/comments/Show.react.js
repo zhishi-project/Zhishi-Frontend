@@ -13,7 +13,6 @@ class Comment extends React.Component {
   }
 
    componentDidMount() {
-    //  $('.share-popup').popup();
    }
 
    componentWillReceiveProps(newProps) {
