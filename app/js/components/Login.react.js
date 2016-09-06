@@ -134,7 +134,7 @@ class Login extends React.Component {
 }
 
 Login.contextTypes = {
-  history: React.PropTypes.object.isRequired,
+  history: React.PropTypes.object.isRequired
 };
 
 /**
