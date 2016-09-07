@@ -4,7 +4,7 @@ const CommentVotes = ({resource, upvote}) => {
   return (
      <div className="points-holder">
        <div data-action="up" className="rate-up" onClick={upvote}></div>
-       <div className="points">{resource.votes_count}</div>
+       <div className="points">{resource.votes_count || ''}</div>
        <i className="flag outline icon" ></i>
      </div>
    );

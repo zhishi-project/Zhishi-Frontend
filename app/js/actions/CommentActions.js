@@ -54,10 +54,10 @@ export function updateComment({resourceId, id, data}) {
 * @param {Object} request: containing the path and http action of request
 * @return {Func}  Success action to Comment reducer
 */
-export function saveComment(meta, comment, request) {
+export function createComment(meta, newComment, request) {
   const {path, action} = request;
   return dispatch => {
-    return webAPI(path, action, {content: comment.content})
+    return webAPI(path, action, {content: newComment.content})
     .then(comment => {
       dispatch(loadCommentSuccess({meta, comment}));
     });

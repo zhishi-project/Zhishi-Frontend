@@ -83,6 +83,15 @@ export function loadFilteredQuestions(page, tagIds) {
     );
 }
 
+export function createQuestion({title, content}) {
+  return dispatch => {
+    return webAPI(`/questions`, 'POST', question)
+    .then(data => {
+      dispatch(loadQuestionSuccess(data));
+      return data;
+    });
+  };
+}
 
 export function updateQuestion({id, title, content}) {
   return dispatch => {

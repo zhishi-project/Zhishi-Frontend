@@ -111,7 +111,7 @@ const ShowPage = ({
       </div>
     </div>
   );
-  1;};
+};
 
 ShowPage.propTypes = {
   question: PropTypes.object,

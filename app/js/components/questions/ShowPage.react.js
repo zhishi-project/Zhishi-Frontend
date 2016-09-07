@@ -26,7 +26,6 @@ const ShowPage = ({
   onChange,
   currentUser
 }) => {
-
   let commentsMeta = {
     resourceName: 'questions',
     resourceId: questionId

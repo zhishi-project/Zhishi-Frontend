@@ -10,9 +10,7 @@ const GLOBALS = {
 };
 
 export default {
-  debug: true,
-  devtool: 'cheap-module-eval-source-map',
-  noInfo: false,
+  devtool: 'source-map',
   entry: entryPath,
   target: 'web', // bundle app the way web browsers can understand
   output: {

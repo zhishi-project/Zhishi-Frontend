@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import * as QuestionActions from '../../../actions/QuestionActions.js';
 import NewQuestionPage from './NewQuestionPage.react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {browserHistory} from 'react-router';
 import toastr from 'toastr';
 
 class NewQuestion extends React.Component {
-  constructor(props) {
+  constructor(props, context) {
     super(props);
     this.state = {
       question: {
@@ -15,52 +16,50 @@ class NewQuestion extends React.Component {
         tags: []
       }
     };
+    this.onCreateQuestion = this.onCreateQuestion.bind(this);
+    this.onUpdateQuestionState = this.onUpdateQuestionState.bind(this);
+    this.redirect = this.redirect.bind(this);
+    this.onUpdateTags = this.onUpdateTags.bind(this);
   }
-
-   componentDidMount() {
-    //  Common.initTinyMceContent('.ask-question');
-   }
-
-  //  createQuestion(event) {
-  //    event.preventDefault();
-  //    $('#submitQuestionBtn').prop( 'disabled', true );
-  //    tinymce.triggerSave();
-  //    var title = $('form #new_question_title').val();
-  //    var desc = $('form #new_question_desc').val();
-  //    var tags = [];
-  //    $('#selected-tags').children().each(function() { tags.push($(this).html());});
-  //    var question_data = {title: title, content: desc, tags: tags};
-  //    webAPI('/questions', 'POST', question_data, QuestionActions.createQuestion, $('#submitQuestionBtn'));
-  //  }
 
    onCreateQuestion(event) {
      event.preventDefault();
      const {actions} = this.props;
-     actions.updateQuestion({...this.state.question}).then(() => {
-       toastr.success('Your question have been successfully updated.');
-     }).catch(err => toastr.error(err));
+     actions.createQuestion(this.state.question)
+     .then(question => this.redirect(question))
+     .catch(err => toastr.error(err));
    }
 
-   onUpdateQuestionState(event) {
-     const field = this.getQuestionField(event);
+   redirect(question) {
+     toastr.success('Your question have been successfully updated.');
+     this.props.history.push(`/questions/${question.id}`);
+   }
+
+   onUpdateQuestionState(key, content) {
      let question = this.state.question;
-     question[field] = event.target.getContent();
+     question[key] = content;
      this.setState({question});
    }
 
-   getQuestionField(event) {
-     return event.target.targetElm.className
-       .indexOf('title') === -1 ? 'content' : 'title';
+   onUpdateTags(tags) {
+     let question = this.state.question;
+     question.tags = tags;
+     this.setState({question});
    }
 
    render() {
      return (
        <NewQuestionPage
          onUpdateQuestionState={this.onUpdateQuestionState}
+         onUpdateTags={this.onUpdateTags}
          onSubmitClick={this.onCreateQuestion} />
      );
    }
  }
+
+NewQuestion.contextTypes = {
+  history: React.PropTypes.object.isRequired
+};
 
 /**
 * @param {Object} state: from root reducer
