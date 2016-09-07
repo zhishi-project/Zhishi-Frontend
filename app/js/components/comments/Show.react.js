@@ -12,10 +12,6 @@ class Comment extends React.Component {
     this.cancelComment = this.cancelComment.bind(this);
   }
 
-   componentDidMount() {
-    //  $('.share-popup').popup();
-   }
-
    componentWillReceiveProps(newProps) {
      this.setState({comment: newProps.comment});
    }

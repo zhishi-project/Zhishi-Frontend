@@ -1,36 +1,34 @@
 import React from 'react';
 import TagStore from '../../../stores/TagStore.js';
-import TagActions from '../../../actions/TagActions';
-import webAPI from '../../../utils/webAPI';
+import * as TagActions from '../../../actions/TagActions.js';
 import $ from 'jquery';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import assign from 'object-assign';
 
-let getTagState = () => {
+let getTagState = (tags, selectedTags = []) => {
   return {
-    initialTags: TagStore.getAllTags(),
-    tags: []
+    tags,
+    selectedTags,
+    typedText: ''
   };
 };
 
 class TagBoxes extends React.Component {
   constructor(props) {
     super(props);
-    this.state = getTagState();
-    this._onChange = this._onChange.bind(this);
+    this.state = getTagState(this.props.initialTags);
     this.filterList = this.filterList.bind(this);
+    this.clickTag = this.clickTag.bind(this);
   }
 
    componentWillMount() {
-     webAPI('/tags/recent', 'GET', {}, (tags) => {
-       TagActions.receiveTags(tags);
-     });
+     this.props.actions.loadTags();
    }
 
    componentDidMount() {
-     TagStore.addChangeListener(this._onChange);
-
      this.calcInputWidth();
      $(window).resize(this.calcInputWidth);
-     this.componentDidUpdate();
 
      $(document).bind('click', function() {
        var $clicked = $(event.target);
@@ -44,40 +42,31 @@ class TagBoxes extends React.Component {
      });
    }
 
-   componentWillUnmount() {
-     TagStore.removeChangeListener(this._onChange);
-   }
    componentDidUpdate() {
-     $('#tag-list input[type=\'checkbox\']').on('click', function(e) {
-       var tagBoxes = new TagBoxes;
-       tagBoxes.appendSelectedTag(this);
+     this.calcInputWidth();
+   }
+
+   clickTag(event) {
+     const {selectedTags} = this.state;
+     let clickedTag = event.target.textContent;
+     let tags = selectedTags.indexOf(clickedTag) === -1 ?
+       [...selectedTags, clickedTag] :
+       selectedTags.filter(tag => tag !== clickedTag);
+     this.props.onUpdateTags(tags);
+     this.setState(getTagState(this.props.initialTags, tags));
+   }
+
+   addTag(selectedTags, clickedTag) {
+     this.setState({
+       selectedTags: [...selectedTags, clickedTag]
      });
    }
 
-   _onChange() {
-     let tags = this.retrieveTagArray(TagStore.getAllTags());
-     this.setState({initialTags: tags, tags} );
-   }
-
-   retrieveTagArray(tagsObj) {
-     let tags = [];
-     for (var key in tagsObj) {
-       tags.push(tagsObj[key].name);
-     }
-     return tags;
-   }
-
-   appendSelectedTag(el) {
-     var id = $(el).prop('id');
-     if ($(el).is(':checked')) {
-       if ($(`#${id}Chip`).length === 0) {
-         $('#selected-tags').append(`<span id="${id}Chip">${$(el).prop('value')}</span>`);
-       }
-     } else {
-       $(`#${id}Chip`).remove();
-     }
-     $('input#new-question-tags').val('');
-     this.calcInputWidth();
+   deleteTag(selectedTags, clickedTag) {
+     this.setState({
+       selectedTags:
+       selectedTags.filter(tag => tag !== clickedTag)
+     });
    }
 
    calcInputWidth() {
@@ -86,42 +75,61 @@ class TagBoxes extends React.Component {
    }
 
    filterList(event) {
-     var updatedTags = this.state.initialTags;
-     updatedTags = updatedTags.filter(function(tag) {
-       return (tag.toLowerCase().search(event.target.value.toLowerCase()) !== -1);
+     const {initialTags} = this.props;
+     let typedText = event.target.value.toLowerCase();
+     let tags = initialTags.filter(function(tag) {
+       return (tag.toLowerCase().search(typedText) !== -1);
      });
-     this.setState({tags: updatedTags});
+     this.setState({tags, typedText});
    }
 
    render() {
-     var tags = [], checked;
-     if ($('input#new-question-tags').val() !== '') {
-       this.state.tags.forEach((tag) => {
-        //  checked = $(`#${tag}Chip`).length > 0 ? true : false;
-         tags.push(<li key={tag} className="eight wide column">
-                      <input id={tag} type="checkbox" value={tag} />
-                      <label htmlFor={tag}>{tag}</label>
-                    </li>);
+     let tagsArr = [];
+     let checked;
+     const {selectedTags, tags, typedText} = this.state;
+     if (typedText !== '') {
+       tags.forEach(tag => {
+         checked = selectedTags.indexOf(tag) !== -1;
+         tagsArr.push(
+            <li key={tag}
+              onClick={this.clickTag}
+              className="eight wide column">
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  value={tag} />
+              <label htmlFor={tag}>{tag}</label>
+            </li>);
        });
      }
      return (
        <div className="ui row group">
-         <div className="sixteen wide mobile two wide tablet two wide computer column column label-wrapper">
+         <div className="sixteen wide mobile \
+           two wide tablet two wide computer column label-wrapper">
            <label>
              Tags:
            </label>
          </div>
 
-         <div className="select-tags sixteen wide mobile fourteen wide tablet fourteen wide computer column">
+         <div className=" sixteen wide mobile \
+           fourteen wide tablet fourteen wide computer column select-tags">
            <div id="selects" className="selects">
              <span id="selected-tags">
+               {selectedTags && selectedTags.map(tag => {
+                 return <span key={`${tag}-chip`}>
+                   {tag}</span>;
+               })}
              </span>
-             <input ref="tagInput" id="new-question-tags" type="text" placeholder="amity, food" onChange={this.filterList} />
+             <input ref="tagInput"
+               id="new-question-tags"
+               type="text"
+               value={typedText}
+               placeholder="amity, food" onChange={this.filterList} />
            </div>
 
            <div id="tag-list" className="multi-select sixteen wide column">
              <ul className="ui grid">
-                {tags}
+                {tagsArr}
              </ul>
            </div>
 
@@ -132,4 +140,34 @@ class TagBoxes extends React.Component {
    }
  }
 
-export default TagBoxes;
+function retrieveTagArray(tagsObj) {
+  let tags = [];
+  for (let key in tagsObj) {
+    tags.push(tagsObj[key].name);
+  }
+  return tags;
+}
+
+ /**
+ * @param {Object} state: from root reducer
+ * @param {Object} ownProps: for functions
+ * @return {Object}  {questions, filteredQuestions, page} for homepage
+ */
+function mapStateToProps(state, ownProps) {
+  return {
+    initialTags: retrieveTagArray(state.tags.tags),
+    onUpdateTags: ownProps.onUpdateTags
+  };
+}
+
+ /**
+ * @param {Func} dispatch: from root reducer
+ * @return {Object}  actions to be bound
+ */
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(TagActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TagBoxes);

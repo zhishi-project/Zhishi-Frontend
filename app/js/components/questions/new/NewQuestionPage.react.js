@@ -6,6 +6,7 @@ import tinymceConfig from '../../../config/tinymceConfig.js';
 
 const NewQuestionPage = ({
   onUpdateQuestionState,
+  onUpdateTags,
   onSubmitClick}) => {
   let titleTip = 'It\'ll be super nice if this title is \
    a summarized and descriptive question ¯\\_(ツ)_/¯';
@@ -33,6 +34,11 @@ const NewQuestionPage = ({
                         fourteen wide computer column">
                          <input
                            type="text" id="new_question_title"
+                           className="title"
+                           onChange={event => {
+                             onUpdateQuestionState('title',
+                             event.target.value);
+                           }}
                            placeholder="How do I install \
                            software on Andela NAS?"
                            required />
@@ -62,13 +68,16 @@ const NewQuestionPage = ({
                            }
                            className="content"
                            data-id="content"
-                           onChange={onUpdateQuestionState}
+                           onChange={event => {
+                             onUpdateQuestionState('content',
+                             event.target.getContent());
+                           }}
                            value="" />
 
                        </div>
                      </div>
 
-                     <TagInputBox />
+                     <TagInputBox onUpdateTags={onUpdateTags} />
 
                      <div className="ui row group">
                        <div
@@ -97,7 +106,8 @@ const NewQuestionPage = ({
 };
 
 NewQuestionPage.propTypes = {
-  onChange: PropTypes.func,
+  onUpdateQuestionState: PropTypes.func,
+  onUpdateTags: PropTypes.func,
   onSubmitClick: PropTypes.func
 };
 

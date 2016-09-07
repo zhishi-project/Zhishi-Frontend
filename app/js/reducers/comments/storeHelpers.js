@@ -23,7 +23,8 @@ export function loadComments(resource, id, comments) {
 export function loadAnswersComments(state, answers) {
   let newState = assign({}, state);
   answers.forEach(answer => {
-    newState = loadComments(state, answer.id, answer.comments);
+    newState = assign(newState,
+      loadComments(state, answer.id, answer.comments));
   });
   return newState;
 }

@@ -11,7 +11,7 @@ import Users from './components/users/Users.react';
 import UsersIndex from './components/users/Index.react';
 import User from './components/users/Show.react';
 import Questions from './components/questions/Question.react';
-import NewQuestion from './components/questions/New/Index.react.js';
+import NewQuestion from './components/questions/new/Index.react';
 import Question from './components/questions/Show.react';
 import Auth from './auth';
 

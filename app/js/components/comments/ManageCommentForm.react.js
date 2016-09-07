@@ -30,20 +30,25 @@ class ManageCommentForm extends React.Component {
     this.preSave(event);
     const {actions, meta} = this.props;
     const {comment} = this.state;
-    actions.saveComment(meta, comment, this.getRequestUrl(comment, meta))
+    actions.createComment(meta, comment,
+      this.getRequestUrl(comment, meta))
     .then(() => this.saveSuccess())
     .catch(err => this.saveError(err));
   }
 
   getRequestUrl(comment, meta) {
     const {resourceName, resourceId} = meta;
-    let id = comment ? comment.id : null;
-    let action = id ? 'PATCH' : 'POST';
-    return {path: `/${resourceName}/${resourceId}/comments/${id}`, action};
+    if (comment && comment.id) {
+      return {path: `/${resourceName}/${resourceId}/comments/${comment.id}`,
+      action: 'PATCH'};
+    }
+    return {path: `/${resourceName}/${resourceId}/comments`,
+    action: 'POST'};
   }
 
   saveSuccess() {
     toastr.success('Your comment have been successfully updated.');
+    this.props.cancelComment();
   }
 
   saveError(error) {

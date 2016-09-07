@@ -15,7 +15,7 @@ class NewCommentForm extends React.Component {
   }
 
   cancelComment(event) {
-    event.preventDefault();
+    if (event) event.preventDefault();
     this.setState({showNewForm: false});
   }
 
