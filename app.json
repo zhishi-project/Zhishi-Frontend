@@ -1,0 +1,21 @@
+{
+  "name": "Zhishi-Frontend",
+  "description": "A Q and A app for Andelans",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
