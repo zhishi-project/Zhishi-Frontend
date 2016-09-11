@@ -2,7 +2,6 @@ import Config from '../config/environment';
 import Auth from '../auth';
 import fetch from 'isomorphic-fetch';
 import isEmpty from './isEmpty';
-import 'babel-polyfill';
 
 const requestPath = (path, method, data = {}) => {
   if (method === 'GET' && !isEmpty(data)) {
