@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/zhishi-project/Zhishi-Frontend/badge.svg?branch=develop)](https://coveralls.io/github/zhishi-project/Zhishi-Frontend?branch=develop)
+
 # Zhishi
 Zhishi is a Question and Answer platform for Andelans
 
@@ -29,13 +31,6 @@ The app itself is live on http://zhishi.andela.com/
 
 ## Contribute
 
-To add your own bit in making zhishi awesome,
+Please do!
 
-1. Fork the project
-2. Clone the project to you local computer.
-3. Run `npm install` to install all dependencies
-4. Create your own branch.
-5. Fix some bug or make some other improvement.
-6. Commit your changes.
-7. Push your changes to your branch in origin.
-8. Raise a Pull Request.
+Go through our detailed [contributing guidelines](https://github.com/zhishi-project/Zhishi-Frontend/blob/develop/CONTRIBUTING.md) for a run through of how to get started with contributing
