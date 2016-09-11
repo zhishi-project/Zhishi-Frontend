@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/zhishi-project/Zhishi-Frontend/tree/master.svg?style=svg)](https://circleci.com/gh/zhishi-project/Zhishi-Frontend/tree/master)
+
 [![Coverage Status](https://coveralls.io/repos/github/zhishi-project/Zhishi-Frontend/badge.svg?branch=develop)](https://coveralls.io/github/zhishi-project/Zhishi-Frontend?branch=develop)
 
 # Zhishi

@@ -5,6 +5,7 @@
   "main": "app/js/index.js",
   "author": "",
   "scripts": {
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
     "prestart": "babel-node tools/startMessage.js",
     "start": "npm-run-all --parallel test:watch open:src lint:watch",
     "start:nolint": "npm-run-all --parallel test:watch open:src",
