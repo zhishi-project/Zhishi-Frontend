@@ -1,7 +1,7 @@
 import expect from 'expect';
 // import * as types from '../actions/tags/actionTypes';
 import searchReducer from './searchReducer';
-import * as actions from '../../actions/searchActions';
+import * as actions from '../../actions/SearchActions';
 
 describe('Search Reducer Test', () => {
   it('should load search results to store on LOAD_SEARCH_SUCCESS', () => {
