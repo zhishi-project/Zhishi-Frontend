@@ -308,6 +308,7 @@ header {
       }
       .right.menu {
         .item {
+          color: #fff;
           @include mobile {
             display: none;
           }
