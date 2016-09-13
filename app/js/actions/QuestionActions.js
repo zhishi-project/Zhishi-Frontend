@@ -83,7 +83,7 @@ export function loadFilteredQuestions(page, tagIds) {
     );
 }
 
-export function createQuestion({title, content}) {
+export function createQuestion(question) {
   return dispatch => {
     return webAPI(`/questions`, 'POST', question)
     .then(data => {
