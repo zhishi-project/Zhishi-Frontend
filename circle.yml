@@ -7,6 +7,7 @@ dependencies:
     - npm install istanbul -g
     - npm install -g babel-cli
     - npm install mocha -g
+    - nvm install stable && nvm alias default stable
   post:
 
 deployment:
@@ -17,7 +18,6 @@ deployment:
 
 test:
   override:
-    - nvm install stable && nvm alias default stable
     - npm run test:coverage
 
   post:
