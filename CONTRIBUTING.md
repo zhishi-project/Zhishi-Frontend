@@ -27,7 +27,7 @@ If you're contributing for the firs time, you should fork the repository first. 
 Navigate to the sugar repository, press Fork button, then
 
     git clone  https://github.com/YOUR-NAME/Zhishi-Frontend.git
-    cd hiddenwisdom-react-js
+    cd Zhishi-Frontend
     git remote add upstream https://github.com/zhishi-project/Zhishi-Frontend
     git fetch upstream
 
