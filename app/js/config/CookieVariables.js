@@ -5,5 +5,6 @@ module.exports = {
   user_token: "hekdwu2aw",
   user_logged_in: "iwengjk",
   referrer: 'ehdieleda',
-  first_time_marker: 'yijeusheuw'
-}
+  first_time_marker: 'yijeusheuw',
+  apiUrl: 'kdjndnvjds'
+};

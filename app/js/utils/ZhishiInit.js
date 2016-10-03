@@ -9,6 +9,9 @@ export function loadData(store) {
     store.dispatch(questionActions.loadQuestions());
     store.dispatch(questionActions.loadTopQuestions());
     store.dispatch(authActions.loadCurrentUserSuccess(currentUser));
-    store.dispatch(authActions.hasLoggedInToday(true));
   }
+}
+
+export function checkAndelaLoggedIn(store) {
+  store.dispatch(authActions.loginUser());
 }

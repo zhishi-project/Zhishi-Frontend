@@ -7,10 +7,12 @@ const middleware = process.env.NODE_ENV === 'production' ?
   [thunk] :
   [reduxImmutableStateInvariant(), thunk];
 
-export default function configureStore(initialState) {
+function configureStore(initialState) {
   return createStore(
     rootReducer,
     initialState,
     applyMiddleware(...middleware)
   );
 }
+
+export default configureStore();

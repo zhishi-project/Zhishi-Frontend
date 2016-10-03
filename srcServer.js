@@ -1,8 +1,13 @@
+require('dotenv').config();
+
 import express from 'express';
 import webpack from 'webpack';
 import path from 'path';
 import config from './webpack.config.dev';
 import open from 'open';
+import cookieParser from 'cookie-parser';
+var environment = require('./app/js/config/environment/index.js');
+import CVar from './app/js/config/CookieVariables.js';
 
 /* eslint-disable no-console */
 
@@ -16,6 +21,22 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
+
+if (process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    if (!req.headers.host.match(/andela.co/)) {
+      return res.redirect(environment.zhishiPermanentSite + req.url);
+    }
+    next();
+  });
+}
+
+app.use(cookieParser());
+app.use((req, res, next) => {
+  res.cookie('andela_cookie', req.cookies['andela:session']);
+  res.cookie(CVar.apiUrl, process.env.ENGINE_HOST);
+  next();
+});
 
 app.use(express.static(path.join(__dirname, 'build')));
 

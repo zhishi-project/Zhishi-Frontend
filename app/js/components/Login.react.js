@@ -1,20 +1,13 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import Auth from '../auth';
 import DisplayStore from '../stores/DisplayStore.js';
 import * as AuthActions from '../actions/AuthActions.js';
-import Config from '../config/environment';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import isEmpty from '../utils/isEmpty';
-import CookieVar from '../config/CookieVariables.js';
-import {browserHistory} from 'react-router';
-import cookie from 'js-cookie';
-
 
 let loginState = () => {
   return {
-    quotes: DisplayStore.getQuotes(),
-    loggedInToday: Auth.getLoggedInToday()
+    quotes: DisplayStore.getQuotes()
   };
 };
 
@@ -22,19 +15,6 @@ class Login extends React.Component {
   constructor(props, context) {
     super(props);
     this.state = loginState();
-    this.redirectToReferrerIfAny = this.redirectToReferrerIfAny.bind(this);
-    this.signUpPath = this.signUpPath.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!isEmpty(nextProps.currentUser)) {
-      this.redirectToReferrerIfAny();
-    }
-  }
-
-  componentWillMount() {
-    const {actions, location} = this.props;
-    if (location.query.temp_token) actions.loginUser(location.query);
   }
 
   componentDidMount() {
@@ -65,36 +45,15 @@ class Login extends React.Component {
       loopDelay: 500
     });
 
-    this.autoLogUserIn();
+    // setTimeout(this.signIn, 1000);
   }
 
-  autoLogUserIn() {
-    if (!this.state.loggedInToday) {
-      setTimeout(this.signIn, 1000, this.signUpPath());
-    }
-  }
-
-  redirectToReferrerIfAny() {
-    if (cookie.get(CookieVar.referrer)) {
-      var referrer = cookie.get(CookieVar.referrer);
-      cookie.remove(CookieVar.referrer);
-      window.location = referrer;
-    } else {
-      window.location = '/';
-    }
-  }
-
-  signIn(signUpPath) {
-    window.location = signUpPath;
-  }
-
-  signUpPath() {
-    return `${Config.host}/login/google?redirect_url=http://${
-          window.parent.location.host}/login/auth`;
+  signIn() {
+    window.location = Auth.andelaLoginUrl();
   }
 
   render() {
-    let autoSignInMsg = this.state.loggedInToday ? '' :
+    let autoSignInMsg =
       <span>
         Ushering you in in a few seconds &nbsp;
         <i className="ui active small inline loader"></i>
@@ -110,14 +69,14 @@ class Login extends React.Component {
 
           <div className="sign-in-area text container">
             <h1 className="messages"></h1>
-            <a href={this.signUpPath()} className="ui button">
+            <a href={Auth.andelaLoginUrl()} className="ui button">
               <i className="google plus icon"></i>
               Sign in with your Andela email
             </a>
           </div>
 
           <div className="sign-in-desc">
-            {autoSignInMsg}
+            {/*autoSignInMsg*/}
           </div>
 
         </section>
