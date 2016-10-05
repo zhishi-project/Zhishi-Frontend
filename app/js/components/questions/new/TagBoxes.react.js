@@ -36,10 +36,6 @@ class TagBoxes extends React.Component {
        !$clicked.parents().hasClass('select-tags'))
          $('#tag-list').css('display', 'none');
      });
-
-     $('.select-tags').click(function() {
-       $('#tag-list').css('display', 'block');
-     });
    }
 
    componentDidUpdate() {
@@ -88,10 +84,10 @@ class TagBoxes extends React.Component {
      let checked;
      const {selectedTags, tags, typedText} = this.state;
      if (typedText !== '') {
-       tags.forEach(tag => {
+       tags.forEach((tag, index) => {
          checked = selectedTags.indexOf(tag) !== -1;
          tagsArr.push(
-            <li key={tag}
+            <li key={index}
               onClick={this.clickTag}
               className="eight wide column">
                 <input
@@ -100,8 +96,12 @@ class TagBoxes extends React.Component {
                   value={tag} />
               <label htmlFor={tag}>{tag}</label>
             </li>);
+         $('#tag-list').css('display', 'block');
        });
+     } else {
+       $('#tag-list').css('display', 'none');
      }
+
      return (
        <div className="ui row group">
          <div className="sixteen wide mobile \
@@ -124,7 +124,7 @@ class TagBoxes extends React.Component {
                id="new-question-tags"
                type="text"
                value={typedText}
-               placeholder="amity, food" onChange={this.filterList} />
+               placeholder="e.g amity, food" onChange={this.filterList} />
            </div>
 
            <div id="tag-list" className="multi-select sixteen wide column">
