@@ -7,13 +7,17 @@ var CVar = require('../app/js/config/CookieVariables.js');
 
 /* eslint-disable no-console */
 
-var isDeveloping = process.env.NODE_ENV !== 'production';
+var isDeveloping = (
+  process.env.NODE_ENV !== 'production' &&
+  process.env.NODE_ENV !== 'staging'
+);
+
 var port = isDeveloping ? 8080 : process.env.PORT;
 var app = express();
 
 app.use(compression());
 
-if (process.env.NODE_ENV !== 'development') {
+if (!isDeveloping) {
   app.use((req, res, next) => {
     if (!req.headers.host.match(/andela.co/)) {
       return res.redirect(environment.zhishiPermanentSite + req.url);
