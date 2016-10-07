@@ -13,7 +13,7 @@ var app = express();
 
 app.use(compression());
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV !== 'development') {
   app.use((req, res, next) => {
     if (!req.headers.host.match(/andela.co/)) {
       return res.redirect(environment.zhishiPermanentSite + req.url);
