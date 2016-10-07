@@ -3,7 +3,6 @@ import Auth from '../auth';
 import fetch from 'isomorphic-fetch';
 import isEmpty from './isEmpty';
 import cookie from 'js-cookie';
-import history from '../history';
 import checkIsLoggedIn from '../actions/AuthActions';
 import store from '../stores/configureStore';
 import CVar from '../config/CookieVariables.js';
@@ -26,7 +25,8 @@ const redirectIfUnauthorized = response => {
     if (location.pathname === '/login') {
       store.dispatch(checkIsLoggedIn());
     }
-    return history.push('/login');
+    window.location = '/login';
+    return null;
   }
   return response.json();
 };

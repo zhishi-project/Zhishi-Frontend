@@ -2,7 +2,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import {render} from 'react-dom';
 import {Router} from 'react-router';
 import routes from './routes';
-import history from './history';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 import * as ZhishiInit from './utils/ZhishiInit.js';
 
 import store from './stores/configureStore';
@@ -15,6 +15,13 @@ if (location.pathname === '/login' && !checked) {
 } else {
   ZhishiInit.loadData(store);
 }
+
+let history = createBrowserHistory();
+
+history.listen(function(location) {
+  window.ga('create', 'UA-76284809-1', 'auto');
+  window.ga('send', 'pageview', location.pathname);
+});
 
 render(
   <Provider store={store} >

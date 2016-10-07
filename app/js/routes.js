@@ -93,7 +93,7 @@ export default (
         <Route path="/users/:id" component={User} />
       </Route>
 
-      <Route path="/questions" component={Questions} onEnter={userLoggedIn} >
+      <Route path="/questions" component={Questions} onEnter={userLoggedIn}>
         <IndexRoute component={Zhishi} />
         <Route path="/questions/new" component={NewQuestion} />
         <Route path="/questions/:id" component={Question} />
