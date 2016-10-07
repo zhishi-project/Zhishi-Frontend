@@ -37,7 +37,7 @@ export function requestHeaders() {
   return new Headers({
     'Content-Type': 'application/json',
     'Authorization': 'Token token=' + Auth.getCurrentUserToken(),
-    'ANDELA_COOKIE': "s%3AinPbFCORUffv0nEMlwf3c3K_QzGD2VyF.zMjXUyjF8hb8BukeMFh82YL1K%2F65wYdk6t6JQM6Uve8" // cookie.get('andela_cookie')
+    'ANDELA_COOKIE': cookie.get('andela_cookie')
   });
 }
 
