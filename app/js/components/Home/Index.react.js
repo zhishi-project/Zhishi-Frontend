@@ -1,8 +1,10 @@
 import React from 'react';
 import TagSelection from '../tags/homepage/TagSelection.react';
+import {loadQuestions} from '../../actions/QuestionActions';
 import * as ZhishiInit from '../../utils/ZhishiInit.js';
 import HomePage from './HomePage.react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import $ from 'jquery';
 
@@ -12,21 +14,24 @@ export class Index extends React.Component {
 
     this.state = {
       showFilters: false,
-      selectedTags: []
+      selectedTags: [],
+      displayLoader: true
     };
 
+    this.ajaxIcon = this.ajaxIcon.bind(this);
     this.showFilterAction = this.showFilterAction.bind(this);
     this.onTagSelect = this.onTagSelect.bind(this);
     this.loadTagSelection = this.loadTagSelection.bind(this);
   }
 
   componentDidMount() {
-    var self = this;
-    let nextPage = this.state.currentPage;
+    let self = this;
+    let nextPage = this.props.page.currentPage;
+
     $(window).on('scroll', function() {
       if ($(window).scrollTop() + $(window).height() === $(document).height()) {
         nextPage++;
-        ZhishiInit.getQuestions(nextPage, self.state.selectedTags);
+        self.props.addMoreQuestions(nextPage, self.state.selectedTags);
       }
     });
   }
@@ -35,8 +40,8 @@ export class Index extends React.Component {
     $(window).unbind('scroll');
   }
 
-  shouldComponendUpdate() {
-    return this.props.page.shouldFetch;
+  componentWillReceiveProps(nextProps) {
+    this.setState({displayLoader: nextProps.page.shouldFetch})
   }
 
   onTagSelect(e) {
@@ -77,7 +82,7 @@ export class Index extends React.Component {
   }
 
   ajaxIcon() {
-    return this.props.page.shouldFetch ?
+    return this.state.displayLoader ?
       <i className="notched center circle loading icon"></i> :
       null;
   }
@@ -87,11 +92,23 @@ export class Index extends React.Component {
     return <HomePage
               filterDiv={this.filterDiv}
               ajaxIcon={this.ajaxIcon}
+              ajaxBool={page.shouldFetch}
               questions={questions}
               topQuestions={topQuestions}
               showFilterAction={this.showFilterAction}
               currentPage={page.currentPage} />;
   }
+}
+
+/**
+* @param {Object} state: from root reducer
+* @param {Object} ownProps: for functions
+* @return {Object}  {questions, filteredQuestions, page} for homepage
+*/
+function mapDispatchToProps(dispatch) {
+  return {
+    addMoreQuestions: bindActionCreators(loadQuestions, dispatch)
+  };
 }
 
 /**
@@ -106,4 +123,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Index);
+export default connect(mapStateToProps, mapDispatchToProps)(Index);

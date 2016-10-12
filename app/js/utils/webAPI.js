@@ -2,11 +2,13 @@ import Config from '../config/environment';
 import Auth from '../auth';
 import fetch from 'isomorphic-fetch';
 import isEmpty from './isEmpty';
+import {param} from 'jquery';
 
 const requestPath = (path, method, data = {}) => {
   if (method === 'GET' && !isEmpty(data)) {
-    return path + '?' + encodeURIComponent(JSON.stringify(data));
+    return path + '?' + decodeURIComponent(param(data));
   }
+
   return path;
 };
 
@@ -45,5 +47,4 @@ export default function processRequest(path, method, data = {}) {
   .catch(err => {
     throw (err);
   });
-
 }
