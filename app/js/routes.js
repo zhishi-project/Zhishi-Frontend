@@ -48,9 +48,10 @@ let userLoggedIn = function(nextState, replaceState) {
 };
 
 let redirectToRoot = (nextState, replaceState) => {
-  replaceState({
-    nextPathname: nextState.location.pathname
-  }, '/');
+  // replaceState({
+  //   nextPathname: nextState.location.pathname
+  // }, '/');
+  window.location = '/';
 };
 
 let userLoggedOut = function(nextState, replaceState) {
