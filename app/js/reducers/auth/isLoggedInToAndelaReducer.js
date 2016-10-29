@@ -1,5 +1,4 @@
 import types from '../../constants/auth/actionTypes';
-import Auth from '../../auth';
 
 const initialState = false;
 
@@ -10,10 +9,8 @@ const initialState = false;
 */
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
-
-    case types.HAS_LOGGED_IN_TODAY:
-      return Auth.setLoggedInToday(action.loggedInToday);
-
+    case types.CHECK_LOGGED_IN_TO_ANDELA:
+      return true;
     default:
       return state;
   }

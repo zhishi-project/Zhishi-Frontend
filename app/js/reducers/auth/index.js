@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 import currentUser from './currentUserReducer';
-import hasLoggedInToday from './hasLoggedInTodayReducer';
+import isLoggedInToAndela from './isLoggedInToAndelaReducer';
 
 const questionReducer = combineReducers({
   currentUser,
-  hasLoggedInToday
+  isLoggedInToAndela
 });
 
 export default questionReducer;

@@ -14,20 +14,30 @@ export function loadCurrentUserSuccess(user) {
   return ({type: types.LOAD_CURRENT_USER_SUCCESS, user});
 }
 
-/**
-* @param {Object} isFirstLogin to be set as current user
-* @return {Object} same as edit
-*/
-export function hasLoggedInToday(loggedInToday) {
-  return ({type: types.HAS_LOGGED_IN_TODAY, loggedInToday});
+export function logoutUserSuccess() {
+  return ({type: types.LOGOUT_USER_SUCCESS});
+}
+
+export function checkIsLoggedIn() {
+  return ({type: types.CHECK_LOGGED_IN_TO_ANDELA});
 }
 
 /**
 * @param {Object} user to be set as current user
 * @return {Object} same as edit
 */
-export function logoutUser(user) {
-  return ({type: types.LOGOUT_USER_SUCCESS, user});
+export function logoutUser() {
+  return dispatch => {
+    dispatch(beginAjaxCall());
+    return webAPI(`/logout`, 'GET')
+      .then(() => {
+        dispatch(logoutUserSuccess());
+      })
+      .catch(error => {
+        dispatch(ajaxCallError());
+        throw (error);
+      });
+  };
 }
 
 /**
@@ -35,11 +45,10 @@ export function logoutUser(user) {
 * @param {Object} id: of the comment
 * @return {Func}  Success action to Comment reducer
 */
-export function loginUser({temp_token}) {
+export function loginUser() {
   return dispatch => {
     dispatch(beginAjaxCall());
-    dispatch(hasLoggedInToday(true));
-    return webAPI(`/validate_token`, 'POST', {temp_token})
+    return webAPI(`/login`, 'POST')
       .then(user => {
         dispatch(loadCurrentUserSuccess(user));
       })
