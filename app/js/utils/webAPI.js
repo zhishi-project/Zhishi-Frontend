@@ -3,11 +3,11 @@ import Auth from '../auth';
 import fetch from 'isomorphic-fetch';
 import isEmpty from './isEmpty';
 
-import $ from 'jquery';
+import {param} from 'jquery';
 
 const requestPath = (path, method, data = {}) => {
   if (method === 'GET' && !isEmpty(data)) {
-    return path + '?' + $.param(data);
+    return path + '?' + decodeURIComponent(param(data));
   }
   return path;
 };
