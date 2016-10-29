@@ -1,8 +1,11 @@
-import Config from '../config/environment';
 import Auth from '../auth';
 import fetch from 'isomorphic-fetch';
 import isEmpty from './isEmpty';
 import {param} from 'jquery';
+import cookie from 'js-cookie';
+import checkIsLoggedIn from '../actions/AuthActions';
+import store from '../stores/configureStore';
+import CVar from '../config/CookieVariables.js';
 
 const requestPath = (path, method, data = {}) => {
   if (method === 'GET' && !isEmpty(data)) {
@@ -17,13 +20,26 @@ const requestBody = (data, method) => {
     null : JSON.stringify(data);
 };
 
+const redirectIfUnauthorized = response => {
+  if (response.status === 401) {
+    Auth.logoutUser();
+    if (location.pathname === '/login') {
+      store.dispatch(checkIsLoggedIn());
+    }
+    window.location = '/login';
+    return null;
+  }
+  return response.json();
+};
+
 /**
 * @return {Object} Headers containing auth details
 */
 export function requestHeaders() {
   return new Headers({
     'Content-Type': 'application/json',
-    'Authorization': 'Token token=' + Auth.getCurrentUserToken()
+    'Authorization': 'Token token=' + Auth.getCurrentUserToken(),
+    'ANDELA_COOKIE': cookie.get('andela_cookie')
   });
 }
 
@@ -35,7 +51,7 @@ export function requestHeaders() {
 * @return {Object} fetch: to be used in views that check for success or failure
 */
 export default function processRequest(path, method, data = {}) {
-  let url = Config.host + requestPath(path, method, data);
+  let url = cookie.get(CVar.apiUrl) + requestPath(path, method, data);
   return fetch(url, {
     method: method,
     headers: requestHeaders(),
@@ -43,7 +59,7 @@ export default function processRequest(path, method, data = {}) {
     cache: 'default',
     body: requestBody(data, method)
   })
-  .then(response => response.json())
+  .then(response => redirectIfUnauthorized(response))
   .catch(err => {
     throw (err);
   });

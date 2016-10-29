@@ -37,7 +37,7 @@ describe('loadTags', function() {
     nock.cleanAll();
   });
   // this.timeout(15000);
-  it('should dispatch a success action on successful API response', done => {
+  it.skip('should dispatch a success action on successful API response', done => {
     // setup
     const tags = [{id: 1, name: 'first tag'}];
 

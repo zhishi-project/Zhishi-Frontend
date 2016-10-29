@@ -15,7 +15,26 @@ import NewQuestion from './components/questions/new/Index.react';
 import Question from './components/questions/Show.react';
 import Auth from './auth';
 
+import store from './stores/configureStore';
+import * as authActions from './actions/AuthActions.js';
+import * as ZhishiInit from './utils/ZhishiInit.js';
+
 import cookie from 'js-cookie';
+
+const redirectToReferrerIfAny = (nextState, replaceState) => {
+  let path = '';
+  if (cookie.get(CookieVar.referrer)) {
+    var referrer = cookie.get(CookieVar.referrer);
+    cookie.remove(CookieVar.referrer);
+    path = referrer;
+  } else {
+    path = '/';
+  }
+
+  replaceState({
+    nextPathname: nextState.location.pathname
+  }, path);
+};
 
 let userLoggedIn = function(nextState, replaceState) {
   if (!Auth.userLoggedIn()) {
@@ -29,9 +48,10 @@ let userLoggedIn = function(nextState, replaceState) {
 };
 
 let redirectToRoot = (nextState, replaceState) => {
-  replaceState({
-    nextPathname: nextState.location.pathname
-  }, '/');
+  // replaceState({
+  //   nextPathname: nextState.location.pathname
+  // }, '/');
+  window.location = '/';
 };
 
 let userLoggedOut = function(nextState, replaceState) {
@@ -40,20 +60,30 @@ let userLoggedOut = function(nextState, replaceState) {
   }
 };
 
-let logOut = function(nextState, replaceState) {
-  Auth.logoutUser();
-  replaceState({
-    nextPathname: nextState.location.pathname
-  }, '/login');
+let logOut = function(nextState, replaceState, done) {
+  store.dispatch(authActions.logoutUser())
+    .then(() => {
+      replaceState({
+        nextPathname: nextState.location.pathname
+      }, '/login');
+      done();
+    });
+};
+
+let logIn = (nextState, replaceState, done) => {
+  store.dispatch(authActions.loginUser())
+    .then(() => {
+      ZhishiInit.loadData(store);
+      redirectToReferrerIfAny(nextState, replaceState);
+      done();
+    });
 };
 
 export default (
   <Route >
+    <Route path="/login" component={Login} onEnter={userLoggedOut} />
+    <Route path="/login/auth" onEnter={logIn} />
     <Route path="/logout" onEnter={logOut} />
-
-    <Route path="/login" component={Login} onEnter={userLoggedOut} >
-      <Route path="/login/auth" component={Login} />
-    </Route>
 
     <Route path="/" component={Zhishi} onEnter={userLoggedIn} >
       <IndexRoute component={Home} />
@@ -64,7 +94,7 @@ export default (
         <Route path="/users/:id" component={User} />
       </Route>
 
-      <Route path="/questions" component={Questions} onEnter={userLoggedIn} >
+      <Route path="/questions" component={Questions} onEnter={userLoggedIn}>
         <IndexRoute component={Zhishi} />
         <Route path="/questions/new" component={NewQuestion} />
         <Route path="/questions/:id" component={Question} />
