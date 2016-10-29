@@ -6,7 +6,7 @@
   "env": {
     "NODE_ENV": "staging",
     "ENGINE_HOST": "//zhishi-test.herokuapp.com",
-    "VALID_COOKIE": "s%3Alnl1zbETU2GAA4gOhjKk0xY8qOaB8FqE.JLAizY1Ai7DLPHn2MNKcwDjx4UuNyEWKp9UB4ivFIRo"
+    "VALID_COOKIE": "s%3A4mxSVD16wjyFwAuggJkVofxPWnlVaZdC.uPqMO6lAKhtNgneasnbkBy9kLjesW%2BmLGB8DBQEtdWc"
   },
   "formation": {
     "web": {
