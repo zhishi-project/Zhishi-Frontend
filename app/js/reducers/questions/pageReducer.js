@@ -14,7 +14,7 @@ const initialState = {
 * @param {Object} page : represents current state of pageReducer
 * @return {Array} returns an array of pageMapping
 */
-const createPageMapping = (state, questions, currentPage) => {
+const createPageMapping = (state, questions, currentPage, shouldFetch) => {
   let questionIds = [];
   let pageMapping = {};
   for (var i = 0; i < questions.length; i++) {
@@ -23,7 +23,8 @@ const createPageMapping = (state, questions, currentPage) => {
   pageMapping[currentPage] = questionIds;
   return assign({}, state, {
     pageMapping,
-    currentPage
+    currentPage,
+    shouldFetch
   });
 };
 
@@ -36,12 +37,15 @@ export default function pageReducer(state = initialState, action) {
   switch (action.type) {
     case types.LOAD_QUESTIONS_SUCCESS:
       if (action.data.questions) {
-        const {questions, currentPage} = action.data;
-        return createPageMapping(state, questions, currentPage);
+        const {questions, meta: {current_page: currentPage}} = action.data;
+        return createPageMapping(state, questions, currentPage, false);
       }
       return assign({}, state, {
         shouldFetch: false
       });
+
+    case types.UPDATE_LOADER_STATUS:
+      return assign({}, state, action.data);
 
     default:
       return state;

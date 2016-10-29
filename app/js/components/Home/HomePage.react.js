@@ -5,6 +5,7 @@ import Sidebar from '../layouts/Sidebar.react';
 const HomePage = ({
   filterDiv,
   ajaxIcon,
+  ajaxBool,
   questions,
   topQuestions,
   showFilterAction,
@@ -32,7 +33,7 @@ const HomePage = ({
                questions={questions}
                current_page={currentPage}
              />}
-             {ajaxIcon}
+              {ajaxIcon()}
            </div>
 
            <Sidebar top_questions={topQuestions} />

@@ -1,6 +1,7 @@
 import Auth from '../auth';
 import fetch from 'isomorphic-fetch';
 import isEmpty from './isEmpty';
+import {param} from 'jquery';
 import cookie from 'js-cookie';
 import checkIsLoggedIn from '../actions/AuthActions';
 import store from '../stores/configureStore';
@@ -8,8 +9,9 @@ import CVar from '../config/CookieVariables.js';
 
 const requestPath = (path, method, data = {}) => {
   if (method === 'GET' && !isEmpty(data)) {
-    return path + '?' + encodeURIComponent(JSON.stringify(data));
+    return path + '?' + decodeURIComponent(param(data));
   }
+
   return path;
 };
 

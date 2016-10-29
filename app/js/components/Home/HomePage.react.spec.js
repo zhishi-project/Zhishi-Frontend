@@ -11,6 +11,7 @@ import HomePage from './HomePage.react';
 function setup() {
   let props = {
     filterDiv: () => {},
+    ajaxIcon: () => {},
     questions: {1: {id: 1}, 2: {id: 2}},
     currentPage: 1
   };
