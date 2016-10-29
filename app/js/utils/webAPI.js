@@ -7,6 +7,7 @@ import {param} from 'jquery';
 
 const requestPath = (path, method, data = {}) => {
   if (method === 'GET' && !isEmpty(data)) {
+    console.log( decodeURIComponent(param(data)));
     return path + '?' + decodeURIComponent(param(data));
   }
   return path;
