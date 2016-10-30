@@ -52,16 +52,20 @@ export function acceptAnswer({question_id, id}) {
   return dispatch => {
     return webAPI(`/questions/${question_id}/answers/${id}/accept`, 'POST', {})
       .then(response => {
-        dispatch(loadAnswerSuccess(response));
-      });
+        if (response.errors) {
+          throw {error: 'An error occured'};
+        } else {
+          dispatch(loadAnswerSuccess({question_id, id, accepted: true}));
+        }
+      }).catch(err => { throw err });
   };
 }
 
 export function createAnswer({questionId, content}) {
   return dispatch => {
     return webAPI(`/questions/${questionId}/answers`, 'POST', {content})
-      .then(response => {
-        dispatch(loadAnswerSuccess({questionId, response}));
+      .then(answer => {
+        dispatch(loadAnswerSuccess(answer));
       });
   };
 }
