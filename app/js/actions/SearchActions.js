@@ -18,7 +18,7 @@ export function search(searchQuery) {
     return webAPI('/questions/search', 'GET',
     {q: searchQuery.trim()})
     .then(response => {
-      dispatch(loadSearchSuccess(response));
+      dispatch(loadSearchSuccess(response.questions));
     });
   };
 }
