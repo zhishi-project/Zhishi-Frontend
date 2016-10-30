@@ -25,6 +25,10 @@ class Auth {
     return this.userToken();
   }
 
+  get userAndelaCookie() {
+    return cookie.get('andela_cookie');
+  }
+
   userLoggedIn() {
     return cookie.get(CVar.user_logged_in);
   }

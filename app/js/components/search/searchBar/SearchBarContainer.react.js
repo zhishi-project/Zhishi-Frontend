@@ -8,11 +8,11 @@ import {bindActionCreators} from 'redux';
 import isEmpty from '../../../utils/isEmpty';
 import SearchBar from './SearchBar.react';
 
-const searchBarState = existingSearchResults => {
+const searchBarState = (existingSearchResults, searchQuery) => {
   return {
     initialQuestions: existingSearchResults,
     questions: existingSearchResults,
-    searchQuery: ''
+    searchQuery: searchQuery
   };
 };
 
@@ -21,10 +21,15 @@ var timer;
 class SearchBarContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = searchBarState(props.searchResults);
+    this.state = searchBarState(props.searchResults, '');
     this.onSearch = this.onSearch.bind(this);
     this.searchIcon = this.searchIcon.bind(this);
+    this.clearSearchQuery = this.clearSearchQuery.bind(this);
     this.shouldShowSearchResults = this.shouldShowSearchResults.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(searchBarState(nextProps.searchResults, this.state.searchQuery));
   }
 
    componentDidMount() {
@@ -37,19 +42,19 @@ class SearchBarContainer extends React.Component {
      this.searchServer(searchbox.value);
 
      this.setState({
-       questions: this.filterSearchResults(searchbox),
+       questions: this.filterSearchResults(searchbox.value),
        searchQuery: searchbox.value
      });
    }
 
-  filterSearchResults(searchbox) {
+  filterSearchResults(strToSearch) {
     let searchResults = [];
-    if (searchbox.value !== '') {
-      let searchResults = this.state.initialQuestions;
+    if (strToSearch !== '') {
+      searchResults = this.state.initialQuestions;
       let value;
       let title;
       searchResults = searchResults.filter(function(question) {
-        value = searchbox.value.toLowerCase();
+        value = strToSearch.toLowerCase();
         title = question.title.toLowerCase();
         return value.length > 2 ?
          (title.search(value) !== -1) :
@@ -87,31 +92,14 @@ class SearchBarContainer extends React.Component {
       this.state.searchQuery !== '';
    }
 
+  clearSearchQuery() {
+    this.setState({searchQuery: ''});
+  }
+
    getSearchUrl(question) {
-     return `//${window.location.host}/questions/${
+     return `/questions/${
       Common.createPermalink(question.id, question.title)
       }?${MarketingConfig.searchBoxTracker}`;
-   }
-
-   getSearchResultsList(questions) {
-     let searchResults;
-     let question;
-     let keys;
-     let url;
-     if (this.shouldShowSearchResults(questions)) {
-       keys = Object.keys(questions);
-       for (var i = keys.length - 1; i >= 0; i--) {
-         question = questions[keys[i]];
-         url = this.getSearchUrl(question);
-         searchResults.push(
-           <li key={i}>
-             <Link to={url}>{question.title}</Link>
-           </li>
-         );
-         if (i > 8) break;
-       }
-     }
-     return searchResults;
    }
 
    hideSearchBoxClass(questions) {
@@ -124,8 +112,9 @@ class SearchBarContainer extends React.Component {
      const hideClass = this.hideSearchBoxClass(questions);
      return (
        <SearchBar {...{questions, hideClass}}
-         searchResults={this.searchResults}
+         getSearchUrl={this.getSearchUrl}
          onSearch={this.onSearch}
+         clearSearchQuery={this.clearSearchQuery}
          searchIcon={this.searchIcon} />
      );
    }

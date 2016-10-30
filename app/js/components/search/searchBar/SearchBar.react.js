@@ -2,10 +2,11 @@ import React, {PropTypes} from 'react'; // eslint-disable-line no-unused-vars
 import {Link} from 'react-router';
 
 const SearchBar = ({
-  searchResults,
   questions,
   hideClass,
   onSearch,
+  getSearchUrl,
+  clearSearchQuery,
   searchIcon
 }) => {
   return (
@@ -30,7 +31,12 @@ const SearchBar = ({
      </Link>
        <div id="searchResults" className={hideClass}>
           <ul>
-            {searchResults}
+          {questions && questions.map(question =>
+           <li key={question.id} onClick={clearSearchQuery}>
+             <Link to={getSearchUrl(question)}>
+               {question.title}
+              </Link>
+           </li>)}
           </ul>
        </div>
      </div>
@@ -38,10 +44,11 @@ const SearchBar = ({
 };
 
 SearchBar.propTypes = {
-  searchResults: PropTypes.array,
+  getSearchUrl: PropTypes.func,
   questions: PropTypes.array,
   hideClass: PropTypes.string,
-  onSarch: PropTypes.func
+  onSearch: PropTypes.func,
+  clearSearchQuery: PropTypes.func
 };
 
 export default SearchBar;
