@@ -93,7 +93,9 @@ class SearchBarContainer extends React.Component {
    }
 
   clearSearchQuery() {
-    this.setState({searchQuery: ''});
+    setTimeout(() => { 
+      this.setState({searchQuery: ''});
+    }, 500);
   }
 
    getSearchUrl(question) {

@@ -10,7 +10,9 @@ const SearchBar = ({
   searchIcon
 }) => {
   return (
-     <div className="search-area ui container">
+     <div 
+        onBlur={clearSearchQuery}
+        className="search-area ui container">
        <form action="/search" method="GET" className="ui search">
          <div className="ui icon input">
            <input
@@ -18,6 +20,7 @@ const SearchBar = ({
              name="q" type="text"
              className="prompt"
              placeholder="Check if someone's asked that..."
+             autoComplete="off"
              onChange={onSearch} />
 
            {searchIcon(questions)}
@@ -32,7 +35,7 @@ const SearchBar = ({
        <div id="searchResults" className={hideClass}>
           <ul>
           {questions && questions.map(question =>
-           <li key={question.id} onClick={clearSearchQuery}>
+           <li key={question.id}>
              <Link to={getSearchUrl(question)}>
                {question.title}
               </Link>
