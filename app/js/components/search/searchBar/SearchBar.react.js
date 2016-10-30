@@ -10,9 +10,7 @@ const SearchBar = ({
   searchIcon
 }) => {
   return (
-     <div 
-        onBlur={clearSearchQuery}
-        className="search-area ui container">
+     <div className="search-area ui container">
        <form action="/search" method="GET" className="ui search">
          <div className="ui icon input">
            <input
@@ -20,6 +18,7 @@ const SearchBar = ({
              name="q" type="text"
              className="prompt"
              placeholder="Check if someone's asked that..."
+             onBlur={clearSearchQuery}
              autoComplete="off"
              onChange={onSearch} />
 
