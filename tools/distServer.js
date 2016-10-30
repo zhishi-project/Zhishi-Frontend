@@ -12,6 +12,8 @@ var isDeveloping = (
   process.env.NODE_ENV !== 'staging'
 );
 
+// Just to make a change
+
 var port = isDeveloping ? 8080 : process.env.PORT;
 var app = express();
 
@@ -19,7 +21,7 @@ app.use(compression());
 
 if (!isDeveloping) {
   app.use((req, res, next) => {
-    if (!req.headers.host.match(/andela.co/)) {
+    if (!req.headers.host.match(/andela.co/) && !process.env.VALID_COOKIE) {
       return res.redirect(environment.zhishiPermanentSite + req.url);
     }
     next();
@@ -28,7 +30,11 @@ if (!isDeveloping) {
 
 app.use(cookieParser());
 app.use((req, res, next) => {
-  res.cookie('andela_cookie', req.cookies['andela:session']);
+  if (process.env.VALID_COOKIE) {
+    res.cookie('andela_cookie', process.env.VALID_COOKIE);
+  } else {
+    res.cookie('andela_cookie', req.cookies['andela:session']);
+  }
   res.cookie(CVar.apiUrl, process.env.ENGINE_HOST);
   next();
 });
