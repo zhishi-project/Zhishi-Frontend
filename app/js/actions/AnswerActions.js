@@ -66,17 +66,23 @@ export function createAnswer({questionId, content}) {
   };
 }
 
-AnswerActions = {
-
-  // sendAnswersToSlack: (answer) => {
-  //   let compliments = ['Nice', 'Bravo', 'Helpful indeed', 'Oshey'];
-  //   let question = getQuestion(answer.question_id);
-  //   if (question) {
-  //     let general = `${compliments[parseInt(Math.random() * 4)]}! ${answer.user.name} answered ${question.user.name}'s question`;
-  //     let personal = `${compliments[parseInt(Math.random() * 4)]}! ${answer.user.name} mentioned you in an answer to ${question.user.name}'s question`;
-  //     Common.sendToSlack({id: answer.question_id, title: question.title, content: answer.content, intro: {general: general, personal: personal}});
-  //   }
-  // }
-};
+function sendAnswersToSlack(answer) {
+  let compliments = ['Nice', 'Bravo', 'Helpful indeed', 'Oshey'];
+  let question = getQuestion(answer.question_id);
+  if (question) {
+    let general = `${compliments[parseInt(Math.random() * 4)]
+      }! ${answer.user.name} answered ${
+      question.user.name}'s question`;
+    let personal = `${compliments[parseInt(Math.random() * 4)]
+      }! ${answer.user.name} mentioned you in an answer to ${
+      question.user.name}'s question`;
+    Common.sendToSlack({
+      id: answer.question_id, 
+      title: question.title, 
+      content: answer.content, 
+      intro: {general, personal}
+    });
+  }
+ }
 
 export default AnswerActions;
