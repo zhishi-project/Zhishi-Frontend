@@ -18,6 +18,8 @@ const SearchBar = ({
              name="q" type="text"
              className="prompt"
              placeholder="Check if someone's asked that..."
+             onBlur={clearSearchQuery}
+             autoComplete="off"
              onChange={onSearch} />
 
            {searchIcon(questions)}
@@ -32,7 +34,7 @@ const SearchBar = ({
        <div id="searchResults" className={hideClass}>
           <ul>
           {questions && questions.map(question =>
-           <li key={question.id} onClick={clearSearchQuery}>
+           <li key={question.id}>
              <Link to={getSearchUrl(question)}>
                {question.title}
               </Link>

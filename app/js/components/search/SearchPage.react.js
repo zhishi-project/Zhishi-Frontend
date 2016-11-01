@@ -18,7 +18,7 @@ const SearchPage = ({questions}) => {
          <div className="ui grid">
            <div className="twelve wide stacked column">
              <h2>{headerMsg}</h2>
-             {<QuestionsList questions={questions}/>}
+             {questions && <QuestionsList {...{questions}}/>}
            </div>
 
            <Sidebar />
