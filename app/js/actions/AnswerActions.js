@@ -1,5 +1,6 @@
 import webAPI from './../utils/webAPI.js';
 import types from '../constants/answers/actionTypes';
+import Common from '../utils/Common.js';
 // import mockQuestionApi from './../api/mockQuestionApi';
 
 var AnswerActions;
@@ -42,8 +43,8 @@ export function editAnswer(answer) {
 export function updateAnswer({question_id, id, content}) {
   return dispatch => {
     return webAPI(`/questions/${question_id}/answers/${id}`, 'PATCH', {content})
-      .then(response => {
-        dispatch(loadAnswerSuccess(response));
+      .then(answer => {
+        dispatch(loadAnswerSuccess(answer));
       });
   };
 }
@@ -51,38 +52,37 @@ export function updateAnswer({question_id, id, content}) {
 export function acceptAnswer({question_id, id}) {
   return dispatch => {
     return webAPI(`/questions/${question_id}/answers/${id}/accept`, 'POST', {})
-      .then(response => {
-        dispatch(loadAnswerSuccess(response));
+      .then(answer => {
+        dispatch(loadAnswerSuccess(answer));
       });
   };
 }
 
-export function createAnswer({questionId, content}) {
+export function createAnswer({question, content}) {
   return dispatch => {
-    return webAPI(`/questions/${questionId}/answers`, 'POST', {content})
-      .then(response => {
-        dispatch(loadAnswerSuccess({questionId, response}));
+    return webAPI(`/questions/${question.id}/answers`, 'POST', {content})
+      .then(answer => {
+        sendAnswersToSlack(question, answer)
+        dispatch(loadAnswerSuccess(answer));
       });
   };
 }
 
-function sendAnswersToSlack(answer) {
+function sendAnswersToSlack(question, answer) {
   let compliments = ['Nice', 'Bravo', 'Helpful indeed', 'Oshey'];
-  let question = getQuestion(answer.question_id);
-  if (question) {
-    let general = `${compliments[parseInt(Math.random() * 4)]
-      }! ${answer.user.name} answered ${
-      question.user.name}'s question`;
-    let personal = `${compliments[parseInt(Math.random() * 4)]
-      }! ${answer.user.name} mentioned you in an answer to ${
-      question.user.name}'s question`;
-    Common.sendToSlack({
-      id: answer.question_id, 
-      title: question.title, 
-      content: answer.content, 
-      intro: {general, personal}
-    });
-  }
+  if (!question && !answer) return;
+  let general = `${compliments[parseInt(Math.random() * 4)]
+    }! ${answer.user.name} answered ${
+    question.user.name}'s question`;
+  let personal = `${compliments[parseInt(Math.random() * 4)]
+    }! ${answer.user.name} mentioned you in an answer to ${
+    question.user.name}'s question`;
+  Common.sendToSlack({
+    id: answer.question_id, 
+    title: question.title, 
+    content: answer.content, 
+    intro: {general, personal}
+  });
  }
 
 export default AnswerActions;

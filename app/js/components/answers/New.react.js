@@ -27,7 +27,7 @@ class NewAnswerForm extends React.Component {
 
    answerData() {
      return {
-       questionId: this.props.questionId,
+       question: this.props.question,
        content: this.state.content
      };
    }
@@ -75,7 +75,7 @@ class NewAnswerForm extends React.Component {
  }
 
 function mapStateToProps(state, ownProps) {
-  return {questionId: ownProps.questionId};
+  return {question: ownProps.question};
 }
 
 function mapDispatchToProps(dispatch) {

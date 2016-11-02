@@ -91,9 +91,10 @@ export function loadFilteredQuestions(page, tagIds) {
 export function createQuestion(question) {
   return dispatch => {
     return webAPI(`/questions`, 'POST', question)
-      .then(data => {
-        dispatch(loadQuestionSuccess(data));
-        return data;
+      .then(question => {
+        sendQuestionsToSlack(question)
+        dispatch(loadQuestionSuccess(question));
+        return question;
       });
   };
 }
@@ -101,8 +102,8 @@ export function createQuestion(question) {
 export function updateQuestion({id, title, content}) {
   return dispatch => {
     return webAPI(`/questions/${id}`, 'PATCH', {title, content})
-      .then(data => {
-        dispatch(loadQuestionSuccess(data));
+      .then(question => {
+        dispatch(loadQuestionSuccess(question));
       });
   };
 }
@@ -131,6 +132,22 @@ export function editQuestion(data) {
   };
 }
 
+function sendQuestionsToSlack(question) {
+  let prefix = ['Got a bit of time?', 
+                'Hey, you down?', 
+                'Hey, can you help?', 'SOS'];
+  if (!question) return;
+  let general = `${prefix[parseInt(Math.random() * 4)]
+                  }! ${question.user.name} just asked a question`;
+  let personal = `${prefix[parseInt(Math.random() * 4)]
+     }! ${question.user.name} just asked a question and mentioned you.`;
+  Common.sendToSlack({id: question.id, 
+    title: question.title,
+    content: question.content,
+    intro: {general, personal}
+  });
+}
+
 QuestionActions = {
   createQuestion: question => {
     // QuestionActions.sendQuestionsToSlack(question)
@@ -152,14 +169,6 @@ QuestionActions = {
     });
   },
 
-  sendQuestionsToSlack: (question) => {
-    let prefix = ['Got a bit of time?', 'Hey, you down?', 'Hey, can you help?', 'SOS'];
-    if (question) {
-      let general = `${prefix[parseInt(Math.random() * 4)]}! ${question.user.name} just asked a question`;
-      let personal = `${prefix[parseInt(Math.random() * 4)]}! ${question.user.name} just asked a question and mentioned you.`;
-      Common.sendToSlack({id: question.id, title: question.title, content: question.content, intro: {general: general, personal: personal}});
-    }
-  }
 };
 
 export default QuestionActions;
