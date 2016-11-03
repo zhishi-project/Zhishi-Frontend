@@ -82,7 +82,7 @@ const ShowPage = ({
                  questionId={questionId}
                  question={question} />
 
-               <NewAnswerForm questionId={questionId} />
+               <NewAnswerForm question={question} />
              </div>
 
            </div>

@@ -17,7 +17,8 @@ class FeedbackModal extends React.Component {
 
   submitForm() {
     FeedbackActions.submitFeedback(this.refs.feedbackText.value)
-    .then(() => toastr.success('Thanks for your feedback'));
+    .then(() => toastr.success('Thanks for your feedback'))
+    .catch(() => toastr.error('Something prevented your feedback from being sent. Please try again :('))
     this.refs.feedbackText.text = '';
     this.refs.submitBtn.disabled = true;
   }
