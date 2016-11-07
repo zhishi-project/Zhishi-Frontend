@@ -5,6 +5,7 @@ import tinymceConfig from '../../config/tinymceConfig.js';
 import toastr from 'toastr';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import PreviewText from '../common/PreviewText.react.js';
 
 class NewAnswerForm extends React.Component {
   constructor(props, context) {
@@ -69,6 +70,7 @@ class NewAnswerForm extends React.Component {
 
            </form>
          </div>
+         <PreviewText text={this.state.content} />
        </div>
      );
    }

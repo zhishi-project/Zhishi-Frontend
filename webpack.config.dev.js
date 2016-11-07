@@ -35,6 +35,10 @@ export default {
         test: /\.(png|jpg|gif)$/,
         loader: 'url?limit=25000'
       },
+			{
+				test: /\.json$/,
+				loader: 'json'
+			},
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&mimetype=application/font-woff'

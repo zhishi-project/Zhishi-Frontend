@@ -44,6 +44,10 @@ export default {
         test: /\.(png|jpg|gif)$/,
         loader: 'url?limit=25000'
       },
+			{
+				test: /\.json$/,
+				loader: 'json'
+			},
 
       // Needed for the css-loader when [bootstrap-webpack](https://github.com/bline/bootstrap-webpack)
       // loads bootstrap's css.

@@ -49,10 +49,13 @@ class NewQuestion extends React.Component {
 
    render() {
      return (
-       <NewQuestionPage
-         onUpdateQuestionState={this.onUpdateQuestionState}
-         onUpdateTags={this.onUpdateTags}
-         onSubmitClick={this.onCreateQuestion} />
+       <div>
+          <NewQuestionPage
+            question={this.state.question}
+            onUpdateQuestionState={this.onUpdateQuestionState}
+            onUpdateTags={this.onUpdateTags}
+            onSubmitClick={this.onCreateQuestion} />
+       </div>
      );
    }
  }
