@@ -54,7 +54,10 @@ fieldset {
 }
 
 textarea {
+    min-height: 200px;
+    padding: 10px;
     resize: vertical;
+    width: 100%;
 }
 
 a {
