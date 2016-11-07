@@ -13,11 +13,15 @@ class Search extends React.Component {
     super(props);
   }
 
+  componentWillMount(nextProps) {
+    const{actions, location: { query }} = this.props;
+    query.q && actions.search(query.q);
+  }
+
   render() {
-    <SearchPage
-      {...this.props}
-      {...this.state} />
-    ;
+    return <SearchPage
+              {...this.props}
+              {...this.state} />
   }
 }
 
@@ -28,7 +32,7 @@ class Search extends React.Component {
  */
 function mapStateToProps(state, ownProps) {
   return {
-    question: state.searchResults,
+    questions: state.searchResults,
     currentUser: state.auth.currentUser
   };
 }
@@ -42,4 +46,4 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(searchActions, dispatch)
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Comment);
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

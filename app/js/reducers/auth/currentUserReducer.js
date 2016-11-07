@@ -16,6 +16,10 @@ export default function authReducer(state = initialState, action) {
     case types.LOAD_USER_FROM_COOKIE:
       return Auth.getCurrentUser();
 
+    case types.LOGOUT_USER_SUCCESS:
+      Auth.logoutUser();
+      return state;
+
     default:
       return state;
   }

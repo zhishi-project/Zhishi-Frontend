@@ -6,6 +6,11 @@ import cookie from 'js-cookie';
 // $.cookie.json = true;
 
 class Auth {
+  andelaLoginUrl() {
+    return `http://authentication.andela.com/auth/google?redirect_url=http://${
+            window.parent.location.host}/login/auth`;
+  }
+
   currentUser() {
     let currentUser = cookie.get(CVar.current_user) || {};
     return typeof currentUser === 'object' ?
@@ -20,6 +25,10 @@ class Auth {
     return this.userToken();
   }
 
+  get userAndelaCookie() {
+    return cookie.get('andela_cookie');
+  }
+
   userLoggedIn() {
     return cookie.get(CVar.user_logged_in);
   }
@@ -29,11 +38,14 @@ class Auth {
   }
 
   setCurrentUser(state, user) {
+    if (user === undefined) return state;
+
     let cookieMeta = this.getCookieMeta();
     let updatedUser = this.stringify(assign({}, state, user));
     cookie.set(CVar.current_user, updatedUser, cookieMeta);
     cookie.set(CVar.user_logged_in,
       (this.userToken() !== undefined), cookieMeta);
+
     return this.currentUser();
   }
 
@@ -58,15 +70,6 @@ class Auth {
     }
   }
 
-  getLoggedInToday() {
-    return cookie.get(CVar.first_time_marker) || false;
-  }
-
-  setLoggedInToday(bool) {
-    cookie.set(CVar.first_time_marker, bool, this.getCookieMeta());
-    return bool;
-  }
-
   parseUser(user) {
     return typeof user === 'object' ? user : this.parseUser(JSON.parse(user));
   }
@@ -74,8 +77,8 @@ class Auth {
     var currentDate = new Date();
     var expirationDate = new Date(
       currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate() + 1,
+      currentDate.getMonth() + 3,
+      currentDate.getDate(),
       0, 0, 0);
     return {path: '/', expires: expirationDate};
   }

@@ -4,6 +4,7 @@ export default keyMirror({
   QUESTION_CREATE: null,
   EDIT_QUESTION: null,
   QUESTION_DELETE: null,
+  UPDATE_LOADER_STATUS: null,
   LOAD_QUESTION_SUCCESS: null,
   LOAD_QUESTIONS_SUCCESS: null,
   LOAD_TOP_QUESTIONS_SUCCESS: null,

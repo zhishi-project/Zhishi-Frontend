@@ -2,6 +2,7 @@ var Common;
 import assign from 'object-assign';
 import Config from '../config/environment';
 import $ from 'jquery';
+import tinymceCSS from '../../css/tinymce.custom.css';
 
 Common = {
   initTinyMceContent: function(resource_class) {
@@ -26,7 +27,7 @@ Common = {
          {start: '* ', cmd: 'InsertUnorderedList'},
          {start: '- ', cmd: 'InsertUnorderedList'}
       ],
-      content_css: '/assets/css/tinymce.custom.css'
+      content_css: tinymceCSS
     });
   },
 
@@ -82,35 +83,41 @@ Common = {
   sendToSlack: meta => {
     let generalData = Common.slackData(meta, meta.intro.general);
     let personalDdata = Common.slackData(meta, meta.intro.personal);
-    Common.pushAtMentionsToSlack(meta, generalData, personalDdata);
+    // Common.pushAtMentionsToSlack(meta, generalData, personalDdata);
     generalData = JSON.stringify(generalData);
     $.ajax({
-      url: Config.slackZhishiChannel,
-      type: 'POST', data: generalData
+      url: Config.slack.url,
+      type: 'POST',
+      data: generalData
     });
   },
 
-  slackData: (meta, fallback) => {
+  slackData: (meta, pretext) => {
     let permalink = Common.createPermalink(meta.id || 2, meta.title);
     permalink = `http://${window.location.host}/questions/${permalink}`;
-    let text = Common.sanitizeString(meta.content);
-    text = Common.elipsize(text, 100);
-    let pretext = fallback;
-    let color = '#666';
-    let fields = [{
-      title: 'The question',
-      value: `<${permalink}|${meta.title}>`,
-      short: 'false'
-    }];
+    let text = Common.elipsize(Common.sanitizeString(meta.content), 200);
+    let fallback = pretext;
+    let color = '#008b67';
+    let fields = [
+      {
+        value: `<${permalink}|${meta.title}>`,
+        short: false
+      },
+      {
+        title: 'More details ... ',
+        value: text,
+        short: false
+      },
+      {
+        value: `<${permalink}|Click to answer or leave a comment>`,
+        color: '#888',
+        short: false
+      }
+    ];
     return {
-      username: Config.slackHookName,
-      attachments: [{
-        fallback: fallback,
-        pretext: pretext,
-        color: color,
-        text: text,
-        fields: fields
-      }]
+      username: Config.slack.username,
+      channel: Config.slack.channels.q_and_a,
+      attachments: [{ fallback, pretext, color, fields }]
     };
   },
 
@@ -176,7 +183,7 @@ Common = {
         dataCopy.channel = mention;
         dataCopy = JSON.stringify(dataCopy);
         $.ajax({
-          url: Config.slackZhishiChannel,
+          url: Config.slack.url,
           type: 'POST',
           data: dataCopy
         });

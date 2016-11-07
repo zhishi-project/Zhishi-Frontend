@@ -8,7 +8,7 @@ import Auth from '../auth';
 * @param {Object} feedback to send to slack
 */
 export function submitFeedback(feedback) {
-  sendToSlack(feedback);
+  return sendToSlack(feedback);
 }
 
 /**
@@ -26,7 +26,7 @@ function sendToSlack(feedback) {
     let salutations = `${prefix[parseInt(Math.random() *
       prefix.length, 10)]} from ${currentUser.name}`;
 
-    return fetch(Config.slackZhishiChannel, {
+    return fetch(Config.slack.url, {
       method: 'Post',
       mode: 'cors',
       cache: 'default',
@@ -41,9 +41,9 @@ function sendToSlack(feedback) {
 * @return {Object} object to send over the network
 */
 function generalData(salutations, feedback) {
-  return {username: Config.slackHookName,
-    channel: 'the_zhishi_project',
-    icon_emoji: ':ask_on_zhishi',
+  return {username: Config.slack.username,
+    channel: Config.slack.channels.team,
+    icon_emoji: 'ask_on_zhishi',
     attachments: [{
       fallback: salutations,
       pretext: salutations,

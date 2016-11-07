@@ -4,3 +4,7 @@ node_modules
 /build/assets/css/.sass-cache
 /coverage
 /dist/server2.js
+.env
+/**/*.swp
+/**/*.swo
+/**/*.log

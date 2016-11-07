@@ -39,32 +39,37 @@ export function updateQuestionVoteSuccess(data) {
   return {type: types.UPDATE_QUESTION_VOTE_SUCCESS, data};
 }
 
+export function displayLoader(data) {
+  return {type: types.UPDATE_LOADER_STATUS, data};  
+}
+
 export function loadTopQuestions() {
   return dispatch => {
     return webAPI(`/top_questions`, 'GET', '')
-    .then(data => {
-      dispatch(loadTopQuestionsSuccess(data));
-    });
+      .then(data => {
+        dispatch(loadTopQuestionsSuccess(data));
+      });
   };
 }
 
 export function loadQuestion(questionId) {
   return dispatch => {
     return webAPI(`/questions/${questionId}`, 'GET', '')
-    .then(data => {
-      dispatch(loadQuestionSuccess(data));
-    });
+      .then(data => {
+        dispatch(loadQuestionSuccess(data));
+      });
   };
 }
 
 export function loadQuestions(page, tags) {
   page = page || 1;
-  let path = (tags && tags.length > 0) ? '/questions/by_tags' : '/questions';
+  let path = (tags && tags.length) ? '/questions/by_tags' : '/questions';
   return dispatch => {
+    dispatch(displayLoader({shouldFetch: true}));
     return webAPI(path, 'GET', {page, tags})
-    .then(data => {
-      dispatch(loadQuestionsSuccess({questions: data.questions, page}));
-    });
+      .then(data => {
+        dispatch(loadQuestionsSuccess(data));
+      });
   };
 }
 
@@ -80,25 +85,26 @@ export function loadFilteredQuestions(page, tagIds) {
         questions: data.questions, page: page
       });
     }
-    );
+  );
 }
 
 export function createQuestion(question) {
   return dispatch => {
     return webAPI(`/questions`, 'POST', question)
-    .then(data => {
-      dispatch(loadQuestionSuccess(data));
-      return data;
-    });
+      .then(question => {
+        sendQuestionsToSlack(question)
+        dispatch(loadQuestionSuccess(question));
+        return question;
+      });
   };
 }
 
 export function updateQuestion({id, title, content}) {
   return dispatch => {
     return webAPI(`/questions/${id}`, 'PATCH', {title, content})
-    .then(data => {
-      dispatch(loadQuestionSuccess(data));
-    });
+      .then(question => {
+        dispatch(loadQuestionSuccess(question));
+      });
   };
 }
 
@@ -126,6 +132,22 @@ export function editQuestion(data) {
   };
 }
 
+function sendQuestionsToSlack(question) {
+  let prefix = ['Got a bit of time?', 
+                'Hey, you down?', 
+                'Hey, can you help?', 'SOS'];
+  if (!question) return;
+  let general = `${prefix[parseInt(Math.random() * 4)]
+                  }! ${question.user.name} just asked a question`;
+  let personal = `${prefix[parseInt(Math.random() * 4)]
+     }! ${question.user.name} just asked a question and mentioned you.`;
+  Common.sendToSlack({id: question.id, 
+    title: question.title,
+    content: question.content,
+    intro: {general, personal}
+  });
+}
+
 QuestionActions = {
   createQuestion: question => {
     // QuestionActions.sendQuestionsToSlack(question)
@@ -147,14 +169,6 @@ QuestionActions = {
     });
   },
 
-  sendQuestionsToSlack: (question) => {
-    let prefix = ['Got a bit of time?', 'Hey, you down?', 'Hey, can you help?', 'SOS'];
-    if (question) {
-      let general = `${prefix[parseInt(Math.random() * 4)]}! ${question.user.name} just asked a question`;
-      let personal = `${prefix[parseInt(Math.random() * 4)]}! ${question.user.name} just asked a question and mentioned you.`;
-      Common.sendToSlack({id: question.id, title: question.title, content: question.content, intro: {general: general, personal: personal}});
-    }
-  }
 };
 
 export default QuestionActions;
