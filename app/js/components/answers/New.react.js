@@ -38,10 +38,11 @@ class NewAnswerForm extends React.Component {
    }
 
    updateAnswerState(event) {
-     this.setState({content: event.target.getContent()});
+     this.setState({content: event.target.value});
    }
 
    render() {
+     const {content} = this.state;
      return (
        <div className="row new-answer">
          <div className="sixteen wide column">
@@ -52,13 +53,12 @@ class NewAnswerForm extends React.Component {
 
            <form id="answerForm" className="ui form">
              <div className="field">
-               <TinyMCE
-                 content={this.state.content}
-                 config={tinymceConfig.forContent()}
+               <textarea
+                 content={content}
+                 value={content}
                  className="new-answer editor-content"
                  onChange={this.updateAnswerState}
-                 cols="30" rows="10"
-                 value="" />
+                 cols="30" rows="10" />
              </div>
 
              <button
@@ -70,7 +70,7 @@ class NewAnswerForm extends React.Component {
 
            </form>
          </div>
-         <PreviewText text={this.state.content} />
+         {content && <PreviewText text={content} />}
        </div>
      );
    }
