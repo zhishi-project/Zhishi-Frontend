@@ -61,6 +61,8 @@ class NewAnswerForm extends React.Component {
                  cols="30" rows="10" />
              </div>
 
+            {content && <PreviewText text={content} />}
+
              <button
                id="submitAnswerBtn"
                className="ui button"
@@ -70,7 +72,6 @@ class NewAnswerForm extends React.Component {
 
            </form>
          </div>
-         {content && <PreviewText text={content} />}
        </div>
      );
    }
