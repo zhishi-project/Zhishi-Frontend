@@ -69,21 +69,6 @@ const NewQuestionPage = ({
                              onUpdateQuestionState('content',
                              event.target.value);
                            }} />
-
-                         {/*<TinyMCE
-                           className="content"
-                           config={
-                             tinymceConfig
-                             .forContent(`#questionContent-${'new'}`)
-                           }
-                           className="content"
-                           data-id="content"
-                           onChange={event => {
-                             onUpdateQuestionState('content',
-                             event.target.getContent());
-                           }}
-                           value="" />*/}
-
                        </div>
                      </div>
 
