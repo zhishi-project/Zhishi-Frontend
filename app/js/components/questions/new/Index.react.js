@@ -53,7 +53,6 @@ class NewQuestion extends React.Component {
               onUpdateQuestionState={this.onUpdateQuestionState}
               onUpdateTags={this.onUpdateTags}
               onSubmitClick={this.onCreateQuestion} />
-     );
    }
  }
 
