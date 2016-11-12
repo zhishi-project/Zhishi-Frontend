@@ -1,15 +1,15 @@
 .preview {
-	background: lighten($primary-color, 45);
-	margin: 10px 0;
-	padding: 20px;
 	width: 100%;
-	
-	.title {
-		font-weight: 300;
-    span {
-      padding: 0 20px;
-			font-size: 80%;
-			font-style: italic;
-    }
-	}
+
+  .markdown {
+    background: lighten($lines, 2);
+    margin: 10px 0;
+    padding: 20px;
+  }
+
+  .desc {
+    font-size: 80%;
+    font-style: italic;
+    text-align: right;
+  }
 }

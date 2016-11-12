@@ -1,22 +1,24 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
-const PreviewText = ({text}) => {
-  return (
-    <div className="preview">
-      <h3 className="title">
-        Preview
-        <span className="desc">
+class PreviewText extends React.Component {
+  componentDidUpdate() {
+    Prism.highlightAll(); // eslint-disable-line no-undef
+  }
+  render() { 
+    return (
+      <div className="preview">
+        <div className="desc">
           (Learn <a href="http://commonmark.org/help/">markdown</a>)
-        </span>
-      </h3>
-      <div className="markdown">
-        <ReactMarkdown 
-          source={text}
-          htmlMode='raw' />
+        </div>
+        <div className="markdown">
+          <ReactMarkdown 
+            source={this.props.text}
+            htmlMode='raw' />
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default PreviewText;
