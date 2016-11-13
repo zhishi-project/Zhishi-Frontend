@@ -4,7 +4,8 @@ import webpackConfig from '../webpack.config.prod';
 import colors from 'colors'; // eslint-disable-line no-unused-vars
 
 // assures the babel dev config for hot reloading doesn't apply
-process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+var proc = process.env.NODE_ENV;
+process.env.NODE_ENV = 'production';
 process.env.ENGINE_HOST = webpackConfig.devHost;
 
 console.log('generating minified bundle for production '.blue +
@@ -36,3 +37,4 @@ webpack(webpackConfig).run((err, stats) => {
 
   return 0;
 });
+// process.env.NODE_ENV = proc;
