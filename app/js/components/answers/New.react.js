@@ -6,6 +6,7 @@ import toastr from 'toastr';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PreviewText from '../common/PreviewText.react.js';
+import {emojify} from 'react-emojione';
 
 class NewAnswerForm extends React.Component {
   constructor(props, context) {
@@ -38,7 +39,7 @@ class NewAnswerForm extends React.Component {
    }
 
    updateAnswerState(event) {
-     this.setState({content: event.target.value});
+     this.setState({content: emojify(event.target.value, {output: 'unicode'})});
    }
 
    render() {
