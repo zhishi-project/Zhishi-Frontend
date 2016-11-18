@@ -5,6 +5,7 @@ import * as QuestionActions from '../../actions/QuestionActions.js';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
+import {emojify} from 'react-emojione';
 
 function getState(question) {
   return {
@@ -53,7 +54,7 @@ class Question extends React.Component {
   updateQuestionState(event) {
     const field = this.getQuestionField(event);
     let question = Object.assign({}, this.state.question);
-    question[field] = event.target.value;
+    question[field] = emojify(event.target.value, {output: 'unicode'});
     this.setState({question});
   }
 
