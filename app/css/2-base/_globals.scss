@@ -54,7 +54,12 @@ fieldset {
 }
 
 textarea {
+    border: 1px solid rgba(34, 36, 38, 0.15);
+    min-height: 200px;
+    outline: none;
+    padding: 0.78571429em 1em;
     resize: vertical;
+    width: 100%;
 }
 
 a {

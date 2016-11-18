@@ -52,13 +52,13 @@ class Question extends React.Component {
 
   updateQuestionState(event) {
     const field = this.getQuestionField(event);
-    let question = this.state.question;
-    question[field] = event.target.getContent();
+    let question = Object.assign({}, this.state.question);
+    question[field] = event.target.value;
     this.setState({question});
   }
 
   getQuestionField(event) {
-    return event.target.targetElm.className
+    return event.target.className
       .indexOf('title') === -1 ? 'content' : 'title';
   }
 

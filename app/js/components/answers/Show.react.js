@@ -44,7 +44,9 @@ export class Answer extends React.Component {
    }
 
    updateAnswerState(event) {
-     this.setState({content: event.target.getContent()});
+    let answer = Object.assign({}, this.state.answer);
+    answer.content = event.target.value;
+     this.setState({answer});
    }
 
    acceptAnswer() {

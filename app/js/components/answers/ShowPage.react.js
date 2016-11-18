@@ -6,6 +6,8 @@ import ShareButton from '../layouts/ShareButton.react';
 import TinyMCE from 'react-tinymce';
 import AnswerUser from './AnswerUser.react';
 import tinymceConfig from '../../config/tinymceConfig.js';
+import ReactMarkdown from 'react-markdown';
+import PreviewText from '../common/PreviewText.react';
 
 const commentsMeta = answer => {
   return {
@@ -64,16 +66,14 @@ const ShowPage = ({
   }
 
   let answerContent = answer.editing ?
-    <TinyMCE
+    <textarea
       content={answer.content}
-      config={tinymceConfig.forContent()}
+      value={answer.content}
       className="content"
-      data-id="content"
-      onChange={onChange}
-      value="" /> :
-    <div dangerouslySetInnerHTML={{
-      __html: Common.replaceAtMentionsWithLinks(answer.content)
-    }} />;
+      onChange={onChange} /> :
+    <ReactMarkdown 
+      source={answer.content}
+      htmlMode='raw' />;
 
   return (
     <div id={answerDomId} className="row answer-comment">
@@ -90,6 +90,7 @@ const ShowPage = ({
          {answerContent}
         </div>
 
+        {(answer.content && answer.editing) && <PreviewText text={answer.content} />}
         <div className="options">
           {answerEditBtn}
 
