@@ -14,7 +14,7 @@ var isDeveloping = (
 
 // Just to make a change
 
-var port = isDeveloping ? 8080 : process.env.PORT;
+var port = isDeveloping ? 8080 : (process.env.PORT || 8080);
 var app = express();
 
 app.use(compression());

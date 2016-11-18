@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import CommentForm from './CommentForm.react';
 import toastr from 'toastr';
+import {emojify} from 'react-emojione';
 
 function getState(comment, submitBtnDisabled) {
   return {comment, submitBtnDisabled};
@@ -16,9 +17,9 @@ class ManageCommentForm extends React.Component {
 
   onCommentChange(event) {
     this.setState({comment: Object.assign({},
-                              this.state.comment,
-                              {content: event.target.value}
-                            )});
+                  this.state.comment,
+                  {content: emojify(event.target.value, {output: 'unicode'})}
+                )});
   }
 
   preSave(event) {

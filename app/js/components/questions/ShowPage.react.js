@@ -9,6 +9,7 @@ import QuestionContent from './QuestionContent.react';
 import QuestionHeader from './QuestionHeader.react';
 import OptionButtons from './OptionButtons.react';
 import QuestionUser from './QuestionUser.react';
+import PreviewText from '../common/PreviewText.react';
 
 const votesMeta = questionId => {
   return {
@@ -64,6 +65,7 @@ const ShowPage = ({
                      <QuestionContent
                        question={question}
                        onChange={onChange} />
+                     {(question.content && question.editing) && <PreviewText text={question.content} />}
                    </article>
 
                    <OptionButtons
@@ -82,7 +84,7 @@ const ShowPage = ({
                  questionId={questionId}
                  question={question} />
 
-               <NewAnswerForm questionId={questionId} />
+               <NewAnswerForm question={question} />
              </div>
 
            </div>
