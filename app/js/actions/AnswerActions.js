@@ -52,9 +52,13 @@ export function updateAnswer({question_id, id, content}) {
 export function acceptAnswer({question_id, id}) {
   return dispatch => {
     return webAPI(`/questions/${question_id}/answers/${id}/accept`, 'POST', {})
-      .then(answer => {
-        dispatch(loadAnswerSuccess(answer));
-      });
+      .then(response => {
+        if (response.errors) {
+          throw {error: 'An error occured'};
+        } else {
+          dispatch(loadAnswerSuccess({question_id, id, accepted: true}));
+        }
+      }).catch(err => { throw err });
   };
 }
 

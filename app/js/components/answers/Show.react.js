@@ -54,7 +54,7 @@ export class Answer extends React.Component {
      let answer = Object.assign({}, this.state.answer, {accepted: true});
      this.props.actions.acceptAnswer({...answer}).then(() => {
        toastr.success('Thanks for accepting. Others will be better guided to the answer that helped you.');
-     }).catch(err => toastr.error(err));
+     }).catch(err => toastr.error('Oops.. something went wrong :( Confirm the question doesn\'t already have a selected answer... '));
    }
 
    render() {
