@@ -3,6 +3,7 @@ require('dotenv').config();
 import express from 'express';
 import webpack from 'webpack';
 import path from 'path';
+import bugsnag from 'bugsnag';
 import config from './webpack.config.dev';
 import open from 'open';
 import cookieParser from 'cookie-parser';
@@ -19,7 +20,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath
 }));
-
+global.testPort = process.env;
 app.use(require('webpack-hot-middleware')(compiler));
 
 if (process.env.NODE_ENV === 'production') {
@@ -30,6 +31,12 @@ if (process.env.NODE_ENV === 'production') {
     next();
   });
 }
+
+bugsnag.register('de747cb11e5bd8f6cb1c3b948b11a679');
+
+console.log('got here');
+app.use(bugsnag.requestHandler);
+app.use(bugsnag.errorHandler);
 
 app.use(cookieParser());
 app.use((req, res, next) => {
