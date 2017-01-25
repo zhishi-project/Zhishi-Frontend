@@ -1,5 +1,11 @@
 import webpack from 'webpack';
 import path from 'path';
+require('dotenv').config();
+
+let GLOBALS = {};
+Object.keys(process.env).forEach(name => {
+  GLOBALS['process.env.' + name] = JSON.stringify(process.env[name]);
+});
 
 export default {
   devtool: 'inline-source-map',
@@ -35,10 +41,10 @@ export default {
         test: /\.(png|jpg|gif)$/,
         loader: 'url?limit=25000'
       },
-			{
-				test: /\.json$/,
-				loader: 'json'
-			},
+      {
+        test: /\.json$/,
+        loader: 'json'
+      },
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&mimetype=application/font-woff'
@@ -64,6 +70,7 @@ export default {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin(GLOBALS)
   ]
 };
