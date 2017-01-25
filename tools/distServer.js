@@ -18,12 +18,6 @@ var isDeveloping = (
 
 var port = isDeveloping ? 8080 : (process.env.PORT || 8080);
 var app = express();
-app.use((req, res, next) => {
-  process.on('uncaughtException', err => {
-    Raven.captureException(err);
-  });
-  next();
-});
 
 if (process.env.NODE_ENV === 'production') {
   // Integrate sentry's raven client as a middleware
