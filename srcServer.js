@@ -18,12 +18,8 @@ const app = express();
 const compiler = webpack(config);
 
 // Integrate sentry's raven client as a middleware
-app.use((req, res, next) => {
-  process.on('uncaughtException', err => {
-    Raven.captureException(err);
-  });
-  next();
-});
+app.use(Raven.requestHandler());
+app.use(Raven.errorHandler());
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,

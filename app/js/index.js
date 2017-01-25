@@ -6,7 +6,6 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 import * as ZhishiInit from './utils/ZhishiInit.js';
 import Raven from 'raven-js';
 
-console.log(process.env.SENTRY_DSN);
 Raven.config(process.env.SENTRY_DSN).install();
 import store from './stores/configureStore';
 import {Provider} from 'react-redux';
