@@ -8,6 +8,7 @@ var Raven = require('raven');
 
 /* eslint-disable no-console */
 
+Raven.config(process.env.SENTRY_NODEJS_DSN).install();
 var isDeveloping = (
   process.env.NODE_ENV !== 'production' &&
   process.env.NODE_ENV !== 'staging'
@@ -17,6 +18,12 @@ var isDeveloping = (
 
 var port = isDeveloping ? 8080 : (process.env.PORT || 8080);
 var app = express();
+app.use((req, res, next) => {
+  process.on('uncaughtException', err => {
+    Raven.captureException(err);
+  });
+  next();
+});
 
 app.use(compression());
 
