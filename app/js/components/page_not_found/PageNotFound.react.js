@@ -13,7 +13,7 @@ class PageNotFound extends React.Component{
         <p id='text'>Oops!! Page Not Found</p>
         <p className ='home'> <Link id ='home' to='/' >Home</Link></p>
         </div>
-		</div>	);
+	</div>	);
 	}
 }
 export default PageNotFound

@@ -14,7 +14,7 @@ import Questions from './components/questions/Question.react';
 import NewQuestion from './components/questions/new/Index.react';
 import Question from './components/questions/Show.react';
 import Auth from './auth';
-import PageNotFound from './components/404_error/404.js';
+import PageNotFound from './components/page_not_found/PageNotFound.react.js';
 
 
 import store from './stores/configureStore';
