@@ -59,6 +59,7 @@
     "node-sass": "^3.4.1",
     "npm-run-all": "^2.3.0",
     "object-assign": "^1.0.0",
+    "raven": "^1.1.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-emojione": "2.0.0",
