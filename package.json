@@ -70,6 +70,7 @@
     "react-static-container": "^1.0.1",
     "react-tinymce": "^0.5.1",
     "redux": "3.5.2",
+    "redux-raven-middleware": "^1.2.0",
     "redux-thunk": "2.0.1",
     "sinon": "^1.17.4",
     "toastr": "2.1.2",
