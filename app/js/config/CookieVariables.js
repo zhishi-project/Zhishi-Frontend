@@ -6,5 +6,6 @@ module.exports = {
   user_logged_in: "iwengjk",
   referrer: 'ehdieleda',
   first_time_marker: 'yijeusheuw',
-  apiUrl: 'kdjndnvjds'
+  apiUrl: 'kdjndnvjds',
+  jwt : 'jwt-token'
 };
