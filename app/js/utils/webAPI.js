@@ -51,6 +51,7 @@ export function requestHeaders() {
 */
 export default function processRequest(path, method, data = {}) {
   let url = cookie.get(CVar.apiUrl) + requestPath(path, method, data);
+  console.log('About to make request to', url);
   return fetch(url, {
     method: method,
     headers: requestHeaders(),

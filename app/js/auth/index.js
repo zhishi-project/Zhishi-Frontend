@@ -7,7 +7,11 @@ import cookie from 'js-cookie';
 
 class Auth {
   andelaLoginUrl() {
+<<<<<<< HEAD
     return `${cookie.get(CVar.auth_url)}?redirect_url=http://${
+=======
+    return `http://api-staging.andela.com/login?redirect_url=http://${
+>>>>>>> 35c3108... feat(authentication): Refactor auth
             window.parent.location.host}/login/auth`;
   }
 
