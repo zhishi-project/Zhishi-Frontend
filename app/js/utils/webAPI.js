@@ -38,8 +38,7 @@ const redirectIfUnauthorized = response => {
 export function requestHeaders() {
   return new Headers({
     'Content-Type': 'application/json',
-    'Authorization': 'Token token=' + Auth.getCurrentUserToken(),
-    'ANDELA_COOKIE': Auth.userAndelaCookie
+    'Authorization': 'Bearer ' + Auth.getCurrentUserToken()
   });
 }
 
@@ -52,6 +51,7 @@ export function requestHeaders() {
 */
 export default function processRequest(path, method, data = {}) {
   let url = cookie.get(CVar.apiUrl) + requestPath(path, method, data);
+  console.log('About to make request to', url);
   return fetch(url, {
     method: method,
     headers: requestHeaders(),
