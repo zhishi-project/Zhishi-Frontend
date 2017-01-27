@@ -7,7 +7,7 @@ import cookie from 'js-cookie';
 
 class Auth {
   andelaLoginUrl() {
-    return `http://authentication.andela.com/auth/google?redirect_url=http://${
+    return `http://api-staging.andela.com/login?redirect_url=http://${
             window.parent.location.host}/login/auth`;
   }
 
@@ -25,16 +25,13 @@ class Auth {
     return this.userToken();
   }
 
-  get userAndelaCookie() {
-    return cookie.get('andela_cookie');
-  }
 
   userLoggedIn() {
     return cookie.get(CVar.user_logged_in);
   }
 
   userToken() {
-    return this.currentUser().api_key;
+    return cookie.get(CVar.jwt);
   }
 
   setCurrentUser(state, user) {
