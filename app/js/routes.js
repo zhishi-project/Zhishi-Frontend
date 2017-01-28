@@ -61,13 +61,11 @@ let userLoggedOut = function(nextState, replaceState) {
 };
 
 let logOut = function(nextState, replaceState, done) {
-  store.dispatch(authActions.logoutUser())
-    .then(() => {
-      replaceState({
-        nextPathname: nextState.location.pathname
-      }, '/login');
-      done();
-    });
+  store.dispatch(authActions.logoutUser());
+  replaceState({
+    nextPathname: nextState.location.pathname
+  }, '/login');
+  done();
 };
 
 let logIn = (nextState, replaceState, done) => {
