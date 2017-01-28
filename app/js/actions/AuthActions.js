@@ -28,15 +28,7 @@ export function checkIsLoggedIn() {
 */
 export function logoutUser() {
   return dispatch => {
-    dispatch(beginAjaxCall());
-    return webAPI(`/logout`, 'GET')
-      .then(() => {
-        dispatch(logoutUserSuccess());
-      })
-      .catch(error => {
-        dispatch(ajaxCallError());
-        throw (error);
-      });
+    dispatch(logoutUserSuccess());
   };
 }
 
