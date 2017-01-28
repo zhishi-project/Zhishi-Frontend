@@ -7,7 +7,7 @@ import cookie from 'js-cookie';
 
 class Auth {
   andelaLoginUrl() {
-    return `http://api-staging.andela.com/login?redirect_url=http://${
+    return `${cookie.get(CVar.auth_url)}?redirect_url=http://${
             window.parent.location.host}/login/auth`;
   }
 
@@ -57,6 +57,7 @@ class Auth {
   logoutUser() {
     cookie.remove(CVar.current_user);
     cookie.remove(CVar.user_logged_in);
+    cookie.remove(CVar.jwt);
   }
 
   updateAll(updates) {
