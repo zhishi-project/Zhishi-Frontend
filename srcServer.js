@@ -51,6 +51,7 @@ app.use(bugsnag.errorHandler);
 app.use(cookieParser());
 app.use((req, res, next) => {
   res.cookie(CVar.apiUrl, process.env.ENGINE_HOST);
+  res.cookie(CVar.auth_url, process.env.AUTH_URL);
   next();
 });
 
