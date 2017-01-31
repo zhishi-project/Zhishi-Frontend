@@ -52,11 +52,11 @@ class SettingsSection extends React.Component {
   }
 }
 
-SettingsSection.propTypes({
+SettingsSection.propTypes = {
   userActions: PropTypes.object,
   currentUser: PropTypes.object,
   user: PropTypes.object,
   activities: PropTypes.array
-});
+};
 
 export default SettingsSection;
