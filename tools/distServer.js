@@ -19,10 +19,12 @@ var isDeveloping = (
 var port = isDeveloping ? 8080 : (process.env.PORT || 8080);
 var app = express();
 
-// Integrate sentry's raven client as a middleware
-app.use(Raven.requestHandler());
-app.use(Raven.errorHandler());
-app.use(compression());
+if (process.env.NODE_ENV === 'production') {
+  // Integrate sentry's raven client as a middleware
+  app.use(Raven.requestHandler());
+  app.use(Raven.errorHandler());
+  app.use(compression());
+}
 
 if (!isDeveloping) {
   app.use((req, res, next) => {
