@@ -26,7 +26,8 @@ class SettingsSection extends React.Component {
             </div>
             <div className="column">
             <div className="ui test toggle checkbox">
-              <input type="checkbox" onChange={this.handleToggle} defaultChecked={this.state.slackToggle}/>
+              <input type="checkbox" onChange={this.handleToggle}
+                defaultChecked={this.state.slackToggle}/>
               <label></label>
             </div>
           </div>
