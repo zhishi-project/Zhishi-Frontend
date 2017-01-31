@@ -4,8 +4,9 @@ import Activities from '../activities/index.react';
 import TagModal from '../tags/modal/TagModal.react';
 import Settings from './Settings.react';
 
-const ShowPage = ({currentUser, user, activities}) => {
+const ShowPage = ({userActions, currentUser, user, activities}) => {
   let modalId = 'selectTagModal';
+  console.log(userActions, 'activities');
   let tags = currentUser.id === user.id ?
     currentUser.tags : user.tags;
   return (
@@ -66,6 +67,7 @@ const ShowPage = ({currentUser, user, activities}) => {
 };
 
 ShowPage.propTypes = {
+  userActions: PropTypes.object,
   currentUser: PropTypes.object,
   user: PropTypes.object,
   activities: PropTypes.array

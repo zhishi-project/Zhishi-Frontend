@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 class SettingsSection extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       slackToggle: true
     };
@@ -51,5 +51,12 @@ class SettingsSection extends React.Component {
     );
   }
 }
+
+SettingsSection.propTypes({
+  userActions: PropTypes.object,
+  currentUser: PropTypes.object,
+  user: PropTypes.object,
+  activities: PropTypes.array
+});
 
 export default SettingsSection;
