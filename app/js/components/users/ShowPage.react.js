@@ -6,7 +6,6 @@ import Settings from './Settings.react';
 
 const ShowPage = ({userActions, currentUser, user, activities}) => {
   let modalId = 'selectTagModal';
-  console.log(userActions, 'activities');
   let tags = currentUser.id === user.id ?
     currentUser.tags : user.tags;
   return (
@@ -52,7 +51,7 @@ const ShowPage = ({userActions, currentUser, user, activities}) => {
            </div>
 
           <div className="four wide column">
-            <Settings />
+            <Settings {...{userActions, currentUser, user}}/>
            </div>
          </div>
 
