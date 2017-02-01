@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import types from '../constants/users/actionTypes';
+import Auth from '../auth';
 import webAPI from './../utils/webAPI.js';
 
 const loadUserSuccess = user => {
@@ -23,19 +24,23 @@ export function loadUser(userId) {
  * toggleSlackNotifications
  * @desc This changes the status of the slack notification
  * @param {Object} currentUser - The current user details
+ * @param {String} preference - The name of the preference e.g slack, email
  * @param {Boolean} status - The could be true/false
  * @return {Func} callback promise
  */
-export function toggleSlackNotifications(currentUser, status) {
-  console.log(process.env.ZI_NOTIFI_URL, 'notify url');
-  const body = JSON.stringify({status});
-  return fetch({
-    url: `/users/${currentUser.id}/preference`,
-    baseUrl: process.env.ZI_NOTIFI_URL,
-    body,
-    method: 'POST',
+export function toggleUserPreference(currentUser, preference, status) {
+  const url = `${process.env.ZI_NOTIFY_URL}/user/${currentUser.id}/preference`;
+  const body = JSON.stringify({preference: status});
+  return fetch(url, {
+    baseUrl: process.env.ZI_NOTIFY_URL,
+    method: 'GET',
     headers: {
       Authorization: `Token token=${currentUser.apiKey}`
     }
+  }).then(response => {
+    console.log(response, 'preference');
+    // if (response)
+  }).catch(err => {
+    console.log(err, 'error');
   });
 }

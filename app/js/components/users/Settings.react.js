@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import {toggleUserPreference} from '../../actions/UserActions';
 
 class SettingsSection extends React.Component {
   constructor(props) {
@@ -10,7 +11,10 @@ class SettingsSection extends React.Component {
   }
 
   handleToggle(event) {
+    const {currentUser} = this.props;
     const value = event.target.checked;
+    console.log(toggleUserPreference, 'user');
+    toggleUserPreference(currentUser, 'slack', value);
     this.setState({slackToggle: value});
   }
 

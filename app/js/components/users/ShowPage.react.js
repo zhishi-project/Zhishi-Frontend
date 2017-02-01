@@ -4,66 +4,94 @@ import Activities from '../activities/index.react';
 import TagModal from '../tags/modal/TagModal.react';
 import Settings from './Settings.react';
 
-const ShowPage = ({userActions, currentUser, user, activities}) => {
-  let modalId = 'selectTagModal';
-  let tags = currentUser.id === user.id ?
-    currentUser.tags : user.tags;
-  return (
-     <div className="main-wrapper">
-       <main className="ui container main">
-         <div className="ui stackable user-details grid">
+class ShowPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.renderCurrentUserSettings = this.renderCurrentUserSettings.bind(this);
+  }
 
-           <div className="five wide column">
-             <div className="ui card user">
+  getUserId(string) {
+    let userId = '';
+    string.replace(/\d/g, match => {
+      userId += match;
+    });
+    userId = Number(userId);
+    return userId;
+  }
 
-               <div className="image">
-                 <img
-                   src={user.image || '/assets/img/avatar.png'}
-                   alt="Profile" />
-               </div>
+  renderCurrentUserSettings() {
+    const {currentUser} = this.props;
+    const pathname = window.location.pathname;
+    if (this.getUserId(pathname) === currentUser.id) {
+      return (
+        <Settings {...this.props}/>
+      );
+    }
+    return null;
+  }
 
-               <div className="content">
-                 <span className="right floated">
-                   <i className="heart outline like icon"></i>
-                   Member since 2016
-                 </span>
-                 Reputation: {user.points}
-               </div>
+  render() {
+    const {currentUser, user, activities} = this.props;
+    let modalId = 'selectTagModal';
+    let tags = currentUser.id === user.id ?
+      currentUser.tags : user.tags;
+    return (
+      <div className="main-wrapper">
+        <main className="ui container main">
+          <div className="ui stackable user-details grid">
 
-               <div className="extra content">
-                 <a>
-                   Asked {user.questions_asked} questions.&nbsp;
-                   Gave {user.answers_given} answers
-                 </a>
-               </div>
+            <div className="five wide column">
+              <div className="ui card user">
 
-             </div>
-           </div>
+                <div className="image">
+                  <img
+                    src={user.image || '/assets/img/avatar.png'}
+                    alt="Profile" />
+                </div>
 
-           <div className="seven wide column">
-             <h2>
-               {user.name}
-             </h2>
-             <ProfileTagSection
-               tags={tags || []}
-               { ...{user, currentUser}}
-               modalTrigger={`${modalId}-trigger`} />
-           </div>
+                <div className="content">
+                  <span className="right floated">
+                    <i className="heart outline like icon"></i>
+                    Member since 2016
+                  </span>
+                  Reputation: {user.points}
+                </div>
 
-          <div className="four wide column">
-            <Settings {...{userActions, currentUser, user}}/>
-           </div>
-         </div>
+                <div className="extra content">
+                  <a>
+                    Asked {user.questions_asked} questions.&nbsp;
+                    Gave {user.answers_given} answers
+                  </a>
+                </div>
 
-         <Activities { ...{user, currentUser}} activities={activities} />
+              </div>
+            </div>
 
-         {<TagModal options={{modalId, closable: true}} />}
+            <div className="seven wide column">
+              <h2>
+                {user.name}
+              </h2>
+              <ProfileTagSection
+                tags={tags || []}
+                { ...{user, currentUser}}
+                modalTrigger={`${modalId}-trigger`} />
+            </div>
 
-       </main>
+            <div className="four wide column">
+              {this.renderCurrentUserSettings()}
+            </div>
+          </div>
 
-     </div>
-   );
-};
+          <Activities { ...this.props} activities={activities} />
+
+          {<TagModal options={{modalId, closable: true}} />}
+
+        </main>
+
+      </div>
+    );
+  }
+}
 
 ShowPage.propTypes = {
   userActions: PropTypes.object,

@@ -11,6 +11,7 @@ const initialState = {};
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case types.LOAD_USERS_SUCCESS:
+      console.log(action.users, 'reducer action users');
       return storeHelper.loadAllUsers(state, action.users);
 
     case types.LOAD_USER_SUCCESS:
