@@ -1,0 +1,15 @@
+.preview {
+	width: 100%;
+
+  .markdown {
+    background: lighten($lines, 2);
+    margin: 10px 0;
+    padding: 20px;
+  }
+
+  .desc {
+    font-size: 80%;
+    font-style: italic;
+    text-align: right;
+  }
+}
