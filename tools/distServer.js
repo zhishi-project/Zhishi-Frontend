@@ -37,11 +37,6 @@ if (!isDeveloping) {
 
 app.use(cookieParser());
 app.use((req, res, next) => {
-  if (process.env.VALID_COOKIE) {
-    res.cookie('andela_cookie', process.env.VALID_COOKIE);
-  } else {
-    res.cookie('andela_cookie', req.cookies['andela:session']);
-  }
   res.cookie(CVar.apiUrl, process.env.ENGINE_HOST);
   next();
 });
