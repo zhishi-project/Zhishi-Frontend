@@ -1,6 +1,7 @@
 module.exports = {
   devHost: '//zhishi.andela.com',
   zhishiPermanentSite: '//zhishi.andela.com',
+  auth_url: 'http://api-staging.andela.com/login',
   slack: {
     username: 'zhishi',
     url: 'https://hooks.slack.com/services/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',
