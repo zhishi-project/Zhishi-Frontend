@@ -49,6 +49,17 @@ let userLoggedIn = function(nextState, replaceState) {
   }
 };
 
+const checkIfLoggedIn = (nextState, replaceState) => {
+  if (!Auth.userLoggedIn()) {
+    return replaceState({
+      nextPathname: nextState.location.pathname
+    }, '/login');
+  }
+  replaceState({
+    nextPathname: nextState.location.pathname
+  }, '/not-found');
+}
+
 let redirectToRoot = (nextState, replaceState) => {
   // replaceState({
   //   nextPathname: nextState.location.pathname
@@ -102,6 +113,7 @@ export default (
 
 
     </Route>
-    <Route path="*" component={PageNotFound}/>
+    <Route path="/not-found" component={PageNotFound}/>
+    <Route path="*" component={PageNotFound} onEnter={checkIfLoggedIn}/>
   </Route>
 );
