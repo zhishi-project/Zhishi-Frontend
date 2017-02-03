@@ -29,6 +29,7 @@
     "body-parser": "^1.4.3",
     "bootstrap-sass": "^3.3.5",
     "bootstrap-sass-loader": "^1.0.9",
+    "bugsnag-js": "^3.0.7",
     "chai": "^3.5.0",
     "cheerio": "^0.22.0",
     "classnames": "^2.1.3",

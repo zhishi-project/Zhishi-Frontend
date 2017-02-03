@@ -5,7 +5,9 @@ import routes from './routes';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import * as ZhishiInit from './utils/ZhishiInit.js';
 import store from './stores/configureStore';
+import ConfigVars from './config/environment/prod';
 import {Provider} from 'react-redux';
+import Bugsnag from 'bugsnag-js';
 
 const checked = store.getState().auth.isLoggedInToAndela;
 if (location.pathname === '/login' && !checked) {
@@ -22,9 +24,15 @@ history.listen(function(location) {
   window.ga('send', 'pageview', location.pathname);
 });
 
-render(
-  <Provider store={store} >
-    <Router history={history} routes={routes} />
-  </Provider>,
-  document.getElementById('app')
-);
+try {
+  render(
+    <Provider store={store} >
+      <Router history={history} routes={routes} />
+    </Provider>,
+    document.getElementById('app')
+  );
+  console.log('sent error');
+} catch (exception) {
+  Bugsnag.apiKey = ConfigVars.bugsnagApiKey;
+  Bugsnag.notifyException(exception);
+}
