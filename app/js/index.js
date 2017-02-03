@@ -5,7 +5,6 @@ import routes from './routes';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import * as ZhishiInit from './utils/ZhishiInit.js';
 import store from './stores/configureStore';
-import ConfigVars from './config/environment/prod';
 import {Provider} from 'react-redux';
 import Bugsnag from 'bugsnag-js';
 
@@ -24,14 +23,23 @@ history.listen(function(location) {
   window.ga('send', 'pageview', location.pathname);
 });
 
-try {
+if (process.env.NODE_ENV === 'production') {
+  try {
+    render(
+      <Provider store={store} >
+        <Router history={history} routes={routes} />
+      </Provider>,
+      document.getElementById('app')
+    );
+  } catch (exception) {
+    Bugsnag.apiKey = process.env.BUGSNAG_API;
+    Bugsnag.notifyException(exception);
+  }
+} else {
   render(
     <Provider store={store} >
       <Router history={history} routes={routes} />
     </Provider>,
     document.getElementById('app')
   );
-} catch (exception) {
-  Bugsnag.apiKey = ConfigVars.bugsnagApiKey;
-  Bugsnag.notifyException(exception);
 }
