@@ -40,7 +40,7 @@ export function logoutUser() {
 export function loginUser() {
   return dispatch => {
     dispatch(beginAjaxCall());
-    return webAPI(`/users`, 'GET')
+    return webAPI(`/users/me`, 'GET')
       .then(user => {
         if(user.error || user.errors){
           dispatch(logoutUserSuccess())
