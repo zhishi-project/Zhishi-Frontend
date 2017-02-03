@@ -17,9 +17,12 @@ const port = 8080;
 const app = express();
 const compiler = webpack(config);
 
-// Integrate sentry's raven client as a middleware
-app.use(Raven.requestHandler());
-app.use(Raven.errorHandler());
+if (process.env.NODE_ENV === 'production') {
+  Raven.config(process.env.SENTRY_NODEJS_DSN).install();
+  // Integrate sentry's raven client as a middleware
+  app.use(Raven.requestHandler());
+  app.use(Raven.errorHandler());
+}
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,

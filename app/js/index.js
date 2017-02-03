@@ -25,13 +25,22 @@ history.listen(function(location) {
   window.ga('send', 'pageview', location.pathname);
 });
 
-try {
+if (process.env.NODE_ENV === 'production') {
+  try {
+    render(
+      <Provider store={store} >
+        <Router history={history} routes={routes} />
+      </Provider>,
+      document.getElementById('app')
+    );
+  } catch (exception) {
+    Raven.captureException(exception);
+  }
+} else {
   render(
     <Provider store={store} >
       <Router history={history} routes={routes} />
     </Provider>,
     document.getElementById('app')
   );
-} catch (exception) {
-  Raven.captureException(exception);
 }
