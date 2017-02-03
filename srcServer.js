@@ -7,14 +7,20 @@ import bugsnag from 'bugsnag';
 import config from './webpack.config.dev';
 import open from 'open';
 import cookieParser from 'cookie-parser';
+import Raven from 'raven';
 var environment = require('./app/js/config/environment/index.js');
 import CVar from './app/js/config/CookieVariables.js';
 
 /* eslint-disable no-console */
 
+Raven.config(process.env.SENTRY_NODEJS_DSN).install();
 const port = 8080;
 const app = express();
 const compiler = webpack(config);
+
+// Integrate sentry's raven client as a middleware
+app.use(Raven.requestHandler());
+app.use(Raven.errorHandler());
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
@@ -40,8 +46,8 @@ app.use(bugsnag.errorHandler);
 
 app.use(cookieParser());
 app.use((req, res, next) => {
-  res.cookie('andela_cookie', req.cookies['andela:session']);
   res.cookie(CVar.apiUrl, process.env.ENGINE_HOST);
+  res.cookie(CVar.auth_url, process.env.AUTH_URL);
   next();
 });
 

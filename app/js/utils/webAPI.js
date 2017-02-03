@@ -38,8 +38,7 @@ const redirectIfUnauthorized = response => {
 export function requestHeaders() {
   return new Headers({
     'Content-Type': 'application/json',
-    'Authorization': 'Token token=' + Auth.getCurrentUserToken(),
-    'ANDELA_COOKIE': Auth.userAndelaCookie
+    'Authorization': 'Bearer ' + Auth.getCurrentUserToken()
   });
 }
 
