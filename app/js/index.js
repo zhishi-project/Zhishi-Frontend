@@ -31,7 +31,6 @@ try {
     </Provider>,
     document.getElementById('app')
   );
-  console.log('sent error');
 } catch (exception) {
   Bugsnag.apiKey = ConfigVars.bugsnagApiKey;
   Bugsnag.notifyException(exception);

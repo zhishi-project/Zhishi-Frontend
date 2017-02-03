@@ -19,7 +19,6 @@ class Login extends React.Component {
 
   componentDidMount() {
     const shuffle = a => {
-      console.log('suffle');
       let j;
       let x;
       let i;

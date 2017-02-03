@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bugsnag = require('bugsnag');
 var environment = require('../app/js/config/environment/index.js');
 var CVar = require('../app/js/config/CookieVariables.js');
+require('dotenv').config();
 
 /* eslint-disable no-console */
 
