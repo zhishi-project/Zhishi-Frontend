@@ -42,9 +42,9 @@ export function loginUser() {
     dispatch(beginAjaxCall());
     return webAPI(`/users/me`, 'GET')
       .then(user => {
-        if(user.error || user.errors){
-          dispatch(logoutUserSuccess())
-        }else{
+        if (user.error || user.errors) {
+          dispatch(logoutUserSuccess());
+        } else {
           dispatch(loadCurrentUserSuccess(user));
         }
       })
