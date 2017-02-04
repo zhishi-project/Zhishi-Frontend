@@ -7,10 +7,6 @@ module.exports = {
   referrer: 'ehdieleda',
   first_time_marker: 'yijeusheuw',
   apiUrl: 'kdjndnvjds',
-<<<<<<< HEAD
   jwt : 'jwt-token',
   auth_url: 'j98h8gf'
-=======
-  jwt : 'jwt-token'
->>>>>>> 35c3108... feat(authentication): Refactor auth
 };
