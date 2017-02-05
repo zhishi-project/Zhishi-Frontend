@@ -12,18 +12,16 @@ let loginState = () => {
 };
 
 class Login extends React.Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props);
     this.state = loginState();
   }
 
   componentDidMount() {
-    var chosenQuotes = function(quotes) {
-      return shuffle(quotes);
-    };
-
-    function shuffle(a) {
-      var j, x, i;
+    const shuffle = a => {
+      let j;
+      let x;
+      let i;
       for (i = a.length; i; i -= 1) {
         j = Math.floor(Math.random() * i);
         x = a[i - 1];
@@ -31,7 +29,11 @@ class Login extends React.Component {
         a[j] = x;
       }
       return a;
-    }
+    };
+
+    var chosenQuotes = quotes => {
+      return shuffle(quotes);
+    };
 
     $('.messages').typeIt({
       strings: chosenQuotes(this.state.quotes),
@@ -53,11 +55,6 @@ class Login extends React.Component {
   }
 
   render() {
-    let autoSignInMsg =
-      <span>
-        Ushering you in in a few seconds &nbsp;
-        <i className="ui active small inline loader"></i>
-      </span>;
     return (
       <div className="index center aligned ui container full-height">
         <section className="header">
@@ -76,7 +73,6 @@ class Login extends React.Component {
           </div>
 
           <div className="sign-in-desc">
-            {/*autoSignInMsg*/}
           </div>
 
         </section>
@@ -101,7 +97,7 @@ Login.contextTypes = {
 * @param {Object} ownProps: for functions
 * @return {Object}  {questions, filteredQuestions, page} for homepage
 */
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {...state.auth};
 }
 

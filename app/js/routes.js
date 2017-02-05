@@ -2,7 +2,6 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import {Route, IndexRoute} from 'react-router';
 
 import CookieVar from './config/CookieVariables.js';
-
 import Zhishi from './components/Zhishi.react';
 import Home from './components/home/Index.react';
 import Search from './components/search/Index.react';
@@ -36,7 +35,7 @@ const redirectToReferrerIfAny = (nextState, replaceState) => {
   }, path);
 };
 
-let userLoggedIn = function(nextState, replaceState) {
+let userLoggedIn = (nextState, replaceState) => {
   if (!Auth.userLoggedIn()) {
     cookie.set(CookieVar.referrer, nextState.location.pathname, {
       path: '/'
@@ -47,14 +46,14 @@ let userLoggedIn = function(nextState, replaceState) {
   }
 };
 
-let redirectToRoot = (nextState, replaceState) => {
+let redirectToRoot = () => {
   // replaceState({
   //   nextPathname: nextState.location.pathname
   // }, '/');
   window.location = '/';
 };
 
-let userLoggedOut = function(nextState, replaceState) {
+let userLoggedOut = (nextState, replaceState) => {
   if (Auth.userLoggedIn()) {
     redirectToRoot(nextState, replaceState);
   }
@@ -98,7 +97,7 @@ export default (
         <Route path="/questions/:id" component={Question} />
       </Route>
 
-      <Route path="*" component={Zhishi} onEnter={userLoggedIn}/>
+      <Route path="*" component={Zhishi} onEnter={userLoggedIn} />
 
     </Route>
   </Route>
