@@ -1,14 +1,13 @@
 var express = require('express');
 var path = require('path');
 var compression = require('compression');
+var bugsnag = require('bugsnag');
 var cookieParser = require('cookie-parser');
 var environment = require('../app/js/config/environment/index.js');
 var CVar = require('../app/js/config/CookieVariables.js');
-var Raven = require('raven');
 
 /* eslint-disable no-console */
 
-Raven.config(process.env.SENTRY_NODEJS_DSN).install();
 var isDeveloping = (
   process.env.NODE_ENV !== 'production' &&
   process.env.NODE_ENV !== 'staging'
@@ -18,10 +17,10 @@ var isDeveloping = (
 
 var port = isDeveloping ? 8080 : (process.env.PORT || 8080);
 var app = express();
+bugsnag.register(process.env.BUGSNAG_API);
 
-// Integrate sentry's raven client as a middleware
-app.use(Raven.requestHandler());
-app.use(Raven.errorHandler());
+app.use(bugsnag.requestHandler);
+app.use(bugsnag.errorHandler);
 app.use(compression());
 
 if (!isDeveloping) {
