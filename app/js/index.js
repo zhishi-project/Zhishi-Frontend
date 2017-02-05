@@ -4,16 +4,13 @@ import {Router} from 'react-router';
 import routes from './routes';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import * as ZhishiInit from './utils/ZhishiInit.js';
-import Raven from 'raven-js';
 
-Raven.config(process.env.SENTRY_DSN).install();
 import store from './stores/configureStore';
 import {Provider} from 'react-redux';
 
 const checked = store.getState().auth.isLoggedInToAndela;
 if (location.pathname === '/login' && !checked) {
   ZhishiInit.checkAndelaLoggedIn(store);
-  // ZhishiInit.loadData(store);
 } else {
   ZhishiInit.loadData(store);
 }
@@ -25,13 +22,9 @@ history.listen(function(location) {
   window.ga('send', 'pageview', location.pathname);
 });
 
-try {
-  render(
-    <Provider store={store} >
-      <Router history={history} routes={routes} />
-    </Provider>,
-    document.getElementById('app')
-  );
-} catch (exception) {
-  Raven.captureException(exception);
-}
+render(
+  <Provider store={store} >
+    <Router history={history} routes={routes} />
+  </Provider>,
+  document.getElementById('app')
+);
