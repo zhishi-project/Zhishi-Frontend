@@ -4,7 +4,6 @@ var compression = require('compression');
 var cookieParser = require('cookie-parser');
 var environment = require('../app/js/config/environment/index.js');
 var CVar = require('../app/js/config/CookieVariables.js');
-var Raven = require('raven');
 
 /* eslint-disable no-console */
 

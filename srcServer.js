@@ -3,28 +3,16 @@ require('dotenv').config();
 import express from 'express';
 import webpack from 'webpack';
 import path from 'path';
-import bugsnag from 'bugsnag';
 import config from './webpack.config.dev';
 import open from 'open';
 import cookieParser from 'cookie-parser';
-import Raven from 'raven';
 var environment = require('./app/js/config/environment/index.js');
 import CVar from './app/js/config/CookieVariables.js';
 
 /* eslint-disable no-console */
-
-Raven.config(process.env.SENTRY_NODEJS_DSN).install();
 const port = 8080;
 const app = express();
 const compiler = webpack(config);
-
-// Integrate sentry's raven client as a middleware
-app.use((req, res, next) => {
-  process.on('uncaughtException', err => {
-    Raven.captureException(err);
-  });
-  next();
-});
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
@@ -41,12 +29,6 @@ if (process.env.NODE_ENV === 'production') {
     next();
   });
 }
-
-bugsnag.register('de747cb11e5bd8f6cb1c3b948b11a679');
-
-console.log('got here');
-app.use(bugsnag.requestHandler);
-app.use(bugsnag.errorHandler);
 
 app.use(cookieParser());
 app.use((req, res, next) => {
