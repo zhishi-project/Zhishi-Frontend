@@ -1,13 +1,14 @@
 import CVar from '../config/CookieVariables.js';
 import assign from 'object-assign';
-
+import envVar from '../config/environment/';
 import cookie from 'js-cookie';
 
 // $.cookie.json = true;
 
 class Auth {
   andelaLoginUrl() {
-    return `http://authentication.andela.com/auth/google?redirect_url=http://${
+    const auth_url = cookie.get(CVar.auth_url) || envVar.auth_url;
+    return `${auth_url}?redirect_url=http://${
             window.parent.location.host}/login/auth`;
   }
 
@@ -25,16 +26,13 @@ class Auth {
     return this.userToken();
   }
 
-  get userAndelaCookie() {
-    return cookie.get('andela_cookie');
-  }
 
   userLoggedIn() {
     return cookie.get(CVar.user_logged_in);
   }
 
   userToken() {
-    return this.currentUser().api_key;
+    return cookie.get(CVar.jwt);
   }
 
   setCurrentUser(state, user) {
@@ -60,6 +58,7 @@ class Auth {
   logoutUser() {
     cookie.remove(CVar.current_user);
     cookie.remove(CVar.user_logged_in);
+    cookie.remove(CVar.jwt);
   }
 
   updateAll(updates) {

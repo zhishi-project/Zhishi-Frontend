@@ -59,14 +59,12 @@ let userLoggedOut = (nextState, replaceState) => {
   }
 };
 
-let logOut = (nextState, replaceState, done) => {
-  store.dispatch(authActions.logoutUser())
-    .then(() => {
-      replaceState({
-        nextPathname: nextState.location.pathname
-      }, '/login');
-      done();
-    });
+let logOut = function(nextState, replaceState, done) {
+  store.dispatch(authActions.logoutUser());
+  replaceState({
+    nextPathname: nextState.location.pathname
+  }, '/login');
+  done();
 };
 
 let logIn = (nextState, replaceState, done) => {

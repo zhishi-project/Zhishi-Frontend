@@ -2,11 +2,11 @@ var path = require('path');
 var webpack = require('webpack');
 require('dotenv').config();
 
+
 let GLOBALS = {};
 Object.keys(process.env).forEach(name => {
   GLOBALS['process.env.' + name] = JSON.stringify(process.env[name]);
 });
-
 module.exports = {
   devtool: 'inline-source-map',
   entry: [
