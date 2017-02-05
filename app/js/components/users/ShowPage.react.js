@@ -3,6 +3,7 @@ import ProfileTagSection from './ProfileTag.react';
 import Activities from '../activities/index.react';
 import TagModal from '../tags/modal/TagModal.react';
 import Settings from './Settings.react';
+import * as format from '../../utils/stringFormatters';
 
 class ShowPage extends React.Component {
   constructor(props) {
@@ -10,19 +11,12 @@ class ShowPage extends React.Component {
     this.renderCurrentUserSettings = this.renderCurrentUserSettings.bind(this);
   }
 
-  getUserId(string) {
-    let userId = '';
-    string.replace(/\d/g, match => {
-      userId += match;
-    });
-    userId = Number(userId);
-    return userId;
-  }
-
   renderCurrentUserSettings() {
-    const {currentUser} = this.props;
-    const pathname = window.location.pathname;
-    if (this.getUserId(pathname) === currentUser.id) {
+    const {currentUser, params} = this.props;
+    let userId = format.getIdFromPermalink(params.id);
+    userId = Number(userId);
+
+    if (userId === currentUser.id) {
       return (
         <Settings {...this.props}/>
       );

@@ -10,11 +10,15 @@ class SettingsSection extends React.Component {
     this.handleToggle = this.handleToggle.bind(this);
   }
 
+  componentDidMount() {
+    const {currentUser, userActions} = this.props;
+    userActions.loadUserPreference(currentUser);
+  }
+
   handleToggle(event) {
     const {currentUser} = this.props;
     const value = event.target.checked;
-    console.log(toggleUserPreference, 'user');
-    toggleUserPreference(currentUser, 'slack', value);
+    toggleUserPreference(currentUser, {}, 'slack', value);
     this.setState({slackToggle: value});
   }
 

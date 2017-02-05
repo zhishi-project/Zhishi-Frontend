@@ -42,6 +42,22 @@ export function requestHeaders() {
   });
 }
 
+export const processUserPreference = (url, token, method, body = {}) => {
+  fetch(url, {
+    baseUrl: process.env.ZI_NOTIFY_URL,
+    method,
+    mode: 'cors',
+    headers: {
+      'Authorization': `Token token=${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: requestBody(body, method)
+  })
+  .then(response => {
+    return response.json();
+  });
+};
+
 /**
 * @param {String} path: eg '/questions'
 * @param {String} method: eg 'POST'
