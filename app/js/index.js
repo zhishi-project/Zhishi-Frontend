@@ -5,7 +5,6 @@ import bugsnag from 'bugsnag-js';
 import routes from './routes';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import * as ZhishiInit from './utils/ZhishiInit.js';
-
 import store from './stores/configureStore';
 import {Provider} from 'react-redux';
 

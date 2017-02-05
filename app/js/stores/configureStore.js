@@ -12,12 +12,12 @@ const middleware = process.env.NODE_ENV === 'production' ?
   [bugsnagMiddleware(), thunk] :
   [reduxImmutableStateInvariant(), thunk];
 
-function configureStore(initialState) {
+const configureStore = initialState => {
   return createStore(
     rootReducer,
     initialState,
     applyMiddleware(...middleware)
   );
-}
+};
 
 export default configureStore();

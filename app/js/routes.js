@@ -59,6 +59,7 @@ let userLoggedOut = (nextState, replaceState) => {
   }
 };
 
+
 let logOut = (nextState, replaceState, done) => {
   store.dispatch(authActions.logoutUser())
     .then(() => {
