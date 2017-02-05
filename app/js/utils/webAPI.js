@@ -65,7 +65,7 @@ export const processUserPreference = (url, token, method, body = {}) => {
 * @param {Function} callback: usually an action
 * @return {Object} fetch: to be used in views that check for success or failure
 */
-export default function processRequest(path, method, data = {}) {
+export function processRequest(path, method, data = {}) {
   let url = cookie.get(CVar.apiUrl) + requestPath(path, method, data);
   return fetch(url, {
     method: method,
