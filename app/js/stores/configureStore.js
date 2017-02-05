@@ -1,13 +1,16 @@
 import {createStore, applyMiddleware} from 'redux';
+import bugsnagMiddleware from 'redux-bugsnag-middleware';
+import bugsnag from 'bugsnag-js';
 import rootReducer from '../reducers';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import thunk from 'redux-thunk';
-import ravenMiddleware from 'redux-raven-middleware';
 
+if (process.env.NODE_ENV === 'production') {
+  bugsnag.apiKey = process.env.BUGSNAG_API;
+}
 const middleware = process.env.NODE_ENV === 'production' ?
-  [ravenMiddleware(process.env.SENTRY_DSN), thunk] :
-  [ravenMiddleware(process.env.SENTRY_DSN),
-  reduxImmutableStateInvariant(), thunk];
+  [bugsnagMiddleware(), thunk] :
+  [reduxImmutableStateInvariant(), thunk];
 
 const configureStore = initialState => {
   return createStore(

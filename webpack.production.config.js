@@ -3,7 +3,12 @@ var path = require('path');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var buildPath = path.resolve(__dirname, 'build');
 var entryPath = path.resolve(__dirname, 'app', 'js', 'index.js');
+require('dotenv').config();
 
+let GLOBALS = {};
+Object.keys(process.env).forEach(name => {
+  GLOBALS['process.env.' + name] = JSON.stringify(process.env[name]);
+});
 var config = {
   entry: entryPath,
   output: {
@@ -50,7 +55,10 @@ var config = {
         loader: 'url?limit=10000&mimetype=image/svg+xml'
       }
     ]
-  }
+  },
+  plugins: [
+    new Webpack.DefinePlugin(GLOBALS)
+  ]
 
 };
 

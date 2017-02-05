@@ -4,15 +4,21 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var buildPath = path.resolve(__dirname, 'dist');
 var entryPath = path.resolve(__dirname, 'app', 'js', 'index.js');
+require('dotenv').config();
 
 const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
 };
 
+Object.keys(process.env).forEach(name => {
+  GLOBALS['process.env.' + name] = JSON.stringify(process.env[name]);
+});
+
 export default {
   devtool: 'source-map',
   entry: entryPath,
-  target: 'web', // bundle app the way web browsers can understand
+  // bundle app the way web browsers can understand
+  target: 'web',
   output: {
     path: buildPath,
     publicPath: '/',
@@ -44,10 +50,10 @@ export default {
         test: /\.(png|jpg|gif)$/,
         loader: 'url?limit=25000'
       },
-			{
-				test: /\.json$/,
-				loader: 'json'
-			},
+      {
+        test: /\.json$/,
+        loader: 'json'
+      },
 
       // Needed for the css-loader when [bootstrap-webpack](https://github.com/bline/bootstrap-webpack)
       // loads bootstrap's css.

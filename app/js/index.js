@@ -1,12 +1,10 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import {render} from 'react-dom';
 import {Router} from 'react-router';
+import bugsnag from 'bugsnag-js';
 import routes from './routes';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import * as ZhishiInit from './utils/ZhishiInit.js';
-import Raven from 'raven-js';
-
-Raven.config(process.env.SENTRY_DSN).install();
 import store from './stores/configureStore';
 import {Provider} from 'react-redux';
 
@@ -25,13 +23,23 @@ history.listen(function(location) {
   window.ga('send', 'pageview', location.pathname);
 });
 
-try {
+if (process.env.NODE_ENV === 'production') {
+  try {
+    render(
+      <Provider store={store} >
+        <Router history={history} routes={routes} />
+      </Provider>,
+      document.getElementById('app')
+    );
+  } catch (exception) {
+    bugsnag.apiKey = process.env.BUGSNAG_API;
+    bugsnag.notifyException(exception);
+  }
+} else {
   render(
     <Provider store={store} >
       <Router history={history} routes={routes} />
     </Provider>,
     document.getElementById('app')
   );
-} catch (exception) {
-  Raven.captureException(exception);
 }
