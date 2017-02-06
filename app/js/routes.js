@@ -14,6 +14,8 @@ import Questions from './components/questions/Question.react';
 import NewQuestion from './components/questions/new/Index.react';
 import Question from './components/questions/Show.react';
 import Auth from './auth';
+import PageNotFound from './components/page_not_found/PageNotFound.react.js';
+
 
 import store from './stores/configureStore';
 import * as authActions from './actions/AuthActions.js';
@@ -46,6 +48,17 @@ let userLoggedIn = function(nextState, replaceState) {
     }, '/login');
   }
 };
+
+const checkIfLoggedIn = (nextState, replaceState) => {
+  if (!Auth.userLoggedIn()) {
+    return replaceState({
+      nextPathname: nextState.location.pathname
+    }, '/login');
+  }
+  replaceState({
+    nextPathname: nextState.location.pathname
+  }, '/not-found');
+}
 
 let redirectToRoot = (nextState, replaceState) => {
   // replaceState({
@@ -98,8 +111,9 @@ export default (
         <Route path="/questions/:id" component={Question} />
       </Route>
 
-      <Route path="*" component={Zhishi} onEnter={userLoggedIn}/>
 
     </Route>
+    <Route path="/not-found" component={PageNotFound}/>
+    <Route path="*" component={PageNotFound} onEnter={checkIfLoggedIn}/>
   </Route>
 );

@@ -22,11 +22,14 @@ const TagBody = ({
            </p>
          </div>
          <Tags {...{tags, selectedTags, TagThumbnails, onTagClick}} />
+         <h1>adfas</h1>
 
          <TagSelectionCountdown
            {...{selectedTags, persistSelection}}/>
 
+
          <a className={`${options.modalId}-trigger hidden`} />
+         <p>Hrffjoiaidfndso</p>
        </div>
      </div>
   );
