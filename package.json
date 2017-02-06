@@ -12,7 +12,7 @@
     "open:src": "babel-node srcServer.js",
     "lint": "node_modules/.bin/esw webpack.config.* app tools",
     "lint:watch": "npm run lint -- --watch",
-    "test": "mocha --reporter progress tools/testSetup.js \"app/**/*.spec.js\"",
+    "test": "mocha  tools/testSetup.js \"app/**/*.spec.js\"",
     "test:watch": "npm run test -- --watch",
     "test:coverage": "rimraf coverage/ && istanbul cover _mocha tools/testSetup.js \"app/**/*.spec.js\"",
     "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build --port 8000",
