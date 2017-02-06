@@ -12,8 +12,10 @@ const SettingsSection = props => {
           </div>
           <div className="column">
             <div className="ui test toggle checkbox">
-              <input type="checkbox" onChange={props.handleSlackToggle}
-                checked={props.slackToggle} />
+              <input className="slackToggle"type="checkbox"
+                onChange={props.handleSlackToggle}
+                checked={props.slackToggle}
+              />
               <label></label>
             </div>
           </div>
