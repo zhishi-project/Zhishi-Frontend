@@ -51,7 +51,12 @@ export const processUserPreference = (url, token, method, body = {}) => {
       'Content-Type': 'application/json'
     },
     body: requestBody(body, method)
-  }).then(response => response.json());
+  })
+  .then(res => res.text())
+  .then(res => res.length ? JSON.parse(res) : {})
+  .catch(error => {
+    throw error;
+  });
 };
 
 /**
