@@ -14,9 +14,10 @@ class Show extends React.Component {
   }
 
   componentWillMount() {
-    const {userActions, activityActions, userId} = this.props;
+    const {userActions, activityActions, userId, currentUser} = this.props;
     userActions.loadUser(userId);
     activityActions.loadActivities(userId);
+    userActions.loadUserPreference(currentUser);
   }
 
   createUserQuestionsDiv(question, index) {

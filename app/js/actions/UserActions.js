@@ -36,13 +36,14 @@ export function loadUser(userId) {
 export function loadUserPreference(currentUser) {
   const url = `${process.env.ZI_NOTIFY_URL}/user/${currentUser.id}/preference`;
   return dispatch => {
-    return webAPI.processUserPreference(url, currentUser.token, 'GET')
+    return webAPI.processUserPreference(url, currentUser.token,
+    'GET')
     .then(response => {
-      if (response.status === 401) {
-        throw new Error('You are unauthorized');
-      }
-      console.log(response, 'preference');
-      dispatch(loadUserPreferences(response));
+      let userPreference = {
+        id: currentUser.id,
+        preference: response
+      };
+      dispatch(loadUserPreferences(userPreference));
     });
   };
 }
@@ -58,19 +59,19 @@ export function loadUserPreference(currentUser) {
  */
 export function toggleUserPreference(currentUser, userPreference,
   preference, status) {
-  console.log('got here', status, preference);
   const url = `${process.env.ZI_NOTIFY_URL}/user/${currentUser.id}/preference`;
   let body = {};
   body[preference] = status;
   userPreference[preference] = status;
+  let newState = {
+    id: currentUser.id,
+    preference: userPreference
+  };
 
   return dispatch => {
     return webAPI.processUserPreference(url, currentUser.token, 'PUT', body)
     .then(response => {
-      if (response.status === 401) {
-        throw new Error('You are unauthorized');
-      }
-      dispatch(updateUserPreference(userPreference));
+      dispatch(updateUserPreference(newState));
     });
   };
 }

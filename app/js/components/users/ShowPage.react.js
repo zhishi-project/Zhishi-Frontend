@@ -8,7 +8,25 @@ import * as format from '../../utils/stringFormatters';
 class ShowPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      slackToggle: false
+    };
     this.renderCurrentUserSettings = this.renderCurrentUserSettings.bind(this);
+    this.handleSlackToggle = this.handleSlackToggle.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {user} = nextProps;
+    const slack = user.preference.slack;
+    this.setState({slackToggle: slack});
+  }
+
+  handleSlackToggle(event) {
+    const {currentUser, user, userActions} = this.props;
+    const value = event.target.checked;
+    const preference = Object.assign({}, user.preference);
+    userActions.toggleUserPreference(currentUser, preference, 'slack', value);
+    this.setState({slackToggle: value});
   }
 
   renderCurrentUserSettings() {
@@ -18,7 +36,9 @@ class ShowPage extends React.Component {
 
     if (userId === currentUser.id) {
       return (
-        <Settings {...this.props}/>
+        <Settings handleSlackToggle={this.handleSlackToggle}
+          slackToggle={this.state.slackToggle}
+         {...this.props}/>
       );
     }
     return null;

@@ -43,8 +43,7 @@ export function requestHeaders() {
 }
 
 export const processUserPreference = (url, token, method, body = {}) => {
-  fetch(url, {
-    baseUrl: process.env.ZI_NOTIFY_URL,
+  return fetch(url, {
     method,
     mode: 'cors',
     headers: {
@@ -52,10 +51,7 @@ export const processUserPreference = (url, token, method, body = {}) => {
       'Content-Type': 'application/json'
     },
     body: requestBody(body, method)
-  })
-  .then(response => {
-    return response.json();
-  });
+  }).then(response => response.json());
 };
 
 /**
