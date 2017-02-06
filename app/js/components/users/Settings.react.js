@@ -12,7 +12,7 @@ const SettingsSection = props => {
           </div>
           <div className="column">
             <div className="ui test toggle checkbox">
-              <input className="slackToggle"type="checkbox"
+              <input className="slackToggle" type="checkbox"
                 onChange={props.handleSlackToggle}
                 checked={props.slackToggle}
               />
@@ -27,7 +27,10 @@ const SettingsSection = props => {
           </div>
           <div className="column">
             <div className="ui test toggle checkbox">
-              <input type="checkbox" disabled />
+              <input type="checkbox"
+                onChange={props.handleNewsletterToggle}
+                checked={props.newsletterToggle}
+              />
               <label></label>
             </div>
           </div>
@@ -41,7 +44,9 @@ const SettingsSection = props => {
 
 SettingsSection.propTypes = {
   slackToggle: PropTypes.bool,
+  newsletterToggle: PropTypes.bool,
   handleSlackToggle: PropTypes.func,
+  handleNewsletterToggle: PropTypes.func,
   userActions: PropTypes.object,
   currentUser: PropTypes.object,
   user: PropTypes.object,
