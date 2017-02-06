@@ -13,7 +13,10 @@ let props = {
       questions_asked: 3,
       answers_given: 2
     },
-    currentUser: {id: 1},
+    params: {
+      id: '1-Heavywater'
+    },
+    currentUser: {id: 1}
   },
   wrapper;
 
