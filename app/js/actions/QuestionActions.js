@@ -66,8 +66,12 @@ export function loadQuestions(page, tags) {
   let path = (tags && tags.length) ? '/questions/by_tags' : '/questions';
   return dispatch => {
     dispatch(displayLoader({shouldFetch: true}));
+    console.log(tags);
     return webAPI(path, 'GET', {page, tags})
       .then(data => {
+        console.log('Limbo Dance!!!!!');
+        console.log(data);
+        console.log('afsadfsdafsdf');
         dispatch(loadQuestionsSuccess(data));
       });
   };
