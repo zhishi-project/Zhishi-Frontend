@@ -1,5 +1,5 @@
 import types from '../constants/auth/actionTypes';
-import webAPI from './../utils/webAPI.js';
+import * as webAPI from './../utils/webAPI.js';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 // import $ from 'jquery';
@@ -40,7 +40,7 @@ export function logoutUser() {
 export function loginUser() {
   return dispatch => {
     dispatch(beginAjaxCall());
-    return webAPI(`/users`, 'GET')
+    return webAPI.processRequest(`/users/me`, 'GET')
       .then(user => {
         if(user.error || user.errors){
           dispatch(logoutUserSuccess())

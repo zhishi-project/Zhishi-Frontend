@@ -16,6 +16,12 @@ export default function userReducer(state = initialState, action) {
     case types.LOAD_USER_SUCCESS:
       return storeHelper.updateUser(state, action.user);
 
+    case types.LOAD_USER_PREFERENCES:
+      return storeHelper.updateUser(state, action.preference);
+
+    case types.UPDATE_USER_PREFERENCE:
+      return storeHelper.updateUser(state, action.preference);
+
     default:
       return state;
   }

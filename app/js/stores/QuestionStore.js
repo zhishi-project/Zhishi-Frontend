@@ -19,7 +19,6 @@ class QuestionStore extends BaseStore {
   }
 
   loadQuestions(questions) {
-    console.log(questions);
     if (questions) {
       Object.assign(this._questions, Common.serializeByKey(questions));
     }

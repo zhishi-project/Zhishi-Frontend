@@ -1,5 +1,5 @@
 import types from '../constants/activities/actionTypes';
-import webAPI from './../utils/webAPI.js';
+import * as webAPI from './../utils/webAPI.js';
 
 /**
 * @param {Object} activities to be loaded in store
@@ -15,7 +15,7 @@ export function loadActivitySuccess(activities) {
  */
 export function loadActivities(userId) {
   return dispatch => {
-    return webAPI(`/users/${userId}/activities`, 'GET')
+    return webAPI.processRequest(`/users/${userId}/activities`, 'GET')
      .then(data => {
        dispatch(loadActivitySuccess(data.activities));
      });

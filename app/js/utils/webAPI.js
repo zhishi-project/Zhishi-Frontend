@@ -42,6 +42,23 @@ export function requestHeaders() {
   });
 }
 
+export const processUserPreference = (url, token, method, body = {}) => {
+  return fetch(url, {
+    method,
+    mode: 'cors',
+    headers: {
+      'Authorization': `Token token=${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: requestBody(body, method)
+  })
+  .then(res => res.text())
+  .then(res => res.length ? JSON.parse(res) : {})
+  .catch(error => {
+    throw error;
+  });
+};
+
 /**
 * @param {String} path: eg '/questions'
 * @param {String} method: eg 'POST'
@@ -49,7 +66,7 @@ export function requestHeaders() {
 * @param {Function} callback: usually an action
 * @return {Object} fetch: to be used in views that check for success or failure
 */
-export default function processRequest(path, method, data = {}) {
+export function processRequest(path, method, data = {}) {
   let url = cookie.get(CVar.apiUrl) + requestPath(path, method, data);
   console.log('######');
   console.log(url);

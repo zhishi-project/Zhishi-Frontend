@@ -15,6 +15,8 @@ import '../../css/prism.css';
 import '../../css/tags.scss';
 import '../../css/main.scss';
 import '../../css/custom.scss';
+import '../../css/error-page.css'
+
 
 class Zhishi extends React.Component {
   constructor(props) {
