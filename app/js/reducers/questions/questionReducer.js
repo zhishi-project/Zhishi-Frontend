@@ -12,7 +12,13 @@ export default function questionReducer(state = initialState, action) {
   switch (action.type) {
     case types.LOAD_QUESTIONS_SUCCESS:
       if (action.data.questions) {
-        return storeHelper.loadQuestions(state, action.data.questions);
+        const newState = storeHelper.loadQuestions({}, action.data.questions);
+        console.group('State Change');
+        console.log('oldState: ', state);
+        console.log('data', action.data);
+        console.log('newState: ', newState);
+        console.groupEnd();
+        return newState;
       }
       return state;
 

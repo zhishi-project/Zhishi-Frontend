@@ -67,7 +67,16 @@ export function loadQuestions(page, tags) {
   return dispatch => {
     dispatch(displayLoader({shouldFetch: true}));
     console.log(tags);
-    return webAPI(path, 'GET', {page, tags})
+    const qurObj = {'page': page};
+    if (tags && tags.length > 0) {
+      let qurStr = ''
+      tags.forEach((ele) => {
+        qurStr += ele.toString() + ','
+      });
+      qurStr = qurStr.substring(0, qurStr.length - 1)
+      qurObj['tag_ids'] = qurStr;
+    }
+    return webAPI(path, 'GET', qurObj)
       .then(data => {
         console.log('Limbo Dance!!!!!');
         console.log(data);
