@@ -67,20 +67,17 @@ export function loadQuestions(page, tags) {
   return dispatch => {
     dispatch(displayLoader({shouldFetch: true}));
     console.log(tags);
-    const qurObj = {'page': page};
+    const queryObject = {'page': page};
     if (tags && tags.length > 0) {
-      let qurStr = ''
-      tags.forEach((ele) => {
-        qurStr += ele.toString() + ','
+      let queryString = ''
+      tags.forEach((element) => {
+        queryString += element.toString() + ','
       });
-      qurStr = qurStr.substring(0, qurStr.length - 1)
-      qurObj['tag_ids'] = qurStr;
+      queryString = queryString.substring(0, queryString.length - 1)
+      queryObject['tag_ids'] = queryString;
     }
-    return webAPI(path, 'GET', qurObj)
+    return webAPI(path, 'GET', queryObject)
       .then(data => {
-        console.log('Limbo Dance!!!!!');
-        console.log(data);
-        console.log('afsadfsdafsdf');
         dispatch(loadQuestionsSuccess(data));
       });
   };

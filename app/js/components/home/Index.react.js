@@ -48,15 +48,12 @@ export class Index extends React.Component {
   onTagSelect(e) {
     let selectedTags = this.state.selectedTags;
     selectedTags = this.populateArray(e, selectedTags);
-    console.log('selected tags', selectedTags);
-    console.log('selected tags length', selectedTags.length);
-
+    
     if (selectedTags.length > 0) {
       ZhishiInit.getQuestions(null, selectedTags);
-      // ZhishiInit.getQuestions();
+      
     } else {
       console.log(ZhishiInit);
-      // ZhishiInit.getFilteredQuestions(null, selectedTags);
       
     }
   }

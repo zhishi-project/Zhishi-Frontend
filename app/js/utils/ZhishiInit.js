@@ -19,7 +19,7 @@ export function checkAndelaLoggedIn(store) {
 }
 
 export function getQuestions(page, tags) {
-	const abc = questionActions.loadQuestions(page, tags);
+	const question = questionActions.loadQuestions(page, tags);
 	console.log('The action was called');
-	abc(store.dispatch);
+	question(store.dispatch);
 }
