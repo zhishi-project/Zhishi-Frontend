@@ -2,7 +2,7 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import ZhishiConstants from '../constants/ZhishiConstants';
 import Common from '../utils/Common.js';
 import types from '../constants/questions/actionTypes';
-import webAPI from '../utils/webAPI';
+import * as webAPI from './../utils/webAPI.js';
 import mockQuestionApi from './../api/mockQuestionApi';
 
 var QuestionActions;
@@ -45,7 +45,7 @@ export function displayLoader(data) {
 
 export function loadTopQuestions() {
   return dispatch => {
-    return webAPI(`/top_questions`, 'GET', '')
+    return webAPI.processRequest(`/top_questions`, 'GET', '')
       .then(data => {
         dispatch(loadTopQuestionsSuccess(data));
       });
@@ -54,7 +54,7 @@ export function loadTopQuestions() {
 
 export function loadQuestion(questionId) {
   return dispatch => {
-    return webAPI(`/questions/${questionId}`, 'GET', '')
+    return webAPI.processRequest(`/questions/${questionId}`, 'GET', '')
       .then(data => {
         dispatch(loadQuestionSuccess(data));
       });
@@ -66,7 +66,7 @@ export function loadQuestions(page, tags) {
   let path = (tags && tags.length) ? '/questions/by_tags' : '/questions';
   return dispatch => {
     dispatch(displayLoader({shouldFetch: true}));
-    return webAPI(path, 'GET', {page, tags})
+    return webAPI.processRequest(path, 'GET', {page, tags})
       .then(data => {
         dispatch(loadQuestionsSuccess(data));
       });
@@ -90,7 +90,7 @@ export function loadFilteredQuestions(page, tagIds) {
 
 export function createQuestion(question) {
   return dispatch => {
-    return webAPI(`/questions`, 'POST', question)
+    return webAPI.processRequest(`/questions`, 'POST', question)
       .then(question => {
         sendQuestionsToSlack(question)
         dispatch(loadQuestionSuccess(question));
@@ -101,7 +101,7 @@ export function createQuestion(question) {
 
 export function updateQuestion({id, title, content}) {
   return dispatch => {
-    return webAPI(`/questions/${id}`, 'PATCH', {title, content})
+    return webAPI.processRequest(`/questions/${id}`, 'PATCH', {title, content})
       .then(question => {
         dispatch(loadQuestionSuccess(question));
       });
