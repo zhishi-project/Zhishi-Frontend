@@ -15,6 +15,7 @@ export function loadQuestionsSuccess(data) {
   return {type: types.LOAD_QUESTIONS_SUCCESS, data};
 }
 
+
 /**
 * @param {Object} question: an array of questions from backend db
 * @return {Object} containing the action type and data
@@ -56,7 +57,7 @@ export function loadQuestion(questionId) {
   return dispatch => {
     return webAPI.processRequest(`/questions/${questionId}`, 'GET', '')
       .then(data => {
-        dispatch(loadQuestionSuccess(data));
+          dispatch(loadQuestionSuccess(data));
       });
   };
 }
@@ -67,7 +68,6 @@ export function loadQuestions(page, tags) {
   return dispatch => {
     dispatch(displayLoader({shouldFetch: true}));
 
-    console.log(tags);
     const queryObject = {'page': page};
     if (tags && tags.length > 0) {
       let queryString = ''
