@@ -35,7 +35,6 @@ if (process.env.NODE_ENV === 'production') {
       document.getElementById('app')
     );
   } catch (exception) {
-    console.log(cookie.get(CVar.bugsnag), 'bugsnag api');
     Bugsnag.apiKey = cookie.get(CVar.bugsnag);
     Bugsnag.notifyException(exception);
   }

@@ -17,7 +17,9 @@ class ShowPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {user} = nextProps;
-    const slack = user.preference.slack;
+    console.log(user, 'state');
+    const slack = user.preference ?
+      user.preference.slack : false;
     this.setState({slackToggle: slack});
   }
 
