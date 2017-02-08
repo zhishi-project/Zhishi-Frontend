@@ -17,10 +17,10 @@ class ShowPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {user} = nextProps;
-    console.log(user, 'state');
-    const slack = user.preference ?
-      user.preference.slack : false;
-    this.setState({slackToggle: slack});
+    if (user.preference) {
+      const slack = user.preference.slack;
+      this.setState({slackToggle: slack});
+    }
   }
 
   handleSlackToggle(event) {
