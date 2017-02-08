@@ -4,6 +4,8 @@ import { Router } from 'react-router';
 import routes from './routes';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import * as ZhishiInit from './utils/ZhishiInit.js';
+import CVar from './config/CookieVariables.js';
+import cookie from 'js-cookie';
 import store from './stores/configureStore';
 import { Provider } from 'react-redux';
 import Bugsnag from 'bugsnag-js';
@@ -33,7 +35,7 @@ if (process.env.NODE_ENV === 'production') {
       document.getElementById('app')
     );
   } catch (exception) {
-    Bugsnag.apiKey = process.env.BUGSNAG_API;
+    Bugsnag.apiKey = cookie.get(CVar.bugsnag);
     Bugsnag.notifyException(exception);
   }
 } else {

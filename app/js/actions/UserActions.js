@@ -1,6 +1,8 @@
 import types from '../constants/users/actionTypes';
 import Auth from '../auth';
 import * as webAPI from './../utils/webAPI.js';
+import CVar from '../config/CookieVariables.js';
+import cookie from 'js-cookie';
 
 const loadUserSuccess = user => {
   return {type: types.LOAD_USER_SUCCESS, user};
@@ -34,7 +36,7 @@ export function loadUser(userId) {
  * @return {Func} callback promise
  */
 export function loadUserPreference(currentUser) {
-  const url = `${process.env.ZI_NOTIFY_URL}/user/${currentUser.id}/preference`;
+  const url = `${cookie.get(CVar.notifyUrl)}/user/${currentUser.id}/preference`;
   return dispatch => {
     return webAPI.processUserPreference(url, currentUser.token,
     'GET')

@@ -2,13 +2,14 @@ var express = require('express');
 var path = require('path');
 var compression = require('compression');
 var bugsnag = require('bugsnag');
+var dotenv = require('dotenv').config();
 var cookieParser = require('cookie-parser');
 var environment = require('../app/js/config/environment/index.js');
 var CVar = require('../app/js/config/CookieVariables.js');
 
 /* eslint-disable no-console */
 
-var isDeveloping = (
+var isDeveloping = ( 
   process.env.NODE_ENV !== 'production' &&
   process.env.NODE_ENV !== 'staging'
 );
@@ -35,6 +36,8 @@ if (!isDeveloping) {
 app.use(cookieParser());
 app.use((req, res, next) => {
   res.cookie(CVar.apiUrl, process.env.ENGINE_HOST);
+  res.cookie(CVar.bugsnag, process.env.BUGSNAG_API);
+  res.cookie(CVar.notifyUrl, process.env.ZI_NOTIFY_URL);
   next();
 });
 

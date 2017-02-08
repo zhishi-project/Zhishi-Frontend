@@ -6,9 +6,7 @@ var buildPath = path.resolve(__dirname, 'dist');
 var entryPath = path.resolve(__dirname, 'app', 'js', 'index.js');
 
 const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
-  'process.env.BUGSNAG_API': JSON.stringify(process.env.BUGSNAG_API),
-  'process.env.ZI_NOTIFY_URL': JSON.stringify(process.env.ZI_NOTIFY_URL)
+  'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
 };
 
 export default {
