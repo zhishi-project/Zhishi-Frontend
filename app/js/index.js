@@ -1,12 +1,14 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import {render} from 'react-dom';
 import {Router} from 'react-router';
+import cookie from 'js-cookie';
+import Bugsnag from 'bugsnag-js';
 import routes from './routes';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import * as ZhishiInit from './utils/ZhishiInit.js';
+import CVar from './config/CookieVariables';
 import store from './stores/configureStore';
 import {Provider} from 'react-redux';
-import Bugsnag from 'bugsnag-js';
 
 
 const checked = store.getState().auth.isLoggedInToAndela;
@@ -33,7 +35,7 @@ if (process.env.NODE_ENV === 'production') {
       document.getElementById('app')
     );
   } catch (exception) {
-    Bugsnag.apiKey = process.env.BUGSNAG_API;
+    Bugsnag.apiKey = cookie.get(CVar.bugsnag);
     Bugsnag.notifyException(exception);
   }
 } else {
