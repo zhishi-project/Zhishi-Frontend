@@ -5,7 +5,9 @@ import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
 
-Bugsnag.apiKey = process.env.BUGSNAG_API;
+if (process.env.NODE_ENV === 'production') {
+  Bugsnag.apiKey = process.env.BUGSNAG_API;
+}
 const middleware = process.env.NODE_ENV === 'production' ?
   [bugsnagMiddleware(), thunk] : [reduxImmutableStateInvariant(), thunk];
 

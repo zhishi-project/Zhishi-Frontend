@@ -1,11 +1,11 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import { render } from 'react-dom';
-import { Router } from 'react-router';
+import {render} from 'react-dom';
+import {Router} from 'react-router';
 import routes from './routes';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import * as ZhishiInit from './utils/ZhishiInit.js';
 import store from './stores/configureStore';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import Bugsnag from 'bugsnag-js';
 
 
