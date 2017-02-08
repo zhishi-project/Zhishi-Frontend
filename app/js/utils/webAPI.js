@@ -53,7 +53,9 @@ export const processUserPreference = (url, token, method, body = {}) => {
     body: requestBody(body, method)
   })
   .then(res => res.text())
-  .then(res => res.length ? JSON.parse(res) : {})
+  .then(res => {
+    return res.json();
+  })
   .catch(error => {
     throw error;
   });
