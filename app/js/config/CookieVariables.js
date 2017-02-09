@@ -5,6 +5,8 @@ module.exports = {
   user_token: "hekdwu2aw",
   user_logged_in: "iwengjk",
   referrer: 'ehdieleda',
+  notifyUrl: 'skjfkdfjk',
+  bugsnag: '2sjdjnsc',
   first_time_marker: 'yijeusheuw',
   apiUrl: 'kdjndnvjds',
   jwt : 'jwt-token',
