@@ -4,6 +4,7 @@ import Common from '../utils/Common.js';
 import types from '../constants/questions/actionTypes';
 import webAPI from '../utils/webAPI';
 import mockQuestionApi from './../api/mockQuestionApi';
+import isEmpty from '../utils/isEmpty';
 
 var QuestionActions;
 
@@ -48,6 +49,7 @@ export function loadTopQuestions() {
     return webAPI(`/top_questions`, 'GET', '')
       .then(data => {
         dispatch(loadTopQuestionsSuccess(data));
+
       });
   };
 }
@@ -56,7 +58,12 @@ export function loadQuestion(questionId) {
   return dispatch => {
     return webAPI(`/questions/${questionId}`, 'GET', '')
       .then(data => {
+        if (!isEmpty(data.errors)){
+          window.location = '/not found';
+          return null;
+        }  
         dispatch(loadQuestionSuccess(data));
+
       });
   };
 }
