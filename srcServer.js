@@ -35,6 +35,8 @@ app.use(cookieParser());
 app.use((req, res, next) => {
   res.cookie(CVar.apiUrl, process.env.ENGINE_HOST);
   res.cookie(CVar.auth_url, process.env.AUTH_URL);
+  res.cookie(CVar.notifyUrl, process.env.ZI_NOTIFY_URL);
+  res.cookie(CVar.bugsnag, process.env.BUGSNAG_API);
   next();
 });
 

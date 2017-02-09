@@ -29,26 +29,27 @@ class Show extends React.Component {
     const pathname = window.location.pathname;
     const userId = this.getUserId(pathname);
     $.ajax({
-      method:'GET',
+      method: 'GET',
       url: `${process.env.ENGINE_HOST}/users/${userId}`,
       headers: {
         Authorization: `Bearer ${cookie.get(CVar.jwt)}`
       }
-    }).fail((err) => {
+    }).fail(err => {
       if (err.status === 404) {
-        this.redirectIfNotFound()
+        this.redirectIfNotFound();
       }
-    })
+    });
   }
- 
+
   redirectIfNotFound() {
-    return window.location = '/not-found';
+    window.location = '/not-found';
   }
-  
+
   componentWillMount() {
-    const {userActions, activityActions, userId} = this.props;
+    const {userActions, activityActions, userId, currentUser} = this.props;
     userActions.loadUser(userId);
     activityActions.loadActivities(userId);
+    userActions.loadUserPreference(currentUser);
   }
 
   createUserQuestionsDiv(question, index) {
