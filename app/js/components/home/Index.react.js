@@ -48,7 +48,7 @@ export class Index extends React.Component {
   onTagSelect(e) {
     let selectedTags = this.state.selectedTags;
     selectedTags = this.populateArray(e, selectedTags);
-    
+
     if (selectedTags.length > 0) {
       ZhishiInit.getQuestions(null, selectedTags);
       

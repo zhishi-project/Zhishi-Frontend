@@ -68,17 +68,20 @@ export function loadQuestions(page, tags) {
   return dispatch => {
     dispatch(displayLoader({shouldFetch: true}));
 
-    const queryObject = {'page': page};
+    const queryParameter = {'page': page};
     if (tags && tags.length > 0) {
       let queryString = ''
+
       tags.forEach((element) => {
-        queryString += element.toString() + ','
+
+        queryString += "&tag_ids[]=" + element.toString();
+
       });
-      queryString = queryString.substring(0, queryString.length - 1)
-      queryObject['tag_ids'] = queryString;
+
+      path += `?page=${page}${queryString}`;
     }
 
-    return webAPI.processRequest(path, 'GET', queryObject)
+    return webAPI.processRequest(path, 'GET')
 
       .then(data => {
         dispatch(loadQuestionsSuccess(data));
