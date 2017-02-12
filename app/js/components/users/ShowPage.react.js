@@ -9,18 +9,22 @@ class ShowPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      slackToggle: false
+      slackToggle: false,
+      newsletterToggle: false
     };
     this.renderCurrentUserSettings = this.renderCurrentUserSettings.bind(this);
     this.handleSlackToggle = this.handleSlackToggle.bind(this);
+    this.handleNewsletterToggle = this.handleNewsletterToggle.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     const {user} = nextProps;
-    if (user.preference) {
-      const slack = user.preference.slack;
-      this.setState({slackToggle: slack});
-    }
+
+    const {slack, newsletter} = user.preference;
+    this.setState({
+      slackToggle: slack,
+      newsletterToggle: newsletter
+    });
   }
 
   handleSlackToggle(event) {
@@ -31,6 +35,15 @@ class ShowPage extends React.Component {
     this.setState({slackToggle: value});
   }
 
+  handleNewsletterToggle(event) {
+    const {currentUser, user, userActions} = this.props;
+    const value = event.target.checked;
+    const preference = Object.assign({}, user.preference);
+    userActions.toggleUserPreference(currentUser, preference,
+      'newsletter', value);
+    this.setState({newsletterToggle: value});
+  }
+
   renderCurrentUserSettings() {
     const {currentUser, params} = this.props;
     let userId = format.getIdFromPermalink(params.id);
@@ -39,7 +52,9 @@ class ShowPage extends React.Component {
     if (userId === currentUser.id) {
       return (
         <Settings handleSlackToggle={this.handleSlackToggle}
+          handleNewsletterToggle={this.handleNewsletterToggle}
           slackToggle={this.state.slackToggle}
+          newsletterToggle={this.state.newsletterToggle}
          {...this.props}/>
       );
     }

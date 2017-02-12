@@ -4,6 +4,7 @@ import Common from '../utils/Common.js';
 import types from '../constants/questions/actionTypes';
 import * as webAPI from './../utils/webAPI.js';
 import mockQuestionApi from './../api/mockQuestionApi';
+import isEmpty from '../utils/isEmpty';
 
 var QuestionActions;
 
@@ -49,6 +50,7 @@ export function loadTopQuestions() {
     return webAPI.processRequest(`/top_questions`, 'GET', '')
       .then(data => {
         dispatch(loadTopQuestionsSuccess(data));
+
       });
   };
 }
@@ -57,7 +59,9 @@ export function loadQuestion(questionId) {
   return dispatch => {
     return webAPI.processRequest(`/questions/${questionId}`, 'GET', '')
       .then(data => {
+        
           dispatch(loadQuestionSuccess(data));
+
       });
   };
 }
