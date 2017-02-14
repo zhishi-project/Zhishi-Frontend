@@ -16,6 +16,7 @@ export function loadQuestionsSuccess(data) {
   return {type: types.LOAD_QUESTIONS_SUCCESS, data};
 }
 
+
 /**
 * @param {Object} question: an array of questions from backend db
 * @return {Object} containing the action type and data
@@ -58,11 +59,8 @@ export function loadQuestion(questionId) {
   return dispatch => {
     return webAPI.processRequest(`/questions/${questionId}`, 'GET', '')
       .then(data => {
-        if (!isEmpty(data.errors)){
-          window.location = '/not found';
-          return null;
-        }  
-        dispatch(loadQuestionSuccess(data));
+        
+          dispatch(loadQuestionSuccess(data));
 
       });
   };
@@ -73,7 +71,22 @@ export function loadQuestions(page, tags) {
   let path = (tags && tags.length) ? '/questions/by_tags' : '/questions';
   return dispatch => {
     dispatch(displayLoader({shouldFetch: true}));
-    return webAPI.processRequest(path, 'GET', {page, tags})
+
+    const queryParameter = {'page': page};
+    if (tags && tags.length > 0) {
+      let queryString = ''
+
+      tags.forEach((element) => {
+
+        queryString += "&tag_ids[]=" + element.toString();
+
+      });
+
+      path += `?page=${page}${queryString}`;
+    }
+
+    return webAPI.processRequest(path, 'GET')
+
       .then(data => {
         dispatch(loadQuestionsSuccess(data));
       });

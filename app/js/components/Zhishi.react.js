@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './layouts/Header.react';
 import Footer from './layouts/Footer.react';
 import SidebarPusher from './layouts/SidebarPusher.react';
+import store from '../stores/QuestionStore'
 
 import Auth from '../auth';
 
