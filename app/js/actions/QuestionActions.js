@@ -59,9 +59,10 @@ export function loadQuestion(questionId) {
   return dispatch => {
     return webAPI.processRequest(`/questions/${questionId}`, 'GET', '')
       .then(data => {
-        
-          dispatch(loadQuestionSuccess(data));
-
+        if (!isEmpty(data.errors)){
+          window.location = '/not found';
+        }
+        dispatch(loadQuestionSuccess(data));
       });
   };
 }
