@@ -1,4 +1,4 @@
-import webAPI from './../utils/webAPI.js';
+import * as webAPI from './../utils/webAPI.js';
 
 /*
   The success callback exists in the question, answer or comment action
@@ -14,7 +14,7 @@ import webAPI from './../utils/webAPI.js';
 export function updateVote({resource, action, meta, callback}) {
   let value = action === 'up' ? 1 : -1;
   return dispatch => {
-    return webAPI(`/${meta.owner}s/${resource.id}/${action}vote`,
+    return webAPI.processRequest(`/${meta.owner}s/${resource.id}/${action}vote`,
       'POST', '')
       .then(votesCount => {
         let votesData = {id: resource.id, votesCount, meta, value};

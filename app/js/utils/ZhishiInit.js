@@ -2,6 +2,8 @@ import * as questionActions from '../actions/QuestionActions.js';
 import * as authActions from '../actions/AuthActions.js';
 import Auth from '../auth';
 import isEmpty from './isEmpty';
+import store from '../stores/configureStore'
+
 
 export function loadData(store) {
   let currentUser = Auth.getCurrentUser();
@@ -14,4 +16,10 @@ export function loadData(store) {
 
 export function checkAndelaLoggedIn(store) {
   store.dispatch(authActions.loginUser());
+}
+
+export function getQuestions(page, tags) {
+	const question = questionActions.loadQuestions(page, tags);
+	console.log('The action was called');
+	question(store.dispatch);
 }

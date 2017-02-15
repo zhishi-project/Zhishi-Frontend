@@ -1,5 +1,5 @@
 import types from '../constants/tags/actionTypes';
-import webAPI from '../utils/webAPI.js';
+import * as webAPI from './../utils/webAPI.js';
 import Auth from '../auth';
 import * as AuthActions from './AuthActions';
 
@@ -17,7 +17,7 @@ export function loadTagsSuccess(tags) {
  */
 export function subscribeToTags(tags) {
   return dispatch => {
-    return webAPI('/tags/update_subscription', 'POST', {tags})
+    return webAPI.processRequest('/tags/update_subscription', 'POST', {tags})
       .then(data => {
         if (data.tags) {
           let currentUser = Auth.getCurrentUser();
@@ -34,7 +34,7 @@ export function subscribeToTags(tags) {
 */
 export function loadTags() {
   return dispatch => {
-    return webAPI('/tags/recent', 'GET')
+    return webAPI.processRequest('/tags/recent', 'GET')
     .then(data => {
       dispatch(loadTagsSuccess(data.tags));
     });

@@ -19,6 +19,7 @@ export class Index extends React.Component {
     };
 
     this.ajaxIcon = this.ajaxIcon.bind(this);
+    this.filterDiv = this.filterDiv.bind(this);
     this.showFilterAction = this.showFilterAction.bind(this);
     this.onTagSelect = this.onTagSelect.bind(this);
     this.loadTagSelection = this.loadTagSelection.bind(this);
@@ -47,10 +48,13 @@ export class Index extends React.Component {
   onTagSelect(e) {
     let selectedTags = this.state.selectedTags;
     selectedTags = this.populateArray(e, selectedTags);
+
     if (selectedTags.length > 0) {
-      ZhishiInit.getQuestions();
+      ZhishiInit.getQuestions(null, selectedTags);
+      
     } else {
-      ZhishiInit.getFilteredQuestions(null, selectedTags);
+      console.log(ZhishiInit);
+      
     }
   }
 

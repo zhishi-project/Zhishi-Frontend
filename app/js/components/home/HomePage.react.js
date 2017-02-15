@@ -24,7 +24,7 @@ const HomePage = ({
              >
                Show filters
              </button>
-               {filterDiv}
+               {filterDiv()}
            </div>
 
            <div className="sixteen wide tablet twelve wide computer column">
