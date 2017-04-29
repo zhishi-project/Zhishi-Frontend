@@ -26,6 +26,7 @@ const TagBody = ({
          <TagSelectionCountdown
            {...{selectedTags, persistSelection}}/>
 
+
          <a className={`${options.modalId}-trigger hidden`} />
        </div>
      </div>

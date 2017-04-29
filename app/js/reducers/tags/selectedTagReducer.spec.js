@@ -30,7 +30,6 @@ describe('SelectedTag Reducer Test', () => {
     const initialState = ['first tag', 'second tag'];
     const selectedTag = {id: 2, name: 'new tag'};
     const action = TagActions.selectTagForSubscription(selectedTag);
-    // console.log(action);
 
     // action
     const updatedState = selectedTagReducer(initialState, action);

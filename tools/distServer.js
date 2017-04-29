@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var compression = require('compression');
+var bugsnag = require('bugsnag');
 var cookieParser = require('cookie-parser');
 var environment = require('../app/js/config/environment/index.js');
 var CVar = require('../app/js/config/CookieVariables.js');
@@ -14,9 +15,12 @@ var isDeveloping = (
 
 // Just to make a change
 
-var port = isDeveloping ? 8080 : process.env.PORT;
+var port = isDeveloping ? 8080 : (process.env.PORT || 8080);
 var app = express();
+bugsnag.register(process.env.BUGSNAG_API);
 
+app.use(bugsnag.requestHandler);
+app.use(bugsnag.errorHandler);
 app.use(compression());
 
 if (!isDeveloping) {
@@ -30,12 +34,9 @@ if (!isDeveloping) {
 
 app.use(cookieParser());
 app.use((req, res, next) => {
-  if (process.env.VALID_COOKIE) {
-    res.cookie('andela_cookie', process.env.VALID_COOKIE);
-  } else {
-    res.cookie('andela_cookie', req.cookies['andela:session']);
-  }
   res.cookie(CVar.apiUrl, process.env.ENGINE_HOST);
+  res.cookie(CVar.notifyUrl, process.env.ZI_NOTIFY_URL);
+  res.cookie(CVar.bugsnag, process.env.BUGSNAG_API);
   next();
 });
 

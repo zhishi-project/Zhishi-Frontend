@@ -2,8 +2,9 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import ZhishiConstants from '../constants/ZhishiConstants';
 import Common from '../utils/Common.js';
 import types from '../constants/questions/actionTypes';
-import webAPI from '../utils/webAPI';
+import * as webAPI from './../utils/webAPI.js';
 import mockQuestionApi from './../api/mockQuestionApi';
+import isEmpty from '../utils/isEmpty';
 
 var QuestionActions;
 
@@ -14,6 +15,7 @@ var QuestionActions;
 export function loadQuestionsSuccess(data) {
   return {type: types.LOAD_QUESTIONS_SUCCESS, data};
 }
+
 
 /**
 * @param {Object} question: an array of questions from backend db
@@ -45,18 +47,21 @@ export function displayLoader(data) {
 
 export function loadTopQuestions() {
   return dispatch => {
-    return webAPI(`/top_questions`, 'GET', '')
+    return webAPI.processRequest(`/top_questions`, 'GET', '')
       .then(data => {
         dispatch(loadTopQuestionsSuccess(data));
+
       });
   };
 }
 
 export function loadQuestion(questionId) {
   return dispatch => {
-    return webAPI(`/questions/${questionId}`, 'GET', '')
+    return webAPI.processRequest(`/questions/${questionId}`, 'GET', '')
       .then(data => {
-        dispatch(loadQuestionSuccess(data));
+        
+          dispatch(loadQuestionSuccess(data));
+
       });
   };
 }
@@ -66,7 +71,22 @@ export function loadQuestions(page, tags) {
   let path = (tags && tags.length) ? '/questions/by_tags' : '/questions';
   return dispatch => {
     dispatch(displayLoader({shouldFetch: true}));
-    return webAPI(path, 'GET', {page, tags})
+
+    const queryParameter = {'page': page};
+    if (tags && tags.length > 0) {
+      let queryString = ''
+
+      tags.forEach((element) => {
+
+        queryString += "&tag_ids[]=" + element.toString();
+
+      });
+
+      path += `?page=${page}${queryString}`;
+    }
+
+    return webAPI.processRequest(path, 'GET')
+
       .then(data => {
         dispatch(loadQuestionsSuccess(data));
       });
@@ -90,7 +110,7 @@ export function loadFilteredQuestions(page, tagIds) {
 
 export function createQuestion(question) {
   return dispatch => {
-    return webAPI(`/questions`, 'POST', question)
+    return webAPI.processRequest(`/questions`, 'POST', question)
       .then(question => {
         sendQuestionsToSlack(question)
         dispatch(loadQuestionSuccess(question));
@@ -101,7 +121,7 @@ export function createQuestion(question) {
 
 export function updateQuestion({id, title, content}) {
   return dispatch => {
-    return webAPI(`/questions/${id}`, 'PATCH', {title, content})
+    return webAPI.processRequest(`/questions/${id}`, 'PATCH', {title, content})
       .then(question => {
         dispatch(loadQuestionSuccess(question));
       });

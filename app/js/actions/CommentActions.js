@@ -1,5 +1,5 @@
 import types from '../constants/comments/actionTypes';
-import webAPI from './../utils/webAPI.js';
+import * as webAPI from './../utils/webAPI.js';
 // import mockQuestionApi from './../api/mockQuestionApi';
 
 /**
@@ -41,7 +41,7 @@ export function cancelComment(data) {
 */
 export function updateComment({resourceId, id, data}) {
   return dispatch => {
-    return webAPI(`/resources/${resourceId}/comments/${id}`, 'PATCH', data)
+    return webAPI.processRequest(`/resources/${resourceId}/comments/${id}`, 'PATCH', data)
       .then(comment => {
         dispatch(loadCommentSuccess({comment}));
       });
@@ -57,7 +57,7 @@ export function updateComment({resourceId, id, data}) {
 export function createComment(meta, newComment, request) {
   const {path, action} = request;
   return dispatch => {
-    return webAPI(path, action, {content: newComment.content})
+    return webAPI.processRequest(path, action, {content: newComment.content})
     .then(comment => {
       dispatch(loadCommentSuccess({meta, comment}));
     });

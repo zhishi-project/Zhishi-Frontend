@@ -38,10 +38,26 @@ const redirectIfUnauthorized = response => {
 export function requestHeaders() {
   return new Headers({
     'Content-Type': 'application/json',
-    'Authorization': 'Token token=' + Auth.getCurrentUserToken(),
-    'ANDELA_COOKIE': Auth.userAndelaCookie
+    'Authorization': 'Bearer ' + Auth.getCurrentUserToken()
   });
 }
+
+export const processUserPreference = (url, token, method, body = {}) => {
+  return fetch(url, {
+    method,
+    mode: 'cors',
+    headers: {
+      'Authorization': `Token token=${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: requestBody(body, method)
+  })
+  .then(res => res.text())
+  .then(res => res.length ? JSON.parse(res) : {})
+  .catch(error => {
+    throw error;
+  });
+};
 
 /**
 * @param {String} path: eg '/questions'
@@ -50,7 +66,7 @@ export function requestHeaders() {
 * @param {Function} callback: usually an action
 * @return {Object} fetch: to be used in views that check for success or failure
 */
-export default function processRequest(path, method, data = {}) {
+export function processRequest(path, method, data = {}) {
   let url = cookie.get(CVar.apiUrl) + requestPath(path, method, data);
   return fetch(url, {
     method: method,

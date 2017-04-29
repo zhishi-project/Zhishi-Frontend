@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './layouts/Header.react';
 import Footer from './layouts/Footer.react';
 import SidebarPusher from './layouts/SidebarPusher.react';
+import store from '../stores/QuestionStore'
 
 import Auth from '../auth';
 
@@ -14,6 +15,8 @@ import '../../css/prism.css';
 import '../../css/tags.scss';
 import '../../css/main.scss';
 import '../../css/custom.scss';
+import '../../css/error-page.css'
+
 
 class Zhishi extends React.Component {
   constructor(props) {

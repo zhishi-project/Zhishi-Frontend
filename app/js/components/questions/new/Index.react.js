@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
 import toastr from 'toastr';
+import {emojify} from 'react-emojione';
 
 class NewQuestion extends React.Component {
   constructor(props, context) {
@@ -37,7 +38,7 @@ class NewQuestion extends React.Component {
 
    onUpdateQuestionState(key, content) {
      let question = this.state.question;
-     question[key] = content;
+     question[key] = emojify(content, {output: 'unicode'});
      this.setState({question});
    }
 
@@ -48,12 +49,11 @@ class NewQuestion extends React.Component {
    }
 
    render() {
-     return (
-       <NewQuestionPage
-         onUpdateQuestionState={this.onUpdateQuestionState}
-         onUpdateTags={this.onUpdateTags}
-         onSubmitClick={this.onCreateQuestion} />
-     );
+     return <NewQuestionPage
+              question={this.state.question}
+              onUpdateQuestionState={this.onUpdateQuestionState}
+              onUpdateTags={this.onUpdateTags}
+              onSubmitClick={this.onCreateQuestion} />
    }
  }
 

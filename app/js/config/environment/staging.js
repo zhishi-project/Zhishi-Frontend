@@ -1,5 +1,14 @@
 module.exports = {
-  slackZhishiChannel: 'https://hooks.slack.com/services/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',
-  slackHookName: 'zhishi_feedback',
-  zhishiPermanentSite: '//zhishi-test.andela.com'
+  devHost: '//zhishi-dev.andela.com',
+  zhishiPermanentSite: '//zhishi-test.andela.com',
+  auth_url: 'http://api-staging.andela.com/login',
+  slack: {
+    username: 'zhishi_dev',
+    url: 'https://hooks.slack.com/services/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',
+    channels: {
+      team: '#zhishi_q_and_a_dev',
+      feedback: '#zhishi_q_and_a_dev',
+      q_and_a: '#zhishi_q_and_a_dev',
+    }
+  }
 };

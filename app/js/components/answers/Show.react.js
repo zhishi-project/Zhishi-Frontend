@@ -4,6 +4,7 @@ import ShowPage from './ShowPage.react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
+import {emojify} from 'react-emojione';
 import $ from 'jquery';
 
 export class Answer extends React.Component {
@@ -44,14 +45,16 @@ export class Answer extends React.Component {
    }
 
    updateAnswerState(event) {
-     this.setState({content: event.target.getContent()});
+    let answer = Object.assign({}, this.state.answer);
+    answer.content = emojify(event.target.value, {output: 'unicode'});
+     this.setState({answer});
    }
 
    acceptAnswer() {
      let answer = Object.assign({}, this.state.answer, {accepted: true});
      this.props.actions.acceptAnswer({...answer}).then(() => {
        toastr.success('Thanks for accepting. Others will be better guided to the answer that helped you.');
-     }).catch(err => toastr.error(err));
+     }).catch(err => toastr.error('Oops.. something went wrong :( Confirm the question doesn\'t already have a selected answer... '));
    }
 
    render() {

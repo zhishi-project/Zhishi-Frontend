@@ -3,8 +3,10 @@ node_modules
 /app/js/bundle.js
 /build/assets/css/.sass-cache
 /coverage
+.vscode
 /dist/server2.js
 .env
 /**/*.swp
 /**/*.swo
 /**/*.log
+.idea

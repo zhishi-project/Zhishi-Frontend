@@ -1,5 +1,5 @@
 import types from '../constants/search/actionTypes';
-import webAPI from '../utils/webAPI.js';
+import * as webAPI from './../utils/webAPI.js';
 
 /**
 * @param {Object} data: info containing total votes and resource vote belongs
@@ -15,7 +15,7 @@ export function loadSearchSuccess(results) {
 */
 export function search(searchQuery) {
   return dispatch => {
-    return webAPI('/questions/search', 'GET',
+    return webAPI.processRequest('/questions/search', 'GET',
     {q: searchQuery.trim()})
     .then(response => {
       dispatch(loadSearchSuccess(response.questions));

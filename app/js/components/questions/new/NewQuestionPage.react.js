@@ -3,8 +3,10 @@ import TagInputBox from './TagBoxes.react';
 import Sidebar from '../../layouts/Sidebar.react';
 import TinyMCE from 'react-tinymce';
 import tinymceConfig from '../../../config/tinymceConfig.js';
+import PreviewText from '../../common/PreviewText.react';
 
 const NewQuestionPage = ({
+  question,
   onUpdateQuestionState,
   onUpdateTags,
   onSubmitClick}) => {
@@ -60,24 +62,18 @@ const NewQuestionPage = ({
                          fourteen wide tablet \
                          fourteen wide computer column">
 
-                         <TinyMCE
-                           content=""
-                           config={
-                             tinymceConfig
-                             .forContent(`#questionContent-${'new'}`)
-                           }
-                           className="content"
+                         <textarea
+                           content={question.content}
                            data-id="content"
                            onChange={event => {
                              onUpdateQuestionState('content',
-                             event.target.getContent());
-                           }}
-                           value="" />
-
+                             event.target.value);
+                           }} />
                        </div>
                      </div>
 
                      <TagInputBox onUpdateTags={onUpdateTags} />
+                     {question.content && <PreviewText text={question.content} />}
 
                      <div className="ui row group">
                        <div

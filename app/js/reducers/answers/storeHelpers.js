@@ -21,8 +21,8 @@ export function edit(answers, ansToEdit) {
 
 export function update(answers, answer, editing) {
   const {question_id, id} = answer;
-  return enums.update(answers, question_id,
-              enums.update({}, id, answer, editing));
+  let questionAnswers = enums.update(answers[question_id] || {}, id, answer, editing)
+  return enums.update(answers, question_id, questionAnswers);
 }
 
 export function updateAnswer(answers, answer) {

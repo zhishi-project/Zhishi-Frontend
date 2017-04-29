@@ -24,7 +24,9 @@ The app itself is live on http://zhishi.andela.com/
 
 2. Then `npm install` all dependencies (and dev dependencies) required.
 
-3. Once the installation of dependencies is done, `npm start` should start up a server on port `8080`
+3. Edit the host file `sudo nano /etc/hosts` and add `127.0.0.1       zhishi-dev.andela.com` to the hosts
+
+4. Once the installation of dependencies is done, `npm start` should start up a server on port `8080`
 
 3. To run just test suits, run `npm run test` or `npm run test:watch` to get the test to watch for file changes
 

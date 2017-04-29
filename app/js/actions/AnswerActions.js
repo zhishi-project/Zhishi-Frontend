@@ -1,4 +1,4 @@
-import webAPI from './../utils/webAPI.js';
+import * as webAPI from './../utils/webAPI.js';
 import types from '../constants/answers/actionTypes';
 import Common from '../utils/Common.js';
 // import mockQuestionApi from './../api/mockQuestionApi';
@@ -29,7 +29,7 @@ function action(type, data) {
 
 export function loadAnswers(questionId) {
   return dispatch => {
-    return webAPI(`/questions/${questionId}/answers`, 'GET', '')
+    return webAPI.processRequest(`/questions/${questionId}/answers`, 'GET', '')
     .then(answers => {
       dispatch(loadAnswersSuccess({questionId, answers}));
     });
@@ -42,7 +42,7 @@ export function editAnswer(answer) {
 
 export function updateAnswer({question_id, id, content}) {
   return dispatch => {
-    return webAPI(`/questions/${question_id}/answers/${id}`, 'PATCH', {content})
+    return webAPI.processRequest(`/questions/${question_id}/answers/${id}`, 'PATCH', {content})
       .then(answer => {
         dispatch(loadAnswerSuccess(answer));
       });
@@ -51,16 +51,20 @@ export function updateAnswer({question_id, id, content}) {
 
 export function acceptAnswer({question_id, id}) {
   return dispatch => {
-    return webAPI(`/questions/${question_id}/answers/${id}/accept`, 'POST', {})
-      .then(answer => {
-        dispatch(loadAnswerSuccess(answer));
-      });
+    return webAPI.processRequest(`/questions/${question_id}/answers/${id}/accept`, 'POST', {})
+      .then(response => {
+        if (response.errors) {
+          throw {error: 'An error occured'};
+        } else {
+          dispatch(loadAnswerSuccess({question_id, id, accepted: true}));
+        }
+      }).catch(err => { throw err });
   };
 }
 
 export function createAnswer({question, content}) {
   return dispatch => {
-    return webAPI(`/questions/${question.id}/answers`, 'POST', {content})
+    return webAPI.processRequest(`/questions/${question.id}/answers`, 'POST', {content})
       .then(answer => {
         sendAnswersToSlack(question, answer)
         dispatch(loadAnswerSuccess(answer));

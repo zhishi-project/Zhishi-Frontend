@@ -6,7 +6,7 @@ var buildPath = path.resolve(__dirname, 'dist');
 var entryPath = path.resolve(__dirname, 'app', 'js', 'index.js');
 
 const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('production')
+  'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
 };
 
 export default {
@@ -44,6 +44,10 @@ export default {
         test: /\.(png|jpg|gif)$/,
         loader: 'url?limit=25000'
       },
+			{
+				test: /\.json$/,
+				loader: 'json'
+			},
 
       // Needed for the css-loader when [bootstrap-webpack](https://github.com/bline/bootstrap-webpack)
       // loads bootstrap's css.
